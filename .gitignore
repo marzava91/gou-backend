@@ -1,0 +1,32 @@
+# Node/Nest
+node_modules/
+dist/
+coverage/
+npm-debug.log*
+pnpm-lock.yaml
+
+# TS/Build
+*.tsbuildinfo
+
+# Env y secretos
+.env
+.env.*
+packages/api/.env
+packages/api/secrets/
+secrets/
+*.key
+*.pem
+*.p12
+*.keystore
+*.jks
+*.p8
+*.crt
+*.cer
+*.der
+*.mobileprovision
+*firebase*-adminsdk*.json
+
+# Prisma
+prisma/dev.db
+*.sqlite
+*.db

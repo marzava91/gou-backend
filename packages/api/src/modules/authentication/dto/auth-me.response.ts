@@ -1,0 +1,1 @@
+export class AuthMeResponse { user:{ id:string; email?:string }; roles?:string[]; tenants?:string[]; }

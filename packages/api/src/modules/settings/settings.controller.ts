@@ -1,0 +1,2 @@
+import { Controller, Get } from '@nestjs/common'; import { SettingsService } from './settings.service';
+@Controller('v1/settings') export class SettingsController { constructor(private svc:SettingsService){} @Get() get(){ return this.svc.get(); } }

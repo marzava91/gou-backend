@@ -1,0 +1,2 @@
+import { Injectable } from '@nestjs/common'; import { CouponsRepository } from './coupons.repository';
+@Injectable() export class CouponsService { constructor(private repo:CouponsRepository){} validate(_:any){ return { data:{ valid:true } }; } }

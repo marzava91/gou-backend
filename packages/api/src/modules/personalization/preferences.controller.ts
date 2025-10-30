@@ -1,0 +1,2 @@
+import { Controller, Get, Put, Body } from '@nestjs/common'; import { PreferencesService } from './preferences.service'; import { UpdatePreferencesDto } from './dto/update-preferences.dto';
+@Controller('v1/me/preferences') export class PreferencesController { constructor(private svc:PreferencesService){} @Get() get(){ return this.svc.get(); } @Put() update(@Body() dto:UpdatePreferencesDto){ return this.svc.update(dto); } }

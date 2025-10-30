@@ -1,0 +1,5 @@
+import { Module } from '@nestjs/common'; import { PrismaModule } from '../../prisma/prisma.module';
+import { PreferencesController } from './preferences.controller'; import { PreferencesService } from './preferences.service'; import { PreferencesRepository } from './preferences.repository';
+import { ListsController } from './lists.controller'; import { ListsService } from './lists.service'; import { ListsRepository } from './lists.repository';
+import { FavoritesController } from './favorites.controller'; import { FavoritesService } from './favorites.service'; import { FavoritesRepository } from './favorites.repository';
+@Module({ imports:[PrismaModule], controllers:[PreferencesController, ListsController, FavoritesController], providers:[PreferencesService, PreferencesRepository, ListsService, ListsRepository, FavoritesService, FavoritesRepository] }) export class PersonalizationModule {}

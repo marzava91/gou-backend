@@ -1,0 +1,2 @@
+import { Injectable } from '@nestjs/common'; import { ListsRepository } from './lists.repository';
+@Injectable() export class ListsService { constructor(private repo:ListsRepository){} list(){ return { data:[] }; } create(_:any){ return { data:{ id:'list' } }; } remove(_:string){ return { data:true }; } }

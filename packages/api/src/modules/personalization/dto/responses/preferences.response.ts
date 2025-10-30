@@ -1,0 +1,1 @@
+export class PreferencesResponse { language:string; theme:string; }

@@ -1,0 +1,2 @@
+import { Injectable } from '@nestjs/common'; import { OrdersRepository } from './orders.repository';
+@Injectable() export class OrdersService { constructor(private repo:OrdersRepository){} create(_:any){ return { data:{ id:'order' } }; } byId(_:string){ return { data:{ id:'order' } }; } }

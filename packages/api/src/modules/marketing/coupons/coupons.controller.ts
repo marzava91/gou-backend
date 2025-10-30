@@ -1,0 +1,2 @@
+import { Body, Controller, Post } from '@nestjs/common'; import { CouponsService } from './coupons.service';
+@Controller('v1/coupons') export class CouponsController { constructor(private svc:CouponsService){} @Post('validate') validate(@Body() dto:any){ return this.svc.validate(dto); } }

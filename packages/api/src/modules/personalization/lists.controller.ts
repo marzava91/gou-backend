@@ -1,0 +1,2 @@
+import { Controller, Get, Post, Delete, Param, Body } from '@nestjs/common'; import { ListsService } from './lists.service';
+@Controller('v1/me/lists') export class ListsController { constructor(private svc:ListsService){} @Get() list(){ return this.svc.list(); } @Post() create(@Body() dto:any){ return this.svc.create(dto); } @Delete(':id') remove(@Param('id') id:string){ return this.svc.remove(id); } }

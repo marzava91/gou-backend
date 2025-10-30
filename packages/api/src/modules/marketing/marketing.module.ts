@@ -1,0 +1,4 @@
+import { Module } from '@nestjs/common'; import { PrismaModule } from '../../prisma/prisma.module';
+import { BannersController } from './banners/banners.controller'; import { BannersService } from './banners/banners.service'; import { BannersRepository } from './banners/banners.repository';
+import { CouponsController } from './coupons/coupons.controller'; import { CouponsService } from './coupons/coupons.service'; import { CouponsRepository } from './coupons/coupons.repository';
+@Module({ imports:[PrismaModule], controllers:[BannersController, CouponsController], providers:[BannersService, BannersRepository, CouponsService, CouponsRepository] }) export class MarketingModule {}

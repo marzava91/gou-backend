@@ -1,0 +1,1 @@
+export const buildMeta = (page:number, limit:number, total:number)=>({ page, limit, total, hasNext: page*limit < total });

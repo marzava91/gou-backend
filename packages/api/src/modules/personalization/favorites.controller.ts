@@ -1,0 +1,2 @@
+import { Controller, Get, Post, Delete, Param } from '@nestjs/common'; import { FavoritesService } from './favorites.service';
+@Controller('v1/me/favorites') export class FavoritesController { constructor(private svc:FavoritesService){} @Get() list(){ return this.svc.list(); } @Post(':productId') add(@Param('productId') pid:string){ return this.svc.add(pid); } @Delete(':productId') del(@Param('productId') pid:string){ return this.svc.del(pid); } }

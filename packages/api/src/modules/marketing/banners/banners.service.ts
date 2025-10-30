@@ -1,0 +1,2 @@
+import { Injectable } from '@nestjs/common'; import { BannersRepository } from './banners.repository';
+@Injectable() export class BannersService { constructor(private repo:BannersRepository){} list(){ return { data:[] }; } }

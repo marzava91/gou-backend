@@ -1,0 +1,1 @@
+import { IsString } from 'class-validator'; export class ListDto { @IsString() name: string; }

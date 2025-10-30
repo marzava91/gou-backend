@@ -1,0 +1,2 @@
+import { Injectable } from '@nestjs/common'; import { FavoritesRepository } from './favorites.repository';
+@Injectable() export class FavoritesService { constructor(private repo:FavoritesRepository){} list(){ return { data:[] }; } add(_:string){ return { data:true }; } del(_:string){ return { data:true }; } }

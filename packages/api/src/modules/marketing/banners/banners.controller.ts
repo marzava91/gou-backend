@@ -1,0 +1,2 @@
+import { Controller, Get } from '@nestjs/common'; import { BannersService } from './banners.service';
+@Controller('v1/banners') export class BannersController { constructor(private svc:BannersService){} @Get() list(){ return this.svc.list(); } }

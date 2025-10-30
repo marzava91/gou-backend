@@ -1,0 +1,1 @@
+export class ListResponse { id:string; name:string; items?: any[]; }

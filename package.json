@@ -1,0 +1,17 @@
+{
+	"dependencies": {
+		"@nestjs/jwt": "^11.0.1",
+		"@nestjs/passport": "^11.0.5",
+		"compression": "^1.8.1",
+		"helmet": "^8.1.0",
+		"joi": "^18.0.1",
+		"passport": "^0.7.0",
+		"passport-jwt": "^4.0.1"
+	},
+	"devDependencies": {
+		"@types/compression": "^1.8.1",
+		"@types/passport": "^1.0.17",
+		"@types/passport-jwt": "^4.0.1",
+		"tsconfig-paths": "^4.2.0"
+	}
+}

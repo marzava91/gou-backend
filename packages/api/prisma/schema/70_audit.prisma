@@ -1,0 +1,36 @@
+/* =========================
+   7) AUDITORÍA
+========================= */
+model AuditLog {
+  id       String @id @default(cuid())
+  tenantId String
+  storeId  String?
+
+  occurredAt DateTime @default(now())
+
+  actorType AuditActorType
+  actorId   String?
+  actorRoleCode String?
+
+  action     String
+  entityType AuditEntityType
+  entityId   String?
+  entityRef  String?
+
+  before Json?
+  after  Json?
+  diff   Json?
+
+  metadata Json?
+
+  createdAt DateTime @default(now())
+
+  tenant Tenant @relation(fields: [tenantId], references: [id], onDelete: Restrict)
+  store  Store? @relation(fields: [storeId], references: [id], onDelete: Restrict)
+
+  @@index([tenantId, occurredAt])
+  @@index([tenantId, storeId, occurredAt])
+  @@index([tenantId, action, occurredAt])
+  @@index([tenantId, entityType, entityId])
+  @@index([tenantId, actorType, actorId, occurredAt])
+}

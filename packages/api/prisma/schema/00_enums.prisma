@@ -1,0 +1,141 @@
+/* =========================
+   ENUMS (MVP)
+========================= */
+enum TenantStatus {
+  ACTIVE
+  SUSPENDED
+}
+
+enum TenantPlan {
+  FREE
+  PRO
+  ENTERPRISE
+}
+
+enum StoreStatus {
+  ACTIVE
+  CLOSED
+}
+
+enum UserStatus {
+  ACTIVE
+  SUSPENDED
+}
+
+enum ScopeLevel {
+  GLOBAL
+  TENANT
+  STORE
+}
+
+enum ProductStatus {
+  ACTIVE
+  DRAFT
+  ARCHIVED
+}
+
+enum SellUnit {
+  UNIT
+  KG
+  G
+  L
+  ML
+}
+
+enum PriceListCode {
+  RETAIL
+  WHOLESALE
+  VIP
+  CAMPAIGN
+}
+
+enum SalesChannel {
+  SHOPPER_APP
+  PARTNER_POS
+}
+
+enum PurchaseOrderStatus {
+  DRAFT
+  SENT
+  PARTIALLY_RECEIVED
+  CLOSED
+  CANCELED
+}
+
+enum PurchaseBatchStatus {
+  RECEIVED
+  CLOSED
+}
+
+enum StockMovementType {
+  SALE
+  PURCHASE
+  ADJUSTMENT
+  RETURN
+}
+
+enum OrderChannel {
+  SHOPPER_APP
+  PARTNER_POS
+  MARKETPLACE_WEB
+}
+
+enum OrderStatus {
+  DRAFT
+  PLACED
+  PAID
+  PREPARING
+  DISPATCHED
+  DELIVERED
+  CANCELLED
+}
+
+enum PaymentStatus {
+  UNPAID
+  AUTHORIZED
+  PAID
+  REFUNDED
+}
+
+enum DeliveryType {
+  DELIVERY
+  PICKUP
+  IN_STORE
+}
+
+enum PosSessionStatus {
+  OPEN
+  CLOSED
+}
+
+enum PosSaleStatus {
+  COMPLETED
+  VOIDED
+}
+
+enum PosPaymentMethod {
+  CASH
+  CARD
+  YAPE
+  TRANSFER
+  MIXED
+}
+
+enum AuditActorType {
+  USER
+  SERVICE_ACCOUNT
+  SYSTEM_IA
+}
+
+enum AuditEntityType {
+  PRODUCT
+  ORDER
+  STOCK_ITEM
+  POS_SESSION
+  PURCHASE_BATCH
+  PURCHASE_ORDER
+  USER
+  PRICE_LIST
+  PRODUCT_PRICE
+  OTHER
+}

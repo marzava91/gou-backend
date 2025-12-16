@@ -1,0 +1,65 @@
+/* =========================
+   2) IDENTIDAD, ACCESOS, STAFF
+========================= */
+model User {
+  id       String @id @default(cuid())
+  tenantId String
+
+  firebaseUid String? @unique
+  email       String? @unique
+  phone       String? @unique
+
+  firstName String?
+  lastName  String?
+  nickName  String?
+
+  status      UserStatus @default(ACTIVE)
+  lastLoginAt DateTime?
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  tenant Tenant     @relation(fields: [tenantId], references: [id], onDelete: Restrict)
+  roles  UserRole[]
+
+  orders          Order[]      @relation("UserOrders")
+  posSessionsOpened PosSession[] @relation("PosSessionOpenedBy")
+  posSessionsClosed PosSession[] @relation("PosSessionClosedBy")
+  posSalesCashier  PosSale[]     @relation("PosSaleCashier")
+
+  @@unique([tenantId, email])
+  @@unique([tenantId, phone])
+  @@index([tenantId])
+  @@index([tenantId, status])
+}
+
+model Role {
+  id        String     @id @default(cuid())
+  code      String     @unique // shopper / rider / partner_admin / cashier / owner / support / etc
+  scopeLevel ScopeLevel
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  userRoles UserRole[]
+}
+
+model UserRole {
+  id       String @id @default(cuid())
+  userId   String
+  roleId   String
+  tenantId String
+  storeId  String? // nullable si el rol es TENANT o GLOBAL
+
+  createdAt DateTime @default(now())
+
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+  role   Role   @relation(fields: [roleId], references: [id], onDelete: Restrict)
+  tenant Tenant @relation(fields: [tenantId], references: [id], onDelete: Restrict)
+  store  Store? @relation(fields: [storeId], references: [id], onDelete: Restrict)
+
+  @@unique([userId, roleId, tenantId, storeId])
+  @@index([tenantId])
+  @@index([storeId])
+  @@index([userId])
+}

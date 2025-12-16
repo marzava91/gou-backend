@@ -1,0 +1,94 @@
+/* =========================
+   1) TENANCY & ORGANIZACIÓN
+========================= */
+model Tenant {
+  id     String       @id @default(cuid())
+  code   String       @unique // slug: "mijimarkets"
+  name   String
+  status TenantStatus @default(ACTIVE)
+  plan   TenantPlan   @default(FREE)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  stores    Store[]
+  users     User[]
+  userRoles UserRole[]
+
+  // Catálogo
+  brands     Brand[]
+  categories Category[] @relation("TenantCategories")
+  products   Product[]
+  priceLists PriceList[]
+  prices     ProductPrice[]
+
+  // Inventario
+  stockItems       StockItem[]
+  purchaseOrders   PurchaseOrder[]
+  purchaseBatches  PurchaseBatch[]
+  batchItems       BatchItem[]
+  stockMovements   StockMovement[]
+  stockAllocations StockAllocation[]
+
+  // Pedidos
+  orders     Order[]
+  orderItems OrderItem[]
+
+  // POS
+  posSessions PosSession[]
+  posSales    PosSale[]
+  posPayments PosPayment[]
+
+  // Auditoría
+  auditLogs AuditLog[]
+}
+
+model Store {
+  id       String @id @default(cuid())
+  tenantId String
+
+  code        String // slug dentro del tenant (ej: "mijimarkets-trujillo-01")
+  name        String
+  addressText String?
+
+  lat Decimal? @db.Decimal(10, 7)
+  lng Decimal? @db.Decimal(10, 7)
+
+  status StoreStatus @default(ACTIVE)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  tenant    Tenant     @relation(fields: [tenantId], references: [id], onDelete: Restrict)
+  userRoles UserRole[]
+
+  // Catálogo
+  categories Category[] @relation("StoreCategories")
+  products   Product[]
+  priceLists PriceList[]
+  prices     ProductPrice[]
+
+  // Inventario
+  stockItems       StockItem[]
+  purchaseOrders   PurchaseOrder[]
+  purchaseBatches  PurchaseBatch[]
+  batchItems       BatchItem[]
+  stockMovements   StockMovement[]
+  stockAllocations StockAllocation[]
+
+  // Pedidos
+  orders     Order[]
+  orderItems OrderItem[]
+
+  // POS
+  posSessions PosSession[]
+  posSales    PosSale[]
+  posPayments PosPayment[]
+
+  // Auditoría
+  auditLogs AuditLog[]
+
+  @@unique([tenantId, code])
+  @@index([tenantId])
+  @@index([tenantId, status])
+}

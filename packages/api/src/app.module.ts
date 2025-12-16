@@ -13,6 +13,7 @@ import { SettingsModule } from './modules/settings/settings.module';
 import { ObservabilityModule } from './modules/observability/observability.module';
 import { FirebaseModule } from './integrations/firebase/firebase.module';
 import { ConfigModule } from '@nestjs/config';
+import { HealthModule } from "./modules/health/health.module";
 
 @Module({
   imports: [
@@ -27,6 +28,7 @@ import { ConfigModule } from '@nestjs/config';
     MarketingModule,
     SettingsModule,
     ObservabilityModule,
+    HealthModule,
   ],
 })
 export class AppModule {}

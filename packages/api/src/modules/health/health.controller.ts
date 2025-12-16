@@ -1,9 +1,19 @@
-import { Controller, Get } from '@nestjs/common';
+import { Controller, Get, ServiceUnavailableException } from "@nestjs/common";
+import { HealthService } from "./health.service";
 
-@Controller('health')
+@Controller("health")
 export class HealthController {
+  constructor(private readonly healthService: HealthService) {}
+
   @Get()
-  get() {
-    return { status: 'ok', ts: new Date().toISOString() };
+  async getHealth() {
+    const result = await this.healthService.check();
+
+    if (result.db.status !== "ok") {
+      // Para que load balancers / uptime monitors lo vean como down
+      throw new ServiceUnavailableException(result);
+    }
+
+    return result;
   }
 }

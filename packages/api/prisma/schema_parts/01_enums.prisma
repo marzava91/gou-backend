@@ -1,6 +1,7 @@
 /* =========================
-   ENUMS (MVP)
+   ENUMS (ERP CORE)
 ========================= */
+
 enum TenantStatus {
   ACTIVE
   SUSPENDED
@@ -32,6 +33,18 @@ enum ProductStatus {
   ACTIVE
   DRAFT
   ARCHIVED
+}
+
+enum ItemType {
+  RETAIL
+  MENU
+  SERVICE
+  APPAREL
+}
+
+enum Visibility {
+  VISIBLE
+  HIDDEN
 }
 
 enum SellUnit {
@@ -72,6 +85,10 @@ enum StockMovementType {
   PURCHASE
   ADJUSTMENT
   RETURN
+  WASTE
+  TRANSFER_IN
+  TRANSFER_OUT
+  INITIAL_LOAD
 }
 
 enum OrderChannel {
@@ -121,21 +138,47 @@ enum PosPaymentMethod {
   MIXED
 }
 
+enum DocumentType {
+  THUMBNAIL
+  GALLERY
+  FILE
+}
+
 enum AuditActorType {
   USER
   SERVICE_ACCOUNT
   SYSTEM_IA
 }
 
+enum AuditAction {
+  CREATE
+  UPDATE
+  DELETE
+  UPSERT
+}
+
 enum AuditEntityType {
   PRODUCT
-  ORDER
+  PRODUCT_VARIANT
+  PRODUCT_PRICE
+  PRICE_LIST
   STOCK_ITEM
-  POS_SESSION
+  STOCK_MOVEMENT
   PURCHASE_BATCH
   PURCHASE_ORDER
+  POS_SESSION
+  ORDER
   USER
-  PRICE_LIST
-  PRODUCT_PRICE
+  CATEGORY
+  BRAND
+  DOCUMENT
   OTHER
+}
+
+enum BcgTag {
+  UNCLASSIFIED
+  STAR
+  CASH_COW
+  QUESTION
+  DOG
 }

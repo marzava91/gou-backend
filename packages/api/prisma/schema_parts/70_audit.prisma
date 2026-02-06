@@ -34,3 +34,5 @@ model AuditLog {
   @@index([tenantId, entityType, entityId])
   @@index([tenantId, actorType, actorId, occurredAt])
 }
+
+

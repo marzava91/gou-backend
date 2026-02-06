@@ -1,14 +1,13 @@
 import { Module } from '@nestjs/common';
-import { FirebaseModule } from '../../integrations/firebase/firebase.module';
-
 import { ProductsController } from './products/products.controller';
 import { ProductsService } from './products/products.service';
-import { FirebaseProductsRepository } from './products/products.repository';
+import { PrismaProductsRepository } from './products/products.repository';
+import { PrismaModule } from '../../prisma/prisma.module'; 
 
 @Module({
-  imports: [FirebaseModule],
+  imports: [PrismaModule],
   controllers: [ProductsController],
-  providers: [ProductsService, FirebaseProductsRepository],
+  providers: [ProductsService, PrismaProductsRepository],
   exports: [ProductsService],
 })
 export class CatalogModule {}

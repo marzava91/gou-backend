@@ -1,0 +1,285 @@
+/* =========================
+   4) INVENTARIOS
+========================= */
+
+model StockItem {
+  id       String @id @default(cuid())
+  tenantId String
+  storeId  String
+  itemId   String
+
+  onHand   Int @default(0)
+  reserved Int @default(0)
+
+  reorderPoint Int?
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  activeBatchItemId String?
+  activeBatchItem   BatchItem? @relation("ActiveBatchItem", fields: [activeBatchItemId], references: [id], onDelete: SetNull)
+
+  activeLotCodeSnapshot String?
+  activeExpiresAtSnapshot DateTime?
+  activeUnitCostSnapshot Decimal? @db.Decimal(12, 2)
+
+  tenant Tenant @relation(fields: [tenantId], references: [id], onDelete: Restrict)
+  store  Store  @relation(fields: [storeId], references: [id], onDelete: Restrict)
+  item   Item   @relation(fields: [itemId], references: [id], onDelete: Restrict)
+
+  @@unique([tenantId, storeId, itemId])
+  @@index([tenantId, storeId])
+  @@index([itemId])
+}
+
+model PurchaseOrder {
+  id         String @id @default(cuid())
+  tenantId   String
+  storeId    String
+  supplierId String?
+
+  status     PurchaseOrderStatus @default(DRAFT)
+  expectedAt DateTime?
+  notes      String?
+
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+  supplier   Supplier? @relation(fields: [supplierId], references: [id], onDelete: SetNull)
+
+  tenant Tenant @relation(fields: [tenantId], references: [id], onDelete: Restrict)
+  store  Store  @relation(fields: [storeId], references: [id], onDelete: Restrict)
+
+  batches            PurchaseBatch[]
+  purchaseOrderItems PurchaseOrderItem[]
+
+  @@index([tenantId, storeId])
+  @@index([tenantId, storeId, status])
+  @@index([supplierId])
+}
+
+model PurchaseOrderItem {
+  id              String @id @default(cuid())
+  purchaseOrderId String
+  itemId           String
+  qtyOrdered      Int
+  expectedUnitCost Decimal? @db.Decimal(12, 2)
+
+  createdAt DateTime @default(now())
+
+  purchaseOrder PurchaseOrder @relation(fields: [purchaseOrderId], references: [id], onDelete: Cascade)
+  item          Item          @relation(fields: [itemId], references: [id], onDelete: Restrict)
+
+  @@index([purchaseOrderId])
+  @@index([itemId])
+}
+
+model PurchaseBatch {
+  id             String @id @default(cuid())
+  tenantId       String
+  storeId        String
+  purchaseOrderId String?
+
+  receivedAt DateTime @default(now())
+  status     PurchaseBatchStatus @default(RECEIVED)
+  notes      String?
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  supplierInvoiceNumber String?
+  supplierInvoiceDate   DateTime?
+  supplierInvoiceTotal  Decimal? @db.Decimal(12, 2)
+
+  tenant Tenant @relation(fields: [tenantId], references: [id], onDelete: Restrict)
+  store  Store  @relation(fields: [storeId], references: [id], onDelete: Restrict)
+
+  purchaseOrder PurchaseOrder? @relation(fields: [purchaseOrderId], references: [id], onDelete: SetNull)
+  items         BatchItem[]
+  supplierInvoice SupplierInvoice? @relation("PurchaseBatchSupplierInvoice")
+
+  @@index([tenantId, storeId])
+  @@index([purchaseOrderId])
+}
+
+model BatchItem {
+  id              String @id @default(cuid())
+  tenantId         String
+  storeId          String
+  purchaseBatchId  String
+  itemId           String
+  lotCode          String?
+
+  qtyReceived      Int
+  qtyRemaining     Int
+  unitCost         Decimal? @db.Decimal(12, 2)
+  expiresAt        DateTime?
+
+  createdAt        DateTime @default(now())
+
+  tenant        Tenant        @relation(fields: [tenantId], references: [id], onDelete: Restrict)
+  store         Store         @relation(fields: [storeId], references: [id], onDelete: Restrict)
+  purchaseBatch PurchaseBatch @relation(fields: [purchaseBatchId], references: [id], onDelete: Cascade)
+  item          Item          @relation(fields: [itemId], references: [id], onDelete: Restrict)
+
+  allocations   StockAllocation[]
+  movements     StockMovement[] @relation("BatchItemMovements")
+  
+  activeForStockItems StockItem[] @relation("ActiveBatchItem")
+
+  @@index([tenantId, storeId])
+  @@index([purchaseBatchId])
+  @@index([itemId])
+}
+
+model StockMovement {
+  id         String @id @default(cuid())
+  tenantId   String
+  storeId    String
+  itemId     String
+
+  type       StockMovementType
+  qtyDelta   Int
+  reason     String?
+
+  refType    String?
+  refId      String?
+
+  batchItemId String?
+  createdAt  DateTime @default(now())
+
+  tenant     Tenant   @relation(fields: [tenantId], references: [id], onDelete: Restrict)
+  store      Store    @relation(fields: [storeId], references: [id], onDelete: Restrict)
+  item       Item     @relation(fields: [itemId], references: [id], onDelete: Restrict)
+
+  batchItem  BatchItem? @relation("BatchItemMovements", fields: [batchItemId], references: [id], onDelete: SetNull)
+
+  @@index([tenantId, storeId])
+  @@index([itemId])
+  @@index([type])
+  @@index([refType, refId])
+  @@index([batchItemId])
+}
+
+model StockAllocation {
+  id               String @id @default(cuid())
+  tenantId          String
+  storeId           String
+
+  refType           String
+  refId             String
+
+  orderItemId       String?
+  batchItemId       String
+  qtyAllocated      Int
+  unitCostSnapshot  Decimal? @db.Decimal(12, 2)
+
+  createdAt         DateTime @default(now())
+
+  tenant    Tenant    @relation(fields: [tenantId], references: [id], onDelete: Restrict)
+  store     Store     @relation(fields: [storeId], references: [id], onDelete: Restrict)
+  batchItem BatchItem @relation(fields: [batchItemId], references: [id], onDelete: Restrict)
+
+  orderItem OrderItem? @relation("OrderItemAllocations", fields: [orderItemId], references: [id], onDelete: SetNull)
+
+  @@index([tenantId, storeId])
+  @@index([refType, refId])
+  @@index([batchItemId])
+  @@index([orderItemId])
+}
+
+model Supplier {
+  id        String @id @default(cuid())
+  tenantId  String
+
+  code      String?
+  name      String
+  taxId     String? // RUC/NIT
+  email     String?
+  phone     String?
+  addressText String?
+
+  isActive  Boolean @default(true)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  tenant Tenant @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+
+  items ItemSupplier[]
+  purchaseOrders PurchaseOrder[]
+  invoices SupplierInvoice[]
+
+
+  @@unique([tenantId, name])
+  @@index([tenantId])
+}
+
+model ItemSupplier {
+  tenantId   String
+  itemId     String
+  supplierId String
+
+  isPrimary  Boolean @default(false)
+  isPreferred Boolean @default(true)
+
+  supplierSku String?
+  lastQuotedUnitCost Decimal? @db.Decimal(12,4)
+  leadTimeDays Int?
+  minOrderQty  Int?
+
+  createdAt DateTime @default(now())
+
+  tenant   Tenant   @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+  item     Item     @relation(fields: [itemId], references: [id], onDelete: Cascade)
+  supplier Supplier @relation(fields: [supplierId], references: [id], onDelete: Cascade)
+
+  @@id([itemId, supplierId])
+  @@index([tenantId])
+  @@index([supplierId])
+  @@index([itemId, isPrimary])
+}
+
+model SupplierInvoice {
+  id        String @id @default(cuid())
+  tenantId  String
+  storeId   String
+
+  supplierId String
+  number     String
+  issuedAt   DateTime
+  currency   String
+  total      Decimal @db.Decimal(12,2)
+
+  purchaseBatchId String? @unique
+  purchaseBatch   PurchaseBatch? @relation("PurchaseBatchSupplierInvoice", fields: [purchaseBatchId], references: [id], onDelete: SetNull)
+
+
+  createdAt DateTime @default(now())
+
+  tenant   Tenant   @relation(fields: [tenantId], references: [id], onDelete: Restrict)
+  store    Store    @relation(fields: [storeId], references: [id], onDelete: Restrict)
+  supplier Supplier @relation(fields: [supplierId], references: [id], onDelete: Restrict)
+
+  lines SupplierInvoiceLine[]
+
+  @@unique([tenantId, supplierId, number])
+  @@index([tenantId, storeId, issuedAt])
+}
+
+model SupplierInvoiceLine {
+  id        String @id @default(cuid())
+  invoiceId String
+  itemId    String
+
+  qty       Int
+  unitCost  Decimal @db.Decimal(12,4)
+  lineTotal Decimal @db.Decimal(12,2)
+
+  createdAt DateTime @default(now())
+
+  invoice SupplierInvoice @relation(fields: [invoiceId], references: [id], onDelete: Cascade)
+  item    Item            @relation(fields: [itemId], references: [id], onDelete: Restrict)
+
+  @@index([itemId])
+  @@index([invoiceId])
+}

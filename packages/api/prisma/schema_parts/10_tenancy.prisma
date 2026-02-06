@@ -1,0 +1,153 @@
+/* =========================
+   1) TENANCY & ORGANIZACIÓN
+========================= */
+model Organization {
+  id     String @id @default(cuid())
+  code   String @unique // ej: "MIJI", "CLIENTE_X"
+  name   String
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  tenants Tenant[]
+}
+
+model Tenant {
+  id              String @id @default(cuid())
+  organizationId  String
+  code            String
+  name            String
+  status          TenantStatus @default(ACTIVE)
+  plan            TenantPlan   @default(FREE)
+
+  countryCode     String
+  currencyCode    String
+  timezone        String
+  defaultTaxRate  Int @default(18)
+
+  legalName String?
+  taxId     String?
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  organization Organization @relation(fields: [organizationId], references: [id], onDelete: Restrict)
+
+  stores Store[]
+  users  User[]
+  userRoles UserRole[] 
+
+  // Catálogo
+  brands     Brand[]
+  categories Category[]
+  items      Item[]
+  priceLists PriceList[]
+
+  // Pricing
+  itemPrices     ItemPrice[]
+  itemPriceTiers ItemPriceTier[]
+
+  // Catálogo (ext)
+  itemVariants        ItemVariant[]
+  itemMenuSettings    ItemMenuSettings[]
+  itemServiceSettings ItemServiceSettings[]
+  itemDocuments       ItemDocument[]
+  itemNotes           ItemNote[]
+
+  // Inventario
+  stockItems       StockItem[]
+  stockMovements   StockMovement[]
+  purchaseOrders   PurchaseOrder[]
+  purchaseBatches  PurchaseBatch[]
+  batchItems       BatchItem[]       
+  stockAllocations StockAllocation[] 
+  suppliers        Supplier[]
+  supplierInvoices SupplierInvoice[] 
+  itemSuppliers    ItemSupplier[]
+
+  // Pedidos
+  orders     Order[]
+  orderItems OrderItem[]
+
+  // POS
+  posSessions PosSession[]
+  posSales    PosSale[]
+  posPayments PosPayment[]
+
+  itemImages ItemImage[] 
+
+  auditLogs AuditLog[]
+  itemEvents ItemEvent[]
+
+  packComponents PackComponent[]
+
+  @@unique([organizationId, code])
+  @@index([organizationId])
+  @@index([countryCode])
+}
+
+model Store {
+  id       String @id @default(cuid())
+  tenantId String
+
+  code        String
+  name        String
+
+  // Antes: addressText String?
+  addressText String? // mantenlo como “display”
+  addressLine1 String?
+  addressLine2 String?
+  district     String?
+  city         String?
+  region       String?
+  postalCode   String?
+  countryCode  String? // normalmente hereda de Tenant
+
+  timezone     String? // override; si null => usar tenant.timezone
+  currencyCode String? // override; si null => usar tenant.currencyCode
+
+  lat Decimal? @db.Decimal(10, 7)
+  lng Decimal? @db.Decimal(10, 7)
+
+  status StoreStatus @default(ACTIVE)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  tenant    Tenant     @relation(fields: [tenantId], references: [id], onDelete: Restrict)
+  userRoles UserRole[]
+
+  // Catálogo
+  items      Item[]
+  priceLists PriceList[]
+
+  // Catálogo (settings por tienda)
+  itemMenuSettings    ItemMenuSettings[]
+  itemServiceSettings ItemServiceSettings[]
+  
+  // Inventario
+  stockItems       StockItem[]
+  purchaseOrders   PurchaseOrder[]
+  purchaseBatches  PurchaseBatch[]
+  batchItems       BatchItem[]
+  stockMovements   StockMovement[]
+  stockAllocations StockAllocation[]
+
+  // Pedidos
+  orders     Order[]
+  orderItems OrderItem[]
+  supplierInvoices SupplierInvoice[]
+
+  // POS
+  posSessions PosSession[]
+  posSales    PosSale[]
+  posPayments PosPayment[]
+
+  // Auditoría
+  auditLogs AuditLog[]
+
+  @@unique([tenantId, code])
+  @@index([tenantId])
+  @@index([tenantId, status])
+  @@index([tenantId, city])
+}

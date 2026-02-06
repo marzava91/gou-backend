@@ -1,0 +1,1799 @@
+﻿Ref.;Descripción;Subtotal;IGV;category;precio;categoria padre
+1;Gaseosa COCA COLA Sabor Original Botella 500ml;2.54;18;Gaseosas;3;Bebidas
+2;Pañales para Bebé HUGGIES Active Sec Talla G por unidad;1.1;18;Pañales y Toallitas para Bebés;1.3;Cuidado del Bebé
+3;Gaseosa COCA COLA Sabor Original Botella 192ml - RETORNABLE;0.85;18;Gaseosas;1;Bebidas
+4;Gaseosa INCA KOLA Sabor Original Botella 625ml - RETORNABLE;2.54;18;Gaseosas;3;Bebidas
+5;Gaseosa INCA KOLA Sabor Original Botella 192ml - RETORNABLE;0.85;18;Gaseosas;1;Bebidas
+6;Gaseosa COCA COLA Sabor Original Botella 2L - RETORNABLE;5.51;18;Gaseosas;6.5;Bebidas
+7;Gaseosa INCA KOLA Sabor Original Botella 2L - RETORNABLE;5.51;18;Gaseosas;6.5;Bebidas
+8;Agua Mineral SAN MATEO Sin Gas Botella 600 ml;1.69;18;Agua Mineral;2;Bebidas
+9;Agua Mineral SAN MATEO Con Gas Botella 600 ml;1.69;18;Agua Mineral;2;Bebidas
+10;Agua SAN LUIS Sin Gas Botella 750 ml;1.53;18;Agua de Mesa;1.8;Bebidas
+11;Bebida Rehidratante POWERADE Mora Azul Botella 600ml;2.12;18;Rehidratantes;2.5;Bebidas
+12;Bebida Rehidratante POWERADE Multifrutas Botella 600ml;2.12;18;Rehidratantes;2.5;Bebidas
+13;Agua BENEDICTINO Sin Gas Botella 3L;2.97;18;Agua de Mesa;3.5;Bebidas
+14;Agua BENEDICTINO Sin Gas Botella 600ml;1.02;18;Agua de Mesa;1.2;Bebidas
+15;Gaseosa COCA COLA Sabor Original Botella 400ml - RETORNABLE;1.53;18;Gaseosas;1.8;Bebidas
+16;Gaseosa INCA KOLA Sabor Original Botella 400ml - RETORNABLE;1.53;18;Gaseosas;1.8;Bebidas
+17;Gaseosa INCA KOLA Sabor Original Botella 1L - RETORNABLE;3.39;18;Gaseosas;4;Bebidas
+18;Gaseosa INCA KOLA Sabor Original Botella 2.25L;7.63;18;Gaseosas;9;Bebidas
+19;Gaseosa COCA COLA Sabor Original Botella 2.25L;7.63;18;Gaseosas;9;Bebidas
+20;Néctar FRUGOS DEL VALLE Sabor a Durazno Caja 235ml;1.36;18;Jugos y Néctares;1.6;Bebidas
+21;Bebida Energizante MONSTER Energy Lata 473ml;7.2;18;Energizantes;8.5;Bebidas
+22;Néctar FRUGOS DEL VALLE Sabor a Durazno Caja 970ml;3.81;18;Jugos y Néctares;4.5;Bebidas
+23;Agua SAN LUIS Con Gas Botella 625 ml;1.69;18;Agua de Mesa;2;Bebidas
+24;Agua SAN LUIS Sin Gas Botella Tapa Plana 1L;2.12;18;Agua de Mesa;2.5;Bebidas
+25;Agua SAN LUIS Sin Gas Botella 2.5 L;3.22;18;Agua de Mesa;3.8;Bebidas
+26;Pan FRANCÉS de Piso por Unidad;0.21;18;Panes;0.25;Panadería y Pastelería
+27;Pañales para Bebé HUGGIES Active Sec Talla XG por unidad;1.1;18;Pañales y Toallitas para Bebés;1.3;Cuidado del Bebé
+28;Pañales para Bebé HUGGIES Active Sec Talla XXG por unidad;1.36;18;Pañales y Toallitas para Bebés;1.6;Cuidado del Bebé
+29;Esencia de Vainilla UMSHA Botella 90ml;1.69;18;Esencias de Vainilla;2;Repostería
+30;Suavizante SUAVITEL Complete Fresca Primavera Doypack 180ml;2.2;18;Suavizantes;2.6;Cuidado de Ropa
+32;Quitamanchas CLOROX Colores Vivos Botella 292 ml;2.2;18;Quitamanchas;2.6;Cuidado de Ropa
+35;Venditas TOP MEDIC Curitas por un;0.08;18;Salud;0.1;Cuidado Personal
+36;Antiácido SAL DE ANDREWS Polvo Efervecente 5 g;0.68;18;Salud;0.8;Cuidado Personal
+37;Antiácido SAL DE ANDREWS Triple Acción 7.9 g;1.02;18;Salud;1.2;Cuidado Personal
+38;Velas CRUZ DE MOTUPE Mecha Trenzada Duramás por unidad;0.42;18;Velas;0.5;Hogar y Ferretería
+39;Velas SANTA CRUZ Votiva Mediana Misionera por unidad;0.59;18;Velas;0.7;Hogar y Ferretería
+40;Cepillos Dentales COLGATE Premier Clean Medio por unidad;2.97;18;Cuidado Bucal;3.5;Cuidado Personal
+41;Pegamento CHEMMER Super Glue-3;0.85;18;Adhesivos y Cintas;1;Librería y Oficina
+42;Pilas PANASONIC AAA;0.85;18;Pilas y Baterías;1;Hogar y Ferretería
+43;Pilas PANASONIC AA;0.85;18;Pilas y Baterías;1;Hogar y Ferretería
+44;Cera en Pasta SAPOLIO Negra Doypack 300ml;4.15;18;Ceras;4.9;Limpieza
+45;Cera en Pasta SAPOLIO Amarilla Doypack 300ml;4.15;18;Ceras;4.9;Limpieza
+46;Cera en Pasta SAPOLIO Roja Doypack 300ml;4.15;18;Ceras;4.9;Limpieza
+47;Cera en Pasta SAPOLIO Blanca Doypack 300ml;4.15;18;Ceras;4.9;Limpieza
+48;Gancho para ropa CLÁSICO Modelo Cuadrado 24 un;2.29;18;Accesorios;2.7;Cuidado de Ropa
+49;Aceite Vegetal PRIMOR Premium Botella 900ml;9.32;18;Aceites;11;Abarrotes
+50;Aceite Vegetal PRIMOR Clásico Botella 900ml;8.47;18;Aceites;10;Abarrotes
+51;Filete de Atún PRIMOR en Aceite Vegetal Lata 140g;5.08;18;Conservas;6;Abarrotes
+53;Maicena DURYEA Caja 100g;2.54;18;Harinas y Féculas;3;Repostería
+54;Filete de Atún FLORIDA en Aceite Vegetal Lata 140g;5.25;18;Conservas;6.2;Abarrotes
+55;Cocoa WINTER'S Sobre 21g;1.53;18;Modificadores de leche;1.8;Desayunos
+56;Mermelada GLORIA Fresa Sachet 90g;1.69;18;Mermeladas, Mieles y Dulces;2;Desayunos
+58;Galletas SAN JORGE de Soda Paquete 40g;0.68;18;Galletas;0.8;Dulcería
+59;Toallas Higiénicas NOSOTRAS Alas Tela Gel Paquete 10un;4.24;18;Protección Femenina;5;Cuidado Personal
+60;Toallas Higiénicas NOSOTRAS Buenas Noches Paquete 10un;6.78;18;Protección Femenina;8;Cuidado Personal
+61;Vinagre Blanco DEL FIRME Botella 125ml;1.27;18;Cremas y Condimentos;1.5;Abarrotes
+62;Polvo para Hornear UNIVERSAL Libre de Gluten Sobre 25g;1.61;18;Polvo para Hornear;1.9;Repostería
+64;Chocolate para Taza LA ESPAÑOLA Tableta 150g;5.08;18;Modificadores de leche;6;Desayunos
+68;Infusiones MC COLIN'S Té Canela y Clavo Caja 25un;2.71;18;Café e Infusiones;3.2;Desayunos
+69;Infusiones MC COLIN'S Anís Caja 25un;2.71;18;Café e Infusiones;3.2;Desayunos
+70;Infusiones MC COLIN'S Manzanilla Caja 25un;2.71;18;Café e Infusiones;3.2;Desayunos
+72;Jabón en Barra BOLÍVAR Baby & Kids Paquete 190g;2.97;18;Jabones de Ropa;3.5;Cuidado de Ropa
+73;Pañales para Bebé BABYSEC Premium G por unidad;1.1;18;Pañales y Toallitas para Bebés;1.3;Cuidado del Bebé
+74;Pañales para Bebé BABYSEC Premium XG por unidad;1.19;18;Pañales y Toallitas para Bebés;1.4;Cuidado del Bebé
+75;Pañales para Bebé BABYSEC Premium XXG por unidad;1.27;18;Pañales y Toallitas para Bebés;1.5;Cuidado del Bebé
+76;Bebida Refrescante MALTIN POWER Botella 330ml;1.27;18;Nutricionales;1.5;Bebidas
+77;Comida para Perro RICOCAN Adultos Todas las Razas Multisabores a GRANEL Bolsa 500 g;3.73;18;Alimento Seco para Perros;4.4;Mascotas
+78;Comida para Perro RICOCAN Cachorro Raza Pequeña Carne y Leche a GRANEL Bolsa 500 g;3.9;18;Alimento Seco para Perros;4.6;Mascotas
+81;Cereal ANGEL Azul Zuck Bolsa 130g;2.97;18;Cereales;3.5;Desayunos
+82;Cereal ANGEL Marrón Chock Bolsa 130g;2.97;18;Cereales;3.5;Desayunos
+83;Cereal ANGEL Verde Fruit Bolsa 130g;2.97;18;Cereales;3.5;Desayunos
+84;Cereal ANGEL Naranja Miel Bolsa 130g;2.97;18;Cereales;3.5;Desayunos
+85;Avena GRANO DE ORO Bolsa 145g;1.27;18;Avenas;1.5;Desayunos
+86;Salsa Roja Completa DON VITTORIO Doypack 200g;3.14;18;Fideos, Pastas y Salsas;3.7;Abarrotes
+87;Papel Higiénico ELITE Doble Hoja Paquete 2un;2.12;18;Papel Higiénico;2.5;Limpieza
+88;Papel Higiénico SUAVE Resistemax Naranja Paquete 2un;1.69;18;Papel Higiénico;2;Limpieza
+89;Azúcar Rubia CASA GRANDE a GRANEL Bolsa 500g;1.69;18;Azucar y Endulzantes;2;Abarrotes
+91;Arroz Extra CASERITA PACASMAYO a GRANEL Bolsa 500 g;1.69;18;Arroz;2;Abarrotes
+93;Ginger Ale EVERVESS Botella 500ml;2.12;18;Gaseosas;2.5;Bebidas
+95;Gaseosa PEPSI Botella 355ml;1.02;18;Gaseosas;1.2;Bebidas
+96;Gaseosa CONCORDIA Sabor Piña Botella 355ml;1.02;18;Gaseosas;1.2;Bebidas
+97;Gaseosa CONCORDIA Sabor Fresa Botella 355ml;1.02;18;Gaseosas;1.2;Bebidas
+99;Gaseosa GUARANÁ Botella 450ml;1.69;18;Gaseosas;2;Bebidas
+100;Bebida Energizante VOLT Fantasy Botella 300ml;2.12;18;Energizantes;2.5;Bebidas
+101;Mezcla Láctea Evaporada PURA VIDA Lata 390g;2.97;18;Mezclas Lácteas;3.5;Lácteos y Huevos
+102;Azúcar Blanca CASA GRANDE a GRANEL Bolsa 500 g;2.2;18;Azucar y Endulzantes;2.6;Abarrotes
+107;Bebida Energizante RED BULL Tropical Lata 250ml;7.2;18;Energizantes;8.5;Bebidas
+112;Bebida Energizante RED BULL Sugar Free Lata 250ml;7.2;18;Energizantes;8.5;Bebidas
+114;Leche GLORIA Light Lata 390g;3.81;18;Leches;4.5;Lácteos y Huevos
+115;Comida para Gato RICOCAT Atún, Sardina y Trucha para Adultos a GRANEL Bolsa 500g;4.92;18;Alimento Seco para Gatos;5.8;Mascotas
+116;Comida para Gato RICOCAT Carne, Pescado y Leche para Gatitos a GRANEL Bolsa 500g;5.08;18;Alimento Seco para Gatos;6;Mascotas
+117;Leche UHT LAIVE Entera Caja 946ml;4.75;18;Leches;5.6;Lácteos y Huevos
+119;Agua SAN CARLOS Sin Gas Botella 500ml;0.85;18;Agua de Mesa;1;Bebidas
+120;Cerveza HEINEKEN Botella 330ml;5.08;18;Con Alcohol;6;Cervezas
+122;Bebida Rehidratante GATORADE Tropical Fruit Botella 500ml;2.12;18;Rehidratantes;2.5;Bebidas
+123;Agua CIELO Sin Gas Tapa Sport Botella 1L;2.12;18;Agua de Mesa;2.5;Bebidas
+124;Bebida Energizante RED BULL Lata 250ml;7.2;18;Energizantes;8.5;Bebidas
+127;Agua CIELO Sin Gas Botella 2.5L;2.54;18;Agua de Mesa;3;Bebidas
+128;Gaseosa PEPSI Botella 2L;4.66;18;Gaseosas;5.5;Bebidas
+129;Jugo LIBER Mix Botella 1 L;5.08;18;Jugos y Néctares;6;Bebidas
+130;Ginger Ale EVERVESS Botella 1.5L;5.93;18;Gaseosas;7;Bebidas
+132;Cerveza CUSQUEÑA Trigo Botella 310ml;3.81;18;Con Alcohol;4.5;Cervezas
+133;Cerveza CUSQUEÑA Dorada Botella 310ml;3.81;18;Con Alcohol;4.5;Cervezas
+134;Cerveza CUSQUEÑA Negra Botella 310ml;3.81;18;Con Alcohol;4.5;Cervezas
+135;Cerveza PILSEN Callao Lata 355ml;3.81;18;Con Alcohol;4.5;Cervezas
+137;Jabón de Tocador REXONA Antibacterial Fresh Barra 110g;3.47;18;Jabones en Barra;4.1;Cuidado Personal
+138;Jabón de Tocador PALMOLIVE Naturals Avena Barra 110g;3.64;18;Jabones en Barra;4.3;Cuidado Personal
+143;Jabón de Tocador PALMOLIVE Naturals Avena Barra 75g;2.8;18;Jabones en Barra;3.3;Cuidado Personal
+144;Jabón de Tocador PALMOLIVE Naturals Granada Barra 110g;3.64;18;Jabones en Barra;4.3;Cuidado Personal
+146;Jabón de Tocador REXONA Antibacterial Avena Barra 110g;3.47;18;Jabones en Barra;4.1;Cuidado Personal
+147;Avena QUAKER Tradicional Bolsa 500g;5.08;18;Avenas;6;Desayunos
+148;Avena 3 OSITOS Clásica Bolsa 250g;2.54;18;Avenas;3;Desayunos
+149;Toallas Higiénicas ALWAYS Cubierta Suave Noche G Paquete 8un;6.19;18;Protección Femenina;7.3;Cuidado Personal
+151;Toallas Higiénicas LADYSOFT Normal 10un;3.31;18;Protección Femenina;3.9;Cuidado Personal
+152;Toallas Higiénicas LADYSOFT Nocturnas 10un;5.34;18;Protección Femenina;6.3;Cuidado Personal
+153;Toallas Higiénicas NOSOTRAS Invisible Clásica Paquete 10un;4.24;18;Protección Femenina;5;Cuidado Personal
+157;Leche Condensada GLORIA Doypack 200g;3.64;18;Leche Condensada;4.3;Repostería
+158;Manjar Blanco BONLÉ Bolsa 200g;3.81;18;Manjar Blanco;4.5;Repostería
+162;Manjar Blanco NESTLÉ Bolsa 200g;4.58;18;Manjar Blanco;5.4;Repostería
+165;Café Tostado y Molido CAFETAL Selecto Bolsa 80g;3.39;18;Café e Infusiones;4;Desayunos
+167;Leche Condensada NESTLÉ Lata 393g;6.36;18;Leche Condensada;7.5;Repostería
+168;Café Tostado y Molido CAFETAL Selecto Bolsa 200g;8.39;18;Café e Infusiones;9.9;Desayunos
+172;Papel Higiénico ELITE Doble Hoja Paquete 4un;3.64;18;Papel Higiénico;4.3;Limpieza
+173;Papel Higiénico SUAVE Cuidado Completo Verde Paquete 4un;3.56;18;Papel Higiénico;4.2;Limpieza
+174;Servilletas ELITE Cortadas Simples Paquete 200un;1.69;18;Servilletas;2;Limpieza
+175;Shampoo SAVITAL Colágeno y Sábila Frasco 530ml;9.75;18;Cuidado del Cabello;11.5;Cuidado Personal
+176;Shampoo SAVITAL Anticaspa Frasco 530ml;9.75;18;Cuidado del Cabello;11.5;Cuidado Personal
+177;Acondicionador SAVITAL Palta y Sábila Frasco 530ml;11.44;18;Cuidado del Cabello;13.5;Cuidado Personal
+178;Shampoo HEAD & SHOULDERS Limpieza Renovadora Frasco 90ml;3.81;18;Cuidado del Cabello;4.5;Cuidado Personal
+179;Shampoo CLEAR Men Anticaspa 2 en 1 Dual Effect Frasco 400ml;12.63;18;Cuidado del Cabello;14.9;Cuidado Personal
+180;Shampoo CLEAR Men Anticaspa Control Caída Frasco 400ml;12.63;18;Cuidado del Cabello;14.9;Cuidado Personal
+182;Shampoo HEAD & SHOULDERS Limpieza Renovadora Frasco 375ml;16.02;18;Cuidado del Cabello;18.9;Cuidado Personal
+185;Avena 3 OSITOS Quinua Bolsa 150g;1.69;18;Avenas;2;Desayunos
+186;Azúcar Impalpable UNIVERSAL Bolsa 200g;2.46;18;Otros Ingredientes;2.9;Repostería
+187;Avena QUAKER Tradicional Bolsa 100g;1.19;18;Avenas;1.4;Desayunos
+190;Avena 3 OSITOS Maca Bolsa 150g;1.69;18;Avenas;2;Desayunos
+192;Desodorante en Crema REXONA para Mujer Nutrive Sachet 10g;1.27;18;Higiene Personal;1.5;Cuidado Personal
+193;Desodorante en Crema SPEED STICK Hombre Clinical Complete Sachet 9g;1.27;18;Higiene Personal;1.5;Cuidado Personal
+194;Desodorante en Crema LADY SPEED STICK Mujer Talc Sachet 9g;1.27;18;Higiene Personal;1.5;Cuidado Personal
+195;Desodorante Aerosol AXE para Hombre Dark Temptation Frasco 150ml;11.78;18;Higiene Personal;13.9;Cuidado Personal
+198;Desodorante Aerosol REXONA para Hombre V8 Frasco 150ml;11.78;18;Higiene Personal;13.9;Cuidado Personal
+199;Desodorante en Barra REXONA para Mujer Care Nutritive Frasco 50g;10.93;18;Higiene Personal;12.9;Cuidado Personal
+200;Desodorante en Barra REXONA para Mujer Active Emotion Frasco 50g;10.93;18;Higiene Personal;12.9;Cuidado Personal
+201;Desodorante en Roll On REXONA para Mujer Active Emotion Frasco 50ml;10.59;18;Higiene Personal;12.5;Cuidado Personal
+203;Fideos SAN JORGE Spaghetti Bolsa 500g;2.37;18;Fideos, Pastas y Salsas;2.8;Abarrotes
+204;Fideos MOLITALIA Spaghetti Bolsa 450g;3.31;18;Fideos, Pastas y Salsas;3.9;Abarrotes
+205;Fideos LAVAGGI Tallarín Grueso Bolsa 450g;2.29;18;Fideos, Pastas y Salsas;2.7;Abarrotes
+206;Aceite Vegetal COCINERO Botella 900ml;8.05;18;Aceites;9.5;Abarrotes
+207;Aceite de Soya SAO Botella 900ml;6.36;18;Aceites;7.5;Abarrotes
+211;Chocolate LENTEJAS en Grageas Bolsa 16g;0.85;18;Chocolatería;1;Dulcería
+212;Chocolate TRIANGULO De leche Bolsa 30Gr;2.54;18;Chocolatería;3;Dulcería
+213;Chocolate GOLPE Paquete 22g;0.85;18;Chocolatería;1;Dulcería
+214;Chocolate NESTLÉ Sublime Sonrisa Bolsa 38g;2.54;18;Chocolatería;3;Dulcería
+217;Sopa Instantánea AJINOMEN Sabor a Pollo Vaso 51g;2.71;18;Comida Instantánea;3.2;Abarrotes
+218;Sopa Instantánea AJINOMEN Sabor a Carne Vaso 51g;2.71;18;Comida Instantánea;3.2;Abarrotes
+219;Sopa Instantánea AJINOMEN Sabor a Carne Picante Vaso 51g;2.71;18;Comida Instantánea;3.2;Abarrotes
+220;Sopa Instantánea con Fideos AJINOMEN Sabor Gallina Bolsa 80g;1.69;18;Comida Instantánea;2;Abarrotes
+221;Sopa Instantánea con Fideos AJINOMEN Sabor Pollo Bolsa 80g;1.69;18;Comida Instantánea;2;Abarrotes
+222;Sopa Instantánea con Fideos AJINOMEN Sabor Gallina Picante Bolsa 80g;1.69;18;Comida Instantánea;2;Abarrotes
+226;Filete de Atún FLORIDA en Agua Lata 140g;5.08;18;Conservas;6;Abarrotes
+228;Trozos de Atún GLORIA en Aceite Vegetal Lata 140g;4.75;18;Conservas;5.6;Abarrotes
+229;Filete de Atún GLORIA en Agua y Sal Lata 140g;5.25;18;Conservas;6.2;Abarrotes
+232;Fideos DON VITTORIO Cabello de Ángel Bolsa 250g;1.95;18;Fideos, Pastas y Salsas;2.3;Abarrotes
+233;Salsa Roja Completa DON VITTORIO Doypack 400g;5.08;18;Fideos, Pastas y Salsas;6;Abarrotes
+234;Fideos DON VITTORIO Spaghetti Bolsa 450g;3.39;18;Fideos, Pastas y Salsas;4;Abarrotes
+235;Fideos NICOLINI Spaghetti Bolsa 450g;2.37;18;Fideos, Pastas y Salsas;2.8;Abarrotes
+236;Fideos DON VITTORIO Linguini Bolsa 450g;3.39;18;Fideos, Pastas y Salsas;4;Abarrotes
+237;Fideos DON VITTORIO Linguini Grosso Bolsa 450g;3.39;18;Fideos, Pastas y Salsas;4;Abarrotes
+238;Fideos DON VITTORIO Fettuccini Bolsa 450g;3.39;18;Fideos, Pastas y Salsas;4;Abarrotes
+239;Fideos NICOLINI Tallarín Grueso Bolsa 450g;2.37;18;Fideos, Pastas y Salsas;2.8;Abarrotes
+240;Fideos NICOLINI Tallarín Delgado Bolsa 450g;2.37;18;Fideos, Pastas y Salsas;2.8;Abarrotes
+241;Fideos DON VITTORIO Codo Rayado Bolsa 225g;1.69;18;Fideos, Pastas y Salsas;2;Abarrotes
+242;Fideos DON VITTORIO Canuto Rayado Bolsa 235g;1.69;18;Fideos, Pastas y Salsas;2;Abarrotes
+243;Fideos DON VITTORIO Tornillo Bolsa 225g;1.69;18;Fideos, Pastas y Salsas;2;Abarrotes
+244;Fideos DON VITTORIO Canuto Chico Bolsa 235g;1.69;18;Fideos, Pastas y Salsas;2;Abarrotes
+245;Fideos DON VITTORIO Rigatoni Bolsa 235g;1.69;18;Fideos, Pastas y Salsas;2;Abarrotes
+246;Fideos DON VITTORIO Corbata Grande Bolsa 225g;1.69;18;Fideos, Pastas y Salsas;2;Abarrotes
+247;Fideos LAVAGGI Tornillo Bolsa 225g;1.36;18;Fideos, Pastas y Salsas;1.6;Abarrotes
+248;Fideos LAVAGGI Canuto Chico Bolsa 235g;1.36;18;Fideos, Pastas y Salsas;1.6;Abarrotes
+249;Fideos NICOLINI Tornillo Bolsa 225g;1.44;18;Fideos, Pastas y Salsas;1.7;Abarrotes
+250;Fideos NICOLINI Codo Rayado Bolsa 225g;1.44;18;Fideos, Pastas y Salsas;1.7;Abarrotes
+251;Sémola MOLITALIA Bolsa 200g;1.69;18;Fideos, Pastas y Salsas;2;Abarrotes
+252;Fideos MOLITALIA Tornillo Especial Pasta para Ensalada Bolsa 235g;2.12;18;Fideos, Pastas y Salsas;2.5;Abarrotes
+253;Salsa de Tomate POMAROLA Doypack 290g;2.71;18;Fideos, Pastas y Salsas;3.2;Abarrotes
+254;Salsa de Tomate POMAROLA Doypack 145g;1.69;18;Fideos, Pastas y Salsas;2;Abarrotes
+255;Fideos MOLITALIA Tallarín Bolsa 450g;3.31;18;Fideos, Pastas y Salsas;3.9;Abarrotes
+256;Fideos MOLITALIA Canuto Bolsa 235g;1.78;18;Fideos, Pastas y Salsas;2.1;Abarrotes
+257;Fideos MOLITALIA Tornillo Bolsa 235g;1.78;18;Fideos, Pastas y Salsas;2.1;Abarrotes
+258;Fideos MOLITALIA Macarrón Bolsa 235g;1.78;18;Fideos, Pastas y Salsas;2.1;Abarrotes
+259;Fideos MOLITALIA Codo Rayado 235g;1.78;18;Fideos, Pastas y Salsas;2.1;Abarrotes
+260;Fórmula Láctea Líquida NAN 2 Bebés Lata 390g;5.34;18;Alimentación del Bebé;6.3;Lácteos y Huevos
+261;Fórmula Láctea Líquida NAN 3 Crecimiento Lata 390g;5;18;Alimentación del Bebé;5.9;Lácteos y Huevos
+263;Fideos MOLITALIA Cabello de Ángel Bolsa 250g;1.86;18;Fideos, Pastas y Salsas;2.2;Abarrotes
+264;Fideos MOLITALIA Linguine Bolsa 450g;3.31;18;Fideos, Pastas y Salsas;3.9;Abarrotes
+265;Fideos SAN JORGE Codo Rayado Bolsa 250g;1.27;18;Fideos, Pastas y Salsas;1.5;Abarrotes
+266;Agua SAN LUIS sin Gas Botella Tapa Sport 1L;2.54;18;Agua de Mesa;3;Bebidas
+267;RETIRO YAPE MENOR A 200;0.85;18;TIENDA;1;
+268;Fideos SAN JORGE Tornillo Bolsa 250g;1.27;18;Fideos, Pastas y Salsas;1.5;Abarrotes
+270;Fideos SAN JORGE Rigatoni Bolsa 250g;1.27;18;Fideos, Pastas y Salsas;1.5;Abarrotes
+271;Fideos SAN JORGE Caracol Mediano Bolsa 250g;1.27;18;Fideos, Pastas y Salsas;1.5;Abarrotes
+272;Fideos SAN JORGE Macarrón Bolsa 250g;1.27;18;Fideos, Pastas y Salsas;1.5;Abarrotes
+273;Fideos SAN JORGE Tallarín Bolsa 500g;2.37;18;Fideos, Pastas y Salsas;2.8;Abarrotes
+274;Fideos SAN JORGE Cabello de Ángel Bolsa 250g;1.27;18;Fideos, Pastas y Salsas;1.5;Abarrotes
+275;Galletas DORÉ Saladas Paquete 24g;0.85;18;Galletas;1;Dulcería
+276;Galletas MOROCHAS Clásicas Paquete 30g;1.02;18;Galletas;1.2;Dulcería
+277;Galletas MOROCHAS MIni Snacks Bolsa 42g;1.69;18;Galletas;2;Dulcería
+279;Agua SAN LUIS Sin Gas Sabor Limón Botella 625ml;1.69;18;Aguas Saborizadas;2;Bebidas
+280;Galletas RITZ Original Paquete 20g;0.85;18;Galletas;1;Dulcería
+281;Galletas FIELD Coronita Paquete 38g;0.85;18;Galletas;1;Dulcería
+282;Galletas CHIPS AHOY Bolsa 37g;1.27;18;Galletas;1.5;Dulcería
+283;Goma de Mascar TRIDENT Fresh Herbal Paquete 8.5g;1.27;18;Gomas de Mascar;1.5;Dulcería
+285;Goma de Mascar TRIDENT Yerbabuena Paquete 8.5g;1.27;18;Gomas de Mascar;1.5;Dulcería
+286;Goma de Mascar TRIDENT Fresa Paquete 8.5g;1.27;18;Gomas de Mascar;1.5;Dulcería
+287;Goma de Mascar TRIDENT Sandía Paquete 8.5g;1.27;18;Gomas de Mascar;1.5;Dulcería
+288;Goma de Mascar TRIDENT Menta Paquete 8.5g;1.27;18;Gomas de Mascar;1.5;Dulcería
+289;Goma de Mascar TRIDENT Mora Paquete 8.5g;1.27;18;Gomas de Mascar;1.5;Dulcería
+290;Caramelos HALLS Cereza Cherry Lyptus Paquete 25.2g;1.27;18;Caramelos;1.5;Dulcería
+291;Caramelos HALLS Mentol y Eucalipto Paquete 25.2g;1.27;18;Caramelos;1.5;Dulcería
+292;Caramelos HALLS Extra Fuerte Lyptus Paquete 25.2g;1.27;18;Caramelos;1.5;Dulcería
+293;Caramelos HALLS Mora Paquete 25.2g;1.27;18;Caramelos;1.5;Dulcería
+294;Gaseosa SPRITE Lima limón Botella 500ml;2.12;18;Gaseosas;2.5;Bebidas
+295;Caramelos HALLS Fruit Mix Paquete 25.2g;1.27;18;Caramelos;1.5;Dulcería
+296;Gaseosa COCA COLA Sabor Original Botella 1.5L;6.36;18;Gaseosas;7.5;Bebidas
+297;Galletas FIELD Chocosoda Bolsa 36g;1.27;18;Galletas;1.5;Dulcería
+1790;Gaseosa INCA KOLA Sabor Original Botella 1.5L;6.36;18;Gaseosas;7.5;Bebidas
+298;Galletas FIELD Doña Pepa Paquete 23g;0.85;18;Galletas;1;Dulcería
+299;Gaseosa COCA COLA Sin Azúcar Botella 300ml;1.44;18;Gaseosas;1.7;Bebidas
+300;Galletas FIELD Vainilla Paquete 37g;0.85;18;Galletas;1;Dulcería
+301;Gaseosa INCA KOLA Sin Azúcar Botella 300ml;1.44;18;Gaseosas;1.7;Bebidas
+302;Galletas FIELD Travesuras Paquete 50g;1.27;18;Galletas;1.5;Dulcería
+303;Caramelos HALLS Yerbabuena Lyptus Paquete 25.2g;1.27;18;Caramelos;1.5;Dulcería
+304;Gaseosa INCA KOLA Sabor Original Botella 500ml;2.54;18;Gaseosas;3;Bebidas
+305;Caramelos BUBBALOO Sparkies Paquete 25g;1.27;18;Caramelos;1.5;Dulcería
+306;Galletas RELLENITAS de Coco Paquete 36g;0.42;18;Galletas;0.5;Dulcería
+307;Galletas RELLENITAS de Chocolate Paquete 36g;0.42;18;Galletas;0.5;Dulcería
+308;Gaseosa FANTA Naranja Botella 500ml;2.12;18;Gaseosas;2.5;Bebidas
+309;Galletas RELLENITAS de Fresa Paquete 36g;0.42;18;Galletas;0.5;Dulcería
+310;Gaseosa COCA COLA Sabor Original Botella 3L;10.59;18;Gaseosas;12.5;Bebidas
+311;Galletas RELLENITAS de Limón Paquete 36g;0.42;18;Galletas;0.5;Dulcería
+312;Gaseosa INCA KOLA Sabor Original Botella 3L;10.59;18;Gaseosas;12.5;Bebidas
+313;Wafer Cua Cua FIELD Mini Bolsa 42g;1.27;18;Wafers y Barquillos;1.5;Dulcería
+314;Wafer Cua Cua FIELD Paquete 18g;0.85;18;Wafers y Barquillos;1;Dulcería
+315;Galletas GLACITAS Bañadas con Sabor a Toffee Paquete 32g;0.85;18;Galletas;1;Dulcería
+316;Jugo LIBER Mix Botella 300ml;2.29;18;Jugos y Néctares;2.7;Bebidas
+317;Galletas INTEGRACKERS Con salvado sabor a miel Paquete 30g;0.85;18;Galletas;1;Dulcería
+319;Galletas INTEGRACKERS Salvado de Trigo Paquete 30g;0.85;18;Galletas;1;Dulcería
+320;Galletas CASINO con Crema Sabor a Vainilla Paquete 43g;0.85;18;Galletas;1;Dulcería
+321;Galletas CASINO con Crema Sabor a Menta Paquete 43g;0.85;18;Galletas;1;Dulcería
+322;Galletas CASINO con Crema Sabor a Chocolate Paquete 43g;0.85;18;Galletas;1;Dulcería
+323;Néctar FRUGOS DEL VALLE Sabor a Naranja Caja 235ml;1.36;18;Jugos y Néctares;1.6;Bebidas
+324;Galletas CASINO con Crema Sabor a Fresa Paquete 43g;0.85;18;Galletas;1;Dulcería
+326;Galletas CASINO con Crema Sabor a Alfajor Paquete 43g;0.85;18;Galletas;1;Dulcería
+327;Bebida Instantánea en Polvo ZUKO Naranja Sobre 15g;1.02;18;Refrescos;1.2;Abarrotes
+328;Galletas SAYON Margarita Bolsa 46.5g;0.85;18;Galletas;1;Dulcería
+329;Bebida Instantánea en Polvo ZUKO Durazno Sobre 15g;1.02;18;Refrescos;1.2;Abarrotes
+330;Galletas MARQUESITAS Sabor a Vainilla Paquete 42g;0.85;18;Galletas;1;Dulcería
+331;Galletas MARQUESITAS Sabor a Naranja Paquete 42g;0.85;18;Galletas;1;Dulcería
+332;Bebida Instantánea en Polvo ZUKO Chicha Morada Sobre 15g;1.02;18;Refrescos;1.2;Abarrotes
+333;Galletas MARQUESITAS Sabor a Coco Paquete 42g;0.85;18;Galletas;1;Dulcería
+334;Galletas CHOMP Sabor a Chocolate Paquete 38g;0.85;18;Galletas;1;Dulcería
+335;Galletas TENTACIÓN con Sabor a Vainilla Paquete 45g;0.85;18;Galletas;1;Dulcería
+336;Galletas CHOMP Sabor a Naranja Paquete 38g;0.85;18;Galletas;1;Dulcería
+337;Galletas TENTACIÓN con Sabor a Chocolate Paquete 45g;0.85;18;Galletas;1;Dulcería
+338;Galletas TENTACIÓN con Sabor a Coco Paquete 45g;0.85;18;Galletas;1;Dulcería
+339;Galletas TENTACIÓN con Sabor a Naranja Paquete 45g;0.85;18;Galletas;1;Dulcería
+340;Galletas CHOCO BUM Sabor a Chocolate Bolsa 33.5g;0.85;18;Galletas;1;Dulcería
+341;Wafer COSTA Tuyo Paquete 22g;0.68;18;Wafers y Barquillos;0.8;Dulcería
+343;Wafer Cuadrado NIK Relleno con Crema Sabor a Chocolate Paquete 27g;0.85;18;Wafers y Barquillos;1;Dulcería
+344;Máquina de Afeitar GILLETTE Colt II;1.69;18;Afeitado y Depilación;2;Cuidado Personal
+345;Wafer Cuadrado NIK Relleno con Crema Sabor a Vainilla Paquete 27g;0.85;18;Wafers y Barquillos;1;Dulcería
+346;Maquina de Afeitar GILLETTE UltraGrip Pivot;2.97;18;Afeitado y Depilación;3.5;Cuidado Personal
+347;Galletas COSTA Choco Donuts Sabor a Chocolate con Leche Paquete 33g;0.85;18;Galletas;1;Dulcería
+348;Pasta Dental COLGATE Triple Acción Tubo 75ml;5.93;18;Cuidado Bucal;7;Cuidado Personal
+350;Pasta Dental KOLYNOS Super Blanco Tubo 60ml;2.97;18;Cuidado Bucal;3.5;Cuidado Personal
+352;Pasta Dental COLGATE Herbal Tubo 90g;2.71;18;Cuidado Bucal;3.2;Cuidado Personal
+353;Bizcocho CHOCMAN Relleno de Manjar Paquete 28g;0.85;18;Bizcotelas;1;Dulcería
+354;Galletas COSTA Frac Clásica Bolsa 41g;0.85;18;Galletas;1;Dulcería
+355;Shampoo HEAD & SHOULDERS Limpieza Renovadora Sachet 33ml;1.53;18;Cuidado del Cabello;1.8;Cuidado Personal
+356;Galletas COSTA Frac Vainilla Bolsa 41g;0.85;18;Galletas;1;Dulcería
+358;Galletas COSTA Frac Chocolate Bolsa 41g;0.85;18;Galletas;1;Dulcería
+359;Acondicionador PANTENE 3 Minute Miracle Restauración Sachet 18 ml;0.85;18;Cuidado del Cabello;1;Cuidado Personal
+360;Shampoo HEAD & SHOULDERS Crece Fuerte desde la Raiz Sachet 33ml;1.53;18;Cuidado del Cabello;1.8;Cuidado Personal
+361;Galletas PICARAS Clásicas Paquete 40g;1.02;18;Galletas;1.2;Dulcería
+363;Grageas de Chocolate CHIN CHIN Bolsa 16g;0.85;18;Chocolatería;1;Dulcería
+365;Shampoo SEDAL Ceramidas Frasco 340ml;9.75;18;Cuidado del Cabello;11.5;Cuidado Personal
+366;Shampoo SEDAL Rizos Definidos Frasco 340ml;9.75;18;Cuidado del Cabello;11.5;Cuidado Personal
+367;Shampoo SEDAL Duo 2 en 1 Frasco 340ml;9.75;18;Cuidado del Cabello;11.5;Cuidado Personal
+368;Galletas OREO Original Paquete 36g;0.85;18;Galletas;1;Dulcería
+370;Caramelos HALLS Cereza Cherry Lyptus Bolsa 3g por unidad;0.21;18;Caramelos;0.25;Dulcería
+371;Shampoo SEDAL Zero Caspa 2 en 1 Frasco 340ml;9.75;18;Cuidado del Cabello;11.5;Cuidado Personal
+372;Caramelos HALLS Extra Fuerte Lyptus Bolsa 3g por unidad;0.21;18;Caramelos;0.25;Dulcería
+373;Caramelos HALLS Mentol y Eucalipto Bolsa 3g por unidad;0.21;18;Caramelos;0.25;Dulcería
+375;Caramelos HALLS Mora Bolsa 3g por unidad;0.21;18;Caramelos;0.25;Dulcería
+376;Gomitas AMBROSOLI Frugelé por unidad;0.17;18;Gomitas;0.2;Dulcería
+377;Crema para Peinar SEDAL Rizos Definidos Sachet 18ml;1.27;18;Cuidado del Cabello;1.5;Cuidado Personal
+378;Chupetes AMBROSOLI Picolines por unidad;0.42;18;Chupetes;0.5;Dulcería
+379;Crema de Tratamiento NUTRIBELA Biokeratina Sachet 27ml;1.27;18;Cuidado del Cabello;1.5;Cuidado Personal
+383;Chupetes BON BON BUM Sabor Fresa por unidad;0.42;18;Chupetes;0.5;Dulcería
+390;Crema de Tratamiento NUTRIBELA Células Madre Sachet 27ml;1.27;18;Cuidado del Cabello;1.5;Cuidado Personal
+391;Toffee AMBROSOLI Old England Toffee por unidad;0.17;18;Otras Golosinas;0.2;Dulcería
+393;Chupetes GLOBO POP Sabor Fresa por unidad;0.42;18;Chupetes;0.5;Dulcería
+395;Caldo en cubitos MAGGI Sabor carne Caja 18.8g;0.85;18;Cremas y Condimentos;1;Abarrotes
+396;Shampoo SEDAL Zero Caspa 2 en 1 Sachet 40ml;1.27;18;Cuidado del Cabello;1.5;Cuidado Personal
+397;Caldo en cubitos MAGGI Sabor gallina Caja 18.8g;0.85;18;Cremas y Condimentos;1;Abarrotes
+398;Jabón de Tocador PROTEX Carbón Barra 110g;3.56;18;Jabones en Barra;4.2;Cuidado Personal
+400;Jabón de Tocador PROTEX Men Sport Barra 110g;3.56;18;Jabones en Barra;4.2;Cuidado Personal
+401;Jabón de Tocador PROTEX Avena Barra 110g;3.56;18;Jabones en Barra;4.2;Cuidado Personal
+402;Crema de Ají ALACENA Tarí Doypack 85g;3.39;18;Cremas y Condimentos;4;Abarrotes
+403;Jabón de Tocador PROTEX Fresh Barra 110g;3.56;18;Jabones en Barra;4.2;Cuidado Personal
+405;Mayonesa ALACENA Doypack 475g;12.29;18;Cremas y Condimentos;14.5;Abarrotes
+406;Mostaza ALACENA Doypack 100g;2.97;18;Cremas y Condimentos;3.5;Abarrotes
+409;Salsa de Soya KIKKO Siyau Frasco 160ml;1.53;18;Cremas y Condimentos;1.8;Abarrotes
+410;Sillao AJI-NO-SILLAO Botella 150ml;1.69;18;Cremas y Condimentos;2;Abarrotes
+411;Mezcla para apanar AJI-NO-MIX Apanado Bolsa 96Gr;2.12;18;Cremas y Condimentos;2.5;Abarrotes
+412;Sazonador AJI-NO-MOTO Umami Glutamato de Sodio Bolsa 34Gr;0.68;18;Cremas y Condimentos;0.8;Abarrotes
+413;Mezcla para apanar AJI-NO-MIX Crocante Bolsa 96Gr;2.12;18;Cremas y Condimentos;2.5;Abarrotes
+415;Sal Marina EMSAL Mesa Bolsa 1Kg;1.44;18;Cremas y Condimentos;1.7;Abarrotes
+416;Vinagre Tinto DEL FIRME Botella 125ml;1.27;18;Cremas y Condimentos;1.5;Abarrotes
+417;Vinagre Blanco DEL FIRME Premium Botella 1L;4.07;18;Cremas y Condimentos;4.8;Abarrotes
+418;Vinagre Tinto DEL FIRME Premium Botella 1L;4.07;18;Cremas y Condimentos;4.8;Abarrotes
+419;Vinagre Blanco VENTURO Botella 600ml;4.24;18;Cremas y Condimentos;5;Abarrotes
+420;Vinagre Tinto VENTURO Botella 600ml;4.24;18;Cremas y Condimentos;5;Abarrotes
+421;Palillo SIBARITA Sachet 9.5g;0.51;18;Cremas y Condimentos;0.6;Abarrotes
+422;Tuco SIBARITA Sachet 8.4g;0.51;18;Cremas y Condimentos;0.6;Abarrotes
+423;Ají Panca SIBARITA Sachet 9.5g;0.51;18;Cremas y Condimentos;0.6;Abarrotes
+425;Sustancia de Carne DOÑA GUSTA en Polvo Sachet 7g;0.42;18;Cremas y Condimentos;0.5;Abarrotes
+426;Sustancia de Gallina DOÑA GUSTA en Polvo Sachet 7g;0.42;18;Cremas y Condimentos;0.5;Abarrotes
+427;Orégano GRANEL Bolsa 10g;0.59;18;Cremas y Condimentos;0.7;Abarrotes
+429;Canela Entera GRANEL Bolsa 5g;0.59;18;Cremas y Condimentos;0.7;Abarrotes
+432;Detergente en Polvo ACE Floral Bolsa 120g;2.12;18;Detergentes;2.5;Cuidado de Ropa
+434;Detergente en Polvo ARIEL Pro Cuidado Bolsa 300g;4.58;18;Detergentes;5.4;Cuidado de Ropa
+435;Detergente en Polvo ACE Limpieza Completa Floral Bolsa 280g;4.15;18;Detergentes;4.9;Cuidado de Ropa
+436;Detergente en Polvo ACE Limpieza Completa Bolsa 380g;5;18;Detergentes;5.9;Cuidado de Ropa
+437;Detergente en Polvo ARIEL Pro Cuidado Bolsa 400g;5.93;18;Detergentes;7;Cuidado de Ropa
+438;Suavizante SUAVITEL Complete Lavanda Sachet 80ml;1.27;18;Suavizantes;1.5;Cuidado de Ropa
+439;Suavizante SUAVITEL Complete Fresca Primavera Sachet 80ml;1.27;18;Suavizantes;1.5;Cuidado de Ropa
+441;Quitamanchas VANISH Líquido Ropa Color Sachet 100ml;1.53;18;Quitamanchas;1.8;Cuidado de Ropa
+442;Quitamanchas VANISH Líquido Blanco Total Sachet 100ml;1.53;18;Quitamanchas;1.8;Cuidado de Ropa
+444;Detergente en Polvo CARICIA Rosa Ropa Delicada Bolsa 100g;2.97;18;Detergentes;3.5;Cuidado de Ropa
+445;Detergente en Polvo MARSELLA Pétalos Relajantes Lavanda y Rosas Bolsa 320g;3.31;18;Detergentes;3.9;Cuidado de Ropa
+447;Detergente en Polvo MARSELLA Pétalos Relajantes Lavanda y Rosas Bolsa 430g;3.98;18;Detergentes;4.7;Cuidado de Ropa
+448;Detergente en Polvo MARSELLA Pétalos Relajantes Lavanda y Rosas Bolsa 140g;1.53;18;Detergentes;1.8;Cuidado de Ropa
+451;Jabón en Barra BOLÍVAR Floral Paquete 190g;2.97;18;Jabones de Ropa;3.5;Cuidado de Ropa
+452;Jabón en Barra BOLÍVAR Limón Paquete 190g;2.97;18;Jabones de Ropa;3.5;Cuidado de Ropa
+455;Jabón en Barra MARSELLA Floral Paquete 190g;2.54;18;Jabones de Ropa;3;Cuidado de Ropa
+456;Café Instantáneo NESCAFÉ Tradición Sachet 7g;1.44;18;Café e Infusiones;1.7;Desayunos
+457;Detergente en polvo PATITO Limón Bolsa 140g;1.27;18;Detergentes;1.5;Cuidado de Ropa
+458;Café Instantáneo NESCAFÉ Kirma Sachet 8g;1.1;18;Café e Infusiones;1.3;Desayunos
+459;Infusiones MC COLIN'S Manzanilla por unidad;0.13;18;Café e Infusiones;0.15;Desayunos
+460;Infusiones MC COLIN'S Té Canela y Clavo por unidad;0.13;18;Café e Infusiones;0.15;Desayunos
+461;Infusiones MC COLIN'S Té Puro por unidad;0.13;18;Café e Infusiones;0.15;Desayunos
+462;Infusiones MC COLIN'S Anís por unidad;0.13;18;Café e Infusiones;0.15;Desayunos
+463;Infusiones MC COLIN'S Hierba Luisa por unidad;0.13;18;Café e Infusiones;0.15;Desayunos
+464;Cereal Bar COSTA Chips Cereal 21g;0.85;18;Cereales;1;Desayunos
+465;Cereal Bar COSTA Golden Cereal 21g;0.85;18;Cereales;1;Desayunos
+466;Cereal Bar COSTA Choco Cereal 21g;0.85;18;Cereales;1;Desayunos
+470;Lejía CLOROX Tradicional Botella 345g / 324ml;1.36;18;Lejías;1.6;Limpieza
+472;Lejía CLOROX Tradicional Botella 680g / 638ml;1.86;18;Lejías;2.2;Limpieza
+474;Lavavajilla Líquido AYUDÍN Limón y Sábila Botella 280ml + Esponja;4.83;18;Lavavajillas;5.7;Limpieza
+476;Esponja DKASA Multiuso 2 en 1 por unidad;1.27;18;Esponjas y Paños;1.5;Limpieza
+477;Papel Higiénico SUAVE Cuidado Completo Verde Paquete 2un;2.12;18;Papel Higiénico;2.5;Limpieza
+478;Papel Higiénico NOBLE Doble Hoja Paquete 2un;1.69;18;Papel Higiénico;2;Limpieza
+479;Papel Higiénico NOBLE Doble Hoja Plus Paquete 4un;4.24;18;Papel Higiénico;5;Limpieza
+480;Pudín ROYAL Sabor a Vainilla Bolsa 110g;3.05;18;Postres;3.6;Repostería
+481;Mermelada FANNY Fresa Frasco 310g;4.66;18;Mermeladas, Mieles y Dulces;5.5;Desayunos
+482;Flan ROYAL Vainilla Bolsa 80g;2.37;18;Postres;2.8;Repostería
+483;Mazamorra Morada ROYAL Bolsa 140g;3.31;18;Postres;3.9;Repostería
+484;Pudín ROYAL Sabor a Chocolate Bolsa 110g;3.05;18;Postres;3.6;Repostería
+485;Gelatina ROYAL Sabor a Fresa Bolsa 160g;3.64;18;Gelatinas;4.3;Repostería
+486;Gelatina ROYAL Sabor a Naranja Bolsa 160g;4.49;18;Gelatinas;5.3;Repostería
+487;Mermelada GLORIA Fresa Vaso 290g;4.92;18;Mermeladas, Mieles y Dulces;5.8;Desayunos
+488;Gelatina ROYAL Sabor a Limón Bolsa 160g;4.49;18;Gelatinas;5.3;Repostería
+490;Gelatina ROYAL Sabor a Piña Bolsa 160g;4.49;18;Gelatinas;5.3;Repostería
+491;Cocoa D'ONOFRIO Sachet 10g;0.85;18;Modificadores de leche;1;Desayunos
+493;Gelatina UMSHA Fresa Bolsa 120g;2.71;18;Gelatinas;3.2;Repostería
+495;Gelatina UMSHA Naranja Bolsa 120g;2.71;18;Gelatinas;3.2;Repostería
+496;Gelatina UMSHA Piña Bolsa 120g;2.71;18;Gelatinas;3.2;Repostería
+499;Fortificante Granulado MILO Activ-Go Sachet 17g;1.1;18;Modificadores de leche;1.3;Desayunos
+498;Pudín UNIVERSAL Sabor a Chocolate Bolsa 100g;2.88;18;Postres;3.4;Repostería
+501;Flan UNIVERSAL Sabor a Vainilla Bolsa 150g;3.9;18;Postres;4.6;Repostería
+502;Mazamorra Morada UNIVERSAL Bolsa 150g;2.88;18;Postres;3.4;Repostería
+504;Gelatina UNIVERSAL Sabor a Naranja 2L Bolsa 130g;3.39;18;Gelatinas;4;Repostería
+505;Cebada Instantánea ECCO Sachet 12g;0.85;18;Modificadores de leche;1;Desayunos
+507;Harina de Maíz PAN Blanco Precocida Bolsa 1Kg;5.93;18;Harinas y Féculas;7;Repostería
+508;Harina BLANCA FLOR Preparada Bolsa 1Kg;7.2;18;Harinas y Féculas;8.5;Repostería
+509;Harina BLANCA FLOR Sin Preparar Bolsa 1Kg;6.36;18;Harinas y Féculas;7.5;Repostería
+510;Leche UHT LAIVE Sin Lactosa Caja 946ml;4.92;18;Leches;5.8;Lácteos y Huevos
+513;Leche Condensada GLORIA Lata 393g;5.51;18;Leche Condensada;6.5;Repostería
+514;Esencia de Vainilla UNIVERSAL Frasco 100ml;1.95;18;Esencias de Vainilla;2.3;Repostería
+516;Fósforos INTI Caja 40un;0.25;18;Fósforos;0.3;Hogar y Ferretería
+517;Leche GLORIA Sin Lactosa UHT Caja 946ml;5.34;18;Leches;6.3;Lácteos y Huevos
+520;Leche GLORIA Entera UHT Caja 946ml;5.34;18;Leches;6.3;Lácteos y Huevos
+521;Leche GLORIA Light UHT Caja 946ml;5.34;18;Leches;6.3;Lácteos y Huevos
+522;Leche GLORIA Niños UHT Caja 946ml;5.34;18;Leches;6.3;Lácteos y Huevos
+523;Leche GLORIA Entera Lata 390g;3.56;18;Leches;4.2;Lácteos y Huevos
+524;Leche GLORIA Niños Lata 390g;3.81;18;Leches;4.5;Lácteos y Huevos
+525;Leche GLORIA Sin Lactosa Lata 390g;3.81;18;Leches;4.5;Lácteos y Huevos
+526;Leche GLORIA Chocolatada UHT Niños Caja 180ml;1.69;18;Leches;2;Lácteos y Huevos
+527;Leche GLORIA Entera Lata 170g;2.03;18;Leches;2.4;Lácteos y Huevos
+528;Leche GLORIA Light Lata 170g;2.12;18;Leches;2.5;Lácteos y Huevos
+529;Leche GLORIA Niños Lata 170g;2.29;18;Leches;2.7;Lácteos y Huevos
+530;Mezcla Láctea IDEAL Cremosita Lata 390g;3.39;18;Mezclas Lácteas;4;Lácteos y Huevos
+532;Mezcla Láctea IDEAL Amanecer Lata 390g;2.97;18;Mezclas Lácteas;3.5;Lácteos y Huevos
+533;Huevos a GRANEL por Kilo;5.08;18;Huevos;6;Lácteos y Huevos
+536;Platano del MOLINO por unidad;0.34;18;Frutas;0.4;Frutas y Verduras
+537;Platano FREIR por unidad;0.85;18;Frutas;1;Frutas y Verduras
+540;Papa Huevo de Indio por Kg;3.39;18;Verduras;4;Frutas y Verduras
+541;Papa Yungay por Kg;2.54;18;Verduras;3;Frutas y Verduras
+542;Arveja por Kg;5.08;18;Verduras;6;Frutas y Verduras
+544;Limón a Un;0.28;18;Verduras;0.33;Frutas y Verduras
+546;Maiz Perla a GRANEL Bolsa 250g;2.12;18;Menestras;2.5;Abarrotes
+547;Arveja Verde Partida a GRANEL Bolsa 250g;1.69;18;Menestras;2;Abarrotes
+548;Camote Morado por Kg;2.54;18;Verduras;3;Frutas y Verduras
+549;Ají Escabeche por Kg;3.56;18;Verduras;4.2;Frutas y Verduras
+550;Granadilla por Kg;5.08;18;Frutas;6;Frutas y Verduras
+554;Ajo Entero por Kg;15.25;18;Verduras;18;Frutas y Verduras
+555;Lenteja Serrana Importada a GRANEL Bolsa 250g;2.12;18;Menestras;2.5;Abarrotes
+556;Cebolla Roja por Kg;3.81;18;Verduras;4.5;Frutas y Verduras
+560;Tomate por Kg;2.54;18;Verduras;3;Frutas y Verduras
+561;Manzana SANTA ROSA por Kg;3.81;18;Frutas;4.5;Frutas y Verduras
+563;Apio por Atado;0.42;18;Verduras;0.5;Frutas y Verduras
+565;Culantro por Atado;0.42;18;Verduras;0.5;Frutas y Verduras
+566;Zanahoria por Kg;2.54;18;Verduras;3;Frutas y Verduras
+567;Pepinillos por Un;0.64;18;Verduras;0.75;Frutas y Verduras
+568;Mandarina RIO por Kg;3.9;18;Frutas;4.6;Frutas y Verduras
+569;Piqueos CHEETOS Horneados Queso Bolsa 34g;1.69;18;Maiz;2;Snacks
+570;Piqueos CHEETOS Queso Picante Bolsa 34g;1.69;18;Maiz;2;Snacks
+571;Piqueos CHEETOS Flamin Hot Bolsa 36g;1.69;18;Maiz;2;Snacks
+572;Piqueos CHEESE TRIS Queso Bolsa 44g;1.69;18;Maiz;2;Snacks
+573;Palitos de Maíz CHIZITOS Bolsa 35g;1.02;18;Maiz;1.2;Snacks
+574;Palitos de Maíz CHIZITOS Fiesta Bolsa 190g;4.66;18;Maiz;5.5;Snacks
+575;Piqueos SNAX Original Bolsa 55g;2.12;18;Piqueos Mixtos;2.5;Snacks
+576;Piqueos SNAX Original Familiar Bolsa 225g;6.78;18;Piqueos Mixtos;8;Snacks
+577;Papas LAYS Ondas Pollo a la Brasa Bolsa 41g;1.86;18;Papas;2.2;Snacks
+578;Tortillas de Maíz DORITOS Queso Atrevido Bolsa 45g;1.86;18;Maiz;2.2;Snacks
+579;Papas LAYS Ondas Picante Bolsa 41g;1.86;18;Papas;2.2;Snacks
+580;Papas LAYS Clásicas Familiar Bolsa 150g;6.36;18;Papas;7.5;Snacks
+581;Papas LAYS Clásicas Bolsa 45g;1.86;18;Papas;2.2;Snacks
+582;Piqueos KARINTO Maní Engalletado Salado Bolsa 35g;1.36;18;Manís y Habas;1.6;Snacks
+583;Piqueos KARINTO Maní Engalletado Salado Bolsa 100g;3.05;18;Manís y Habas;3.6;Snacks
+584;Piqueos KARINTO Maní Engalletado Picante Bolsa 100g;3.05;18;Manís y Habas;3.6;Snacks
+585;Piqueos TOR-TEES Clásico Bolsa 71g;1.86;18;Piqueos Mixtos;2.2;Snacks
+586;Piqueos TOR-TEES Picante Bolsa 71g;1.86;18;Piqueos Mixtos;2.2;Snacks
+587;LOS CUATES Twist Bolsa 38g;1.02;18;Maiz;1.2;Snacks
+588;LOS CUATES Picante Bolsa 42g;1.02;18;Maiz;1.2;Snacks
+589;Piqueos KARINTO Maní Salado Bolsa 35g;1.36;18;Manís y Habas;1.6;Snacks
+590;Piqueos KARINTO Maní Engalletado Picante Bolsa 35g;1.36;18;Manís y Habas;1.6;Snacks
+591;Piqueos CHEESE TRIS Queso Bolsa 105g;2.97;18;Maiz;3.5;Snacks
+592;Papas LAYS Ondas Picante Bolsaza Bolsa 70g;3.56;18;Papas;4.2;Snacks
+593;Piqueos SNAX Original Bolsaza Bolsa 105g;3.56;18;Piqueos Mixtos;4.2;Snacks
+594;Tortillas de Maíz DORITOS Queso Atrevido Bolsaza Bolsa 90g;3.56;18;Maiz;4.2;Snacks
+595;Tortillas de Maíz DORITOS Queso Fuego Bolsaza Bolsa 90g;3.14;18;Maiz;3.7;Snacks
+596;Piqueos CHEETOS Horneados Queso Bolsaza Bolsa 90g;3.14;18;Maiz;3.7;Snacks
+597;Piqueos CHEETOS Queso Picante Bolsaza Bolsa 90g;3.14;18;Maiz;3.7;Snacks
+598;Papas LAYS Clásicas Bolsaza Bolsa 70g;3.56;18;Papas;4.2;Snacks
+599;FLETE;4.24;18;TIENDA;5;
+600;Bebida Energizante VOLT Ginseng Sin Azucar Botella 300ml;2.12;18;Energizantes;2.5;Bebidas
+601;Bebida Energizante VOLT Maca Botella 300ml;2.12;18;Energizantes;2.5;Bebidas
+602;Bebida PULP Durazno Caja 315ml;1.53;18;Jugos y Néctares;1.8;Bebidas
+603;Gaseosa BIG COLA Botella 1.035 L;2.54;18;Gaseosas;3;Bebidas
+604;Gaseosa SABOR DE ORO Botella 1.035L;2.54;18;Gaseosas;3;Bebidas
+606;Bebida Rehidratante SPORADE Tropical Botella 500ml;2.12;18;Rehidratantes;2.5;Bebidas
+607;Bebida Rehidratante SPORADE Mandarina Botella 500ml;2.12;18;Rehidratantes;2.5;Bebidas
+608;Bebida Rehidratante SPORADE Blueberry Botella 500ml;2.12;18;Rehidratantes;2.5;Bebidas
+609;Bebida CIFRUT Citrus Punch Botella 500 ml;1.27;18;Otras Bebidas;1.5;Bebidas
+610;Bebida CIFRUT Fruit Punch Botella 500 ml;1.27;18;Otras Bebidas;1.5;Bebidas
+611;Té Verde FREE TEA Sabor Limón Botella 450ml;2.12;18;Otras Bebidas;2.5;Bebidas
+612;Café Instantáneo NESCAFÉ Tradición Sachet 15g;2.54;18;Café e Infusiones;3;Desayunos
+613;Chocolate NESTLÉ Sublime Extremo Bolsa 50g;3.39;18;Chocolatería;4;Dulcería
+614;Café Instantáneo NESCAFÉ Kirma Sachet 15g;1.78;18;Café e Infusiones;2.1;Desayunos
+615;Chocolate NESTLÉ Sublime Almendras Bolsa 50g;3.39;18;Chocolatería;4;Dulcería
+616;Shampoo HEAD & SHOULDERS Suave y Manejable 2en1 Sachet 18ml;0.93;18;Cuidado del Cabello;1.1;Cuidado Personal
+617;IMPRESION BLANCO Y NEGRO;0.25;18;TIENDA;0.3;
+618;Shampoo + Crema para Peinar PANTENE Dual Rizos Definidos 2 en 1 Sachet 18ml + 9ml;1.02;18;Cuidado del Cabello;1.2;Cuidado Personal
+619;Shampoo HEAD & SHOULDERS Dermo Sensitive Sachet 27ml;0.93;18;Cuidado del Cabello;1.1;Cuidado Personal
+620;Shampoo HEAD & SHOULDERS Protección caida Sachet 18ml;0.93;18;Cuidado del Cabello;1.1;Cuidado Personal
+621;Shampoo HEAD & SHOULDERS Limpieza Renovadora Sachet 18ml;0.93;18;Cuidado del Cabello;1.1;Cuidado Personal
+622;Gomitas TRULULU Osos Oro Sobre 90g;2.12;18;Gomitas;2.5;Dulcería
+623;Gomitas TRULULU Fresitas Sobre 90g;2.12;18;Gomitas;2.5;Dulcería
+624;Gomitas TRULULU Gusanos Acidos Sobre 70g;2.12;18;Gomitas;2.5;Dulcería
+625;Caramelos BIG BEN Chocolate Blanco por unidad;0.08;18;Caramelos;0.1;Dulcería
+626;Cigarro MARLBORO Summer Fusion por Unidad;1.27;18;Cigarros;1.5;Tabaco y Vapes
+627;Cigarro MARLBORO Red Forward por Unidad;1.27;18;Cigarros;1.5;Tabaco y Vapes
+628;Jabón de Tocador MONCLER Rosado Radiante Barra 110g;3.31;18;Jabones en Barra;3.9;Cuidado Personal
+629;Jabón de Tocador MONCLER Azul Refrescante Barra 110g;3.31;18;Jabones en Barra;3.9;Cuidado Personal
+630;Jabón de Tocador MONCLER Amarillo Energia Barra 110g;3.31;18;Jabones en Barra;3.9;Cuidado Personal
+632;Piña GOLDEN por unidad;4.24;18;Frutas;5;Frutas y Verduras
+635;Cuarto de Pollo CHIMÚ Pecho Fresco por Kg;9.24;18;Pollo;10.9;Carnes, Aves y Pescados
+636;Choclo por Un;1.27;18;Verduras;1.5;Frutas y Verduras
+637;Palta Fuerte por Un;1.53;18;Verduras;1.8;Frutas y Verduras
+638;Protectores Diarios NOSOTRAS Multiestilo Paquete 15un;2.8;18;Protección Femenina;3.3;Cuidado Personal
+639;Máquina de Afeitar GILLETTE Venus Suave;4.24;18;Afeitado y Depilación;5;Cuidado Personal
+640;Lavavajilla Líquido AYUDÍN Limón y Sábila Botella 215ml + Esponja;4.41;18;Lavavajillas;5.2;Limpieza
+641;Hepabionta Forte Cápsula;2.12;18;Salud;2.5;Cuidado Personal
+642;Ungüento tópico VICK Vaporub 12g;2.71;18;Salud;3.2;Cuidado Personal
+643;Toallas Higiénicas ALWAYS Cubierta Seca Día M Paquete 10un;4.07;18;Protección Femenina;4.8;Cuidado Personal
+644;Pasta Dental ORAL-B 4 en 1 Tubo 50ml;3.56;18;Cuidado Bucal;4.2;Cuidado Personal
+645;Pasta Dental ORAL-B Anticaries Tubo 50ml;2.63;18;Cuidado Bucal;3.1;Cuidado Personal
+646;Navajas GILLETTE Super Thin Caja 5un;1.69;18;Afeitado y Depilación;2;Cuidado Personal
+647;Máquina de Afeitar GILLETTE Prestobarba 3;4.24;18;Afeitado y Depilación;5;Cuidado Personal
+648;Suavizante DOWNY Aroma Floral Botella 360ml;3.9;18;Suavizantes;4.6;Cuidado de Ropa
+649;Suavizante DOWNY Aroma Floral Sachet 80 ml;1.1;18;Suavizantes;1.3;Cuidado de Ropa
+650;Shampoo PANTENE Restauración Frasco 100ml;4.07;18;Cuidado del Cabello;4.8;Cuidado Personal
+651;Shampoo PANTENE 2en1 Cuidado Clásico Frasco 100ml;4.07;18;Cuidado del Cabello;4.8;Cuidado Personal
+652;Crema para Peinar PANTENE Rizos Definidos Sachet 16ml;1.02;18;Cuidado del Cabello;1.2;Cuidado Personal
+653;Shampoo + Acondicionador PANTENE Restauración Sachet 18ml + 9ml;1.02;18;Cuidado del Cabello;1.2;Cuidado Personal
+654;Shampoo + Acondicionador PANTENE Hidratación Extrema Sachet 18ml + 9ml;1.02;18;Cuidado del Cabello;1.2;Cuidado Personal
+656;Chocolate BESOS DE MOZA Clásico 24g por unidad;1.27;18;Chocolatería;1.5;Dulcería
+658;Chocolate NESTLE Princesa Unidad 30g;2.29;18;Chocolatería;2.7;Dulcería
+659;Chocolate NESTLÉ Sublime Sonrisa Blanco Bolsa 38g;2.54;18;Chocolatería;3;Dulcería
+660;Crema de Leche NESTLÉ Lata 300g;8.9;18;Cremas de Leche;10.5;Lácteos y Huevos
+663;Suavizante DOWNY Aroma Lavanda Sachet 80 ml;1.1;18;Suavizantes;1.3;Cuidado de Ropa
+667;Papel Higienico PARACAS Doble Hoja Gold Negro Paquete 4un;6.69;18;Papel Higiénico;7.9;Limpieza
+668;Gaseosa COCA COLA Sabor Original Botella 1L - RETORNABLE;3.39;18;Gaseosas;4;Bebidas
+669;Caramelos FULL Cherry Bolsa 22.5g;0.85;18;Caramelos;1;Dulcería
+671;Caramelos FULL Limón Bolsa 22.5g;0.85;18;Caramelos;1;Dulcería
+672;Caramelos FULL Sandía Bolsa 22.5g;0.85;18;Caramelos;1;Dulcería
+673;Caramelos FULL Masticrunch Limón Bolsa 13.5g;0.42;18;Caramelos;0.5;Dulcería
+674;Caramelos MENTITAS Masticrunch Bolsa 13.5g;0.42;18;Caramelos;0.5;Dulcería
+675;Caramelos MENTITAS Bolsa 21g;0.85;18;Caramelos;1;Dulcería
+676;Mermelada FANNY Fresa Sachet 100g;1.69;18;Mermeladas, Mieles y Dulces;2;Desayunos
+677;Filete de Atún FANNY en Aceite Vegetal 140g;4.75;18;Conservas;5.6;Abarrotes
+678;Filete de Atún FANNY en Agua 140g;4.75;18;Conservas;5.6;Abarrotes
+679;Trozos de Atún FANNY en Aceite Vegetal 140g;4.41;18;Conservas;5.2;Abarrotes
+680;Grated de Atún FANNY en Aceite Vegetal 140g;3.14;18;Conservas;3.7;Abarrotes
+681;Grated de Atún FANNY en Agua 140g;2.97;18;Conservas;3.5;Abarrotes
+682;Chocolate con leche COSTA Vizzio Gragea Almendras Cubiertas Bolsa 21g;1.27;18;Chocolatería;1.5;Dulcería
+684;Chocolate con leche COSTA Vizzio Almendras Cubiertas Caja 69g;4.41;18;Chocolatería;5.2;Dulcería
+685;Chocolate con leche COSTA Vizzio Almendras Cubiertas Caja 122g;8.39;18;Chocolatería;9.9;Dulcería
+687;Wafer Cuadrado NIK Relleno con Crema Sabor a Vainilla Paquete 72g;1.69;18;Wafers y Barquillos;2;Dulcería
+690;Wafer Cuadrado NIK Relleno con Crema Sabor a Fresa Paquete 72g;1.69;18;Wafers y Barquillos;2;Dulcería
+691;Wafer Cuadrado NIK Relleno con Crema Sabor a Chocolate Paquete 72g;1.69;18;Wafers y Barquillos;2;Dulcería
+692;Wafer Cuadrado NIK Relleno con Crema Sabor a Fresa Paquete 27g;0.85;18;Wafers y Barquillos;1;Dulcería
+693;Chocolates COSTA Mecano 19g;0.85;18;Chocolatería;1;Dulcería
+694;Sazonador AJI-NO-MOTO Umami Glutamato de Sodio Bolsa 53g;1.27;18;Cremas y Condimentos;1.5;Abarrotes
+695;Gomitas TRULULU Sabores Sobre 90g;2.12;18;Gomitas;2.5;Dulcería
+696;Cigarro MARLBORO Gold por Unidad;1.27;18;Cigarros;1.5;Tabaco y Vapes
+697;Shampoo + Acondicionador PANTENE Colágeno Sachet 18ml + 9ml;1.02;18;Cuidado del Cabello;1.2;Cuidado Personal
+699;Bebida Rehidratante GATORADE Cool Blue Botella 500ml;2.12;18;Rehidratantes;2.5;Bebidas
+700;Bebida Rehidratante GATORADE Mandarina Botella 500ml;2.12;18;Rehidratantes;2.5;Bebidas
+701;Bebida Instantánea en Polvo ZUKO Piña a Sobre 15g;1.02;18;Refrescos;1.2;Abarrotes
+702;Bebida Instantánea en Polvo ZUKO Limonada Sobre 15g;1.02;18;Refrescos;1.2;Abarrotes
+703;Cigarro LUCKY STRIKE Wild Mix Mora por Unidad;1.27;18;Cigarros;1.5;Tabaco y Vapes
+704;Cigarro LUCKY STRIKE Double Chill Menta por Unidad;1.27;18;Cigarros;1.5;Tabaco y Vapes
+705;Cigarro LUCKY STRIKE Fresh Twist Sandía por Unidad;1.27;18;Cigarros;1.5;Tabaco y Vapes
+706;Vino SANTIAGO QUEIROLO Rosé Botella 750ml;15.25;18;Vinos;18;Licores
+707;Vino SANTIAGO QUEIROLO Tinto Magdalena Reserva Botella 750ml;15.25;18;Vinos;18;Licores
+708;Vino SANTIAGO QUEIROLO Tinto Gran Borgoña Botella 750ml;15.25;18;Vinos;18;Licores
+709;Vino TABERNERO Gran Blanco Semi Seco Botella 750ml;15.25;18;Vinos;18;Licores
+710;Vino TABERNERO Tinto Gran Tinto Semi Seco Botella 750ml;15.25;18;Vinos;18;Licores
+711;Vino TABERNERO Gran Rosé Semi Seco Afrutado Botella 750ml;15.25;18;Vinos;18;Licores
+712;Vino TABERNERO Tinto Borgoña Botella 750ml;15.25;18;Vinos;18;Licores
+718;Bizcocho Especial SAN MARTIN por unidad;1.27;18;Bizcochos;1.5;Panadería y Pastelería
+719;Bizcocho con Manjar Blanco SAN MARTIN por unidad;1.27;18;Bizcochos;1.5;Panadería y Pastelería
+720;Bizcocho Chancay GUSTAVO Bolsa 12un;3.05;18;Bizcochos;3.6;Panadería y Pastelería
+723;Keke de Vainilla GUSTAVO por Unidad;1.27;18;Kekes;1.5;Panadería y Pastelería
+724;Rosquitas SAN MARTIN Bolsa 10un;2.12;18;Roscas;2.5;Panadería y Pastelería
+725;Tostada con Ajo GUSTAVO Bolsa 20un;3.22;18;Tostadas;3.8;Panadería y Pastelería
+726;Tostada Integral GUSTAVO Paquete 10un;2.54;18;Tostadas;3;Panadería y Pastelería
+727;Tostada Clasica GUSTAVO Paquete 10un;2.54;18;Tostadas;3;Panadería y Pastelería
+728;Tortillas BIMBO Rapiditas Clásicas Bolsa 12un 310g;7.63;18;Tortillas;9;Panadería y Pastelería
+729;Tortillas BIMBO Rapiditas Integrales Bolsa 12un;8.05;18;Tortillas;9.5;Panadería y Pastelería
+734;Lapicero FABER-CASTELL Trilux 035 Fine Azul por Unidad;0.59;18;Escritura y Corrección;0.7;Librería y Oficina
+735;Lapicero FABER-CASTELL Trilux 035 Fine Rojo por Unidad;0.59;18;Escritura y Corrección;0.7;Librería y Oficina
+736;Lapicero FABER-CASTELL Trilux 035 Fine Negro por Unidad;0.59;18;Escritura y Corrección;0.7;Librería y Oficina
+737;Lapicero FABER-CASTELL Lux 034 Medium Negro por Unidad;0.42;18;Escritura y Corrección;0.5;Librería y Oficina
+738;Lapicero FABER-CASTELL Lux 034 Medium Azul por Unidad;0.42;18;Escritura y Corrección;0.5;Librería y Oficina
+739;Lapicero FABER-CASTELL Lux 034 Medium Rojo por Unidad;0.42;18;Escritura y Corrección;0.5;Librería y Oficina
+740;Papel Bond Fotocopia MILLENIUM 75g A-4 por unidad;0.08;18;Papelería;0.1;Librería y Oficina
+741;Cereal ANGEL Roja Flakes Bolsa 130g;2.97;18;Cereales;3.5;Desayunos
+742;Cereal ANGEL Rosado Fresia Almohada Bolsa 140g;2.97;18;Cereales;3.5;Desayunos
+743;Cereal ANGEL Celeste Copix Bolsa 120g;2.97;18;Cereales;3.5;Desayunos
+744;Ron CARTAVIO Black Botella 750ml;21.61;18;Rones;25.5;Licores
+745;Ron CARTAVIO Superior Botella 750ml;21.61;18;Rones;25.5;Licores
+746;Ron CARTAVIO Blanco Botella 750ml;21.61;18;Rones;25.5;Licores
+748;Ron CARTAVIO Black Botella 125ml;4.75;18;Rones;5.6;Licores
+750;Pisco VARGAS Puro de Ica Botella 125ml;5.51;18;Piscos;6.5;Licores
+751;Pisco VARGAS Puro de Ica Botella 750ml;19.92;18;Piscos;23.5;Licores
+752;Vino SANTIAGO QUEIROLO Tinto Malbec Seco 2022 Botella 750ml;15.25;18;Vinos;18;Licores
+753;Vino SANTIAGO QUEIROLO Rosé Shiraz 2022 Botella 750ml;15.25;18;Vinos;18;Licores
+754;Vino SANTIAGO QUEIROLO Tinto Gran Tinto Tannat 2022 Botella 750ml;15.25;18;Vinos;18;Licores
+755;Ron CABO BLANCO Black Botella 1L;16.53;18;Rones;19.5;Licores
+756;Ron CABO BLANCO Limón Botella 1L;16.53;18;Rones;19.5;Licores
+757;Pisco SANTIAGO QUEIROLO Italia Botella 750ml;25.34;18;Piscos;29.9;Licores
+758;Pisco SANTIAGO QUEIROLO Acholado Botella 750ml;25.34;18;Piscos;29.9;Licores
+759;Pisco SANTIAGO QUEIROLO Quebranta Botella 750ml;25.34;18;Piscos;29.9;Licores
+760;Pisco TABERNERO Italia La Botija Botella 700ml;24.49;18;Piscos;28.9;Licores
+761;Pisco TABERNERO Quebranta La Botija Botella 700ml;24.49;18;Piscos;28.9;Licores
+762;Pisco TABERNERO Acholado La Botija Botella 700ml;24.49;18;Piscos;28.9;Licores
+763;Pisco OCUCAJE Italia Botella 700ml;23.64;18;Piscos;27.9;Licores
+764;Pisco OCUCAJE Acholado Botella 700ml;23.64;18;Piscos;27.9;Licores
+765;Pisco OCUCAJE Quebranta Botella 700ml;23.64;18;Piscos;27.9;Licores
+769;Bebida Alcohólica Preparada FOUR LOKO Green Lata 473ml;9.24;18;Licores Preparados;10.9;Licores
+770;Mortadela RAZZETO Paquete 90g;1.53;18;Embutidos;1.8;Quesos y Embutidos
+771;Jamonada de Pollo Especial RAZZETO Paquete 90g;1.53;18;Embutidos;1.8;Quesos y Embutidos
+772;Tocino Ahumado RAZZETO Paquete 100g;6.36;18;Embutidos;7.5;Quesos y Embutidos
+773;Queso Fresco LIGHT a GRANEL por Kg;20.34;18;Quesos;24;Quesos y Embutidos
+777;Hot Dog RAZZETO por unidad;1.02;18;Embutidos;1.2;Quesos y Embutidos
+779;Cigarro LUCKY STRIKE Crush Reshape Naranja por Unidad;1.27;18;Cigarros;1.5;Tabaco y Vapes
+780;Papas Fritas INKA CHIPS Peruanas Bembos Hamburguesa Bolsa 120g;6.36;18;Papas;7.5;Snacks
+781;Papas Fritas INKA CHIPS Peruanas Nativas Bolsa 135g;6.36;18;Papas;7.5;Snacks
+782;Cinta de Embalaje TAIPEI por Unidad;2.97;18;Adhesivos y Cintas;3.5;Librería y Oficina
+783;Bebida Alcohólica Preparada FOUR LOKO Purple Lata 473ml;9.24;18;Licores Preparados;10.9;Licores
+784;Bebida Alcohólica Preparada FOUR LOKO Blue Lata 473ml;9.24;18;Licores Preparados;10.9;Licores
+785;Bebida Alcohólica Preparada FOUR LOKO Gold Lata 473ml;9.24;18;Licores Preparados;10.9;Licores
+786;Bebida Alcohólica Preparada FOUR LOKO Ponche Frutas Lata 473ml;9.24;18;Licores Preparados;10.9;Licores
+787;Bebida Alcohólica Preparada FOUR LOKO Sabor Sandia Lata 473ml;9.24;18;Licores Preparados;10.9;Licores
+788;Encendedor EXIS Sistema Piedra por unidad;0.85;18;Encendedores;1;Hogar y Ferretería
+789;Papas Fritas INKA CHIPS Caramel & BBQ Bolsa 30g;2.12;18;Papas;2.5;Snacks
+790;Papas Fritas INKA CHIPS Sal de Mar Bolsa 33g;2.12;18;Papas;2.5;Snacks
+791;Papas Fritas INKA CHIPS Jalapeños Bolsa 30g;2.12;18;Papas;2.5;Snacks
+792;Papas Fritas INKA CHIPS Caramel & BBQ Bolsa 135g;6.36;18;Papas;7.5;Snacks
+793;Papas Fritas INKA CHIPS Sal de Mar Bolsa 135g;6.36;18;Papas;7.5;Snacks
+794;Papas Fritas INKA CHIPS Jalapeños Bolsa 135g;6.36;18;Papas;7.5;Snacks
+795;Cigarro LUCKY STRIKE Big Chill por Unidad;1.27;18;Cigarros;1.5;Tabaco y Vapes
+796;Rosquitas de Anís GUSTAVO Bolsa 12un;2.12;18;Roscas;2.5;Panadería y Pastelería
+798;Gomitas TRULULU Sirenas Sobre 88g;2.12;18;Gomitas;2.5;Dulcería
+799;Gomitas TRULULU Aros Sobre 80g;2.12;18;Gomitas;2.5;Dulcería
+803;Chocolate NESTLÉ Kitkat Finger 41,5g;3.81;18;Chocolatería;4.5;Dulcería
+806;Panetón DONOFRIO Bolsa 900g;23.64;18;Panetones;27.9;Panadería y Pastelería
+807;Bebida de Leche GLORIA Yofresh Sabor a Fresa Caja 180ml;1.69;18;Yogurts;2;Lácteos y Huevos
+808;Yogurt Bebible GLORIA Sabor a Vainilla Botella 946gr;5.93;18;Yogurts;7;Lácteos y Huevos
+809;Yogurt Bebible GLORIA Sabor a Durazno Botella 946gr;5.93;18;Yogurts;7;Lácteos y Huevos
+810;Yogurt Bebible GLORIA Sabor a Fresa Botella 946gr;5.93;18;Yogurts;7;Lácteos y Huevos
+811;Chocolate NESTLÉ Sublime Clásico Bolsa 28g;1.69;18;Chocolatería;2;Dulcería
+812;Shampoo HEAD & SHOULDERS Suave y Manejable 2en1 Frasco 90ml;3.81;18;Cuidado del Cabello;4.5;Cuidado Personal
+813;Fósforos INTI Parrillero por Unidad;1.27;18;Fósforos;1.5;Hogar y Ferretería
+814;Shampoo PANTENE 2en1 Rizos Definidos Frasco 100ml;4.07;18;Cuidado del Cabello;4.8;Cuidado Personal
+817;Gaseosa SPRITE Lima limón Botella 300ml;1.27;18;Gaseosas;1.5;Bebidas
+818;Gaseosa FANTA Naranja Botella 300ml;1.27;18;Gaseosas;1.5;Bebidas
+821;Agua SAN LUIS Sin Gas Bidón 7L;8.05;18;Agua de Mesa;9.5;Bebidas
+822;Gaseosa COCA COLA Sin Azúcar Botella 500ml;2.54;18;Gaseosas;3;Bebidas
+823;Mantequilla LAIVE con Sal Barra 100g;5.42;18;Mantequilla y Margarina;6.4;Lácteos y Huevos
+824;Queso Parmesano Rallado LAIVE Paquete 35g;4.24;18;Quesos;5;Quesos y Embutidos
+828;Margarina LAIVE Swis Barra 90g;2.54;18;Mantequilla y Margarina;3;Lácteos y Huevos
+829;Margarina LAIVE Swis Barra 200g;4.15;18;Mantequilla y Margarina;4.9;Lácteos y Huevos
+832;Yogurt Griego GLORIA con Cereal y Miel Vaso 128gr;3.56;18;Yogurts;4.2;Lácteos y Huevos
+839;Bebida GLORIA Piña Caja 1L;3.9;18;Jugos y Néctares;4.6;Bebidas
+840;Bebida GLORIA Durazno Caja 1L;3.9;18;Jugos y Néctares;4.6;Bebidas
+841;Bebida GLORIA Maracuyá Caja 1L;3.9;18;Jugos y Néctares;4.6;Bebidas
+842;Bebida GLORIA Mango Caja 1L;3.9;18;Jugos y Néctares;4.6;Bebidas
+848;Queso Mozzarella BONLÉ Paquete 250g;10.17;18;Quesos;12;Quesos y Embutidos
+849;Queso Parmesano Rallado BONLÉ Paquete 35g;3.98;18;Quesos;4.7;Quesos y Embutidos
+850;Mantequilla GLORIA con Sal Barra 90g;5.51;18;Mantequilla y Margarina;6.5;Lácteos y Huevos
+851;Mantequilla GLORIA con Sal Pote 180g;11.44;18;Mantequilla y Margarina;13.5;Lácteos y Huevos
+852;Yogurt GLORIA Battimix Vainilla con Arroz Crujiente Bañado en Chocolate Vaso 145g;3.14;18;Yogurts;3.7;Lácteos y Huevos
+853;Yogurt GLORIA Battimix Vainilla con Hojuelas Vaso 144g;3.14;18;Yogurts;3.7;Lácteos y Huevos
+854;Yogurt GLORIA Battimix Fresa con Arroz Crujiente Bañado en Chocolate Vaso 145g;3.14;18;Yogurts;3.7;Lácteos y Huevos
+857;Bebida TAMPICO Citrus Punch Botella 500ml;1.53;18;Otras Bebidas;1.8;Bebidas
+858;Bebida TAMPICO Citrus Punch Botella 3L;5.93;18;Otras Bebidas;7;Bebidas
+859;Limpiador en Crema CIF Bioactive Original Botella 375g;5.93;18;Limpiadores Multiusos;7;Limpieza
+860;Limpiador en Crema CIF Bioactive Limón Botella 750g;10.68;18;Limpiadores Multiusos;12.6;Limpieza
+861;Shampoo SEDAL Ceramidas Sachet 40ml;1.27;18;Cuidado del Cabello;1.5;Cuidado Personal
+862;Desodorante en Crema REXONA para Hombre V8 Sachet 10g;1.27;18;Higiene Personal;1.5;Cuidado Personal
+863;Chifles MARANATHA Bolsa 40g;0.85;18;Camotes y Chifles;1;Snacks
+865;Gomitas TRULULU Casquitos 90g;2.12;18;Gomitas;2.5;Dulcería
+868;Choco Snacks BIG BEN Chocolate y Maní Bolsa 55g;2.12;18;Chocolatería;2.5;Dulcería
+869;Choco Snacks BIG BEN Malteada Chocolate Bolsa 60g;2.12;18;Chocolatería;2.5;Dulcería
+870;Choco Snacks BIG BEN Coockies and Cream Bolsa 48g;2.12;18;Chocolatería;2.5;Dulcería
+871;Choco Snacks BIG BEN Encanto de Fresa Bolsa 60g;2.12;18;Chocolatería;2.5;Dulcería
+873;Bebida Energizante VOLT Colágeno + Aloe Vera Botella 300ml;2.12;18;Energizantes;2.5;Bebidas
+875;Bebida CIFRUT Fruit Punch Botella 1.5L;3.39;18;Otras Bebidas;4;Bebidas
+876;Cigarro LUCKY STRIKE Red por Unidad;1.27;18;Cigarros;1.5;Tabaco y Vapes
+878;Naranja por Kg;0.42;18;Frutas;0.5;Frutas y Verduras
+879;Gaseosa FANTA Naranja Botella 2.25L;6.78;18;Gaseosas;8;Bebidas
+880;Gaseosa SPRITE Lima limón Botella 2.25L;6.78;18;Gaseosas;8;Bebidas
+881;Bebida FRUGOS DEL VALLE Fresh Citrus Botella 500ml;1.69;18;Otras Bebidas;2;Bebidas
+882;Bebida FRUGOS DEL VALLE Fresh Citrus Botella 1.5L;3.81;18;Otras Bebidas;4.5;Bebidas
+884;Gaseosa FANTA Naranja Botella 1.5L;4.24;18;Gaseosas;5;Bebidas
+885;Gaseosa FANTA Kola Inglesa Botella 500ml;2.12;18;Gaseosas;2.5;Bebidas
+886;Gaseosa INCA KOLA Sin Azúcar Botella 500 ml;2.54;18;Gaseosas;3;Bebidas
+887;Gaseosa SPRITE Lima Limón Botella 1.5L;4.24;18;Gaseosas;5;Bebidas
+888;Cerveza PILSEN Callao Botella 630 ml - RETORNABLE;5.51;18;Con Alcohol;6.5;Cervezas
+889;Cerveza CUSQUEÑA Negra Botella 620 ml - RETORNABLE;6.36;18;Con Alcohol;7.5;Cervezas
+890;Cerveza CORONA Extra Botella 330ml;4.24;18;Con Alcohol;5;Cervezas
+891;Cerveza PILSEN Trujillo Lata 355ml;3.39;18;Con Alcohol;4;Cervezas
+893;Gaseosa GUARANÁ Botella 2L;4.66;18;Gaseosas;5.5;Bebidas
+894;Gaseosa GUARANÁ Botella 3L;6.69;18;Gaseosas;7.9;Bebidas
+896;Limpiador POETT Bebé Botella 750 ml;2.88;18;Limpiadores Multiusos;3.4;Limpieza
+897;Galletas SAN JORGE Vainilla Familiar Paquete 120g;1.36;18;Galletas;1.6;Dulcería
+898;Sopa Instantánea con Fideos AJINOMEN Sabor Carne Bolsa 80g;1.69;18;Comida Instantánea;2;Abarrotes
+899;Polvo para Hornear ROYAL Sobre 20g;1.27;18;Polvo para Hornear;1.5;Repostería
+900;Galletas RITZ Queso Paquete 30g;1.02;18;Galletas;1.2;Dulcería
+901;Galletas OREO Original Taco 108g;2.2;18;Galletas;2.6;Dulcería
+902;Papel Toalla NOVA Clásica Mega Rollo 1un;2.12;18;Papel Toalla;2.5;Limpieza
+903;Papel Toalla NOVA Clásica Mega Rollo 2un;3.81;18;Papel Toalla;4.5;Limpieza
+906;Limpiador POETT Frescura de Lavanda Botella 750 ml;2.88;18;Limpiadores Multiusos;3.4;Limpieza
+908;Limpiador POETT Flores de Primavera Botella 750 ml;2.88;18;Limpiadores Multiusos;3.4;Limpieza
+910;Galletas SAN JORGE de Soda Familiar 75g;1.36;18;Galletas;1.6;Dulcería
+912;Galletas SAN JORGE Cracknel Integrale Paquete 175g;2.12;18;Galletas;2.5;Dulcería
+913;Galletas SAN JORGE Coconut Paquete 55g;0.85;18;Galletas;1;Dulcería
+914;Galletas Fruta Mixta SAN JORGE Paquete 55g;0.85;18;Galletas;1;Dulcería
+915;Galletas SAN JORGE Munición Paquete 55g;0.85;18;Galletas;1;Dulcería
+916;Galletas SAN JORGE Vainilla Gourmet Paquete 250g;2.71;18;Galletas;3.2;Dulcería
+917;Galletas RELLENITAS de Lúcuma Paquete 36g;0.42;18;Galletas;0.5;Dulcería
+918;Galletas RELLENITAS de Chocolate Fresa Paquete 36g;0.42;18;Galletas;0.5;Dulcería
+919;Galletas RELLENITAS de Chocolate Menta Paquete 36g;0.42;18;Galletas;0.5;Dulcería
+920;Galletas RELLENITAS de Coco Taco Paquete 90g;1.27;18;Galletas;1.5;Dulcería
+921;Galletas RELLENITAS de Fresa Taco Paquete 90g;1.27;18;Galletas;1.5;Dulcería
+922;Galletas RELLENITAS de Chocolate Taco Paquete 90g;1.27;18;Galletas;1.5;Dulcería
+929;Galletas GLACITAS Bañadas con Sabor a Fresa Paquete 32g;0.85;18;Galletas;1;Dulcería
+930;Margarina SELLO DE ORO Barra 45g;1.27;18;Mantequilla y Margarina;1.5;Lácteos y Huevos
+931;Margarina SELLO DE ORO Barra 200g;3.81;18;Mantequilla y Margarina;4.5;Lácteos y Huevos
+933;Detergente en Polvo BOLIVAR Cuidado Total Bolsa 140g;2.12;18;Detergentes;2.5;Cuidado de Ropa
+934;Detergente en Polvo BOLIVAR Cuidado Total Bolsa 320g;5.51;18;Detergentes;6.5;Cuidado de Ropa
+935;Detergente en Polvo BOLIVAR Cuidado Total Bolsa 430g;6.36;18;Detergentes;7.5;Cuidado de Ropa
+936;Detergente en Polvo OPAL Ultra Bolsa 140g;1.69;18;Detergentes;2;Cuidado de Ropa
+937;Detergente en Polvo OPAL Ultra Bolsa 320g;3.81;18;Detergentes;4.5;Cuidado de Ropa
+938;Detergente en Polvo OPAL Ultra Bolsa 430g;4.66;18;Detergentes;5.5;Cuidado de Ropa
+939;Mayonesa ALACENA Doypack 95g;3.39;18;Cremas y Condimentos;4;Abarrotes
+940;Ketchup ALACENA Doypack 100g;2.97;18;Cremas y Condimentos;3.5;Abarrotes
+941;Huancaína ALACENA Doypack 85g;2.97;18;Cremas y Condimentos;3.5;Abarrotes
+942;Margarina MANTY Pote 90g;2.2;18;Mantequilla y Margarina;2.6;Lácteos y Huevos
+944;Café Tostado y Molido CAFETAL Selecto Bolsa 50g;2.12;18;Café e Infusiones;2.5;Desayunos
+945;Piqueos TOR-TEES Picante Bolsaza Bolsa 138g;3.14;18;Piqueos Mixtos;3.7;Snacks
+946;Tortillas de Maíz DORITOS Queso Fuego Bolsa 45g;1.86;18;Maiz;2.2;Snacks
+948;Papas LAYS al Hilo Bolsa 40g;1.69;18;Papas;2;Snacks
+952;Alfajor de Maicena SAN MARTIN por unidad;2.12;18;Pasteles;2.5;Panadería y Pastelería
+953;Botija SAN MARTIN por unidad;2.12;18;Pasteles;2.5;Panadería y Pastelería
+954;Milhoja SAN MARTIN por unidad;2.12;18;Pasteles;2.5;Panadería y Pastelería
+955;Palitos Ajonjoli SAN MARTIN Bolsa 8un;1.69;18;Roscas;2;Panadería y Pastelería
+958;Yogurt Bebible GLORIA Sabor a Fresa Botella 180gr;1.69;18;Yogurts;2;Lácteos y Huevos
+959;Yogurt Bebible GLORIA Sabor a Vainilla Botella 180gr;1.69;18;Yogurts;2;Lácteos y Huevos
+960;Yogurt Bebible GLORIA Sabor a Fresa Botella 500gr;3.81;18;Yogurts;4.5;Lácteos y Huevos
+961;Yogurt Bebible GLORIA Sabor a Vainilla Botella 500gr;3.81;18;Yogurts;4.5;Lácteos y Huevos
+966;Leche GLORIA Evaporada Entera Lata 390g;3.56;18;Leches;4.2;Lácteos y Huevos
+967;Bizcocho Integral SAN MARTIN Bolsa 6un;2.12;18;Bizcochos;2.5;Panadería y Pastelería
+969;Chicle ADAMS 2 pastillas Caja 2.8g;0.21;18;Gomas de Mascar;0.25;Dulcería
+970;Chicle BUBBALOO Sabor Banana por unidad;0.21;18;Gomas de Mascar;0.25;Dulcería
+971;Chicle BUBBALOO Sabor Fresa por unidad;0.21;18;Gomas de Mascar;0.25;Dulcería
+972;Chicharrón Jacks Clásico 24gr;1.86;18;Maiz;2.2;Snacks
+975;Piqueos CHEETOS Boliqueso Bolsa 35g;1.69;18;Maiz;2;Snacks
+977;Queso Tipo Suizo para Rallar a GRANEL por Kg;22.03;18;Quesos;26;Quesos y Embutidos
+978;Gaseosa FANTA Naranja Botella 2L - RETORNABLE;4.24;18;Gaseosas;5;Bebidas
+979;Néctar FRUGOS DEL VALLE Sabor a Durazno Botella 1L;4.66;18;Jugos y Néctares;5.5;Bebidas
+980;Bebida Rehidratante POWERADE Uva Botella 600ml;2.12;18;Rehidratantes;2.5;Bebidas
+981;Bebida Rehidratante POWERADE Limón Botella 600ml;2.12;18;Rehidratantes;2.5;Bebidas
+982;Bebida Energizante MONSTER Energy Zero Sugar Lata 473ml;7.2;18;Energizantes;8.5;Bebidas
+983;Bebida Energizante MONSTER Energy Mango Loco Lata 473ml;7.2;18;Energizantes;8.5;Bebidas
+984;Bebida FRUGOS DEL VALLE Fresh Fruit Punch Botella 500ml;1.69;18;Otras Bebidas;2;Bebidas
+985;Galletas COSTA Choco Donuts Crunch Paquete 33g;0.85;18;Galletas;1;Dulcería
+986;Bizcocho CHOCMAN Doble Manjar Paquete 50g;1.27;18;Bizcotelas;1.5;Dulcería
+987;Galletas COSTA Choco Chips Bolsa 34g;0.85;18;Galletas;1;Dulcería
+988;Galletas COSTA Fiesta Chips Bolsa 34g;0.85;18;Galletas;1;Dulcería
+989;Barquillos COSTA Obsesión Paquete 21g;0.68;18;Wafers y Barquillos;0.8;Dulcería
+990;Avena 3 OSITOS Clásica Bolsa 100g;1.1;18;Avenas;1.3;Desayunos
+992;Chorizo Parrillero Precocido RAZZETO Paquete 1un;1.69;18;Embutidos;2;Quesos y Embutidos
+995;Papel Higienico PARACAS Doble Hoja Gold Negro Paquete 2un;3.56;18;Papel Higiénico;4.2;Limpieza
+996;Papel Higiénico PARACAS Doble Hoja Celeste Paquete 4un;3.81;18;Papel Higiénico;4.5;Limpieza
+999;Café Instantáneo ALTOMAYO Gourmet Sachet 15gr;2.54;18;Café e Infusiones;3;Desayunos
+1000;Café Instantáneo ALTOMAYO Gourmet Sachet 7gr;1.53;18;Café e Infusiones;1.8;Desayunos
+1001;Maní Salado FRUSEC;1.02;18;Frutos Secos;1.2;Snacks
+1002;Maní Confitado FRUSEC;1.02;18;Frutos Secos;1.2;Snacks
+1003;Habas Fritas FRUSEC;1.02;18;Frutos Secos;1.2;Snacks
+1004;Pasas FRUSEC;1.02;18;Frutos Secos;1.2;Snacks
+1006;Pecana FRUSEC;1.69;18;Frutos Secos;2;Snacks
+1007;Almendra FRUSEC;1.69;18;Frutos Secos;2;Snacks
+1008;Guindón FRUSEC;1.69;18;Frutos Secos;2;Snacks
+1009;Kión por Kg;10.17;18;Verduras;12;Frutas y Verduras
+1010;Papel Higiénico ELITE Doble Hoja Paquete 6un;5.08;18;Papel Higiénico;6;Limpieza
+1011;Papel Higiénico NOBLE Doble Hoja Premium Paquete 4 unid;6.36;18;Papel Higiénico;7.5;Limpieza
+1013;Leche GLORIA Entera en Polvo Bolsa 96gr;4.07;18;Leche en Polvo;4.8;Lácteos y Huevos
+1015;Petipan GUSTAVO Bolsa 12un;3.05;18;Panes Envasados;3.6;Panadería y Pastelería
+1016;Bebida GLORIA Naranja Caja 1L;3.9;18;Jugos y Néctares;4.6;Bebidas
+1019;Bolsas de Basura AZUL 26cm x 40cm por unidad;0.34;18;Bolsas de Plástico;0.4;Descartables
+1020;Maiz Paccho a GRANEL Bolsa 250g;2.12;18;Menestras;2.5;Abarrotes
+1024;Cigarro GOLDEN BEACH Full Flavor 20un;3.81;18;Cigarros;4.5;Tabaco y Vapes
+1025;Cerveza PILSEN Trujillo Botella 620ml - RETORNABLE;5.51;18;Con Alcohol;6.5;Cervezas
+1027;Camotes Fritos MARANATHA Bolsa 30g;0.85;18;Camotes y Chifles;1;Snacks
+1028;Detergente en polvo PATITO Bebé Bolsa 140g;1.27;18;Detergentes;1.5;Cuidado de Ropa
+1030;Infusiones MC COLIN'S Boldo Caja 25un;2.71;18;Café e Infusiones;3.2;Desayunos
+1033;Avena QUAKER Tradicional Bolsa 200g;2.12;18;Avenas;2.5;Desayunos
+1034;Gel para Hombre EGO Ultra Intense Pote 110ml;4.07;18;Cuidado del Cabello;4.8;Cuidado Personal
+1035;Gel para Hombre EGO Extreme Max Pote 110ml;4.07;18;Cuidado del Cabello;4.8;Cuidado Personal
+1036;Cereal ANGEL Azul Zuck Bolsa 20g;0.85;18;Cereales;1;Desayunos
+1037;Cereal ANGEL Marrón Chock Bolsa 20g;0.85;18;Cereales;1;Desayunos
+1038;Cereal ANGEL Verde Fruit Bolsa 20g;0.85;18;Cereales;1;Desayunos
+1039;Cereal ANGEL Roja Flakes Bolsa 20g;0.85;18;Cereales;1;Desayunos
+1043;Choco Crema CHIN CHIN Punch 13g;0.85;18;Chocolatería;1;Dulcería
+1045;Pasas Bañadas con Chocolate FOCHIS Bolsa 28gr;1.27;18;Chocolatería;1.5;Dulcería
+1046;Galletas PICARAS Chips Paquete 40g;1.02;18;Galletas;1.2;Dulcería
+1047;Galletas PICARAS Extrema Paquete 40g;1.02;18;Galletas;1.2;Dulcería
+1048;Galletas PICARAS Fresa Paquete 40g;1.02;18;Galletas;1.2;Dulcería
+1049;Cocoa WINTER'S Sobre 43g;2.46;18;Modificadores de leche;2.9;Desayunos
+1050;Bebida Instantánea en Polvo ZUKO Manzana Sobre 15g;1.02;18;Refrescos;1.2;Abarrotes
+1051;Bebida Instantánea en Polvo ZUKO Maracuya Sobre 15g;1.02;18;Refrescos;1.2;Abarrotes
+1052;Bebida Instantánea en Polvo ZUKO Fresa Sobre 15g;1.02;18;Refrescos;1.2;Abarrotes
+1054;Galletas PICARAS Mini Clásicas Paquete 46g;1.69;18;Galletas;2;Dulcería
+1057;Keke BIMBO Bimboletes Marmoleados Paquete 2un 70g;2.12;18;Kekes;2.5;Panadería y Pastelería
+1058;Keke BIMBO Bimboletes Sabor a Vainilla Paquete 2un 70g;2.12;18;Kekes;2.5;Panadería y Pastelería
+1059;Pastelito Gansito MARINELA Bolsa 50g;2.12;18;Pasteles;2.5;Panadería y Pastelería
+1062;Bebida FRUGOS DEL VALLE Fresh Fruit Punch Botella 1.5L;3.81;18;Otras Bebidas;4.5;Bebidas
+1064;Leche GLORIA Chocolatada UHT Caja 946ml;5.34;18;Leches;6.3;Lácteos y Huevos
+1065;Yogurt Bebible GLORIA Sabor a Guanábana Botella 946gr;5.93;18;Yogurts;7;Lácteos y Huevos
+1066;Bebida CIFRUT Citrus Punch Botella 1.5L;3.39;18;Otras Bebidas;4;Bebidas
+1068;Cigarro LUCKY STRIKE Blue Por Unidad;1.27;18;Cigarros;1.5;Tabaco y Vapes
+1069;Gaseosa CONCORDIA Sabor Piña Botella 500ml;1.69;18;Gaseosas;2;Bebidas
+1070;Gaseosa CONCORDIA Sabor Fresa Botella 500ml;1.69;18;Gaseosas;2;Bebidas
+1071;Gaseosa TRIPLE KOLA Botella 500ml;1.69;18;Gaseosas;2;Bebidas
+1072;Gaseosa SEVEN UP Lima Limón Botella 500ml;1.69;18;Gaseosas;2;Bebidas
+1073;Papas Fritas INKA CHIPS Queso & CebollaBolsa 30g;2.12;18;Papas;2.5;Snacks
+1074;Shampoo HEAD & SHOULDERS Suave y Manejable 2en1 Sachet 30ml;1.53;18;Cuidado del Cabello;1.8;Cuidado Personal
+1077;Leche Condensada NESTLÉ Doypack 180g;3.81;18;Leche Condensada;4.5;Repostería
+1078;Detergente en Polvo ARIEL Pro Cuidado Bolsa 150g;3.05;18;Detergentes;3.6;Cuidado de Ropa
+1079;Detergente en Polvo ACE Limpieza Completa Bolsa 280g;4.15;18;Detergentes;4.9;Cuidado de Ropa
+1081;Gaseosa PEPSI Botella 3L;8.05;18;Gaseosas;9.5;Bebidas
+1082;Gaseosa PEPSI Botella 600ml;2.12;18;Gaseosas;2.5;Bebidas
+1083;Gaseosa PEPSI Botella 750ml;2.54;18;Gaseosas;3;Bebidas
+1084;Gaseosa PEPSI Botella 1L;2.97;18;Gaseosas;3.5;Bebidas
+1087;Gaseosa CONCORDIA Sabor Fresa Botella 3L;6.36;18;Gaseosas;7.5;Bebidas
+1088;Gaseosa CONCORDIA Sabor Piña Botella 1.5L;3.81;18;Gaseosas;4.5;Bebidas
+1089;Gaseosa CONCORDIA Sabor Piña Botella 3L;6.36;18;Gaseosas;7.5;Bebidas
+1090;Vodka SMIRNOFF Ice Red Original Classic Lemon Lata 350ml;6.78;18;Licores Preparados;8;Licores
+1091;Vodka SMIRNOFF Ice Green Apple Lata 350ml;6.78;18;Licores Preparados;8;Licores
+1092;Papel Higiénico SUAVE Resistemax Megarollo Negro Paquete 4un;6.36;18;Papel Higiénico;7.5;Limpieza
+1094;Agua SAN LUIS con Gas Sabor Maracuyá Botella 625ml;1.69;18;Aguas Saborizadas;2;Bebidas
+1095;Papel Toalla SCOTT Multiusos 1un;2.2;18;Papel Toalla;2.6;Limpieza
+1096;Maracuyá por Kg;6.78;18;Frutas;8;Frutas y Verduras
+1097;Papaya por unidad;3.81;18;Frutas;4.5;Frutas y Verduras
+1100;Tortillas de Maíz DORITOS Flamin Hot Bolsa 43g;1.86;18;Maiz;2.2;Snacks
+1102;Detergente en Polvo MARSELLA Profesional a GRANEL Bolsa 500g;3.39;18;Detergentes;4;Cuidado de Ropa
+1103;Papas PRINGLES Sabor Original Lata 37g;4.66;18;Papas;5.5;Snacks
+1104;Papel Higiénico SUAVE Cuidado Completo Verde Paquete 6un;5.25;18;Papel Higiénico;6.2;Limpieza
+1105;Toallas Higiénicas KOTEX Nocturna 8un;4.66;18;Protección Femenina;5.5;Cuidado Personal
+1106;Toallas Higiénicas KOTEX Normal 10un;4.24;18;Protección Femenina;5;Cuidado Personal
+1107;Protectores Diarios KOTEX Cuidado Diario Paquete 20un;3.39;18;Protección Femenina;4;Cuidado Personal
+1108;Lavavajilla Pasta SAPOLIO Limón Pote 800g;4.92;18;Lavavajillas;5.8;Limpieza
+1109;Lavavajilla Pasta SAPOLIO Limón Pote 330g;2.54;18;Lavavajillas;3;Limpieza
+1110;Galletas CASINO con Crema Sabor a Fresa Taco 129g;2.12;18;Galletas;2.5;Dulcería
+1111;Agua SAN LUIS con Gas Sabor Manzana Botella 625ml;1.69;18;Aguas Saborizadas;2;Bebidas
+1112;Galletas SAN JORGE de Soda Gourmet Bolsa 250 gr;2.97;18;Galletas;3.5;Dulcería
+1113;Margarina SELLO DE ORO Barra 90g;2.12;18;Mantequilla y Margarina;2.5;Lácteos y Huevos
+1114;Bebida Energizante MONSTER Energy Ultra Lata 473ml;7.2;18;Energizantes;8.5;Bebidas
+1115;Harina FAVORITA Sin Preparar Bolsa 1Kg;4.41;18;Harinas y Féculas;5.2;Repostería
+1116;Harina FAVORITA Sin Preparar Bolsa 200g;1.27;18;Harinas y Féculas;1.5;Repostería
+1118;Suavizante BOLIVAR Plus Lavanda Doypack 400ml;3.56;18;Suavizantes;4.2;Cuidado de Ropa
+1119;Suavizante BOLIVAR Plus Lavanda Sachet 80ml;0.85;18;Suavizantes;1;Cuidado de Ropa
+1120;Aceite Vegetal MIRASOL Botella 900ml;6.78;18;Aceites;8;Abarrotes
+1121;Galletas CASINO con Crema Sabor a Lúcuma Paquete 43g;0.85;18;Galletas;1;Dulcería
+1122;Galletas SODA V Sabor Original Paquete 35g;0.51;18;Galletas;0.6;Dulcería
+1123;Mayonesa ALACENA Doypack 8g;0.34;18;Cremas y Condimentos;0.4;Abarrotes
+1126;Cerveza PILSEN Callao Lata 473ml;4.66;18;Con Alcohol;5.5;Cervezas
+1131;Vodka MIKE'S Hard Passion Fruit Lemonade Lata 355ml;5.51;18;Licores Preparados;6.5;Licores
+1132;Vodka MIKE'S Hard Strawberry Lemonade Lata 355ml;5.51;18;Licores Preparados;6.5;Licores
+1137;Gomas ARCOR MOGUL Sabores frutados Bolsa 35g;1.27;18;Gomitas;1.5;Dulcería
+1139;Galletas GN Vainilla Paquete 28g;0.42;18;Galletas;0.5;Dulcería
+1140;Café Pasado BELCAFE Botella 300ml;5.59;18;Café e Infusiones;6.6;Desayunos
+1143;Testa RAZZETO 90gr;2.97;18;Embutidos;3.5;Quesos y Embutidos
+1148;Gaseosa FANTA Naranja Botella 192ml - RETORNABLE;0.85;18;Gaseosas;1;Bebidas
+1150;Néctar FRUGOS DEL VALLE Sabor a Manzana Caja 970ml;3.81;18;Jugos y Néctares;4.5;Bebidas
+1151;Néctar FRUGOS DEL VALLE Sabor a Durazno Botella 300ml;2.12;18;Jugos y Néctares;2.5;Bebidas
+1152;Vaso Descargable EL ROJITO San Gabriel 5.5oz por unidad;0.08;18;Vajilla Descartable;0.1;Descartables
+1153;"ENVASE 	- Gaseosa COCA COLA Sabor Original Botella 192ml";0.85;18;Envases;1;TIENDA
+1154;ENVASE - Gaseosa INCA KOLA Sabor Original Botella 625ml;0.85;18;Envases;1;TIENDA
+1155;ENVASE - Gaseosa INCA KOLA Sabor Original Botella 192ml;0.85;18;Envases;1;TIENDA
+1156;ENVASE - Gaseosa COCA COLA Sabor Original Botella 2L;1.69;18;Envases;2;TIENDA
+1157;ENVASE - Gaseosa INCA KOLA Sabor Original Botella 2L;1.69;18;Envases;2;TIENDA
+1158;ENVASE - Gaseosa COCA COLA Sabor Original Botella 400ml;0.85;18;Envases;1;TIENDA
+1159;ENVASE - Gaseosa INCA KOLA Sabor Original Botella 400ml;0.85;18;Envases;1;TIENDA
+1160;ENVASE - Gaseosa INCA KOLA Sabor Original Botella 1L;1.69;18;Envases;2;TIENDA
+1161;ENVASE - Cerveza PILSEN Callao Botella 305ml;0.42;18;Envases;0.5;TIENDA
+1162;ENVASE - Gaseosa COCA COLA Sabor Original Botella 1L;1.69;18;Envases;2;TIENDA
+1163;ENVASE - Gaseosa COCA COLA Sabor Original Botella 625ml;0.85;18;Envases;1;TIENDA
+1164;ENVASE - Cerveza PILSEN Callao Botella 630 ml;0.85;18;Envases;1;TIENDA
+1165;ENVASE - Gaseosa FANTA Naranja Botella 2L;1.69;18;Envases;2;TIENDA
+1166;ENVASE - Cerveza PILSEN Trujillo Botella 620ml;0.85;18;Envases;1;TIENDA
+1169;ENVASE - Gaseosa FANTA Naranja Botella 192ml;0.85;18;Envases;1;TIENDA
+1171;Chuño UNIVERSAL Bolsa 180g;2.8;18;Harinas y Féculas;3.3;Repostería
+1172;Keke Marmoleado GUSTAVO por Unidad;1.27;18;Kekes;1.5;Panadería y Pastelería
+1176;Cigarro HAMILTON Fresh 20un;3.81;18;Cigarros;4.5;Tabaco y Vapes
+1179;Bebida de Almendras LAIVE Caja 946ml;8.9;18;Leche de Soya y Otras Bebidas Vegetales;10.5;Lácteos y Huevos
+1180;Chocolate CAÑONAZO Extra Paquete 39g;1.27;18;Chocolatería;1.5;Dulcería
+1181;Caramelos FULL Mandarina Bolsa 22.5g;0.85;18;Caramelos;1;Dulcería
+1182;Helado Peziduri D'ONOFRIO Chocochips Pote 900ml;10.93;18;Helados;12.9;Congelados
+1183;Helado Donito D'ONOFRIO Paleta 65ml;1.27;18;Helados;1.5;Congelados
+1184;Helado Sandwich D'ONOFRIO Mini Vainilla 49ml;1.27;18;Helados;1.5;Congelados
+1185;Helado Frio Rico D'ONOFRIO Capuccino Cono 120ml;4.24;18;Helados;5;Congelados
+1186;Helado BB D'ONOFRIO Chicha Morada 65ml;0.85;18;Helados;1;Congelados
+1187;Helado Frio Rico D'ONOFRIO Vainilla Choco Chips Cono 120ml;4.24;18;Helados;5;Congelados
+1188;Helado Copa K-bana D'ONOFRIO Vainilla y Lúcuma Pote 103ml;2.12;18;Helados;2.5;Congelados
+1189;Helado Sin Parar D'ONOFRIO Lúcuma Pote 170ml;3.81;18;Helados;4.5;Congelados
+1190;Helado Peziduri D'ONOFRIO Tricolor Pote 900ml;10.93;18;Helados;12.9;Congelados
+1191;Helado Alaska D'ONOFRIO Maracuyá Paleta 75ml;1.69;18;Helados;2;Congelados
+1192;Helado Bombones D'ONOFRIO Vainilla 72ml;3.81;18;Helados;4.5;Congelados
+1193;Helado Turbo Max D'ONOFRIO Paleta 65ml;0.85;18;Helados;1;Congelados
+1194;Helado Alaska D'ONOFRIO Fresa Paleta 75ml;1.69;18;Helados;2;Congelados
+1195;Helado Sandwich D'ONOFRIO Vainilla 112.8ml;3.39;18;Helados;4;Congelados
+1196;Helado Jet D'ONOFRIO Vainilla Paleta 70ml;2.12;18;Helados;2.5;Congelados
+1197;Helado Sublime D'ONOFRIO Clásico Paleta 80ml;2.97;18;Helados;3.5;Congelados
+1198;Pastelito Pingüino MARINELA Bolsa 80g;2.54;18;Pasteles;3;Panadería y Pastelería
+1200;Néctar FRUGOS DEL VALLE Sabor a Mango Caja 970ml;3.81;18;Jugos y Néctares;4.5;Bebidas
+1201;Néctar FRUGOS DEL VALLE Sabor a Durazno Caja 1.45L;5.51;18;Jugos y Néctares;6.5;Bebidas
+1202;Galletas DUCALES Noel Taco 241g;5.08;18;Galletas;6;Dulcería
+1203;Café Molido SELLO ROJO Tradición Bolsa 212g;9.07;18;Café e Infusiones;10.7;Desayunos
+1204;Cobertura WINTER'S Sabor Chocolate Bitter Paquete 500g;11.36;18;Coberturas;13.4;Repostería
+1206;Mezcla para apanar AJI-NO-MIX Picante Bolsa 80g;2.12;18;Cremas y Condimentos;2.5;Abarrotes
+1209;Mazamorra Morada UMSHA Bolsa 125g;2.71;18;Postres;3.2;Repostería
+1212;Fideos NICOLINI Codo Chico Bolsa 235g;1.44;18;Fideos, Pastas y Salsas;1.7;Abarrotes
+1213;Refresco UMSHA Chicha Morada Bolsa 13g;0.85;18;Refrescos;1;Abarrotes
+1214;Refresco UMSHA Piña Bolsa 13g;0.85;18;Refrescos;1;Abarrotes
+1215;Refresco UMSHA Fresa Bolsa 13g;0.85;18;Refrescos;1;Abarrotes
+1216;Refresco UMSHA Maracuyá Bolsa 13g;0.85;18;Refrescos;1;Abarrotes
+1217;Refresco UMSHA Naranja Bolsa 13g;0.85;18;Refrescos;1;Abarrotes
+1219;Chicle CLORETS 2 pastillas Caja 2.8g;0.21;18;Gomas de Mascar;0.25;Dulcería
+1221;Chicle BUBBALOO Sabor Cereza por unidad;0.21;18;Gomas de Mascar;0.25;Dulcería
+1222;Chicle BUBBALOO Sabor Fruta por unidad;0.21;18;Gomas de Mascar;0.25;Dulcería
+1223;Cigarro MARLBORO Double Burst por Unidad;1.27;18;Cigarros;1.5;Tabaco y Vapes
+1225;Caramelos HALLS Limón y Miel Paquete 25.2g;1.27;18;Caramelos;1.5;Dulcería
+1226;Cigarro PALL MALL XL Sunrise Mix por Unidad;0.85;18;Cigarros;1;Tabaco y Vapes
+1227;Cigarro PALL MALL XL Sunset por Unidad;0.85;18;Cigarros;1;Tabaco y Vapes
+1228;Cigarro PALL MALL XL Red por Unidad;0.85;18;Cigarros;1;Tabaco y Vapes
+1229;Jamón Inglés RAZZETO Paquete 85g;3.81;18;Embutidos;4.5;Quesos y Embutidos
+1230;Hot Dog con Pollo RAZZETO 3un Paquete 93g;1.53;18;Embutidos;1.8;Quesos y Embutidos
+1232;Chicle SUPER HIPER ACIDO Centro Líquido Bolsa 7g;0.25;18;Gomas de Mascar;0.3;Dulcería
+1233;Chicle BOOGIE Surtido 2un Caja 2.72g;0.08;18;Gomas de Mascar;0.1;Dulcería
+1235;Agua SAN CARLOS Sin Gas Botella 750ml;1.27;18;Agua de Mesa;1.5;Bebidas
+1236;Bebida Rehidratante SPORADE Uva Botella 500ml;2.12;18;Rehidratantes;2.5;Bebidas
+1237;Bebida Rehidratante GATORADE Apple Ice Botella 500ml;2.12;18;Rehidratantes;2.5;Bebidas
+1239;Agua SAN CARLOS Sin Gas Botella 3L;2.97;18;Agua de Mesa;3.5;Bebidas
+1240;Agua SAN CARLOS Sin Gas Botella 2.25L;2.12;18;Agua de Mesa;2.5;Bebidas
+1241;Chifles MARANATHA Picantes Bolsa 40g;0.85;18;Camotes y Chifles;1;Snacks
+1242;Yogurt Bebible GLORIA Sabor a Durazno Botella 180gr;1.69;18;Yogurts;2;Lácteos y Huevos
+1243;Sobre Manila GRAPHOS A4 por unidad;0.42;18;Organización y Archivo;0.5;Librería y Oficina
+1244;Sobre Manila GRAPHOS Pago por unidad;0.25;18;Organización y Archivo;0.3;Librería y Oficina
+1245;Folder Manila GRAFI A4 por unidad;0.42;18;Organización y Archivo;0.5;Librería y Oficina
+1246;Grapas ARTESCO 26/6 Caja 1000un;1.27;18;Organización y Archivo;1.5;Librería y Oficina
+1248;Papel Higiénico ELITE Triple Hoja Paquete 4un;7.2;18;Papel Higiénico;8.5;Limpieza
+1250;Vodka MIKE'S Hard Lemonade Lata 355ml;5.51;18;Licores Preparados;6.5;Licores
+1251;Cereal ANGEL Naranja Miel Bolsa 20g;0.85;18;Cereales;1;Desayunos
+1252;Flan de Vainilla UMSHA Bolsa 90g;1.86;18;Postres;2.2;Repostería
+1253;Pudín de Chocolate UMSHA Bolsa 100g;2.12;18;Postres;2.5;Repostería
+1255;Galletas GLACITAS Bañadas con Sabor a Chocolate Paquete 32g;0.85;18;Galletas;1;Dulcería
+1256;Galletas GLACITAS Bañadas con Sabor a ChocoNieve Paquete 32g;0.85;18;Galletas;1;Dulcería
+1257;Galletas CASINO con Crema Sabor a Menta Taco 129g;2.12;18;Galletas;2.5;Dulcería
+1259;Lavavajilla Pasta SAPOLIO Limón Pote 200g;1.69;18;Lavavajillas;2;Limpieza
+1260;Lejía SAPOLIO Tradicional Botella 400g;1.27;18;Lejías;1.5;Limpieza
+1261;Lejía SAPOLIO Tradicional Botella 790g;1.69;18;Lejías;2;Limpieza
+1262;Quitamanchas SAPOLIO Ropa Color Botella 550ml;2.54;18;Quitamanchas;3;Cuidado de Ropa
+1263;Quitamanchas SAPOLIO Ropa Color Botella 265ml;1.69;18;Quitamanchas;2;Cuidado de Ropa
+1264;Aceite Vegetal PRIMOR Clásico Botella 500ml;4.83;18;Aceites;5.7;Abarrotes
+1265;Detergente en Polvo MARSELLA Pétalos Relajantes Lavanda y Rosas Bolsa 730g;6.36;18;Detergentes;7.5;Cuidado de Ropa
+1269;Jamón PIZZERO + Queso Tipo EDAM RAZZETO Paquete 170g;6.61;18;Embutidos;7.8;Quesos y Embutidos
+1270;Leche GLORIA Sin Lactosa Lata 170g;2.29;18;Leches;2.7;Lácteos y Huevos
+1271;Aceite Vegetal CIL Botella 900ml;7.2;18;Aceites;8.5;Abarrotes
+1273;Gelatina UMSHA Limón Bolsa 120g;2.71;18;Gelatinas;3.2;Repostería
+1276;Detergente en Polvo ACE Limpieza Completa Floral Bolsa 380g;5;18;Detergentes;5.9;Cuidado de Ropa
+1278;Caramelos ARCOR Limón por unidad;0.08;18;Caramelos;0.1;Dulcería
+1279;Caramelos ARCOR Chicha Morada por unidad;0.08;18;Caramelos;0.1;Dulcería
+1283;Gelatina UNIVERSAL Sabor a Piña 2L Bolsa 130g;3.39;18;Gelatinas;4;Repostería
+1284;Gelatina UNIVERSAL Sabor a Fresa 2L Bolsa 130g;3.39;18;Gelatinas;4;Repostería
+1285;Gelatina UNIVERSAL Sabor a Limón 2L Bolsa 130g;3.39;18;Gelatinas;4;Repostería
+1287;Bombones BON O BON Clásico por unidad 15g;0.85;18;Chocolatería;1;Dulcería
+1288;Cebolla China por Atado;0.42;18;Verduras;0.5;Frutas y Verduras
+1289;Detergente en Polvo CARICIA Rosa Ropa Delicada Bolsa 330g;8.39;18;Detergentes;9.9;Cuidado de Ropa
+1290;Tortillas de Maíz DORITOS Queso Atrevido Familiar Bolsa 190g;6.61;18;Maiz;7.8;Snacks
+1291;Tortillas de Maíz TOSTITOS con Sal Bolsa 200g;6.36;18;Maiz;7.5;Snacks
+1292;Suavizante CARICIA Rosa Ropa Delicada Bolsa 75ml;1.27;18;Suavizantes;1.5;Cuidado de Ropa
+1295;Helado Copa D'ONOFRIO Clásica 180ml;3.9;18;Helados;4.6;Congelados
+1296;Helado Frio Rico D'ONOFRIO Vainilla Almendras Paleta 93ml;4.24;18;Helados;5;Congelados
+1298;Helado Frio Rico D'ONOFRIO Maracuyá de Ancash Paleta 93ml;4.24;18;Helados;5;Congelados
+1300;Vodka SMIRNOFF Ice Guaraná Lata 350ml;6.78;18;Licores Preparados;8;Licores
+1302;Café Pasado BELCAFE Botella 500ml;7.63;18;Café e Infusiones;9;Desayunos
+1303;Cerveza TRES CRUCES Lager Lata 473ml;3.81;18;Con Alcohol;4.5;Cervezas
+1304;Comida para Gato MICHICAT Pollo y Sardina Para Adulto Bolsa 500 g;3.14;18;Alimento Seco para Gatos;3.7;Mascotas
+1305;Comida para Gato RICOCAT Adultos Paté Sardina y Pollo Lata 330g;5.08;18;Alimento Húmedo para Gatos;6;Mascotas
+1306;Comida para Perro RICOCAN Adultos Paté Cordero Lata 330g;4.58;18;Alimento Húmedo para Perros;5.4;Mascotas
+1309;Galletas DOBLE DELEITE Sabor Vainilla Chocolate Paquete 42g;0.51;18;Galletas;0.6;Dulcería
+1310;Galletas DOBLE DELEITE Sabor Manzana Durazno Paquete 42g;0.51;18;Galletas;0.6;Dulcería
+1311;Galletas DOBLE DELEITE Sabor Fresa Apricot Paquete 42g;0.51;18;Galletas;0.6;Dulcería
+1312;Galletas BLACKOUT Clásico Rojo Paquete 60g;0.85;18;Galletas;1;Dulcería
+1313;Galletas BLACKOUT Menta Verde Paquete 60g;0.85;18;Galletas;1;Dulcería
+1314;Galletas SAN JORGE Animalitos Vainilla Bolsa 60g;0.85;18;Galletas;1;Dulcería
+1315;Zapallo por Kg;2.54;18;Verduras;3;Frutas y Verduras
+1316;Maicena DURYEA Caja 500g;8.22;18;Repostería;9.7;TIENDA
+1317;Papas LAYS al Hilo Bolsa 155g;4.24;18;Papas;5;Snacks
+1318;Desinfectante multiuso PINE-SOL Limón Botella 900ml;8.47;18;Limpiadores Multiusos;10;Limpieza
+1319;Quitamanchas CLOROX Colores Vivos Botella 580 ml;3.64;18;Quitamanchas;4.3;Cuidado de Ropa
+1320;Detergente en Polvo ARIEL Pro Cuidado Bolsa 720g;9.15;18;Detergentes;10.8;Cuidado de Ropa
+1321;Chocotoncito D'ONOFRIO Bolsa 80gr;4.66;18;Panetones;5.5;Panadería y Pastelería
+1323;Crema Para Peinar HEAD & SHOULDERS Hidratación Aceite De Coco Anti Frizz 16ml;1.02;18;Cuidado del Cabello;1.2;Cuidado Personal
+1324;Chocolate LENTEJAS en Grageas Caja 30g;1.69;18;Chocolatería;2;Dulcería
+1325;Clavo de Olor Entero GRANEL Bolsa 15g;0.59;18;Cremas y Condimentos;0.7;Abarrotes
+1326;LOS CUATES Tradicional Bolsa 43g;1.02;18;Maiz;1.2;Snacks
+1327;Infusiones MC COLIN'S Té Puro Caja 25un;2.71;18;Café e Infusiones;3.2;Desayunos
+1328;Infusiones MC COLIN'S Hierba Luisa Caja 25un;2.71;18;Café e Infusiones;3.2;Desayunos
+1329;Margarina MANTY Pote 300g;4.83;18;Mantequilla y Margarina;5.7;Lácteos y Huevos
+1330;Néctar FRUGOS DEL VALLE Sabor a Naranja Caja 970ml;3.81;18;Jugos y Néctares;4.5;Bebidas
+1333;Bebida de Coco LAIVE Caja 946ml;8.9;18;Leche de Soya y Otras Bebidas Vegetales;10.5;Lácteos y Huevos
+1334;Yogurt LAIVE Probióticos Fresa Botella 946gr;6.1;18;Yogurts;7.2;Lácteos y Huevos
+1335;Yogurt LAIVE Probióticos Vainilla Francesa Botella 946gr;6.1;18;Yogurts;7.2;Lácteos y Huevos
+1341;Yogurt Griego LAIVE Natural Botella 800gr;8.47;18;Yogurts;10;Lácteos y Huevos
+1342;Yogurt Griego LAIVE Frutos Rojos Botella 800gr;8.47;18;Yogurts;10;Lácteos y Huevos
+1346;Mezcla Láctea Evaporada PURA VIDA Lata 155g;1.27;18;Mezclas Lácteas;1.5;Lácteos y Huevos
+1347;Ají Panca SIBARITA Sachet 32.4g;1.02;18;Cremas y Condimentos;1.2;Abarrotes
+1348;Palillo SIBARITA Sachet 32.4g;1.02;18;Cremas y Condimentos;1.2;Abarrotes
+1349;Tuco Tallarin SIBARITA Sachet 32.4g;1.02;18;Cremas y Condimentos;1.2;Abarrotes
+1350;Pimienta SIBARITA Sobre 10g;0.68;18;Cremas y Condimentos;0.8;Abarrotes
+1351;Comino SIBARITA Sobre 10g;0.68;18;Cremas y Condimentos;0.8;Abarrotes
+1353;CAJÓN ENVASES - Cerveza PILSEN Callao Botella 305ml;5.08;18;Envases;6;TIENDA
+1354;Helado Sublime D'ONOFRIO Dúo Lúcuma Paleta 80ml;2.97;18;Helados;3.5;Congelados
+1357;Wafer COCOSETTE Sabor a Coco Paquete 50g;1.69;18;Wafers y Barquillos;2;Dulcería
+1358;Chocolate NESTLÉ Sorrento Tableta 32gr;1.69;18;Chocolatería;2;Dulcería
+1359;Cigarro HAMILTON Light 20un;3.81;18;Cigarros;4.5;Tabaco y Vapes
+1360;Cigarro GOLDEN BEACH Menthol 20un;3.81;18;Cigarros;4.5;Tabaco y Vapes
+1362;Galletas SAN JORGE Cracknel Saladas Paquete 140g;2.12;18;Galletas;2.5;Dulcería
+1368;Helado Sublime D'ONOFRIO Clásico Pote 900ml;16.86;18;Helados;19.9;Congelados
+1369;Lavavajilla Líquido AYUDÍN Limón y Sábila Botella 900ml;12.29;18;Lavavajillas;14.5;Limpieza
+1370;Lavavajilla Líquido AYUDÍN Limón y Sábila Botella 640ml;10.08;18;Lavavajillas;11.9;Limpieza
+1372;Shampoo HEAD & SHOULDERS Hidratación Aceite de Coco Sachet 18ml;0.93;18;Cuidado del Cabello;1.1;Cuidado Personal
+1373;Agua Mineral SAN MATEO Sin Gas Botella 2.5L;3.81;18;Agua Mineral;4.5;Bebidas
+1374;Vinagre Blanco DEL FIRME Doypack 1.1L;3.47;18;Cremas y Condimentos;4.1;Abarrotes
+1375;Vinagre Tinto DEL FIRME Doypack 1.1L;3.47;18;Cremas y Condimentos;4.1;Abarrotes
+1376;Vinagre Blanco VENTURO Botella 1L;4.83;18;Cremas y Condimentos;5.7;Abarrotes
+1377;Vinagre Tinto VENTURO Botella 125ml;1.27;18;Cremas y Condimentos;1.5;Abarrotes
+1378;Vinagre Blanco VENTURO Botella 125ml;1.27;18;Cremas y Condimentos;1.5;Abarrotes
+1379;Jabón en Barra TROME Frescura de Limón Paquete 190g;1.69;18;Jabones de Ropa;2;Cuidado de Ropa
+1380;Jabón en Barra TROME Perfume de Flores Paquete 190g;1.69;18;Jabones de Ropa;2;Cuidado de Ropa
+1381;Crema de Tratamiento NUTRIBELA Cauterización Sachet 27ml;1.27;18;Cuidado del Cabello;1.5;Cuidado Personal
+1382;Servilletas ELITE Práctica Doblada en 2 Paquete 100un;2.12;18;Servilletas;2.5;Limpieza
+1383;Servilletas ELITE Dobladas en 4 Paquete 100un;3.64;18;Servilletas;4.3;Limpieza
+1385;Crema de Tratamiento NUTRIBELA Nutrición Avanzada Sachet 27ml;1.27;18;Cuidado del Cabello;1.5;Cuidado Personal
+1386;Crema de Tratamiento NUTRIBELA Reparación Intensiva Sachet 27ml;1.27;18;Cuidado del Cabello;1.5;Cuidado Personal
+1387;Cigarro MARLBORO Kretek Mint por Unidad;1.27;18;Cigarros;1.5;Tabaco y Vapes
+1388;Limpiador POETT Bebé Botella 900 ml;3.22;18;Limpiadores Multiusos;3.8;Limpieza
+1389;Limpiador POETT Frescura de Lavanda Botella 900 ml;3.22;18;Limpiadores Multiusos;3.8;Limpieza
+1390;Limpiador POETT Flores de Primavera Botella 900 ml;3.22;18;Limpiadores Multiusos;3.8;Limpieza
+1391;Aceite Vegetal MIRASOL Botella 200ml;2.12;18;Aceites;2.5;Abarrotes
+1392;Suavizante BOLIVAR Plus Orquideas Sachet 80ml;0.85;18;Suavizantes;1;Cuidado de Ropa
+1393;Suavizante BOLIVAR Bebés y Niños Sachet 80ml;0.85;18;Suavizantes;1;Cuidado de Ropa
+1394;Suavizante BOLIVAR Aroma Activo Sachet 80ml;0.85;18;Suavizantes;1;Cuidado de Ropa
+1395;Yogurt Bebible GLORIA Sabor Natural Botella 946gr;5.93;18;Yogurts;7;Lácteos y Huevos
+1397;Cinta Adhesiva PEGAFAN 12mm x 23m por unidad;0.85;18;Adhesivos y Cintas;1;Librería y Oficina
+1398;Faster de Metal ARTESCO E10 por unidad;0.42;18;Organización y Archivo;0.5;Librería y Oficina
+1399;Cerveza GOLDEN Lata 473ml;3.39;18;Con Alcohol;4;Cervezas
+1400;Agua SAN LUIS Con Gas Botella 2.5 L;3.39;18;Agua de Mesa;4;Bebidas
+1403;Bebida FRUGOS DEL VALLE Fresh Citrus Botella 3L;5.93;18;Otras Bebidas;7;Bebidas
+1404;Bebida FRUGOS DEL VALLE Fresh Fruit Punch Botella 3L;5.93;18;Otras Bebidas;7;Bebidas
+1409;Galletas OREO Vainilla Paquete 36g;0.85;18;Galletas;1;Dulcería
+1410;Galletas CLUB SOCIAL Sabor Original Paquete 24g;0.85;18;Galletas;1;Dulcería
+1411;Galleta CLUB SOCIAL Sabor Mantequilla Paquete 24g;0.85;18;Galletas;1;Dulcería
+1412;Galletas FIELD Charada Paquete 37.8g;0.85;18;Galletas;1;Dulcería
+1414;Pilas DURACELL AA 2un;5.25;18;Pilas y Baterías;6.2;Hogar y Ferretería
+1415;Pilas DURACELL AAA 2un;5.25;18;Pilas y Baterías;6.2;Hogar y Ferretería
+1416;Café Instantáneo ALTOMAYO Gourmet Doypack 45g;7.54;18;Café e Infusiones;8.9;Desayunos
+1417;Goma de Mascar TRIDENT SPLASH Fresa y Limón Paquete 17.1g;2.54;18;Gomas de Mascar;3;Dulcería
+1418;Papel Toalla PARACAS Negro 1un;2.2;18;Papel Toalla;2.6;Limpieza
+1419;Duraznos en Mitades ACONCAGUA en Almíbar Lata 820g;9.49;18;Conservas;11.2;Abarrotes
+1420;Detergente en Polvo CARICIA Rosa Ropa Delicada Bolsa 700g;16.02;18;Detergentes;18.9;Cuidado de Ropa
+1421;Jabón en Barra CARICIA 180g;2.97;18;Jabones de Ropa;3.5;Cuidado de Ropa
+1424;Papas PRINGLES Sabor Original Lata 124g;8.9;18;Papas;10.5;Snacks
+1429;Avena GRANO DE ORO a GRANEL Bolsa 250g;1.27;18;Avenas;1.5;Desayunos
+1432;Té Puro TÉ TORO Caja 5g;0.34;18;Café e Infusiones;0.4;Desayunos
+1434;Cigarro LUCKY STRIKE Wild Mix Mora Caja 10un;10.59;18;Cigarros;12.5;Tabaco y Vapes
+1435;Cigarro LUCKY STRIKE Fresh Twist Sandía Caja 10un;10.59;18;Cigarros;12.5;Tabaco y Vapes
+1436;Cigarro LUCKY STRIKE Crush Reshape Naranja Caja 10un;10.59;18;Cigarros;12.5;Tabaco y Vapes
+1437;Chocolate TRIANGULO Marmoleado Bolsa 30Gr;2.54;18;Chocolatería;3;Dulcería
+1438;Café Instantáneo NESCAFÉ Tradición Doypack 50g;8.73;18;Café e Infusiones;10.3;Desayunos
+1439;Café Instantáneo NESCAFÉ Kirma Doypack 45g;6.19;18;Café e Infusiones;7.3;Desayunos
+1440;Chocolate con leche COSTA Vizzio Almendras Cubiertas Bitter Caja 69g;4.41;18;Chocolatería;5.2;Dulcería
+1441;Galletas SAN JORGE Mini Rondelas Paquete 55g;0.85;18;Galletas;1;Dulcería
+1443;Comida para Gato RICOCAT Adultos Paté Pavo e Hígado Lata 330g;5.08;18;Alimento Húmedo para Gatos;6;Mascotas
+1444;Comida para Gato RICOCAT Adultos Paté Hígado y Pollo Lata 330g;5.08;18;Alimento Húmedo para Gatos;6;Mascotas
+1445;Comida para Perro RICOCAN Adultos Paté Carne Lata 330g;4.58;18;Alimento Húmedo para Perros;5.4;Mascotas
+1446;Comida para Perro RICOCAN Adultos Paté Pollo Lata 330g;4.58;18;Alimento Húmedo para Perros;5.4;Mascotas
+1447;Comida para Perro RICOCAN Cachorros Paté Babycan Lata 330g;4.58;18;Alimento Húmedo para Perros;5.4;Mascotas
+1449;Resaltador FABER-CASTELL Textliner 46 Highlighter por unidad;2.97;18;Escritura y Corrección;3.5;Librería y Oficina
+1450;Cerveza PILSEN Callao 12 Pack Botella 630 ml - RETORNABLE;65.08;18;Con Alcohol;76.8;Cervezas
+1451;Cerveza PILSEN Callao 24 Pack Botella 305ml - RETORNABLE;69.15;18;Con Alcohol;81.6;Cervezas
+1452;Keke BIMBO Bimboletes Chispas Sabor Chocolate Paquete 2un 70g;2.12;18;Kekes;2.5;Panadería y Pastelería
+1455;Sopa Instantánea AJINOMEN Sabor a Gallina Vaso 51g;2.71;18;Comida Instantánea;3.2;Abarrotes
+1457;Sopa Instantánea AJINOMEN Sabor a Gallina Picante Vaso 51g;2.71;18;Comida Instantánea;3.2;Abarrotes
+1458;Sazonador AJI-NO-MOTO Umami Glutamato de Sodio Bolsa 90g;2.12;18;Cremas y Condimentos;2.5;Abarrotes
+1459;Sillao AJI-NO-SILLAO Botella 280ml;2.71;18;Cremas y Condimentos;3.2;Abarrotes
+1460;Sillao AJI-NO-SILLAO Botella 500ml;3.81;18;Cremas y Condimentos;4.5;Abarrotes
+1461;Jabón Natural HENO DE PRAVIA Original Barra 150gr;5.08;18;Jabones en Barra;6;Cuidado Personal
+1462;Jabón Natural HENO DE PRAVIA Original Barra 85g;2.8;18;Jabones en Barra;3.3;Cuidado Personal
+1463;Chocolatada en Polvo MISKÍSIMOO Sachet 14g;0.85;18;Modificadores de leche;1;Desayunos
+1464;Cigarro LUCKY STRIKE Wild Mix Mora Caja 20un;19.49;18;Cigarros;23;Tabaco y Vapes
+1465;Cigarro LUCKY STRIKE Double Chill Menta Caja 20un;19.49;18;Cigarros;23;Tabaco y Vapes
+1466;Cigarro LUCKY STRIKE Fresh Twist Sandía Caja 20un;19.49;18;Cigarros;23;Tabaco y Vapes
+1467;Cigarro LUCKY STRIKE Crush Reshape Naranja Caja 20un;19.49;18;Cigarros;23;Tabaco y Vapes
+1468;Cigarro LUCKY STRIKE Big Chill Caja 20un;19.49;18;Cigarros;23;Tabaco y Vapes
+1469;Cigarro LUCKY STRIKE Red Caja 20un;16.53;18;Cigarros;19.5;Tabaco y Vapes
+1470;Cigarro LUCKY STRIKE Blue Caja 20un;16.53;18;Cigarros;19.5;Tabaco y Vapes
+1471;Cereal ANGEL Celeste Copix Bolsa 20g;0.85;18;Cereales;1;Desayunos
+1472;Bebida Rehidratante SPORADE Tropical Botella 1L;3.81;18;Rehidratantes;4.5;Bebidas
+1473;Gaseosa SABOR DE ORO Botella 400ml;0.85;18;Gaseosas;1;Bebidas
+1474;Gaseosa BIG COLA Botella 400ml;0.85;18;Gaseosas;1;Bebidas
+1476;Detergente en Polvo BOLIVAR Cuidado Total Bolsa 730g;8.05;18;Detergentes;9.5;Cuidado de Ropa
+1477;Suavizante BOLIVAR Aroma Activo Doypack 400ml;3.56;18;Suavizantes;4.2;Cuidado de Ropa
+1478;Harina FAVORITA Preparada Bolsa 1Kg;7.63;18;Repostería;9;TIENDA
+1480;Goma de Mascar TRIDENT EVUP Menta Paquete 30.6g 18un;3.22;18;Gomas de Mascar;3.8;Dulcería
+1481;Goma de Mascar TRIDENT EVUP Sandia Paquete 30.6g 18un;3.22;18;Gomas de Mascar;3.8;Dulcería
+1483;Caramelos HALLS Yerbabuena Lyptus Bolsa 3g por unidad;0.21;18;Caramelos;0.25;Dulcería
+1484;Bebida Rehidratante GATORADE Tropical Fruit Botella 1L;3.81;18;Rehidratantes;4.5;Bebidas
+1485;Tijera ARTESCO La Naranjita 13cm;2.12;18;Manualidades;2.5;Librería y Oficina
+1486;Tiza Escolar ARTESCO Colores por Unidad;0.25;18;Escritura y Corrección;0.3;Librería y Oficina
+1487;Tiza Escolar ARTESCO Blanco por Unidad;0.25;18;Escritura y Corrección;0.3;Librería y Oficina
+1488;Cartulina Escolar Blanca por Unidad;0.42;18;Papelería;0.5;Librería y Oficina
+1489;Canela en Polvo GRANEL Bolsa 5g;0.59;18;Cremas y Condimentos;0.7;Abarrotes
+1491;Yogurt Griego LAIVE Mango Maracuyá Botella 800gr;8.47;18;Yogurts;10;Lácteos y Huevos
+1493;Galletas COSTA Agua Line Paquete 42g;0.85;18;Galletas;1;Dulcería
+1499;Detergente en Polvo OPAL Ultra Bolsa 730g;7.2;18;Detergentes;8.5;Cuidado de Ropa
+1500;Detergente en Polvo ACE Limpieza Completa Bolsa 720g;7.63;18;Detergentes;9;Cuidado de Ropa
+1501;Detergente en Polvo ACE Limpieza Completa Floral Bolsa 720g;7.63;18;Detergentes;9;Cuidado de Ropa
+1503;Mantequilla GLORIA con Sal Barra 180g;10.59;18;Mantequilla y Margarina;12.5;Lácteos y Huevos
+1504;Bebida de Soya SOY VIDA Lata 390g;2.54;18;Leche de Soya y Otras Bebidas Vegetales;3;Lácteos y Huevos
+1505;Filete de Atún GLORIA en Aceite Vegetal Lata 140g;5.25;18;Conservas;6.2;Abarrotes
+1510;Jabón con Glicerina CAMAY Clásico Barra 125g;3.05;18;Jabones en Barra;3.6;Cuidado Personal
+1511;Jabón con Glicerina CAMAY Rosas Francesas Barra 125g;3.05;18;Jabones en Barra;3.6;Cuidado Personal
+1515;Bebida Rehidratante POWERADE Maracuyá Botella 600ml;2.12;18;Rehidratantes;2.5;Bebidas
+1516;Tortillas de Maíz DORITOS Dinamita Flamin Hot Bolsa 35g;1.86;18;Maiz;2.2;Snacks
+1517;Crisino con Ajonjolí SAN MARTIN Bolsa 8un;1.69;18;Crisinos;2;Panadería y Pastelería
+1518;Chifles MARANATHA Bolsa 200g;4.07;18;Camotes y Chifles;4.8;Snacks
+1519;Helado KitKat D'ONOFRIO Chocolate Paleta 85ml;4.24;18;Helados;5;Congelados
+1520;Cerveza CUSQUEÑA Trigo Botella 620 ml - RETORNABLE;6.36;18;Con Alcohol;7.5;Cervezas
+1522;Queso Edam GLORIA Paquete 90g;4.24;18;Quesos;5;Quesos y Embutidos
+1523;Cera Líquida EMPERATRIZ Roja Doypack 300ml;6.53;18;Ceras;7.7;Limpieza
+1526;Toallas Higiénicas NOSOTRAS Buenas Noches Paquete 1un;0.85;18;Protección Femenina;1;Cuidado Personal
+1527;Toallas Higiénicas NOSOTRAS Alas Tela Gel Paquete 1un;0.59;18;Protección Femenina;0.7;Cuidado Personal
+1528;Yogurt GLORIA Battimix Vainilla con Galletas Sabor Chocolate Vaso 145g - Oreo;3.14;18;Yogurts;3.7;Lácteos y Huevos
+1531;Chicle BUBBALOO Sabor Mora por unidad;0.21;18;Gomas de Mascar;0.25;Dulcería
+1532;Bebida Rehidratante POWERADE Mora Azul Botella 1.5L;4.66;18;Rehidratantes;5.5;Bebidas
+1533;Bebida Rehidratante POWERADE Multifrutas Botella 1.5L;4.66;18;Rehidratantes;5.5;Bebidas
+1534;Bebida Rehidratante POWERADE Multifrutas Botella 1L;3.39;18;Rehidratantes;4;Bebidas
+1535;Comida para Gato RICOCAT Adultos Trocitos Sabores Marinos Doypack 85g;1.69;18;Alimento Húmedo para Gatos;2;Mascotas
+1536;Comida para Gato RICOCAT Adultos Trocitos Sabor Salmón Doypack 85g;1.69;18;Alimento Húmedo para Gatos;2;Mascotas
+1537;Comida para Gato RICOCAT Gatitos Trocitos Sabor Carne Doypack 85g;1.69;18;Alimento Húmedo para Gatos;2;Mascotas
+1538;Helado Frio Rico D'ONOFRIO Fresa de Huaura Paleta 93ml;4.24;18;Helados;5;Congelados
+1542;Desodorante en Crema NIVEA para Mujer Clear Sachet 9g;1.27;18;Higiene Personal;1.5;Cuidado Personal
+1543;Desodorante en Crema NIVEA para Hombre Original Sachet 9g;1.27;18;Higiene Personal;1.5;Cuidado Personal
+1544;Jabón de Tocador NIVEA Creme Care Barra 75g;3.05;18;Jabones en Barra;3.6;Cuidado Personal
+1545;Fideos LAVAGGI Spaghetti Bolsa 450g;2.29;18;Fideos, Pastas y Salsas;2.7;Abarrotes
+1546;Ron CARTAVIO Black Botella 250ml;8.39;18;Rones;9.9;Licores
+1548;Cerveza GOLDEN 6 Pack Lata 473ml;19.83;18;Con Alcohol;23.4;Cervezas
+1551;ENVASE - Cerveza PILSEN Trujillo Botella 305ml;0.42;18;Envases;0.5;TIENDA
+1552;Mostaza ALACENA Sachet 8g;0.34;18;Cremas y Condimentos;0.4;Abarrotes
+1553;Chocolate NESTLÉ Sublime Bitter Bolsa 38g;2.97;18;Chocolatería;3.5;Dulcería
+1554;Tratamiento Intensivo PANTENE Control Caída Sachet 27ml;1.27;18;Cuidado del Cabello;1.5;Cuidado Personal
+1555;Tratamiento Intensivo PANTENE Anti-Frizz Sachet 27ml;1.27;18;Cuidado del Cabello;1.5;Cuidado Personal
+1556;Shampoo + Acondicionador PANTENE Equilibrio Raíz & Puntas Sachet 18ml + 9ml;1.02;18;Cuidado del Cabello;1.2;Cuidado Personal
+1560;Panetón GN Bolsa 900g;15.17;18;Panetones;17.9;Panadería y Pastelería
+1561;Bebida Instantánea en Polvo ZUKO Mango Criollo Sobre 15g;1.02;18;Refrescos;1.2;Abarrotes
+1562;Bebida Energizante V220 Botella 330ml;1.69;18;Energizantes;2;Bebidas
+1563;Hongos y Laurel Entero GRANEL Bolsa 15g;0.59;18;Cremas y Condimentos;0.7;Abarrotes
+1564;Suavizante SUAVITEL Complete Fresca Primavera Doypack 360ml;3.98;18;Suavizantes;4.7;Cuidado de Ropa
+1565;Toallitas Húmedas para Bebé HUGGIES Limpieza Efectiva Paquete 16un;2.2;18;Pañales y Toallitas para Bebés;2.6;Cuidado del Bebé
+1566;Panetón GLORIA Bolsa 900g;22.03;18;Panetones;26;Panadería y Pastelería
+1567;Bebida Alcohólica Preparada FOUR LOKO Sabor Maracuyá Lata 473ml;9.24;18;Licores Preparados;10.9;Licores
+1570;Tortillas de Maiz TAKIS Fuego Bolsa 56g;2.54;18;Maiz;3;Snacks
+1571;Tortillas de Maiz TAKIS Xplosion Bolsa 56g;2.54;18;Maiz;3;Snacks
+1572;Espumante SANTIAGO QUEIROLO Primado Botella 750ml;13.14;18;Espumantes;15.5;Bebidas
+1573;Espumante SANTIAGO QUEIROLO Primadonna Botella 750ml;18.22;18;Espumantes;21.5;Bebidas
+1578;Salsa de Rocoto ALACENA Doypack 85g;2.97;18;Cremas y Condimentos;3.5;Abarrotes
+1579;Crema de Rocoto ALACENA Uchucuta Doypack 85g;2.97;18;Cremas y Condimentos;3.5;Abarrotes
+1580;Comida para Perros THOR Adultos Todas las Razas Bolsa 500 g;2.46;18;Alimento Seco para Perros;2.9;Mascotas
+1582;Goma de Mascar TRIDENT SPLASH Yerba Buena y Sandía Paquete 17.1g;2.54;18;Gomas de Mascar;3;Dulcería
+1583;Agua AGUAFIEL Sin Gas Bidón 20L - RETORNABLE;9.32;18;Agua de Mesa;11;Bebidas
+1584;Tortillas de Maiz TAKIS Original Bolsa 56g;2.54;18;Maiz;3;Snacks
+1586;Mayonesa ALACENA Doypack 850g;17.37;18;Cremas y Condimentos;20.5;Abarrotes
+1587;Fideos LAVAGGI Codo Rayado Bolsa 225g;1.36;18;Fideos, Pastas y Salsas;1.6;Abarrotes
+1588;Café Tostado y Molido CAFETAL Selecto Bolsa 454g;17.88;18;Café e Infusiones;21.1;Desayunos
+1590;Limpiavidrios SAPOLIO Pote 650ml;8.56;18;Limpiadores de Vidrio;10.1;Limpieza
+1591;Galletas CASINO con Crema Sabor a Tres Leches Paquete 43g;0.85;18;Galletas;1;Dulcería
+1592;Fideos NICOLINI Corbata Bolsa 225g;1.44;18;Fideos, Pastas y Salsas;1.7;Abarrotes
+1593;Fideos NICOLINI Macarron Bolsa 225g;1.44;18;Fideos, Pastas y Salsas;1.7;Abarrotes
+1594;Fideos NICOLINI Rigatoni Bolsa 235g;1.44;18;Fideos, Pastas y Salsas;1.7;Abarrotes
+1595;Quitamanchas OPAL Líquido Doypack 100ml;1.27;18;Quitamanchas;1.5;Cuidado de Ropa
+1596;Grageas de Chocolate CHIN CHIN Max Bolsa 30g;1.53;18;Chocolatería;1.8;Dulcería
+1597;Helado Alaska D'ONOFRIO Maracumango Paleta 75ml;2.12;18;Helados;2.5;Congelados
+1598;Papas LAYS Ondas Picante Familiar Bolsa 140g;6.36;18;Papas;7.5;Snacks
+1599;ENVASE - Agua AGUAFIEL Sin Gas Bidón 20L;8.47;18;Envases;10;TIENDA
+1601;Piqueos KARINTO Maní Salado Bolsa 100g;3.05;18;Manís y Habas;3.6;Snacks
+1602;Piqueos CHEETOS Horneados Queso Familiar Bolsa 200g;5.51;18;Maiz;6.5;Snacks
+1603;Piqueos CHEETOS Queso Picante Familiar Bolsa 180g;5.51;18;Maiz;6.5;Snacks
+1607;Bebida Instantánea en Polvo ZUKO Emoliente Sobre 15g;1.02;18;Refrescos;1.2;Abarrotes
+1608;Helado Bombones D'ONOFRIO Pote 216ml;11.44;18;Helados;13.5;Congelados
+1609;Hielo FRIO RICO Bolsa 1.5 Kg;2.97;18;Hielos;3.5;Congelados
+1610;Hielo FRIO RICO Bolsa 3 Kg;5.51;18;Hielos;6.5;Congelados
+1612;Bebida FRUGOS DEL VALLE Fresh Tropical Punch Botella 500ml;1.69;18;Otras Bebidas;2;Bebidas
+1613;Helado Frio Rico D'ONOFRIO Lúcuma Cono 120m;4.24;18;Helados;5;Congelados
+1614;Helado Princesa D'ONOFRIO Pote 900ml;16.86;18;Helados;19.9;Congelados
+1615;Cerveza PILSEN Callao Botella 305ml;3.39;18;Con Alcohol;4;Cervezas
+1616;Cerveza PILSEN Callao 6 Pack Botella 305ml;19.83;18;Con Alcohol;23.4;Cervezas
+1618;Cerveza PILSEN Callao 6 Pack Lata 355ml;22.37;18;Con Alcohol;26.4;Cervezas
+1619;Cerveza PILSEN Callao 6 Pack Lata 473ml;27.88;18;Con Alcohol;32.9;Cervezas
+1620;Cerveza PILSEN Trujillo Botella 305ml;2.97;18;Con Alcohol;3.5;Cervezas
+1621;Cerveza PILSEN Trujillo 6 Pack Botella 305ml;17.29;18;Con Alcohol;20.4;Cervezas
+1623;Cerveza PILSEN Trujillo 12 Pack Botella 620ml - RETORNABLE;65.08;18;Con Alcohol;76.8;Cervezas
+1624;Cerveza PILSEN Trujillo 6 Pack Lata 355ml;19.83;18;Con Alcohol;23.4;Cervezas
+1625;Cerveza CORONA Extra 6 Pack Botella 330ml;24.92;18;Con Alcohol;29.4;Cervezas
+1627;Cerveza CUSQUEÑA Dorada 6 Pack Botella 310ml;22.37;18;Con Alcohol;26.4;Cervezas
+1628;Cerveza CUSQUEÑA Negra 6 Pack Botella 310ml;22.37;18;Con Alcohol;26.4;Cervezas
+1630;Cerveza CUSQUEÑA Trigo 6 Pack Botella 310ml;22.37;18;Con Alcohol;26.4;Cervezas
+1632;Cerveza STELLA ARTOIS Botella 330ml;4.24;18;Con Alcohol;5;Cervezas
+1633;Cerveza STELLA ARTOIS 6 Pack Botella 330ml;24.92;18;Con Alcohol;29.4;Cervezas
+1634;Cerveza HEINEKEN 6 Pack Botella 330ml;28.98;18;Con Alcohol;34.2;Cervezas
+1635;Cerveza HEINEKEN Lata 310ml;3.73;18;Con Alcohol;4.4;Cervezas
+1636;Cerveza HEINEKEN 6 Pack Lata 310ml;21.86;18;Con Alcohol;25.8;Cervezas
+1637;Cerveza TRES CRUCES Lager 6 Pack Lata 473ml;22.37;18;Con Alcohol;26.4;Cervezas
+1638;Cerveza TRES CRUCES Light Lata 473ml;3.81;18;Con Alcohol;4.5;Cervezas
+1639;Cerveza TRES CRUCES Light 6 Pack Lata 473ml;22.37;18;Con Alcohol;26.4;Cervezas
+1640;Cerveza TRES CRUCES Pum Pum Lata 473ml;3.81;18;Con Alcohol;4.5;Cervezas
+1641;Cerveza TRES CRUCES Pum Pum 6 Pack Lata 473ml;22.37;18;Con Alcohol;26.4;Cervezas
+1642;Gaseosa FANTA Naranja Botella 400ml - RETORNABLE;1.36;18;Gaseosas;1.6;Bebidas
+1643;Cigarro GOLDEN BEACH Full Flavor por unidad;0.28;18;Cigarros;0.33;Tabaco y Vapes
+1644;Lejía CLOROX Tradicional Botella 860g / 819ml;2.54;18;Lejías;3;Limpieza
+1645;Sazonador AJI-NO-MOTO Umami Glutamato de Sodio Bolsa 250g;4.24;18;Cremas y Condimentos;5;Abarrotes
+1646;Crema de Tratamiento NUTRIBELA Pro-Hialurónico Sachet 27ml;1.27;18;Cuidado del Cabello;1.5;Cuidado Personal
+1647;Bebida Energizante RED BULL Red Lata 250ml;7.2;18;Energizantes;8.5;Bebidas
+1648;Salsa de Soya KIKKO Siyau Frasco 500ml;3.56;18;Cremas y Condimentos;4.2;Abarrotes
+1649;Leche GLORIA Slim Triple Zero UHT Caja 946ml;5.34;18;Leches;6.3;Lácteos y Huevos
+1650;LOS CUATES Rancheritos Bolsa 40g;1.02;18;Maiz;1.2;Snacks
+1651;Agua AGUAFIEL Sin Gas Botella 2.5L;2.12;18;Agua de Mesa;2.5;Bebidas
+1652;Agua AGUAFIEL Sin Gas Botella 7L;5.08;18;Agua de Mesa;6;Bebidas
+1654;Gaseosa PEPSI Botella 1.5L - RETORNABLE;3.81;18;Gaseosas;4.5;Bebidas
+1655;Shampoo SEDAL Celulas Madres Sachet 40 ml;1.27;18;Cuidado del Cabello;1.5;Cuidado Personal
+1658;Jabón de Tocador NEKO Aloe Barra 75g;3.22;18;Jabones en Barra;3.8;Cuidado Personal
+1660;Jabón de Tocador NEKO Extra Protección Barra 75g;3.22;18;Jabones en Barra;3.8;Cuidado Personal
+1663;Corrector ARTESCO Punta Metálica Tipo Lapicero 9ml por Unidad;2.12;18;Escritura y Corrección;2.5;Librería y Oficina
+1664;Vodka SMIRNOFF Ice Green Apple Botella 750ml;29.58;18;Vodka;34.9;Licores
+1665;Vodka SMIRNOFF Ice Red Original Classic Lemon Botella 750ml;29.58;18;Vodka;34.9;Licores
+1666;Choco Snacks BIG BEN Caramelo y Maní Bolsa 55g;2.12;18;Chocolatería;2.5;Dulcería
+1667;Galletas FIELD Cream Crackers Paquete 258g;5.34;18;Galletas;6.3;Dulcería
+1668;Néctar FRUGOS DEL VALLE Sabor a Manzana Caja 235ml;1.36;18;Jugos y Néctares;1.6;Bebidas
+1669;Avena 3 OSITOS Chocolate Bolsa 180g;2.12;18;Avenas;2.5;Desayunos
+1670;Bebida Rehidratante SPORADE Tropical Botella 1.5L;4.66;18;Rehidratantes;5.5;Bebidas
+1671;Cigarro GOLDEN BEACH Menthol por unidad;0.28;18;Cigarros;0.33;Tabaco y Vapes
+1672;Cigarro HAMILTON Fresh por unidad;0.3;18;Cigarros;0.35;Tabaco y Vapes
+1673;Cigarro HAMILTON Light por unidad;0.3;18;Cigarros;0.35;Tabaco y Vapes
+1675;Cerveza CUSQUEÑA Trigo Lata 473ml;5.08;18;Con Alcohol;6;Cervezas
+1676;Bolsas Chequera ROJA por unidad;0.17;18;Bolsas de Plástico;0.2;Descartables
+1677;Gomitas TRULULU Gusanos Sobre 70g;2.12;18;Gomitas;2.5;Dulcería
+1680;Agua AGUAFIEL Sin Gas Botella 650ml;0.85;18;Agua de Mesa;1;Bebidas
+1681;Papas Fritas INKA CHIPS Queso & CebollaBolsa 135g;6.36;18;Papas;7.5;Snacks
+1682;Bebida Energizante VOLT Fantasy Botella 500ml;2.97;18;Energizantes;3.5;Bebidas
+1683;Bebida Rehidratante SPORADE Apple Ice sin AzúcarBotella 500ml;2.12;18;Rehidratantes;2.5;Bebidas
+1684;Bebida Rehidratante SPORADE Tropical sin Azúcar Botella 500ml;2.12;18;Rehidratantes;2.5;Bebidas
+1685;Bolsas Chequera NEGRA por unidad;0.08;18;Bolsas de Plástico;0.1;Descartables
+1687;Galletas SAYON Margarita Taco 124g;2.12;18;Galletas;2.5;Dulcería
+1693;Bebida Energizante RED BULL Green Lata 250ml;7.2;18;Energizantes;8.5;Bebidas
+1694;Caja de Cartón;0.42;18;TIENDA;0.5;
+1695;Goma de Mascar TRIDENT Tutti Frutti Paquete 8.5g;1.27;18;Gomas de Mascar;1.5;Dulcería
+1696;Galletas CHIPS AHOY Mini Bolsa 50g;2.12;18;Galletas;2.5;Dulcería
+1697;Sacasarro SAPOLIO Pote 980ml;3.73;18;Limpieza de Baño;4.4;Limpieza
+1700;Papas LAYS Artesanas Alitas BBQ Bolsa 30gr;1.86;18;Papas;2.2;Snacks
+1701;Galletas MOROCHAS Taco Paquete 75g;2.12;18;Galletas;2.5;Dulcería
+1702;Chocolate NESTLÉ Sublime Coockies and Cream Bolsa 38g;2.97;18;Chocolatería;3.5;Dulcería
+1703;Filete de Atún PRIMOR en Agua y Sal Lata 140g;5.25;18;Conservas;6.2;Abarrotes
+1704;Galletas PICARAS Menta Paquete 40g;1.02;18;Galletas;1.2;Dulcería
+1705;Plumon para Pizarra OVE 123 Color Azul por unidad;2.12;18;Escritura y Corrección;2.5;Librería y Oficina
+1706;Lápiz MONGOL por unidad;0.85;18;Escritura y Corrección;1;Librería y Oficina
+1708;Bebida Energizante VOLT Fantasy Lata 473ml;3.81;18;Energizantes;4.5;Bebidas
+1709;Betún en pasta SANTIAGO Negro Pote 45ml/34g;2.12;18;Limpieza de Calzado;2.5;Limpieza
+1710;Detergente en polvo PATITO Floral Bolsa 140g;1.27;18;Detergentes;1.5;Cuidado de Ropa
+1711;Galletas GN Vainilla Paquete 10u x 28g;3.39;18;Galletas;4;Dulcería
+1712;Galletas GN Vainilla Caja 40u x 28g;13.14;18;Galletas;15.5;Dulcería
+1713;Galletas SAN JORGE de Soda Paquete 7u x 40g;4.15;18;Galletas;4.9;Dulcería
+1714;Galletas SAN JORGE de Soda Caja 28u x 40g;16.1;18;Galletas;19;Dulcería
+1715;Guantes VIRUTEX Conveniente Talla S;4.24;18;Guantes y Escobillas;5;Limpieza
+1716;Guantes VIRUTEX Conveniente Talla M;4.24;18;Guantes y Escobillas;5;Limpieza
+1717;Guantes VIRUTEX Conveniente Talla L;4.24;18;Guantes y Escobillas;5;Limpieza
+1718;Cigarro MARLBORO Forest Fusion por Unidad;1.27;18;Cigarros;1.5;Tabaco y Vapes
+1719;Fideos SAN JORGE Canuto Rayado Bolsa 250g;1.27;18;Fideos, Pastas y Salsas;1.5;Abarrotes
+1720;Bebida Rehidratante POWERADE Mora Azul Botella 1L;3.39;18;Rehidratantes;4;Bebidas
+1721;Pudín UNIVERSAL Sabor a Vainilla Bolsa 100g;2.88;18;Postres;3.4;Repostería
+1722;Shampoo HEAD & SHOULDERS Purificación Capilar Carbón Activado 15ml;0.93;18;Cuidado del Cabello;1.1;Cuidado Personal
+1724;Pan de Molde PYC Integral Bolsa 365g;4.15;18;Panes Envasados;4.9;Panadería y Pastelería
+1725;Pan de Molde PYC Blanco Familiar Bolsa 480g;5.76;18;Panes Envasados;6.8;Panadería y Pastelería
+1726;Bebida Energizante FURY Botella 350ml;1.69;18;Energizantes;2;Bebidas
+1727;Cerveza PILSEN Trujillo 24 Pack Botella 305ml por 24un - RETORNABLE;69.15;18;Con Alcohol;81.6;Cervezas
+1730;Cerveza TRES CRUCES Light Lata 310ml;2.97;18;Con Alcohol;3.5;Cervezas
+1731;Cerveza TRES CRUCES Light 6 Paxk Lata 310ml;17.29;18;Con Alcohol;20.4;Cervezas
+1735;Infusiones MC COLIN'S Buenos Sueños Caja 20un;4.66;18;Café e Infusiones;5.5;Desayunos
+1742;Pasas a GRANEL Bolsa 100g;2.12;18;Frutos Secos;2.5;Snacks
+1743;Preservativos DUREX Extra Seguro Caja 3un;7.2;18;Bienestar Sexual;8.5;Cuidado Personal
+1744;Preservativos DUREX Invisible Caja 3un;8.05;18;Bienestar Sexual;9.5;Cuidado Personal
+1745;Preservativos DUREX Máximo Placer Caja 3un;7.2;18;Bienestar Sexual;8.5;Cuidado Personal
+1746;Preservativos DUREX Sensitivo Delgado Caja 3un;7.2;18;Bienestar Sexual;8.5;Cuidado Personal
+1747;Preservativos DUREX Placer Prolongado Caja 3un;7.2;18;Bienestar Sexual;8.5;Cuidado Personal
+1748;Preservativos PIEL con Espuelas Caja 3un;2.54;18;Bienestar Sexual;3;Cuidado Personal
+1749;Preservativos PIEL Clásico Caja 3un;2.54;18;Bienestar Sexual;3;Cuidado Personal
+1750;Preservativos PIEL con Aros Caja 3un;2.54;18;Bienestar Sexual;3;Cuidado Personal
+1751;Cerveza CUSQUEÑA Trigo Lata 355ml;4.24;18;Con Alcohol;5;Cervezas
+1752;Cerveza CUSQUEÑA Trigo 6 Pack Lata 355ml;25;18;Con Alcohol;29.5;Cervezas
+1753;Cerveza CUSQUEÑA Trigo 6 Pack Lata 473ml;28.73;18;Con Alcohol;33.9;Cervezas
+1759;Helado Sandwich D'ONOFRIO Vainilla Pote 900ml;16.86;18;Helados;19.9;Congelados
+1760;Helado Morochas D'ONOFRIO Pote 900ml;16.86;18;Helados;19.9;Congelados
+1761;Cigarro PALL MALL XL Blue por Unidad;0.85;18;Cigarros;1;Tabaco y Vapes
+1762;Cigarro PALL MALL XL Sunrise Mix Caja 20un;14.41;18;Cigarros;17;Tabaco y Vapes
+1763;Cigarro PALL MALL XL Sunset Caja 20un;14.41;18;Cigarros;17;Tabaco y Vapes
+1764;Cigarro PALL MALL XL Red Caja 20un;13.56;18;Cigarros;16;Tabaco y Vapes
+1765;Cigarro PALL MALL XL Blue Caja 20un;13.56;18;Cigarros;16;Tabaco y Vapes
+1766;Cigarro MARLBORO Summer Fusion Caja 20un;19.49;18;Cigarros;23;Tabaco y Vapes
+1767;Cigarro MARLBORO Red Forward Caja 20un;19.49;18;Cigarros;23;Tabaco y Vapes
+1768;Cigarro MARLBORO Gold Caja 20un;19.49;18;Cigarros;23;Tabaco y Vapes
+1769;Cigarro MARLBORO Double Burst Caja 20un;19.49;18;Cigarros;23;Tabaco y Vapes
+1771;Cigarro MARLBORO Kretek Mint Caja 20un;19.49;18;Cigarros;23;Tabaco y Vapes
+1773;Goma de Mascar TRIDENT EVUP Yerbabuena Paquete 30.6g 18un;3.22;18;Gomas de Mascar;3.8;Dulcería
+1774;Goma de Mascar TRIDENT EVUP Freshmint Paquete 30.6g 18un;3.22;18;Gomas de Mascar;3.8;Dulcería
+1775;Goma de Mascar TRIDENT EVUP Fresh Herbal Paquete 30.6g 18un;3.22;18;Gomas de Mascar;3.8;Dulcería
+1776;Quitamanchas VANISH Líquido Blanco Total Doypack 300ml;3.39;18;Quitamanchas;4;Cuidado de Ropa
+1777;Quitamanchas VANISH Líquido Ropa Color Doypack 300ml;3.39;18;Quitamanchas;4;Cuidado de Ropa
+1778;Crema de Leche UHT GLORIA Caja 200ml;6.78;18;Cremas de Leche;8;Lácteos y Huevos
+1779;Mantequilla GLORIA con Sal Barra 50g;3.22;18;Mantequilla y Margarina;3.8;Lácteos y Huevos
+1780;Trozos de Atún FLORIDA en Aceite Vegetal Lata 140g;5.08;18;Conservas;6;Abarrotes
+1781;Papel Higiénico PARACAS Doble Hoja Celeste Paquete 6un;5.51;18;Papel Higiénico;6.5;Limpieza
+1788;Gaseosa CONCORDIA Sabor Naranja Botella 355ml;1.02;18;Gaseosas;1.2;Bebidas
+1789;IMPRESION COLOR;0.42;18;TIENDA;0.5;
+1793;Manjar Blanco BONLÉ Bolsa 500g;8.98;18;Manjar Blanco;10.6;Repostería
+1795;Helado KitKat D'ONOFRIO Triple Layers Pote 900ml;21.1;18;Helados;24.9;Congelados
+1797;Comida para Perro RICOCAN Adultos Edad Avanzada a GRANEL Bolsa 500 g;3.73;18;Alimento Seco para Perros;4.4;Mascotas
+1798;Comida para Gato RICOCAT Adultos Esterilizados a GRANEL Bolsa 500g;4.92;18;Alimento Seco para Gatos;5.8;Mascotas
+1799;Shampoo RICOCAN 4 en 1 Sachet 40ml;1.27;18;Shampoo para Perros;1.5;Mascotas
+1800;Shampoo RICOCAN Antipulgas Sachet 40ml;1.27;18;Shampoo para Perros;1.5;Mascotas
+1801;Shampoo RICOCAN Cachorros Sachet 40ml;1.27;18;Shampoo para Perros;1.5;Mascotas
+1802;Bebida TAMPICO Citrus Punch Botella 1.5L;3.39;18;Otras Bebidas;4;Bebidas
+1803;Shampoo + Acondicionador PANTENE Summer Edition Sachet 18ml + 9ml;1.02;18;Cuidado del Cabello;1.2;Cuidado Personal
+1804;Shampoo + Acondicionador PANTENE Keratina Prepara & Proteje Sachet 18ml + 9ml;1.02;18;Cuidado del Cabello;1.2;Cuidado Personal
+1813;Suavizante DOWNY Amanecer Sachet 80 ml;1.1;18;Suavizantes;1.3;Cuidado de Ropa
+1815;Mortadela RAZZETO por Kg;23.73;18;Embutidos;28;Quesos y Embutidos
+1816;Jamonada Especial RAZZETO por Kg;30.51;18;Embutidos;36;Quesos y Embutidos
+1817;Caramelos MENTOS Fresa Paquete 29g;1.27;18;Caramelos;1.5;Dulcería
+1818;Caramelos MENTOS Lemonade Paquete 29g;1.27;18;Caramelos;1.5;Dulcería
+1819;Caramelos MENTOS Mint Paquete 29g;1.27;18;Caramelos;1.5;Dulcería
+1820;Caramelos MENTOS Frutas Paquete 29g;1.27;18;Caramelos;1.5;Dulcería
+1821;Guantes VIRUTEX Corrugado Talla S;7.2;18;Guantes y Escobillas;8.5;Limpieza
+1822;Guantes VIRUTEX Corrugado Talla L;7.2;18;Guantes y Escobillas;8.5;Limpieza
+1823;Queso Mantecoso EL PAISITA Paquete 100g;3.05;18;Quesos;3.6;Quesos y Embutidos
+1824;Queso Arenoso EL PAISITA Paquete 100g;3.05;18;Quesos;3.6;Quesos y Embutidos
+1825;Bolsas de PAPEL KRAFT Talla M por unidad;1.53;18;Bolsas de Papel;1.8;Descartables
+1827;Fortificante Granulado MILO Activ-Go Sachet 51g;2.54;18;Modificadores de leche;3;Desayunos
+1828;Maquina de Afeitar GILLETTE UltraGrip Pivot con Aloe Vera;2.54;18;Afeitado y Depilación;3;Cuidado Personal
+1830;Masa para Wantan LA PASTA 500gr;4.24;18;Fideos, Pastas y Salsas;5;Abarrotes
+1831;Pegamento Universal UHU Pegalotodo Tubo 20ml;4.66;18;Adhesivos y Cintas;5.5;Librería y Oficina
+1832;Notas Adhesivas ARTESCO Sticky 3x3 100un;2.12;18;Adhesivos y Cintas;2.5;Librería y Oficina
+1833;Cola Sintética ARTESCO 90ml;2.12;18;Adhesivos y Cintas;2.5;Librería y Oficina
+1834;Silicona en Barra ARTESCO por Unidad;0.42;18;Adhesivos y Cintas;0.5;Librería y Oficina
+1835;Papelógrafo SUELTO Cuadriculado por unidad;0.42;18;Papelería;0.5;Librería y Oficina
+1836;Papelógrafo SUELTO Blanco por unidad;0.42;18;Papelería;0.5;Librería y Oficina
+1838;Galletas FIELD Coronita Paquete Taco 96g;2.37;18;Galletas;2.8;Dulcería
+1839;Pañales para Bebé HUGGIES Active Sec Talla XXXG por unidad;1.1;18;Pañales y Toallitas para Bebés;1.3;Cuidado del Bebé
+1840;Bebida Natural BIO Aloe Botella 500ml;2.97;18;Nutricionales;3.5;Bebidas
+1841;Bebida Natural BIO AMAYU Arándano con Uva y Manzana Botella 300ml;2.97;18;Nutricionales;3.5;Bebidas
+1842;Bebida Natural BIO AMAYU Manzana y Camu Camu Botella 300ml;2.97;18;Nutricionales;3.5;Bebidas
+1843;Bebida Natural BIO AMAYU Manzana Aguaje y Cocona Botella 300ml;2.97;18;Nutricionales;3.5;Bebidas
+1844;Galletas GLACITAS Mini Bañadas con Sabor a Toffee Paquete 55g;1.69;18;Galletas;2;Dulcería
+1845;Quitamanchas SAPOLIO Ropa Color Botella 930ml;5.08;18;Quitamanchas;6;Cuidado de Ropa
+1846;Velas CRUZ DE MOTUPE Mecha Trenzada Duramás paquete 10un;3.56;18;Velas;4.2;Hogar y Ferretería
+1847;Toallitas Húmedas para Bebé HUGGIES Limpieza Efectiva Paquete 120un;12.29;18;Pañales y Toallitas para Bebés;14.5;Cuidado del Bebé
+1848;Detergente en polvo PATITO Limón Bolsa 640g;4.07;18;Detergentes;4.8;Cuidado de Ropa
+1850;Suavizante SUAVITEL Complete Acqua Sachet 80ml;1.27;18;Suavizantes;1.5;Cuidado de Ropa
+1851;Queso Mantecoso EL PAISITA Paquete 180g;5.51;18;Quesos;6.5;Quesos y Embutidos
+1852;Queso Arenoso EL PAISITA Paquete 180g;5.51;18;Quesos;6.5;Quesos y Embutidos
+1854;Gaseosa FANTA Kola Inglesa Botella 300ml;1.27;18;Gaseosas;1.5;Bebidas
+1855;Bebida Energizante MONSTER Energy Ultra Paradise Lata 473ml;7.2;18;Energizantes;8.5;Bebidas
+1857;Bebida H2OH Limoneto Botella 500ml;1.27;18;Aguas Saborizadas;1.5;Bebidas
+1858;Mayonesa ALACENA Sachet 50g;1.69;18;Cremas y Condimentos;2;Abarrotes
+1860;Gaseosa CONCORDIA Sabor Naranja Botella 3L;6.36;18;Gaseosas;7.5;Bebidas
+1862;Galletas CASINO con Crema Sabor Pie de Limón Paquete 43g;0.85;18;Galletas;1;Dulcería
+1864;Comida para Perro RICOCAN Adultos Raza Pequeña a GRANEL Bolsa 500 g;3.9;18;Alimento Seco para Perros;4.6;Mascotas
+1865;Comida para Perro RICOCAN Cachorros Trocitos Sabor Cordero Doypack 100g;1.69;18;Alimento Húmedo para Perros;2;Mascotas
+1866;Comida para Perro RICOCAN Adultos Trocitos Sabor Cordero Doypack 100g;1.69;18;Alimento Húmedo para Perros;2;Mascotas
+1867;Comida para Perro RICOCAN Adultos Trocitos Sabor Carne Doypack 100g;1.69;18;Alimento Húmedo para Perros;2;Mascotas
+1868;Mentholatum Ungüento Tópico 5g;0.85;18;Salud;1;Cuidado Personal
+1869;Hot Dog RAZZETO paquete 470g;12.12;18;Embutidos;14.3;Quesos y Embutidos
+1870;Goma de Mascar TRIDENT EVUP Mora Paquete 30.6g 18un;3.22;18;Gomas de Mascar;3.8;Dulcería
+1871;Galletas FIELD Vainilla Familiar Paquete 148 g;2.12;18;Galletas;2.5;Dulcería
+1873;Queso Edam LAIVE Tajada Fina Paquete 90g;4.49;18;Quesos;5.3;Quesos y Embutidos
+1874;Guantes VIRUTEX Corrugado Talla M;7.2;18;Guantes y Escobillas;8.5;Limpieza
+1875;Papel Toalla ELITE Triple Absorción Rollo 1un;2.54;18;Papel Toalla;3;Limpieza
+1878;Chicle BOOGIE Surtido 10un Caja 13.6g;0.42;18;Gomas de Mascar;0.5;Dulcería
+1879;Gaseosa FANTA Manzana Botella 500ml;2.12;18;Gaseosas;2.5;Bebidas
+1880;Agua Mineral SAN MATEO Sin Gas Bidón 7L;9.32;18;Agua Mineral;11;Bebidas
+1882;Quitamanchas CLOROX Colores Vivos Botella 835ml;4.92;18;Quitamanchas;5.8;Cuidado de Ropa
+1883;Mantequilla GLORIA sin Sal Barra 180g;10.59;18;Mantequilla y Margarina;12.5;Lácteos y Huevos
+1884;Bebida Energizante VOLT Gamer Lata 473ml;3.81;18;Energizantes;4.5;Bebidas
+1885;Detergente en polvo PATITO Limón Bolsa 1kg;5.08;18;Detergentes;6;Cuidado de Ropa
+1886;King Kong BRUNING Sabor a Piña por unidad;1.27;18;Pasteles;1.5;Panadería y Pastelería
+1888;Crema de Ají ALACENA Tarí Sachet 8g;0.34;18;Cremas y Condimentos;0.4;Abarrotes
+1889;Gelatina UMSHA Uva Bolsa 120g;2.71;18;Gelatinas;3.2;Repostería
+1890;Suavizante BOLIVAR Plus Lavanda Frasco 800ml;6.78;18;Suavizantes;8;Cuidado de Ropa
+1891;Bombones BON O BON Frutilla Fresa por unidad 15g;0.85;18;Chocolatería;1;Dulcería
+1893;Ajo Molido Bolsa 45g;0.42;18;Cremas y Condimentos;0.5;Abarrotes
+1894;Rocoto Rojo Molido por unidad;0.85;18;Cremas y Condimentos;1;Abarrotes
+1895;Rocoto Amarillo Molido por unidad;0.85;18;Cremas y Condimentos;1;Abarrotes
+1896;Rocoto Verde Molido por unidad;0.85;18;Cremas y Condimentos;1;Abarrotes
+1897;Ají Escabeche Molido Bolsa 45g;0.42;18;Cremas y Condimentos;0.5;Abarrotes
+1899;Mango HADEN por Kg;3.81;18;Frutas;4.5;Frutas y Verduras
+1900;Pimentón MORRÓN por Kg;2.54;18;Verduras;3;Frutas y Verduras
+1902;Rocoto ROJO Entero por Un;0.85;18;Verduras;1;Frutas y Verduras
+1904;Ají Limo por Kg;7.63;18;Verduras;9;Frutas y Verduras
+1905;Aceituna NEGRA por Kg;22.03;18;Verduras;26;Frutas y Verduras
+1906;Bebida Energizante VOLT Dark Botella 300ml;2.12;18;Energizantes;2.5;Bebidas
+1907;Bebida CIFRUT Citrus Punch Botella 3L;5.59;18;Otras Bebidas;6.6;Bebidas
+1908;Filete de Atún D'GUSSTO en Aceite de Girasol Lata 170g;4.66;18;Conservas;5.5;Abarrotes
+1911;Shampoo SEDAL Duo 2 en 1 Sachet 40ml;1.27;18;Cuidado del Cabello;1.5;Cuidado Personal
+1912;Arroz Añejo DOÑA DELIA a GRANEL Bolsa 500 g;2.12;18;Arroz;2.5;Abarrotes
+1913;Gaseosa FANTA Naranja Botella 1L - RETORNABLE;3.39;18;Gaseosas;4;Bebidas
+1916;Comida para Perros REX Adultos Deli Twist Bolsa 16g;0.85;18;Alimento Seco para Perros;1;Mascotas
+1917;Jabón de Tocador DOVE Original 90g;3.73;18;Jabones en Barra;4.4;Cuidado Personal
+1918;Panetón WINTER'S Bolsa 900g;21.1;18;Panetones;24.9;Panadería y Pastelería
+1920;Jamon Pizzero RAZZETO Paquete 90gr;2.54;18;Embutidos;3;Quesos y Embutidos
+1921;Aceite Vegetal CIL Botella 500ml;4.24;18;Aceites;5;Abarrotes
+1924;Cartulina Escolar Negra por Unidad;0.85;18;Papelería;1;Librería y Oficina
+1925;Chocolate NESTLE Princesa Fresa Unidad 30g;2.29;18;Chocolatería;2.7;Dulcería
+1926;Cinta Masking Tape PEGAFAN 24mm x 18m por Unidad;2.12;18;Adhesivos y Cintas;2.5;Librería y Oficina
+1928;Avena 3 OSITOS Clásica Bolsa 500g;5;18;Avenas;5.9;Desayunos
+1930;Galletas COSTA Wenazas Bolsa 50.4g;1.27;18;Galletas;1.5;Dulcería
+1931;Lavavajilla Pasta AYUDÍN Limón y Sábila Pote 750g;6.69;18;Lavavajillas;7.9;Limpieza
+1932;Pasta Dental COLGATE Triple Acción Tubo 50ml;3.64;18;Cuidado Bucal;4.3;Cuidado Personal
+1933;Pan de Molde PYC Integral Familiar Bolsa 500g;6.19;18;Panes Envasados;7.3;Panadería y Pastelería
+1935;Vino TACAMA De La Viña Rosé Semiseco Botella 750ml;15.25;18;Vinos;18;Licores
+1936;Vino TACAMA De La Viña Tinto Semiseco Botella 750ml;15.25;18;Vinos;18;Licores
+1937;Bombones BON O BON Chocolinas por unidad 15g;0.85;18;Chocolatería;1;Dulcería
+1938;Bombones BON O BON Blanco por unidad 15g;0.85;18;Chocolatería;1;Dulcería
+1939;Foco EcoHome PHILIPS 13W Luz Fría por unidad;5.93;18;Focos;7;Hogar y Ferretería
+1940;Foco EcoHome PHILIPS 13W Luz Cálida por unidad;5.93;18;Focos;7;Hogar y Ferretería
+1942;Helado Frio Rico D'ONOFRIO Crema de Licor Cono 120ml;4.24;18;Helados;5;Congelados
+1943;Piqueos TOR-TEES Clásico Bolsaza Bolsa 138g;3.14;18;Piqueos Mixtos;3.7;Snacks
+1944;Sopa Instantánea con Fideos AJINOMEN Sabor Gallina Criolla Bolsa 80Gr;1.69;18;Comida Instantánea;2;Abarrotes
+1945;Aceite Vegetal CAPRI Botella 900ml;7.63;18;Aceites;9;Abarrotes
+1946;Lavavajilla Pasta SAPOLIO Limón Pote 1kg;5.93;18;Lavavajillas;7;Limpieza
+1950;Gaseosa CONCORDIA Sabor Piña Botella 1L;2.97;18;Gaseosas;3.5;Bebidas
+1951;Gaseosa CONCORDIA Sabor Fresa Botella 1L;2.97;18;Gaseosas;3.5;Bebidas
+1952;Néctar FRUGOS DEL VALLE Sabor a Mango Caja 235ml;1.36;18;Jugos y Néctares;1.6;Bebidas
+1953;Grated de Atún GLORIA en Aceite Vegetal Lata 140g;3.47;18;Conservas;4.1;Abarrotes
+1955;Bebida GLORIA Durazno Caja 500ml;2.12;18;Jugos y Néctares;2.5;Bebidas
+1956;Vodka MIKE'S Hard Blueberry Lemonade Lata 355ml;5.51;18;Licores Preparados;6.5;Licores
+1957;Trozos de Atún PRIMOR en Aceite Vegetal Lata 140g;4.92;18;Conservas;5.8;Abarrotes
+1958;Crema de Ají ALACENA Tarí Doypack 400g;11.44;18;Cremas y Condimentos;13.5;Abarrotes
+1959;Ketchup ALACENA Doypack 380g;7.54;18;Cremas y Condimentos;8.9;Abarrotes
+1960;Cerveza PILSEN Trujillo 6 Pack Lata 473ml;24.92;18;Con Alcohol;29.4;Cervezas
+1961;Cerveza PILSEN Trujillo Lata 473ml;4.24;18;Con Alcohol;5;Cervezas
+1965;Gaseosa COCA COLA Sin Azúcar Botella 1.5L;6.36;18;Gaseosas;7.5;Bebidas
+1966;Gaseosa INCA KOLA Sin Azúcar Botella 1.5L;6.36;18;Gaseosas;7.5;Bebidas
+1967;Camotes Fritos INKA CHIPS con Sal de Mar Bolsa 130g;5.51;18;Camotes y Chifles;6.5;Snacks
+1969;Comida para Gato RICOCAT Adultos Trocitos Sabor Pescado Doypack 85g;1.69;18;Alimento Húmedo para Gatos;2;Mascotas
+1970;Bebida CIFRUT Green Punch Botella 500 ml;1.27;18;Otras Bebidas;1.5;Bebidas
+1971;Filete de Bonito GISSELA en Aceite Vegetal Lata 140g;3.81;18;Conservas;4.5;Abarrotes
+1973;Fideos DON VITTORIO Codo Chico Bolsa 225g;1.69;18;Fideos, Pastas y Salsas;2;Abarrotes
+1974;Fideos DON VITTORIO Linguini Grosso Bolsa 950g;5.93;18;Fideos, Pastas y Salsas;7;Abarrotes
+1975;Bebida Rehidratante GATORLIT Recover Fresa Kiwi Botella 591ml;4.24;18;Rehidratantes;5;Bebidas
+1976;Bebida Rehidratante GATORLIT Recover Naranja Botella 591ml;4.24;18;Rehidratantes;5;Bebidas
+1978;Té Verde FREE TEA Sabor Limón Botella 500ml;1.95;18;Otras Bebidas;2.3;Bebidas
+1979;Pasta Dental COLGATE Triple Acción Tubo 22ml;2.37;18;Cuidado Bucal;2.8;Cuidado Personal
+1980;Fideos DON VITTORIO Spaghetti Bolsa 950g;5.93;18;Fideos, Pastas y Salsas;7;Abarrotes
+1981;Bebida Rehidratante DILYTE Manzana Botella 650ml;2.97;18;Rehidratantes;3.5;Bebidas
+1982;Bebida Rehidratante DILYTE Fresa Kiwi Botella 650ml;2.97;18;Rehidratantes;3.5;Bebidas
+1983;Bebida Rehidratante DILYTE Blueberry Botella 650ml;2.97;18;Rehidratantes;3.5;Bebidas
+1984;Suavizante BOLIVAR Aroma Activo Revive Color Sachet 80ml;0.85;18;Suavizantes;1;Cuidado de Ropa
+1985;Suavizante BOLIVAR Aroma Activo Frasco 800ml;6.78;18;Suavizantes;8;Cuidado de Ropa
+1987;Goma de Mascar TRIDENT SPLASH Menta y Vainilla Paquete 17.1g;2.54;18;Gomas de Mascar;3;Dulcería
+2024;Insecticida GALLO Espirales por 5un;2.12;18;Insecticidas;2.5;Limpieza
+2025;Comida para Perro RICOCAN Cachorros Trocitos Sabor Pollo Doypack 100g;1.69;18;Alimento Húmedo para Perros;2;Mascotas
+2026;Comida para Perro RICOCAN Adultos Trocitos Sabor Pollo Doypack 100g;1.69;18;Alimento Húmedo para Perros;2;Mascotas
+2027;Avena GRANO DE ORO Bolsa 370g;2.54;18;Avenas;3;Desayunos
+2028;Comida para Gato RICOCAT Adultos Trocitos Sabor Pollo Doypack 85g;1.69;18;Alimento Húmedo para Gatos;2;Mascotas
+2029;Bebida Rehidratante GATORLIT Recover Uva Botella 591ml;4.24;18;Rehidratantes;5;Bebidas
+2030;Gaseosa SEVEN UP Lima Limón Botella 355ml;1.02;18;Gaseosas;1.2;Bebidas
+2031;Papel Toalla NOVA Ultra Absorvente 1un;2.29;18;Papel Toalla;2.7;Limpieza
+2032;Lavavajilla Pasta AYUDÍN Limón y Sábila Pote 170g;2.37;18;Lavavajillas;2.8;Limpieza
+2033;Lavavajilla Pasta AYUDÍN Limón y Sábila Pote 300g;3.64;18;Lavavajillas;4.3;Limpieza
+2034;Lavavajilla Pasta AYUDÍN Limón y Sábila Pote 520g;5.42;18;Lavavajillas;6.4;Limpieza
+2035;Limpiatodo Antibacterial SAPOLIO Lavanda Botella 900ml;2.8;18;Limpiadores Multiusos;3.3;Limpieza
+2036;Limpiatodo Antibacterial SAPOLIO Manzana Botella 900ml;2.8;18;Limpiadores Multiusos;3.3;Limpieza
+2037;Limpiatodo Antibacterial SAPOLIO Rosas Botella 900ml;2.8;18;Limpiadores Multiusos;3.3;Limpieza
+2039;Limpiatodo Antibacterial SAPOLIO Limón Botella 900ml;2.8;18;Limpiadores Multiusos;3.3;Limpieza
+2040;Limpiatodo Antibacterial SAPOLIO Bebé Botella 900ml;2.71;18;Limpiadores Multiusos;3.2;Limpieza
+2041;Suavizante SUAVITEL Complete Fresca Primavera Doypack 800ml;9.75;18;Suavizantes;11.5;Cuidado de Ropa
+2042;Bebida Energizante MONSTER Energy Pipeline Punch Lata 473ml;7.2;18;Energizantes;8.5;Bebidas
+2043;Pilas DURACELL 9V 1un;13.22;18;Pilas y Baterías;15.6;Hogar y Ferretería
+2044;Galletas BLACKOUT Sabor Vainilla Paquete 38g;0.51;18;Galletas;0.6;Dulcería
+2045;Bebida Rehidratante FLASHLYTE Fresa Botella 625ml;4.66;18;Rehidratantes;5.5;Bebidas
+2046;Bebida Rehidratante FLASHLYTE Uva Botella 625ml;4.66;18;Rehidratantes;5.5;Bebidas
+2047;Agua CIELO Sin Gas Bidón 7L;5.93;18;Agua de Mesa;7;Bebidas
+2048;Papas LAYS Ondas Clasicas Bolsa 41g;1.86;18;Papas;2.2;Snacks
+2049;Papas LAYS Ondas Mayonesa Bolsa 41g;1.86;18;Papas;2.2;Snacks
+2051;Galletas CHOCO BUM Mini Sabor a Chocolate Bolsa 50g;1.69;18;Galletas;2;Dulcería
+2052;Cabanossi RAZZETO Paquete 3un 47g;2.12;18;Quesos y Embutidos;2.5;TIENDA
+2053;Té LIPTON sabor a Durazno Botella 500ml;1.69;18;Otras Bebidas;2;Bebidas
+2057;Vino SANTIAGO QUEIROLO Blanco Reservado Botella 750ml;15.25;18;Vinos;18;Licores
+2058;Vino SANTIAGO QUEIROLO Sauvignon Blanc Botella 750ml;15.25;18;Vinos;18;Licores
+2059;Vino TABERNERO Tuyo Borgoña Botella 750ml;15.25;18;Vinos;18;Licores
+2060;Esponja DKASA Fibra Verde por unidad;0.85;18;Esponjas y Paños;1;Limpieza
+2061;Helado Frio Rico D'ONOFRIO Crocante Fresa de Huaura Pote 900ml;21.1;18;Helados;24.9;Congelados
+2062;Esponja SCOTCH-BRITE Multiusos Paquete 1un;3.22;18;Esponjas y Paños;3.8;Limpieza
+2063;Esponja SCOTCH-BRITE Limpieza Extra fuerte Paquete 1un;1.69;18;Esponjas y Paños;2;Limpieza
+2064;Esponja SCOTCH-BRITE Limpieza Profunda Paquete 1un;1.69;18;Esponjas y Paños;2;Limpieza
+2065;Ketchup ALPESA Sachet 8g;0.34;18;Cremas y Condimentos;0.4;Abarrotes
+2066;Gaseosa CONCORDIA Sabor Fresa Botella 2L;4.24;18;Gaseosas;5;Bebidas
+2067;Tupper Plástico SAN GABRIEL Rectangular C5;0.85;18;Empaques y Envases;1;Descartables
+2068;Tupper Plástico SAN GABRIEL Cuadrado C3;0.85;18;Empaques y Envases;1;Descartables
+2069;Desodorante en Crema LADY SPEED STICK Mujer Talc Crema 30g;3.56;18;Higiene Personal;4.2;Cuidado Personal
+2070;Desodorante en Crema SPEED STICK Hombre Clinical Complete Crema 30g;3.56;18;Higiene Personal;4.2;Cuidado Personal
+2071;Sustancia de Tocino DOÑA GUSTA Concentrado en Polvo Sachet 7g;0.42;18;Cremas y Condimentos;0.5;Abarrotes
+2072;Té LIPTON sabor a Limón Botella 500ml;1.69;18;Otras Bebidas;2;Bebidas
+2074;Helado Peziduri D'ONOFRIO Sabor Pie de Limón Pote 900ml;16.86;18;Helados;19.9;Congelados
+2075;Galletas RITZ Original Mini Bolsa 50g;1.69;18;Galletas;2;Dulcería
+2076;Galletas FIELD Charada Taco 96g;2.37;18;Galletas;2.8;Dulcería
+2077;Trigo Atómico GUSTAVO Bolsa 35g;0.85;18;Cereales;1;Desayunos
+2078;Gomas ARCOR MOGUL Extreme ácido dulce Bolsa 35g;1.27;18;Gomitas;1.5;Dulcería
+2079;Galletas PICARAS Mini Extrema Paquete 46g;1.69;18;Galletas;2;Dulcería
+2080;Protectores Diarios NOSOTRAS Normal Desodorante Paquete 15un;2.8;18;Protección Femenina;3.3;Cuidado Personal
+2081;Protectores Diarios NOSOTRAS Normal Paquete 15un;2.8;18;Protección Femenina;3.3;Cuidado Personal
+2083;Cigarro MARLBORO Forest Fusion Caja 10un;10.59;18;Cigarros;12.5;Tabaco y Vapes
+2085;Galletas RITZ Original Taco 70g;1.27;18;Galletas;1.5;Dulcería
+2086;Suavizante DOWNY Concentrado Sachet 80 ml;1.1;18;Suavizantes;1.3;Cuidado de Ropa
+2087;Gaseosa CONCORDIA Sabor Piña Botella 2L;4.24;18;Gaseosas;5;Bebidas
+2088;Shampoo NUTRIBELA Biokeratina Sachet 22ml + 8ml;1.02;18;Cuidado del Cabello;1.2;Cuidado Personal
+2089;Shampoo NUTRIBELA Reparación Intensiva Sachet 22ml + 8ml;1.02;18;Cuidado del Cabello;1.2;Cuidado Personal
+2090;Betún en pasta SANTIAGO Marron Pote 45ml/34g;2.12;18;Limpieza de Calzado;2.5;Limpieza
+2091;Salsa de Soya KIKKO Siyau Frasco 85ml;1.02;18;Cremas y Condimentos;1.2;Abarrotes
+2092;Filete de atún REAL en Aceite Girasol Lata 140g;4.66;18;Conservas;5.5;Abarrotes
+2093;Limpiador Antibacterial en Polvo SAPOLIO Bolsa 450g;4.15;18;Lavavajillas;4.9;Limpieza
+2094;Bebida FRUGOS DEL VALLE Fresh Manzana Botella 500ml;1.69;18;Otras Bebidas;2;Bebidas
+2095;Limpiatodo Antibacterial SAPOLIO Lavanda Botella 648ml;2.12;18;Limpiadores Multiusos;2.5;Limpieza
+2096;Jabón Natural HENO DE PRAVIA Antibacteriano Barra 150gr;5.08;18;Jabones en Barra;6;Cuidado Personal
+2097;Jabón Natural HENO DE PRAVIA con Crema Hidratante Barra 150gr;5.08;18;Jabones en Barra;6;Cuidado Personal
+2098;Bebida Rehidratante SUEROX Naranja Mandarina Botella 630ml;5.76;18;Rehidratantes;6.8;Bebidas
+2099;Bebida Rehidratante SUEROX Mora Azul Botella 630ml;5.76;18;Rehidratantes;6.8;Bebidas
+2100;Bebida Rehidratante SUEROX Fresa Kiwi Botella 630ml;5.76;18;Rehidratantes;6.8;Bebidas
+2101;Bebida Rehidratante SUEROX Frutos Rojos Botella 630ml;5.76;18;Rehidratantes;6.8;Bebidas
+2102;Cepillos Dentales COLGATE Zig Zag Carbón por unidad;3.56;18;Cuidado Bucal;4.2;Cuidado Personal
+2103;Helado Sublime D'ONOFRIO Galleta Pote 900ml;16.86;18;Helados;19.9;Congelados
+2104;Lavavajilla Pasta SAPOLIO Manzana Pote 800g;4.92;18;Lavavajillas;5.8;Limpieza
+2105;Lavavajilla Pasta SAPOLIO Antibacterial Pote 800g;4.92;18;Lavavajillas;5.8;Limpieza
+2106;Fideos DON VITTORIO Fettuccini Bolsa 950g;5.93;18;Fideos, Pastas y Salsas;7;Abarrotes
+2107;Bebida PULP Durazno Botella 1.5L;4.66;18;Jugos y Néctares;5.5;Bebidas
+2109;Cocoa WINTER'S Sobre 10g;0.85;18;Modificadores de leche;1;Desayunos
+2110;Papas LAYS Artesanas Sal Marina Bolsa 30g;1.86;18;Papas;2.2;Snacks
+2111;Tortillas de Maíz DORITOS Dinamita Limón Taquero Bolsa 35g;1.86;18;Maiz;2.2;Snacks
+2112;Chips de Camote NATUCHIPS Bolsa 135g;1.69;18;Camotes y Chifles;2;Snacks
+2113;Shampoo HEAD & SHOULDERS Anti - Comezón Menta Refrescante Sachet 15ml;0.93;18;Cuidado del Cabello;1.1;Cuidado Personal
+2114;Caramelos MENTOS Tutti Frutti Paquete 29g;1.27;18;Caramelos;1.5;Dulcería
+2115;Gel para Hombre EGO Atraction Pote 110ml;4.07;18;Cuidado del Cabello;4.8;Cuidado Personal
+2116;Avena GRANO DE ORO Bolsa 500g;2.97;18;Avenas;3.5;Desayunos
+2117;Fósforos LA LLAMA Paquete x 10ca;2.37;18;Fósforos;2.8;Hogar y Ferretería
+2118;Fósforos INTI Paquete x 10ca;2.37;18;Fósforos;2.8;Hogar y Ferretería
+2119;Fósforos LA LLAMA Caja 40un;0.25;18;Fósforos;0.3;Hogar y Ferretería
+2120;Cigarro MARLBORO Summer Fusion Caja 10un;10.59;18;Cigarros;12.5;Tabaco y Vapes
+2121;Vasos Descartables EL ROJITO 5.5oz Paquete 50un;2.46;18;Vajilla Descartable;2.9;Descartables
+2123;Uva Verde por Kg;0;18;Frutas;0;Frutas y Verduras
+2124;Galletas COSTA Frac Menta Bolsa 41g;0.85;18;Galletas;1;Dulcería
+2125;Toffee AMBROSOLI Old England Toffee Surtidos Bolsa 100un - 550g;0;18;Otras Golosinas;0;Dulcería
+2126;Gomitas AMBROSOLI Frugelé Surtidos Bolsa 100un - 430g;0;18;Gomitas;0;Dulcería
+2127;Cerveza HEINEKEN Lata 473ml;5.08;18;Con Alcohol;6;Cervezas
+2128;Cerveza HEINEKEN 4 Pack Lata 473ml;20;18;Con Alcohol;23.6;Cervezas
+2129;Cerveza CUSQUEÑA Negra Lata 355ml;4.24;18;Con Alcohol;5;Cervezas
+2130;Cerveza CUSQUEÑA Negra Lata 473ml;5.08;18;Con Alcohol;6;Cervezas
+2131;Cerveza CUSQUEÑA Negra 6 Pack Lata 355ml;25;18;Con Alcohol;29.5;Cervezas
+2132;Cerveza CUSQUEÑA Negra 6 Pack Lata 473ml;28.73;18;Con Alcohol;33.9;Cervezas
+2133;Cerveza CORONA Extra Lata 355ml;4.66;18;Con Alcohol;5.5;Cervezas
+2134;Cerveza CORONA Extra 6 Pack Lata 355ml;27.46;18;Con Alcohol;32.4;Cervezas
+2137;Cerveza PILSEN Callao 12 Pack Lata 355ml;42.29;18;Con Alcohol;49.9;Cervezas
+2138;Pasta Dental COLGATE Triple Acción Tubo 150ml;10;18;Cuidado Bucal;11.8;Cuidado Personal
+2139;Papel Higiénico NOBLE Doble Hoja Plus Paquete 2un;2.12;18;Papel Higiénico;2.5;Limpieza
+2140;Cera Líquida EMPERATRIZ Amarilla Doypack 300ml;6.53;18;Ceras;7.7;Limpieza
+2142;Fortificante NESQUIK Sabor Chocolate Sachet 13g;0.85;18;Modificadores de leche;1;Desayunos
+2143;Papel Toalla ELITE Triple Absorción Rollo 2un;4.92;18;Papel Toalla;5.8;Limpieza
+2149;Chocolate SNICKERS Milk Chocolate Bolsa 53g;3.22;18;Chocolatería;3.8;Dulcería
+2150;Chocolate SNICKERS Almond 49.9g;4.07;18;Chocolatería;4.8;Dulcería
+2151;Chocolate M&M'S Peanut Bolsa 49.3g;4.07;18;Chocolatería;4.8;Dulcería
+2152;Chocolate M&M'S Milk Chocolate Bolsa 47.9g;4.07;18;Chocolatería;4.8;Dulcería
+2153;Galletas FIELD Cream Crackers Paquete 73.5g;1.44;18;Galletas;1.7;Dulcería
+2156;Vino TABERNERO Tuyo Gran Rosé Botella 750ml;15.25;18;Vinos;18;Licores
+2157;Detergente líquido ARIEL Doble Poder Doypack 400ml;7.54;18;Detergentes;8.9;Cuidado de Ropa
+2158;Detergente líquido ARIEL Doble Poder Botella 800ml;15.25;18;Detergentes;18;Cuidado de Ropa
+2159;Shampoo para Bebé JOHNSON'S BABY Original Sachet 25ml;1.27;18;Cuidado del Cabello;1.5;Cuidado Personal
+2160;Shampoo para Bebé JOHNSON'S BABY Manzanilla Sachet 25ml;1.27;18;Cuidado del Cabello;1.5;Cuidado Personal
+2161;Jabón de Tocador JOHNSON'S Original Barra 110g;3.56;18;Jabones en Barra;4.2;Cuidado Personal
+2162;Jabón de Tocador JOHNSON'S Avena Barra 110g;3.56;18;Jabones en Barra;4.2;Cuidado Personal
+2163;Bebida Energizante RED BULL Ambar Lata 250ml;7.2;18;Energizantes;8.5;Bebidas
+2164;Jabón de Tocador JOHNSON'S Original Barra 75g;3.22;18;Jabones en Barra;3.8;Cuidado Personal
+2165;Jabón de Tocador NEKO Aloe Barra 110g;3.56;18;Jabones en Barra;4.2;Cuidado Personal
+2166;Jabón de Tocador NEKO Extra Protección Barra 110g;3.56;18;Jabones en Barra;4.2;Cuidado Personal
+2167;Yogurt Bebible GLORIA Pro Day Sabor Manzana Verde Botella 300gr;3.98;18;Yogurts;4.7;Lácteos y Huevos
+2168;Yogurt Bebible GLORIA Pro Day Sabor Mora Botella 300gr;3.98;18;Yogurts;4.7;Lácteos y Huevos
+2169;Bebida Láctea GLORIA UHT Pro Day Chocolate Botella 320ml;3.98;18;Mezclas Lácteas;4.7;Lácteos y Huevos
+2170;Bebida Láctea GLORIA UHT Pro Day Vainilla Botella 320ml;3.98;18;Mezclas Lácteas;4.7;Lácteos y Huevos
+2171;Yogurt Bebible GLORIA Pro Power Avena Envase 155gr;2.71;18;Yogurts;3.2;Lácteos y Huevos
+2172;Yogurt Bebible GLORIA Pro Day Sauco Envase 155gr;3.56;18;Yogurts;4.2;Lácteos y Huevos
+2173;Bebida Láctea GLORIA Pro Power Sabor Caramel Macchiato Botella 320ml;5.76;18;Mezclas Lácteas;6.8;Lácteos y Huevos
+2174;Bebida Láctea GLORIA Pro Power Sabor Dark Chocolate Botella 320ml;5.76;18;Mezclas Lácteas;6.8;Lácteos y Huevos
+2175;Chifles MARANATHA Bolsa 400g;6.36;18;Camotes y Chifles;7.5;Snacks
+2176;Agua CIELO Sin Gas Botella 750ml;1.02;18;Agua de Mesa;1.2;Bebidas
+2177;Mermelada ACONCAGUA Fresa Sachet 200g;2.8;18;Mermeladas, Mieles y Dulces;3.3;Desayunos
+2179;Roscas de Agua SAN MARTIN Bolsa 8un;2.12;18;Roscas;2.5;Panadería y Pastelería
+2180;Oreja SAN MARTIN por unidad;2.12;18;Pasteles;2.5;Panadería y Pastelería
+2181;Galletas SAN MARTIN Integrales con Ajonjolí Bolsa 4un;2.12;18;Galletas;2.5;Dulcería
+2182;Fideos NICOLINI Caracol Bolsa 225g;1.44;18;Fideos, Pastas y Salsas;1.7;Abarrotes
+2183;Galletas CASINO con Crema Sabor a Chocolate Taco 129g;2.12;18;Galletas;2.5;Dulcería
+2184;Papas Fritas INKA CHIPS Peruanas Nativas Bolsa 33g;2.12;18;Papas;2.5;Snacks
+2185;Papel Higienico PARACAS Doble Hoja Morado Paquete 2un;1.69;18;Papel Higiénico;2;Limpieza
+2186;Toallas Higiénicas NOSOTRAS Invisible Rapisec Paquete 10un;4.92;18;Protección Femenina;5.8;Cuidado Personal
+2187;Pastelito Pingüino MARINELA Sabor Cookies & Cream Bolsa 80g;2.97;18;Pasteles;3.5;Panadería y Pastelería
+2188;Pastelito Pingüino MARINELA Sabor Triple Chocolate Bolsa 80g;2.97;18;Pasteles;3.5;Panadería y Pastelería
+2189;Pan de Molde PYC Blanco Bolsa 350g;3.98;18;Panes Envasados;4.7;Panadería y Pastelería
+2190;Mantequilla LAIVE con Sal Barra 180g;10.59;18;Mantequilla y Margarina;12.5;Lácteos y Huevos
+2191;Café Instantáneo ALTOMAYO Armónico Sachet 7g;1.53;18;Café e Infusiones;1.8;Desayunos
+2192;Grated de Jurel GISSELA en Aceite Vegetal Lata 140g;2.97;18;Conservas;3.5;Abarrotes
+2193;Cereal ANGEL Rosado Fresia Almohada Bolsa 18g;0.85;18;Cereales;1;Desayunos
+2194;Borrador ARTESCO Blanco por Unidad;0.85;18;Escritura y Corrección;1;Librería y Oficina
+2195;Corrector FABER-CASTELL Tipo Lapicero 9ml por Unidad;2.12;18;Escritura y Corrección;2.5;Librería y Oficina
+2196;Fideos SAN JORGE Letras y Números Bolsa 250g;1.27;18;Fideos, Pastas y Salsas;1.5;Abarrotes
+2197;Fideos SAN JORGE Arito Bolsa 250g;1.27;18;Fideos, Pastas y Salsas;1.5;Abarrotes
+2198;Leche UHT LAIVE Light Caja 946ml;5;18;Leches;5.9;Lácteos y Huevos
+2199;Cerveza AMSTEL Premium 6 pack Botella 275ml;22.37;18;Con Alcohol;26.4;Cervezas
+2200;Cerveza AMSTEL Premium Botella 275ml;3.81;18;Con Alcohol;4.5;Cervezas
+2201;Bebida Rehidratante POWERADE Sour Botella 600ml;2.12;18;Rehidratantes;2.5;Bebidas
+2202;Chocolate NESTLÉ Sublime Galleta Bolsa 28g;2.12;18;Chocolatería;2.5;Dulcería
+2203;Jamonada Especial RAZZETO paquete 250g;7.63;18;Embutidos;9;Quesos y Embutidos
+2204;Mortadela RAZZETO paquete 250g;6.95;18;Embutidos;8.2;Quesos y Embutidos
+2205;Queso Tipo Suizo para Rallar a GRANEL corte 250g;5.51;18;Quesos;6.5;Quesos y Embutidos
+2206;Queso Fresco LIGHT a GRANEL corte 250g;5.08;18;Quesos;6;Quesos y Embutidos
+2207;Huevos a GRANEL Bolsa 500g;2.54;18;Huevos;3;Lácteos y Huevos
+2208;Ajo Entero por 100g;1.53;18;Verduras;1.8;Frutas y Verduras
+2209;Kión por 100g;1.02;18;Verduras;1.2;Frutas y Verduras
+2210;Galletas SALMAS de Maíz Horneadas Bolsa 18g;0.85;18;Galletas;1;Dulcería
+2211;Tortillas de Maiz TAKIS Fuego Bolsa 90g;3.81;18;Maiz;4.5;Snacks
+2212;Tortillas de Maiz TAKIS Xplosion Bolsa 90g;3.81;18;Maiz;4.5;Snacks
+2213;Tortillas de Maiz TAKIS Original Bolsa 90g;3.81;18;Maiz;4.5;Snacks
+2214;Shampoo SEDAL Colágeno + Vitamina C Sachet 40ml;1.27;18;Cuidado del Cabello;1.5;Cuidado Personal
+2215;Shampoo NUTRIBELA Pro-Hialurónico Sachet 22ml + 8ml;1.02;18;Cuidado del Cabello;1.2;Cuidado Personal
+2216;Shampoo NUTRIBELA Célular Madre Sachet 22ml + 8ml;1.02;18;Cuidado del Cabello;1.2;Cuidado Personal
+2217;Detergente en Polvo BOLIVAR Cuidado y Suavidad Bolsa 730g;8.05;18;Detergentes;9.5;Cuidado de Ropa
+2218;Detergente en Polvo BOLIVAR Cuidado Micelar Bolsa 730g;8.05;18;Detergentes;9.5;Cuidado de Ropa
+2219;Detergente en Polvo BOLIVAR Cuidado Bebés y Niños Bolsa 730g;8.05;18;Detergentes;9.5;Cuidado de Ropa
+2220;Detergente en Polvo BOLIVAR Cuidado Bebés y Niños Bolsa 150g;2.12;18;Detergentes;2.5;Cuidado de Ropa
+2221;Bebida Energizante RED BULL Winter Lata 250ml;7.2;18;Energizantes;8.5;Bebidas
+2222;Bebida PULP Durazno Botella 1L;3.81;18;Jugos y Néctares;4.5;Bebidas
+2223;Detergente en polvo PATITO Bebé Bolsa 640g;4.07;18;Detergentes;4.8;Cuidado de Ropa
+2225;Shampoo SEDAL Prebióticos + Biotina Sachet 40ml;1.27;18;Cuidado del Cabello;1.5;Cuidado Personal
+2226;Desodorante Aerosol REXONA para Mujer Active Emotion Frasco 150ml;11.78;18;Higiene Personal;13.9;Cuidado Personal
+2227;Desodorante Aerosol AXE para Hombre Epic Fresh Frasco 150ml;11.78;18;Higiene Personal;13.9;Cuidado Personal
+2228;Jabón de Tocador DOVE Leche de Coco y Jazmin 90g;3.73;18;Jabones en Barra;4.4;Cuidado Personal
+2229;Crema Facial POND'S Rejuveness Antiarrugas Sachet 10g;1.1;18;Belleza;1.3;Cuidado Personal
+2230;Crema Facial POND'S Clarant B3 Sachet 10g;1.1;18;Belleza;1.3;Cuidado Personal
+2231;Cereal ANGEL Copos de Avena Bolsa 120g;2.97;18;Cereales;3.5;Desayunos
+2232;Ambientador en Aerosol GLADE Abrazos de Vainilla Frasco 400ml;8.05;18;Ambientadores y Aromatizadores;9.5;Limpieza
+2233;Insecticida en Aerosol BAYGON Mosquito y Moscas Frasco 400ml;10.59;18;Insecticidas;12.5;Limpieza
+2234;Insecticida en Aerosol BAYGON Verde Frasco 400ml;10.59;18;Insecticidas;12.5;Limpieza
+2235;Insecticida BAYGON Espiral Caja 10un;3.39;18;Insecticidas;4;Limpieza
+2236;Choco Snacks BIG BEN Caramelo y Maní Blanco Bolsa 55g;2.12;18;Chocolatería;2.5;Dulcería
+2237;Caramelos BIG BEN Chocolate Blanco Bolsa 100un - 400g;5.93;18;Caramelos;7;Dulcería
+2238;Papel Bond Fotocopia MILLENIUM 75g A-4 por 500 hojas;11.86;18;Papelería;14;Librería y Oficina
+2239;Piqueos CHEETOS Garrita Queso Travieso Bolsa 32g;1.69;18;Maiz;2;Snacks
+2240;Papas LAYS Ondas Jalapeño Bolsa 37g;1.86;18;Papas;2.2;Snacks
+2241;Papas LAYS Ondas Sweet BBQ Bolsa 37g;1.86;18;Papas;2.2;Snacks
+2242;Galletas RITZ Queso Taco 75g;2.12;18;Galletas;2.5;Dulcería
+2243;Galletas OREO Selena Gomez Paquete 36g;0.85;18;Galletas;1;Dulcería
+2244;Gaseosa CONCORDIA Sabor Naranja Botella 2L;4.24;18;Gaseosas;5;Bebidas
+2245;Helado Sin Parar D'ONOFRIO Choco Berries Pote 170ml;3.81;18;Helados;4.5;Congelados
+2246;Envase Circular PRIMO Blanco con Tapa de 500ml;0.42;18;Empaques y Envases;0.5;Descartables
+2247;Envase Circular PRIMO Blanco con Tapa de 1L;0.68;18;Empaques y Envases;0.8;Descartables
+2248;Cucharas de Plástico COINA PLAST por 25un;0.85;18;Vajilla Descartable;1;Descartables
+2249;Platos de Plástico HAWAI Paquete 25 un;2.12;18;Vajilla Descartable;2.5;Descartables
+2250;Vaso Polipapel ECO BELI sin tapa 12onz;0.42;18;Vajilla Descartable;0.5;Descartables
+2251;Detergente en Polvo MARSELLA Pétalos Relajantes Lavanda y Rosas Bolsa 2Kg;16.1;18;Detergentes;19;Cuidado de Ropa
+2252;Detergente en Polvo BOLIVAR Cuidado Total Bolsa 2.4Kg;23.64;18;Detergentes;27.9;Cuidado de Ropa
+2253;Lavavajilla Líquido SAPOLIO Limón Botella 300ml;3.73;18;Lavavajillas;4.4;Limpieza
+2254;Lavavajilla Líquido SAPOLIO Limón Botella 500ml;5;18;Lavavajillas;5.9;Limpieza
+2255;Lavavajilla Líquido SAPOLIO Limón Botella 750ml;7.2;18;Lavavajillas;8.5;Limpieza
+2256;Tajador OVE Simple por Unidad;0.85;18;Escritura y Corrección;1;Librería y Oficina
+2257;Goma en Barra ARTESCO 8g;1.69;18;Adhesivos y Cintas;2;Librería y Oficina
+2258;Goma en Barra ARTESCO 21g;2.54;18;Adhesivos y Cintas;3;Librería y Oficina
+2259;Lapicero PILOT BPS Fine Negro por Unidad;2.54;18;Escritura y Corrección;3;Librería y Oficina
+2260;Lapicero PILOT BPS Fine Azul por Unidad;2.54;18;Escritura y Corrección;3;Librería y Oficina
+2261;Lapicero PILOT BPS Fine Rojo por Unidad;2.54;18;Escritura y Corrección;3;Librería y Oficina
+2262;Lapicero PILOT BPS-GP Fine Negro por Unidad;3.39;18;Escritura y Corrección;4;Librería y Oficina
+2263;Lapicero PILOT BPS-GP Fine Azul por Unidad;3.39;18;Escritura y Corrección;4;Librería y Oficina
+2264;Lapicero PILOT BPS-GP Fine Rojo por Unidad;3.39;18;Escritura y Corrección;4;Librería y Oficina
+2265;Lejía SAPOLIO Tradicional Botella 1.16kg;2.97;18;Lejías;3.5;Limpieza
+2266;Cigarro PALL MALL XL Boost Caja 20un;14.41;18;Cigarros;17;Tabaco y Vapes
+2267;Cigarro PALL MALL XL Boost Caja por Unidad;0.85;18;Cigarros;1;Tabaco y Vapes
+2268;Bebida Alcohólica Preparada FOUR LOKO White Limón Lata 473ml;9.24;18;Licores Preparados;10.9;Licores
+2269;Suavizante BOLIVAR Bebés y Niños Frasco 800ml;6.78;18;Suavizantes;8;Cuidado de Ropa
+2270;Azúcar Rubia MANUELITA a GRANEL Bolsa 500g;1.53;18;Azucar y Endulzantes;1.8;Abarrotes
+2271;Galletas OREO Selena Gomez Taco 108g;2.2;18;Galletas;2.6;Dulcería
+2272;Chifles MARANATHA Mixto Bolsa 200g;4.07;18;Camotes y Chifles;4.8;Snacks
+2273;Pastelito Gansito MARINELA Black Bolsa 50g;2.12;18;Pasteles;2.5;Panadería y Pastelería
+2274;Suavizante DOWNY Aroma Floral Botella 700ml;8.39;18;Suavizantes;9.9;Cuidado de Ropa
+2275;Grageas de Chocolate CHIN CHIN Max Caja 30g;1.69;18;Chocolatería;2;Dulcería
+2276;Cereal ANGEL Copos de Avena Bolsa 18g;0.85;18;Cereales;1;Desayunos
+2277;Chupetes BON BON BUM Sabor Fresa Bolsa 24un / 456g;6.61;18;Chupetes;7.8;Dulcería
+2278;Chupetes BON BON BUM Sabores Surtidos Bolsa 24un / 456g;6.61;18;Chupetes;7.8;Dulcería
+2279;Chupetes GLOBO POP Sabor Fresa Bolsa 24un / 456g;6.61;18;Chupetes;7.8;Dulcería
+2280;Chupetes GLOBO POP Sabor Surtido Bolsa 24un / 456g;6.61;18;Chupetes;7.8;Dulcería
+2281;Caramelos ARCOR Chicha Morada Bolsa 100un;8.05;18;Caramelos;9.5;Dulcería
+2282;Caramelos ARCOR Limón Bolsa 100un;8.05;18;Caramelos;9.5;Dulcería
+2283;Cera para Cabello EGO Look Definido Pote 60ml;7.2;18;Cuidado del Cabello;8.5;Cuidado Personal
+2284;Sustancia de Pescado DOÑA GUSTA en Polvo Sachet 7g;0.42;18;Cremas y Condimentos;0.5;Abarrotes
+2285;Shampoo HEAD & SHOULDERS Anti - Resequedad Sachet 15ml;0.93;18;Cuidado del Cabello;1.1;Cuidado Personal
+2286;Toallas Higiénicas ALWAYS Cubierta Suave Día M Paquete 8un;4.07;18;Protección Femenina;4.8;Cuidado Personal
+2287;Toallas Higiénicas ALWAYS Cubierta Seca Noche G Paquete 8un;6.19;18;Protección Femenina;7.3;Cuidado Personal
+2288;Toallas Higiénicas ALWAYS Cubierta Suave Noche XG Paquete 8un;6.69;18;Protección Femenina;7.9;Cuidado Personal
+2289;Protectores Diarios ALWAYS Paquete 15 un;3.14;18;Protección Femenina;3.7;Cuidado Personal
+9001;Combo Adulto Independiente;12.63;18;Combos;14.9;TIENDA
+9002;Combo Siempre Limpios;12.63;18;Combos;14.9;TIENDA
+9003;Combo Desayuno de Campeones;14.07;18;Combos;16.6;TIENDA
+9004;Combo Pelis;11.78;18;Combos;13.9;TIENDA
+9005;Combo Amigos;33.81;18;Combos;39.9;TIENDA
+9101;Huevos a GRANEL en celda de 30un x kg;4.66;18;Huevos;5.5;Lácteos y Huevos
+9102;Leche GLORIA Entera Lata 390g x 6un;19.92;18;Leches;23.5;Lácteos y Huevos
+9103;Leche GLORIA Entera UHT Caja 946ml x 3un;14.32;18;Leches;16.9;Lácteos y Huevos
+9104;Yogurt Bebible GLORIA Sabor a Fresa Botella 946g x 3un;9.98;18;Yogurts;11.78;Lácteos y Huevos
+9105;Gaseosas COCA COLA Sabor Original 2 Pack Botellas 3L;18.22;18;Gaseosas;21.5;Bebidas
+9106;Gaseosas INCA KOLA Sabor Original 2 Pack Botellas 3L;18.22;18;Gaseosas;21.5;Bebidas
+9107;Aceite Vegetal PRIMOR Premium Botella 900ml x 2un;17.37;18;Aceites;20.5;Abarrotes
+9108;Filete de Atún PRIMOR en Aceite Vegetal Lata 140g x 3un;13.31;18;Conservas;15.7;Abarrotes
+9109;Fideos DON VITTORIO Spaghetti Bolsa 450g x 3un;8.14;18;Fideos, Pastas y Salsas;9.6;Abarrotes
+9110;Arroz Extra CASERITA PACASMAYO a GRANEL Bolsa 3kg;9.07;18;Arroz;10.7;Abarrotes
+9111;Azúcar Rubia MANUELITA a GRANEL Bolsa 3kg;7.54;18;Azucar y Endulzantes;8.9;Abarrotes
+9112;Detergente en Polvo MARSELLA Profesional a GRANEL Bolsa 2Kg;12.03;18;Detergentes;14.2;Cuidado de Ropa
+9113;Comida para Perro RICOCAN Adultos Todas las Razas Multisabores a GRANEL Bolsa 3Kg;19.66;18;Alimento Seco para Perros;23.2;Mascotas
+9114;Comida para Perro RICOCAN Cachorro Raza Pequeña Carne y Leche a GRANEL Bolsa 3Kg;20.51;18;Alimento Seco para Perros;24.2;Mascotas
+9115;Comida para Perro RICOCAN Adultos Edad Avanzada a GRANEL Bolsa 3Kg;19.66;18;Alimento Seco para Perros;23.2;Mascotas
+9116;Comida para Perro RICOCAN Adultos Raza Pequeña a GRANEL Bolsa 3Kg;20.51;18;Alimento Seco para Perros;24.2;Mascotas
+9117;Comida para Gato RICOCAT Atún, Sardina y Trucha para Adultos a GRANEL Bolsa 3Kg;25.68;18;Alimento Seco para Gatos;30.3;Mascotas
+9118;Comida para Gato RICOCAT Carne, Pescado y Leche para Gatitos a GRANEL Bolsa 3Kg;26.78;18;Alimento Seco para Gatos;31.6;Mascotas
+9119;Comida para Gato RICOCAT Adultos Esterilizados a GRANEL Bolsa 3Kg;25.68;18;Alimento Seco para Gatos;30.3;Mascotas
+9120;Cerveza HEINEKEN 6 Pack Lata 310ml x 2un;36.36;18;Con Alcohol;42.9;Cervezas
+2290;Salchicha de Huacho RAZZETO Paquete 1un;2.71;18;Embutidos;3.2;Quesos y Embutidos
+2291;Sazonador AJI-NO-MOTO Umami Glutamato de Sodio Bolsa 500g;7.63;18;Cremas y Condimentos;9;Abarrotes
+2292;Chocolate BESOS DE MOZA Clásico 24g por 9un;9.49;18;Chocolatería;11.2;Dulcería
+2293;Shampoo para Bebé JOHNSON'S BABY Original Frasco 400ml;26.19;18;Cuidado del Cabello;30.9;Cuidado Personal
+2294;Shampoo HEAD & SHOULDERS Suave y Manejable 2en1 Frasco 375ml;16.02;18;Cuidado del Cabello;18.9;Cuidado Personal
+2295;Suavizante DOWNY Exótico Botella 700ml;8.39;18;Suavizantes;9.9;Cuidado de Ropa
+2296;Suavizante DOWNY Amanecer Botella 700ml;8.39;18;Suavizantes;9.9;Cuidado de Ropa
+2297;Esponja para Limpieza CARMELITA Superficie Metálica por unidad;2.12;18;Esponjas y Paños;2.5;Limpieza
+2298;King Kong BRUNING Sabor a Maní por unidad;1.27;18;Pasteles;1.5;Panadería y Pastelería
+2299;Detergente en Polvo CARICIA Rosa Ropa Delicada Bolsa 1.4Kg;29.24;18;Detergentes;34.5;Cuidado de Ropa
+2300;Detergente en Polvo OPAL Ultra Bolsa 2.4Kg;22.2;18;Detergentes;26.2;Cuidado de Ropa
+2301;Velas SANTA CRUZ Votiva Mediana Misionera paquete 6un;3.05;18;Velas;3.6;Hogar y Ferretería
+2302;Leche GLORIA con Quinua Lata Lata 390g;3.81;18;Leches;4.5;Lácteos y Huevos
+2303;Leche GLORIA con Quinua Kiwicha y Cañihua Lata 390g;3.81;18;Leches;4.5;Lácteos y Huevos
+2304;Maní con Pasas FRUSEC;1.02;18;Frutos Secos;1.2;Snacks
+2305;Cuarto de Pollo CHIMÚ Pierna Fresco por Kg;9.24;18;Pollo;10.9;Carnes, Aves y Pescados
+2306;Caramelos HALLS Cereza Cherry Lyptus Bolsa 100un;12.29;18;Caramelos;14.5;Dulcería
+2307;Caramelos HALLS Extra Fuerte Lyptus Bolsa 100un;12.29;18;Caramelos;14.5;Dulcería
+2308;Caramelos HALLS Mentol y Eucalipto Bolsa 100un;12.29;18;Caramelos;14.5;Dulcería
+2309;Caramelos HALLS Mora Bolsa 100un;12.29;18;Caramelos;14.5;Dulcería
+2310;Caramelos HALLS Yerbabuena Lyptus Bolsa 100un;12.29;18;Caramelos;14.5;Dulcería
+2311;Mostaza ALACENA Doypack 220g;4.66;18;Cremas y Condimentos;5.5;Abarrotes
+2312;Cerveza CUSQUEÑA Negra 12 Pack Botella 620 ml - RETORNABLE;75.25;18;Con Alcohol;88.8;Cervezas
+2313;Cerveza CUSQUEÑA Trigo 12 Pack Botella 620 ml - RETORNABLE;75.25;18;Con Alcohol;88.8;Cervezas
+2314;Cerveza BUDWEISER 6 Pack Lata 355ml;22.37;18;Con Alcohol;26.4;Cervezas
+2315;Cerveza BUDWEISER Lata 355ml;3.81;18;Con Alcohol;4.5;Cervezas
+2316;Cerveza CUSQUEÑA Trigo Cero Alcohol 6 Pack Lata 355ml;24.92;18;Sin Alcohol;29.4;Cervezas
+2317;Cerveza CUSQUEÑA Trigo Cero Alcohol Lata 355ml;4.24;18;Sin Alcohol;5;Cervezas
+2318;Cerveza CORONA Cero Alcohol 6 Pack Botella 355ml;24.92;18;Sin Alcohol;29.4;Cervezas
+2319;Cerveza CORONA Cero Alcohol Botella 355ml;4.24;18;Sin Alcohol;5;Cervezas
+2320;Chicharrón de Soya MARANATHA Bolsa 20g;0.85;18;Maiz;1;Snacks
+2321;Papas MARANATHA al Hilo Bolsa 28g;0.85;18;Papas;1;Snacks
+2322;Jabón de Tocador PROTEX Limpieza Profunda Barra 110g;3.56;18;Jabones en Barra;4.2;Cuidado Personal
+2323;Panetón BLANCA FLOR Bolsa 900g;21.1;18;Panetones;24.9;Panadería y Pastelería
+2324;Sopa Instantánea AJINOMEN Sabor a Pollo Picante Vaso 51g;2.71;18;Comida Instantánea;3.2;Abarrotes
+2325;Plumon para Pizarra OVE 123 Color Rojo por unidad;2.3;18;Escritura y Corrección;2.71;Librería y Oficina
+2326;Plumon para Pizarra OVE 123 Color Negro por unidad;2.12;18;Escritura y Corrección;2.5;Librería y Oficina
+2327;Bebida GLORIA Durazno Caja 500ml;2.12;18;Jugos y Néctares;2.5;Bebidas
+2328;Galletas SAN JORGE Duetto Paquete 30g;0.51;18;Galletas;0.6;Dulcería
+2329;Vino TABERNERO Semiseco Gran Selección Botella 750ml;15.25;18;Vinos;18;Licores
+2330;Ambientador en Aerosol GLADE Manzana y Canela Frasco 400ml;8.05;18;Ambientadores y Aromatizadores;9.5;Limpieza
+2331;Preservativos DUREX Real Feel Caja 3un;8.05;18;Bienestar Sexual;9.5;Cuidado Personal
+2332;Comida para Perro RICOCAN Cachorro Razas Medianas y Grandes Carne y Leche a GRANEL Bolsa 500 g;3.9;18;Alimento Seco para Perros;4.6;Mascotas
+2336;Comida para Perro RICOCAN Cachorro Razas Medianas y Grandes Carne y Leche a GRANEL Bolsa 3Kg;20.51;18;Alimento Seco para Perros;24.2;Mascotas
+2333;Helado NESCAFÉ Cappuccino Paleta 80ml;4.24;18;Helados;5;Congelados
+2334;Bolsa para Basura TACHITOS 35L por 10un;1.27;18;Bolsas de Plástico;1.5;Descartables
+2335;Gaseosa FANTA Manzana Botella 300ml;1.27;18;Gaseosas;1.5;Bebidas
+2337;Chifles KARINTO Bolsa 34g;1.69;18;Camotes y Chifles;2;Snacks
+2338;Leche Condensada GLORIA Doypack 90g;2.46;18;Leche Condensada;2.9;Repostería
+2339;Mayonesa AlaCena Doypack 235g;6.78;18;Cremas y Condimentos;8;Abarrotes
+2340;Gaseosa SABOR DE ORO Botella 750ml;1.69;18;Gaseosas;2;Bebidas
+2341;Galletas CASINO con Crema Sabor Turrón Paquete 43g;0.85;18;Galletas;1;Dulcería
+2342;Café Instantáneo DON CAFÉ Clásico Lata 10g;1.69;18;Café e Infusiones;2;Desayunos
+2343;Fideos NICOLINI Cabello de Ángel Bolsa 250g;1.53;18;Fideos, Pastas y Salsas;1.8;Abarrotes
+2344;Jabón Líquido AVAL Antibacterial Frutos Rojos Frasco 400ml;5;18;Jabones Líquidos;5.9;Cuidado Personal
+2345;Jabón Líquido AVAL Antibacterial Frutos Rojos Frasco 400ml;5;18;Jabones Líquidos;5.9;Cuidado Personal
+2346;Cancha Caramelizada GUSTAVO Bolsa 45g;0.85;18;Cereales;1;Desayunos
+2347;Mezcla Láctea BONLÉ Entera Lata 390g;2.71;18;Mezclas Lácteas;3.2;Lácteos y Huevos
+2348;Bebida Concentrada BONLÉ Protección Lata 390g;2.29;18;Mezclas Lácteas;2.7;Lácteos y Huevos
+2349;Bebida Concentrada BONLÉ Protección Lata 155g;1.02;18;Mezclas Lácteas;1.2;Lácteos y Huevos
+2350;Galleta CLUB SOCIAL Sabor Queso Paquete 24g;0.85;18;Galletas;1;Dulcería
+2351;Galleta CLUB SOCIAL Sabor Jamón Ahumado Paquete 24g;0.85;18;Galletas;1;Dulcería
+2352;Goma de Mascar TRIDENT SPLASH Yerbabuena Paquete 17.1g;2.54;18;Gomas de Mascar;3;Dulcería
+2353;Bebida Rehidratante GATORADE Uva Botella 500ml;2.12;18;Rehidratantes;2.5;Bebidas
+2354;Papel Toalla NOVA Ultra 2un;4.07;18;Papel Toalla;4.8;Limpieza
+2355;Papel Higiénico ELITE XL Resistente Paquete 4un;6.53;18;Papel Higiénico;7.7;Limpieza
+2356;Helado Sin Parar D'ONOFRIO Stranger Things 134ml;4.24;18;Helados;5;Congelados
+2357;Goma de Mascar TRIDENT EVUP Cool Bubble Paquete 30.6g 18un;3.22;18;Gomas de Mascar;3.8;Dulcería
+2358;Bebida de Soya SOY VIDA Caja 1L;4.66;18;Leche de Soya y Otras Bebidas Vegetales;5.5;Lácteos y Huevos
+2359;Queso Parmesano Rallado GLORIA Paquete 35g;3.98;18;Quesos;4.7;Quesos y Embutidos
+2360;Leche GLORIA Light Zero Lacto Lata 390g;3.81;18;Leches;4.5;Lácteos y Huevos
+2361;Tortillas de Maíz DORITOS Sabor Pizza Bolsa 40g;1.86;18;Maiz;2.2;Snacks
+2364;Vodka MIKE'S Hard Apple Lemonade Lata 355ml;5.51;18;Vodka;6.5;Licores
+2363;Jabón Neko Antibacterial Fresh - Barra 110 G;3.56;18;Jabones en Barra;4.2;Cuidado Personal
+2362;Agua SAN LUIS Sin Gas Sabor Arándano Botella 625ml;1.69;18;Aguas Saborizadas;2;Bebidas
+2365;Papel Bond Fotocopia MILLENIUM 75g A-4 por 20 hojas;0.85;18;Papelería;1;Librería y Oficina

@@ -1,0 +1,304 @@
+/* =========================
+   3) CATÁLOGO DE PRODUCTOS
+========================= */
+model Brand {
+  id        String   @id @default(cuid())
+  tenantId  String
+  name      String
+  imageUrl  String?
+  isFeatured Boolean @default(false)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  tenant    Tenant   @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+  items     Item[]
+
+  @@unique([tenantId, name])
+  @@index([tenantId])
+  @@index([tenantId, name])
+}
+
+model Category {
+  id        String   @id @default(cuid())
+  tenantId  String
+  name      String
+  parentId  String?
+  imageUrl  String?
+  isFeatured Boolean @default(false)
+  isActive  Boolean  @default(true)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  tenant    Tenant   @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+  parent    Category? @relation("CategoryParent", fields: [parentId], references: [id], onDelete: SetNull)
+  children  Category[] @relation("CategoryParent")
+
+  itemLinks ItemCategory[]
+
+  @@unique([tenantId, parentId, name])
+  @@index([tenantId])
+  @@index([parentId])
+  @@index([tenantId, name])
+}
+
+model Item {
+  id          String     @id @default(cuid())
+  tenantId    String
+  storeId     String?    
+  title       String
+  description String?
+  sku         String
+  barcode     String?
+
+  itemType    ItemType   @default(RETAIL)
+  visibility  Visibility @default(VISIBLE)
+  isFeatured  Boolean    @default(false)
+
+  isSellablePos Boolean @default(true)
+  isSellableApp Boolean @default(true)
+  isPurchasable  Boolean @default(true)
+
+  sellUnit    SellUnit   @default(UNIT)
+  isWeighable Boolean    @default(false)
+  isPack Boolean @default(false)
+
+  taxRate     Int?       // null => usar tenant.defaultTaxRate
+  tracksStock Boolean    @default(true)
+
+  minSalePrice Decimal?  @db.Decimal(12,4)
+  maxDiscountPct Decimal? @db.Decimal(5,2)
+  minQtySale  Int?
+
+  lastPurchaseUnitCost Decimal? @db.Decimal(12,4)
+  lastPurchaseAt       DateTime?
+
+  purchaseUnit SellUnit @default(UNIT)
+  purchaseToSellFactor Decimal? @db.Decimal(12,6)
+
+  thumbnailUrl String?
+  bcgTag      BcgTag     @default(UNCLASSIFIED)
+
+  createdAt   DateTime   @default(now())
+  updatedAt   DateTime  @updatedAt
+
+  tenant      Tenant     @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+  store       Store?     @relation(fields: [storeId], references: [id], onDelete: SetNull)
+
+  brandId     String?
+  brand       Brand?     @relation(fields: [brandId], references: [id], onDelete: SetNull)
+
+  categories  ItemCategory[]
+  variants    ItemVariant[]
+  documents   ItemDocument[]
+  notes       ItemNote[]
+  events      ItemEvent[]
+
+  prices      ItemPrice[]
+  priceTiers  ItemPriceTier[]
+
+  suppliers   ItemSupplier[]
+  packComponents PackComponent[]      @relation("PackParent")
+  usedInPacks     PackComponent[]     @relation("PackComponent")
+
+  menuSettings    ItemMenuSettings[]
+  serviceSettings ItemServiceSettings[]
+  
+  stockItems         StockItem[]
+  stockMovements     StockMovement[]
+  purchaseOrderItems PurchaseOrderItem[]
+  batchItems         BatchItem[]
+  orderItems         OrderItem[]
+  images      ItemImage[]
+  supplierInvoiceLines SupplierInvoiceLine[]
+
+
+  @@index([tenantId])
+  @@index([storeId])
+  @@index([brandId])
+  @@index([itemType])
+  @@index([visibility])
+  @@index([tenantId, title])
+  @@index([tenantId, barcode])
+  @@unique([tenantId, sku])
+  @@index([tenantId, visibility, isSellableApp])
+  @@index([tenantId, visibility, isSellablePos])
+  @@index([tenantId, isPurchasable])
+}
+
+model ItemImage {
+  id        String   @id @default(cuid())
+  tenantId  String
+  itemId    String
+  url       String
+  position  Int      @default(0)
+  alt       String?
+  meta      Json?
+
+  createdAt DateTime @default(now())
+
+  tenant Tenant @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+  item   Item   @relation(fields: [itemId], references: [id], onDelete: Cascade)
+
+  @@index([tenantId])
+  @@index([itemId, position])
+}
+
+model ItemCategory {
+  itemId     String
+  categoryId String
+
+  isPrimary  Boolean @default(false)
+  sortOrder  Int     @default(0)
+
+  item       Item     @relation(fields: [itemId], references: [id], onDelete: Cascade)
+  category   Category @relation(fields: [categoryId], references: [id], onDelete: Cascade)
+
+  @@id([itemId, categoryId])
+  @@index([categoryId])
+  @@index([itemId, isPrimary])
+  @@index([itemId, sortOrder])
+}
+
+model ItemVariant {
+  id          String   @id @default(cuid())
+  tenantId    String
+  itemId      String
+  sku         String?
+  title       String?  // opcional: “Polo M Rojo”
+  attributes  Json     // [{name:"Color", value:"Rojo"}]
+  priceDelta  Decimal? @db.Decimal(12, 4)
+  thumbnailUrl String?
+  tracksStock Boolean  @default(true)
+
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  prices      ItemPrice[]
+  priceTiers  ItemPriceTier[] 
+
+  tenant      Tenant   @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+  item        Item     @relation(fields: [itemId], references: [id], onDelete: Cascade)
+
+  @@index([tenantId])
+  @@index([itemId])
+  @@unique([tenantId, sku])
+}
+
+model ItemMenuSettings {
+  id              String   @id @default(cuid())
+  tenantId         String
+  storeId          String
+  itemId           String
+  prepTimeMin      Int?     // minutos
+  fulfillmentModes String[] @default([]) // ["DELIVERY","PICKUP","DINE_IN"]
+  availabilityJson Json?    // reglas de horario (MVP)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  tenant   Tenant @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+  store    Store  @relation(fields: [storeId], references: [id], onDelete: Cascade)
+  item     Item   @relation(fields: [itemId], references: [id], onDelete: Cascade)
+
+  @@unique([storeId, itemId])
+  @@index([tenantId])
+  @@index([storeId])
+}
+
+model ItemServiceSettings {
+  id              String  @id @default(cuid())
+  tenantId         String
+  storeId          String
+  itemId           String
+  requiresStock    Boolean @default(false)
+  serviceDurationMin Int?
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  tenant   Tenant @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+  store    Store  @relation(fields: [storeId], references: [id], onDelete: Cascade)
+  item     Item   @relation(fields: [itemId], references: [id], onDelete: Cascade)
+
+  @@unique([storeId, itemId])
+  @@index([tenantId])
+  @@index([storeId])
+}
+
+model ItemDocument {
+  id        String       @id @default(cuid())
+  tenantId  String
+  itemId    String
+  type      DocumentType @default(GALLERY)
+  url       String
+  sortOrder Int          @default(0)
+  meta      Json?        // width/height/etc
+
+  createdAt DateTime @default(now())
+
+  tenant Tenant @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+  item   Item   @relation(fields: [itemId], references: [id], onDelete: Cascade)
+
+  @@index([tenantId])
+  @@index([itemId])
+  @@index([itemId, type])
+}
+
+model ItemNote {
+  id        String   @id @default(cuid())
+  tenantId  String
+  itemId    String
+  body      String
+  createdBy String?  // userId (actor)
+  createdAt DateTime @default(now())
+
+  tenant Tenant @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+  item   Item   @relation(fields: [itemId], references: [id], onDelete: Cascade)
+
+  @@index([tenantId])
+  @@index([itemId])
+}
+
+model PackComponent {
+  id String @id @default(cuid())
+  tenantId String
+
+  packItemId      String
+  componentItemId String
+
+  qty Decimal @db.Decimal(12,4) // soporta KG/ML etc
+  unit SellUnit? // opcional si quieres forzar unidad aquí
+
+  isOptional Boolean @default(false)
+  sortOrder  Int     @default(0)
+
+  createdAt DateTime @default(now())
+
+  tenant Tenant @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+
+  pack      Item @relation("PackParent", fields: [packItemId], references: [id], onDelete: Cascade)
+  component Item @relation("PackComponent", fields: [componentItemId], references: [id], onDelete: Restrict)
+
+  @@unique([packItemId, componentItemId])
+  @@index([tenantId])
+  @@index([componentItemId])
+}
+
+model ItemEvent {
+  id       String @id @default(cuid())
+  tenantId String
+  itemId   String
+
+  type     String // "BCG_CHANGE", "SELLABLE_TOGGLE", etc.
+  reason   String?
+  metadata Json?
+
+  createdBy String?
+  createdAt DateTime @default(now())
+
+  tenant Tenant @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+  item   Item   @relation(fields: [itemId], references: [id], onDelete: Cascade)
+
+  @@index([tenantId])
+  @@index([itemId, createdAt])
+}

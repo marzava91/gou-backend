@@ -6,8 +6,8 @@ model User {
   tenantId String
 
   firebaseUid String? @unique
-  email       String? @unique
-  phone       String? @unique
+  email       String?
+  phone       String?
 
   firstName String?
   lastName  String?
@@ -22,20 +22,22 @@ model User {
   tenant Tenant     @relation(fields: [tenantId], references: [id], onDelete: Restrict)
   roles  UserRole[]
 
-  orders          Order[]      @relation("UserOrders")
-  posSessionsOpened PosSession[] @relation("PosSessionOpenedBy")
-  posSessionsClosed PosSession[] @relation("PosSessionClosedBy")
-  posSalesCashier  PosSale[]     @relation("PosSaleCashier")
+  orders            Order[]       @relation("UserOrders")
+  posSessionsOpened PosSession[]  @relation("PosSessionOpenedBy")
+  posSessionsClosed PosSession[]  @relation("PosSessionClosedBy")
+  posSalesCashier   PosSale[]     @relation("PosSaleCashier")
 
+  // Unicidad por tenant (recomendado)
   @@unique([tenantId, email])
   @@unique([tenantId, phone])
+
   @@index([tenantId])
   @@index([tenantId, status])
 }
 
 model Role {
-  id        String     @id @default(cuid())
-  code      String     @unique // shopper / rider / partner_admin / cashier / owner / support / etc
+  id         String     @id @default(cuid())
+  code       String     @unique
   scopeLevel ScopeLevel
 
   createdAt DateTime @default(now())
@@ -49,7 +51,7 @@ model UserRole {
   userId   String
   roleId   String
   tenantId String
-  storeId  String? // nullable si el rol es TENANT o GLOBAL
+  storeId  String?
 
   createdAt DateTime @default(now())
 

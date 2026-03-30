@@ -21,7 +21,7 @@ export default tseslint.config(
       sourceType: 'module',
       parserOptions: {
         // CLAVE: define qué tsconfigs usa ESLint para type-check
-        project: ['./tsconfig.json', './test/tsconfig.json'],
+        project: ['./tsconfig.build.json', './tsconfig.spec.json'],
         tsconfigRootDir: import.meta.dirname,
       },
     },

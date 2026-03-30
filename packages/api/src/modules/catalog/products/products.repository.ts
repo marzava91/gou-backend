@@ -8,7 +8,7 @@
 
 import { Injectable } from '@nestjs/common';
 import { PrismaService } from '../../../prisma/prisma.service';
-import { Prisma, BcgTag, Visibility } from '@prisma/client';
+import { Prisma, Item, BcgTag, Visibility } from '@prisma/client';
 import { buildSeekCursorWhereGeneric, buildSeekPageResult } from '../../../common/utils/pagination.util';
 
 type GetPaginatedArgs = {
@@ -57,6 +57,11 @@ type PaginatedResult = {
   nextCursor: string | null;
   total: number;
 };
+
+type ItemCreateData = Omit<
+  Prisma.ItemUncheckedCreateInput,
+  'tenantId' | 'id' | 'createdAt' | 'updatedAt'
+>;
 
 
 @Injectable()
@@ -510,63 +515,80 @@ export class PrismaProductsRepository {
   }
 
 
-  async getById(id: string) {
-    return this.prisma.item.findUnique({
-      where: { id },
+    async getById(tenantId: string, id: string) {
+    return this.prisma.item.findFirst({
+      where: { tenantId, id },
       include: {
         categories: { include: { category: true } },
         brand: true,
         documents: true,
         prices: true,
-        priceTiers: true,
       },
     });
   }
 
-  async create(data: any) {
-    // mínimo viable: crea Item base
+  async create(tenantId: string, data: {
+    storeId?: string | null;
+    title: string;
+    description?: string | null;
+    sku: string; // <-- obligatorio
+    barcode?: string | null;
+    itemType?: any;
+    visibility?: any;
+    isFeatured?: boolean;
+    sellUnit?: any;
+    isWeighable?: boolean;
+    taxRate?: number | null;
+    tracksStock?: boolean;
+    thumbnailUrl?: string | null;
+    bcgTag?: any;
+    brandId?: string | null;
+    categoryIds?: string[];
+  }) {
     return this.prisma.item.create({
       data: {
-        tenantId: data.tenantId,
-        storeId: data.storeId ?? null,
+        tenantId,
+        storeId: null, // ✅ tu regla: catálogo global. Si quieres permitir store override, lo controlas en service.
         title: data.title,
         description: data.description ?? null,
-        sku: data.sku ?? null,
+        sku: data.sku, // ✅ NO null
+        barcode: data.barcode ?? null,
+
         itemType: data.itemType ?? 'RETAIL',
         visibility: data.visibility ?? 'VISIBLE',
         isFeatured: data.isFeatured ?? false,
+
         sellUnit: data.sellUnit ?? 'UNIT',
         isWeighable: data.isWeighable ?? false,
-        taxRate: data.taxRate ?? 18,
+
+        taxRate: data.taxRate ?? null,
         tracksStock: data.tracksStock ?? true,
+
         thumbnailUrl: data.thumbnailUrl ?? null,
         bcgTag: data.bcgTag ?? 'UNCLASSIFIED',
+
         brandId: data.brandId ?? null,
 
-        // categorías (si viene array categoryIds)
         categories: Array.isArray(data.categoryIds)
-          ? {
-              create: data.categoryIds.map((categoryId: string) => ({
-                categoryId,
-              })),
-            }
+          ? { create: data.categoryIds.map((categoryId) => ({ categoryId })) }
           : undefined,
       },
       include: {
-        categories: true,
+        categories: { include: { category: true } },
         brand: true,
       },
     });
   }
 
-  async update(id: string, data: any) {
-    // update parcial
-    return this.prisma.item.update({
-      where: { id },
+  async update(tenantId: string, id: string, data: any) {
+    // ✅ multi-tenant safe
+    const res = await this.prisma.item.updateMany({
+      where: { tenantId, id },
       data: {
         title: data.title ?? undefined,
         description: data.description ?? undefined,
         sku: data.sku ?? undefined,
+        barcode: data.barcode ?? undefined,
         itemType: data.itemType ?? undefined,
         visibility: data.visibility ?? undefined,
         isFeatured: data.isFeatured ?? undefined,
@@ -578,6 +600,13 @@ export class PrismaProductsRepository {
         bcgTag: data.bcgTag ?? undefined,
         brandId: data.brandId ?? undefined,
       },
+    });
+
+    if (res.count === 0) throw new Error('Item not found');
+
+    // devolver actualizado (igual que Brands)
+    return this.prisma.item.findFirst({
+      where: { tenantId, id },
       include: {
         categories: { include: { category: true } },
         brand: true,
@@ -586,8 +615,17 @@ export class PrismaProductsRepository {
     });
   }
 
-  async delete(id: string) {
-    await this.prisma.item.delete({ where: { id } });
+  async delete(tenantId: string, id: string) {
+    const existing = await this.prisma.item.findFirst({
+      where: { tenantId, id },
+      select: { id: true },
+    });
+    if (!existing) throw new Error('Item not found');
+
+    await this.prisma.item.deleteMany({
+      where: { tenantId, id },
+    });
+
     return { ok: true };
   }
 }

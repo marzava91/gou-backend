@@ -1,3 +1,4 @@
+// packages\api\src\modules\catalog\products\dto\query-products.dto.ts
 import { ApiPropertyOptional } from '@nestjs/swagger';
 import { Type } from 'class-transformer';
 import {
@@ -77,19 +78,6 @@ export class QueryProductsDto {
   @MaxLength(64)
   categoryId?: string;
 
-  // ===== Tenancy =====
-  @ApiPropertyOptional()
-  @IsOptional()
-  @IsString()
-  @MaxLength(64)
-  tenantId?: string; // Corregir en un futuro para que este Id venga del contexto del request
-
-  /**
-   * storeId:
-   * - 'global' => catálogo global (Item.storeId = null)
-   * - '<uuid>' => inventario por tienda (join StockItem)
-   * - omitido  => no filtra por storeId (opcional)
-   */
   @ApiPropertyOptional({
     description: `StoreId para inventario. Usa "global" para catálogo global (storeId=null).`,
     example: 'global',

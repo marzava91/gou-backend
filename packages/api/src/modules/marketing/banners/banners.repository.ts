@@ -1,2 +1,0 @@
-import { Injectable } from '@nestjs/common'; import { PrismaService } from '../../../prisma/prisma.service';
-@Injectable() export class BannersRepository { constructor(private prisma:PrismaService){} }

@@ -1,1 +1,0 @@
-import { IsString } from 'class-validator'; export class AuthExchangeDto { @IsString() token: string; }

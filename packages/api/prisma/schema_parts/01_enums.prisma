@@ -2,183 +2,24 @@
    ENUMS (ERP CORE)
 ========================= */
 
-enum TenantStatus {
-  ACTIVE
-  SUSPENDED
-}
-
-enum TenantPlan {
-  FREE
-  PRO
-  ENTERPRISE
-}
-
-enum StoreStatus {
-  ACTIVE
-  CLOSED
-}
+// 10_identity_access
 
 enum UserStatus {
   ACTIVE
   SUSPENDED
+  DEACTIVATED
+  ANONYMIZED
 }
 
-enum ScopeLevel {
-  GLOBAL
-  TENANT
-  STORE
+enum UserContactChangeType {
+  PRIMARY_EMAIL
+  PRIMARY_PHONE
 }
 
-enum ProductStatus {
-  ACTIVE
-  DRAFT
-  ARCHIVED
-}
-
-enum ItemType {
-  RETAIL
-  MENU
-  SERVICE
-  APPAREL
-}
-
-enum Visibility {
-  VISIBLE
-  HIDDEN
-}
-
-enum SellUnit {
-  UNIT
-  KG
-  G
-  L
-  ML
-}
-
-enum PriceListCode {
-  RETAIL
-  WHOLESALE
-  VIP
-  CAMPAIGN
-}
-
-enum SalesChannel {
-  SHOPPER_APP
-  PARTNER_POS
-}
-
-enum PurchaseOrderStatus {
-  DRAFT
-  SENT
-  PARTIALLY_RECEIVED
-  CLOSED
-  CANCELED
-}
-
-enum PurchaseBatchStatus {
-  RECEIVED
-  CLOSED
-}
-
-enum StockMovementType {
-  SALE
-  PURCHASE
-  ADJUSTMENT
-  RETURN
-  WASTE
-  TRANSFER_IN
-  TRANSFER_OUT
-  INITIAL_LOAD
-}
-
-enum OrderChannel {
-  SHOPPER_APP
-  PARTNER_POS
-  MARKETPLACE_WEB
-}
-
-enum OrderStatus {
-  DRAFT
-  PLACED
-  PAID
-  PREPARING
-  DISPATCHED
-  DELIVERED
+enum UserContactChangeStatus {
+  PENDING
+  VERIFIED
+  CONSUMED
+  EXPIRED
   CANCELLED
-}
-
-enum PaymentStatus {
-  UNPAID
-  AUTHORIZED
-  PAID
-  REFUNDED
-}
-
-enum DeliveryType {
-  DELIVERY
-  PICKUP
-  IN_STORE
-}
-
-enum PosSessionStatus {
-  OPEN
-  CLOSED
-}
-
-enum PosSaleStatus {
-  COMPLETED
-  VOIDED
-}
-
-enum PosPaymentMethod {
-  CASH
-  CARD
-  YAPE
-  TRANSFER
-  MIXED
-}
-
-enum DocumentType {
-  THUMBNAIL
-  GALLERY
-  FILE
-}
-
-enum AuditActorType {
-  USER
-  SERVICE_ACCOUNT
-  SYSTEM_IA
-}
-
-enum AuditAction {
-  CREATE
-  UPDATE
-  DELETE
-  UPSERT
-}
-
-enum AuditEntityType {
-  PRODUCT
-  PRODUCT_VARIANT
-  PRODUCT_PRICE
-  PRICE_LIST
-  STOCK_ITEM
-  STOCK_MOVEMENT
-  PURCHASE_BATCH
-  PURCHASE_ORDER
-  POS_SESSION
-  ORDER
-  USER
-  CATEGORY
-  BRAND
-  DOCUMENT
-  OTHER
-}
-
-enum BcgTag {
-  UNCLASSIFIED
-  STAR
-  CASH_COW
-  QUESTION
-  DOG
 }

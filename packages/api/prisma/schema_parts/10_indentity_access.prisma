@@ -1,0 +1,70 @@
+model User {
+  id                    String                     @id @default(cuid())
+  firstName             String?                    @db.VarChar(120)
+  lastName              String?                    @db.VarChar(120)
+  displayName           String?                    @db.VarChar(180)
+  avatarUrl             String?                    @db.VarChar(2048)
+
+  primaryEmail          String?                    @unique @db.VarChar(320)
+  primaryPhone          String?                    @unique @db.VarChar(40)
+
+  emailVerified         Boolean                    @default(false)
+  phoneVerified         Boolean                    @default(false)
+
+  status                UserStatus                 @default(ACTIVE)
+
+  /// TODO(users-lifecycle): confirm long-term lifecycle policy:
+  /// - whether anonymization must always imply prior deactivation,
+  /// - whether deactivatedAt should always be preserved after anonymization,
+  /// - and whether additional audit timestamps will be required.
+  deactivatedAt         DateTime?
+  anonymizedAt          DateTime?
+
+  version               Int                        @default(1)
+
+  createdAt             DateTime                   @default(now())
+  updatedAt             DateTime                   @updatedAt
+
+  contactChangeRequests UserContactChangeRequest[]
+
+  @@index([status])
+  @@index([createdAt])
+  @@index([primaryEmail])
+  @@index([primaryPhone])
+  @@map("users")
+}
+
+model UserContactChangeRequest {
+  id               String                  @id @default(cuid())
+  userId           String
+  type             UserContactChangeType
+
+  /// TODO(users-modeling): `newValue` currently stores both email and phone values.
+  /// For MVP this is acceptable, but later we should reevaluate whether:
+  /// 1) validation-only differentiation is enough,
+  /// 2) a more neutral DB length should be used, or
+  /// 3) email/phone change requests should be split into specialized models.
+  newValue         String                  @db.VarChar(320)
+
+  verificationRef  String                  @unique @db.VarChar(255)
+  status           UserContactChangeStatus @default(PENDING)
+
+  expiresAt        DateTime
+  verifiedAt       DateTime?
+  consumedAt       DateTime?
+  cancelledAt      DateTime?
+
+  createdAt        DateTime                @default(now())
+  updatedAt        DateTime                @updatedAt
+
+  user             User                    @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  /// TODO(users-concurrency): active contact change requests are controlled at service level.
+  /// In a future hardening phase, evaluate reinforcing this with a stronger DB-level strategy
+  /// or transactional guarantees to reduce the risk of concurrent duplicate PENDING requests.
+  @@index([userId, type, status])
+  @@index([userId, type, createdAt])
+  @@index([expiresAt])
+  @@index([status, expiresAt])
+  @@map("user_contact_change_requests")
+}

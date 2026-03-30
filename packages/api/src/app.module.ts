@@ -5,15 +5,12 @@ import { Module } from '@nestjs/common';
 import { AppConfigModule } from './config/config.module';
 import { PrismaModule } from './prisma/prisma.module';
 import { AuthModule } from './modules/authentication/auth.module';
-import { PersonalizationModule } from './modules/personalization/personalization.module';
 import { CatalogModule } from './modules/catalog/catalog.module';
 import { OrdersModule } from './modules/orders/orders.module';
-import { MarketingModule } from './modules/marketing/marketing.module';
 import { SettingsModule } from './modules/settings/settings.module';
-import { ObservabilityModule } from './modules/observability/observability.module';
 import { FirebaseModule } from './integrations/firebase/firebase.module';
 import { ConfigModule } from '@nestjs/config';
-import { HealthModule } from "./modules/health/health.module";
+import { PricingModule } from './modules/pricing/pricing.module';
 
 @Module({
   imports: [
@@ -22,13 +19,10 @@ import { HealthModule } from "./modules/health/health.module";
     AppConfigModule,
     PrismaModule,
     AuthModule,
-    PersonalizationModule,
     CatalogModule,
+    PricingModule,
     OrdersModule,
-    MarketingModule,
     SettingsModule,
-    ObservabilityModule,
-    HealthModule,
   ],
 })
 export class AppModule {}

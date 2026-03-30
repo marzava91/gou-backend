@@ -29,6 +29,8 @@
 
 ```bash
 $ pnpm install
+
+$ pnpm prisma generate
 ```
 
 ## Compile and run the project

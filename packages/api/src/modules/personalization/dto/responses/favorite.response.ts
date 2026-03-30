@@ -1,1 +1,0 @@
-export class FavoriteResponse { productId:string; createdAt?:string; }

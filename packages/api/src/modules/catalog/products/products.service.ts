@@ -7,7 +7,7 @@
 // - Convierte/normaliza la respuesta a un contrato estable si deseas
 // Regla: el service no debe saber de HTTP (no debería depender de @Query ni @Body “crudos” ni de Express).
 
-import { Injectable, NotFoundException, BadRequestException } from '@nestjs/common';
+import { Injectable, NotFoundException, BadRequestException, ConflictException } from '@nestjs/common';
 import { PrismaProductsRepository } from './products.repository';
 
 import { QueryProductsDto } from './dto/query-products.dto';
@@ -33,7 +33,10 @@ function isInventorySort(sortBy: unknown): sortBy is InventorySort {
 export class ProductsService {
   constructor(private readonly repo: PrismaProductsRepository) {}
 
-  async list(query: QueryProductsDto): Promise<{
+  async list(
+    tenantId: string,
+    query: QueryProductsDto
+  ): Promise<{
     items: ProductListItemResponse[];
     total: number;
     page: number;
@@ -52,7 +55,6 @@ export class ProductsService {
       bcgTag,
       visibility,
 
-      tenantId,
       storeId, // <- si viene, habilita columnas de inventario
       sortBy,
       sortDir,
@@ -163,9 +165,9 @@ export class ProductsService {
     };
   }
 
-  async findOne(id: string): Promise<ProductDetailResponse> {
-    const item = await this.repo.getById(id);
-    if (!item) throw new NotFoundException("Product not found");
+  async findOne(tenantId: string, id: string): Promise<ProductDetailResponse> {
+    const item = await this.repo.getById(tenantId, id);
+    if (!item) throw new NotFoundException('Product not found');
 
     return {
       id: item.id,
@@ -174,7 +176,7 @@ export class ProductsService {
 
       title: item.title,
       description: item.description ?? null,
-      sku: item.sku ?? null,
+      sku: item.sku, // ✅ obligatorio
 
       itemType: item.itemType,
       visibility: item.visibility,
@@ -186,25 +188,19 @@ export class ProductsService {
       tracksStock: item.tracksStock,
 
       thumbnailUrl: item.thumbnailUrl ?? null,
-
-      // ✅ bcgTag es 1 valor (enum/string)
       bcgTag: item.bcgTag,
 
       brand: item.brand
-        ? {
-            id: item.brand.id,
-            name: item.brand.name,
-            imageUrl: item.brand.imageUrl ?? null,
-          }
+        ? { id: item.brand.id, name: item.brand.name, imageUrl: item.brand.imageUrl ?? null }
         : null,
 
-      categories: (item.categories ?? []).map((link) => ({
+      categories: (item.categories ?? []).map((link: any) => ({
         id: link.category.id,
         name: link.category.name,
         parentId: link.category.parentId ?? null,
       })),
 
-      documents: (item.documents ?? []).map((d) => ({
+      documents: (item.documents ?? []).map((d: any) => ({
         id: d.id,
         type: d.type,
         url: d.url,
@@ -213,7 +209,7 @@ export class ProductsService {
         createdAt: d.createdAt.toISOString(),
       })),
 
-      prices: (item.prices ?? []).map((p) => ({
+      prices: (item.prices ?? []).map((p: any) => ({
         id: p.id,
         priceListId: p.priceListId,
         amount: Number(p.amount),
@@ -222,31 +218,42 @@ export class ProductsService {
         createdAt: p.createdAt.toISOString(),
       })),
 
-      priceTiers: (item.priceTiers ?? []).map((t) => ({
-        id: t.id,
-        priceListId: t.priceListId,
-        minQty: t.minQty,
-        price: Number(t.price),
-        createdAt: t.createdAt.toISOString(),
-      })),
+      // ✅ SOLO si realmente existe en tu include/schema.
+      // Si aún no tienes tiers, elimina este bloque del response type.
+      priceTiers: (item as any).priceTiers
+        ? (item as any).priceTiers.map((t: any) => ({
+            id: t.id,
+            priceListId: t.priceListId,
+            minQty: t.minQty,
+            price: Number(t.price),
+            createdAt: t.createdAt.toISOString(),
+          }))
+        : [],
 
       createdAt: item.createdAt.toISOString(),
       updatedAt: item.updatedAt.toISOString(),
     };
   }
 
-  async create(data: CreateProductDto): Promise<ProductDetailResponse> {
-    const created = await this.repo.create(data);
-    return this.findOne(created.id);
+  async create(tenantId: string, dto: CreateProductDto): Promise<ProductDetailResponse> {
+    try {
+      const created = await this.repo.create(tenantId, dto);
+      return this.findOne(tenantId, created.id);
+    } catch (e: any) {
+      if (e?.code === 'P2002') {
+        throw new ConflictException('SKU already exists');
+      }
+      throw e;
+    }
   }
 
-  async update(id: string, data: UpdateProductDto): Promise<ProductDetailResponse> {
-    const updated = await this.repo.update(id, data);
-    return this.findOne(updated.id);
+  async update(tenantId: string, id: string, dto: UpdateProductDto): Promise<ProductDetailResponse> {
+    await this.repo.update(tenantId, id, dto);
+    return this.findOne(tenantId, id);
   }
 
-  async delete(id: string): Promise<{ ok: true }> {
-    await this.repo.delete(id);
+  async delete(tenantId: string, id: string): Promise<{ ok: true }> {
+    await this.repo.delete(tenantId, id);
     return { ok: true };
   }
 }

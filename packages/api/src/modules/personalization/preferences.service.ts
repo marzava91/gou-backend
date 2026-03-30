@@ -1,2 +1,0 @@
-import { Injectable } from '@nestjs/common'; import { PreferencesRepository } from './preferences.repository';
-@Injectable() export class PreferencesService { constructor(private repo:PreferencesRepository){} get(){ return { data:{ language:'es', theme:'system' } }; } update(_:any){ return { data:true }; } }

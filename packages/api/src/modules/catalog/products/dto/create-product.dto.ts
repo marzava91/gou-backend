@@ -1,3 +1,4 @@
+// packages\api\src\modules\catalog\products\dto\create-product.dto.ts
 import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
 import { Type } from 'class-transformer';
 import { IsArray, IsBoolean, IsEnum, IsInt, IsOptional, IsString, Max, MaxLength, Min, Matches } from 'class-validator';
@@ -13,7 +14,7 @@ export class CreateProductDto {
   @IsOptional()
   @IsString()
   @MaxLength(80)
-  sku?: string;
+  sku!: string;
 
   @ApiPropertyOptional()
   @IsOptional()

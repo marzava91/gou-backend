@@ -1,3 +1,4 @@
+//packages\api\src\modules\catalog\products\responses\product-list.response.ts
 import { ProductListItemResponse } from './product-list-item.response';
 
 export class ProductListResponse {

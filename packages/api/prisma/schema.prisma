@@ -3,17 +3,14 @@ generator client {
 }
 
 datasource db {
-  provider          = "postgresql"
-  url               = env("DATABASE_URL")
-  directUrl         = env("DIRECT_URL")
+  provider  = "postgresql"
+  url       = env("DATABASE_URL")
+  directUrl = env("DIRECT_URL")
   shadowDatabaseUrl = env("SHADOW_DATABASE_URL")
 }
-
-/**
- * =========================
- * ENUMS (ERP CORE)
- * =========================
- */
+/* =========================
+   ENUMS (ERP CORE)
+========================= */
 
 // 10_identity_access
 
@@ -35,32 +32,74 @@ enum UserContactChangeStatus {
   CONSUMED
   EXPIRED
   CANCELLED
+} 
+
+enum AuthProvider {
+  FIREBASE
+  PASSWORD
+  EMAIL_CODE
+  PHONE_CODE
+  GOOGLE
+  APPLE
 }
 
+enum AuthSessionStatus {
+  ISSUED
+  ACTIVE
+  REFRESHED
+  REVOKED
+  EXPIRED
+  LOGGED_OUT
+}
+
+enum AuthVerificationChallengePurpose {
+  VERIFY_EMAIL
+  VERIFY_PHONE
+  PASSWORD_RESET
+  LOGIN
+  STEP_UP
+}
+
+enum AuthVerificationChallengeStatus {
+  ISSUED
+  VALIDATED
+  FAILED
+  EXPIRED
+  CONSUMED
+}
 model User {
-  id          String  @id @default(cuid())
-  firstName   String? @db.VarChar(120)
-  lastName    String? @db.VarChar(120)
-  displayName String? @db.VarChar(180)
-  avatarUrl   String? @db.VarChar(2048)
+  id                    String                     @id @default(cuid())
+  firstName             String?                    @db.VarChar(120)
+  lastName              String?                    @db.VarChar(120)
+  displayName           String?                    @db.VarChar(180)
+  avatarUrl             String?                    @db.VarChar(2048)
 
-  primaryEmail String? @unique @db.VarChar(320)
-  primaryPhone String? @unique @db.VarChar(40)
+  primaryEmail          String?                    @unique @db.VarChar(320)
+  primaryPhone          String?                    @unique @db.VarChar(40)
 
-  emailVerified Boolean @default(false)
-  phoneVerified Boolean @default(false)
+  emailVerified         Boolean                    @default(false)
+  phoneVerified         Boolean                    @default(false)
 
-  status UserStatus @default(ACTIVE)
+  status                UserStatus                 @default(ACTIVE)
 
-  deactivatedAt DateTime?
-  anonymizedAt  DateTime?
+  /// TODO(users-lifecycle): confirm long-term lifecycle policy:
+  /// - whether anonymization must always imply prior deactivation,
+  /// - whether deactivatedAt should always be preserved after anonymization,
+  /// - and whether additional audit timestamps will be required.
+  deactivatedAt         DateTime?
+  anonymizedAt          DateTime?
 
-  version Int @default(1)
+  version               Int                        @default(1)
 
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  createdAt             DateTime                   @default(now())
+  updatedAt             DateTime                   @updatedAt
 
   contactChangeRequests UserContactChangeRequest[]
+
+  // Auth relations
+  authIdentities        AuthIdentity[]
+  authSessions          AuthSession[]
+  authVerificationChallenges AuthVerificationChallenge[]
 
   @@index([status])
   @@index([createdAt])
@@ -70,26 +109,139 @@ model User {
 }
 
 model UserContactChangeRequest {
-  id              String                  @id @default(cuid())
-  userId          String
-  type            UserContactChangeType
-  newValue        String                  @db.VarChar(320)
-  verificationRef String                  @unique @db.VarChar(255)
-  status          UserContactChangeStatus @default(PENDING)
+  id               String                  @id @default(cuid())
+  userId           String
+  type             UserContactChangeType
 
-  expiresAt   DateTime
-  verifiedAt  DateTime?
-  consumedAt  DateTime?
-  cancelledAt DateTime?
+  /// TODO(users-modeling): `newValue` currently stores both email and phone values.
+  /// For MVP this is acceptable, but later we should reevaluate whether:
+  /// 1) validation-only differentiation is enough,
+  /// 2) a more neutral DB length should be used, or
+  /// 3) email/phone change requests should be split into specialized models.
+  newValue         String                  @db.VarChar(320)
 
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  verificationRef  String                  @unique @db.VarChar(255)
+  status           UserContactChangeStatus @default(PENDING)
 
-  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+  expiresAt        DateTime
+  verifiedAt       DateTime?
+  consumedAt       DateTime?
+  cancelledAt      DateTime?
 
+  createdAt        DateTime                @default(now())
+  updatedAt        DateTime                @updatedAt
+
+  user             User                    @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  /// TODO(users-concurrency): active contact change requests are controlled at service level.
+  /// In a future hardening phase, evaluate reinforcing this with a stronger DB-level strategy
+  /// or transactional guarantees to reduce the risk of concurrent duplicate PENDING requests.
   @@index([userId, type, status])
   @@index([userId, type, createdAt])
   @@index([expiresAt])
   @@index([status, expiresAt])
   @@map("user_contact_change_requests")
+}
+
+model AuthIdentity {
+  id                 String        @id @default(cuid())
+  userId             String
+  provider           AuthProvider
+  providerSubject    String        @db.VarChar(191)
+
+  email              String?       @db.VarChar(320)
+  phone              String?       @db.VarChar(40)
+
+  emailVerified      Boolean       @default(false)
+  phoneVerified      Boolean       @default(false)
+
+  createdAt          DateTime      @default(now())
+  updatedAt          DateTime      @updatedAt
+
+  user               User          @relation(fields: [userId], references: [id], onDelete: Cascade)
+  sessions           AuthSession[]
+  verificationChallenges AuthVerificationChallenge[]
+
+  @@unique([provider, providerSubject])
+  @@unique([userId, provider])
+  @@index([userId])
+  @@index([provider])
+  @@index([email])
+  @@index([phone])
+  @@map("auth_identities")
+}
+
+model AuthSession {
+  id                 String             @id @default(cuid())
+  userId             String
+  authIdentityId     String?
+
+  provider           AuthProvider
+  status             AuthSessionStatus  @default(ISSUED)
+
+  accessTokenHash    String?            @db.VarChar(255)
+  refreshTokenHash   String?            @db.VarChar(255)
+
+  sessionFamilyId    String?            @db.VarChar(191)
+  parentSessionId    String?            @db.VarChar(191)
+
+  ipAddress          String?            @db.VarChar(64)
+  userAgent          String?            @db.VarChar(500)
+  deviceName         String?            @db.VarChar(120)
+
+  issuedAt           DateTime           @default(now())
+  lastRefreshedAt    DateTime?
+  expiresAt          DateTime
+  refreshExpiresAt   DateTime?
+  revokedAt          DateTime?
+  loggedOutAt        DateTime?
+
+  createdAt          DateTime           @default(now())
+  updatedAt          DateTime           @updatedAt
+
+  user               User               @relation(fields: [userId], references: [id], onDelete: Cascade)
+  authIdentity       AuthIdentity?      @relation(fields: [authIdentityId], references: [id], onDelete: SetNull)
+
+  @@index([userId])
+  @@index([authIdentityId])
+  @@index([status])
+  @@index([expiresAt])
+  @@index([refreshExpiresAt])
+  @@index([sessionFamilyId])
+  @@index([refreshTokenHash])
+  @@map("auth_sessions")
+}
+
+model AuthVerificationChallenge {
+  id                 String                           @id @default(cuid())
+  userId             String?
+  authIdentityId     String?
+
+  purpose            AuthVerificationChallengePurpose
+  status             AuthVerificationChallengeStatus  @default(ISSUED)
+
+  target             String?                          @db.VarChar(320)
+  codeHash           String                           @db.VarChar(255)
+  verificationRef    String?                          @unique @db.VarChar(255)
+
+  attempts           Int                              @default(0)
+  maxAttempts        Int                              @default(5)
+
+  issuedAt           DateTime                         @default(now())
+  expiresAt          DateTime
+  validatedAt        DateTime?
+  consumedAt         DateTime?
+  failedAt           DateTime?
+
+  createdAt          DateTime                         @default(now())
+  updatedAt          DateTime                         @updatedAt
+
+  user               User?                            @relation(fields: [userId], references: [id], onDelete: Cascade)
+  authIdentity       AuthIdentity?                    @relation(fields: [authIdentityId], references: [id], onDelete: SetNull)
+
+  @@index([userId, purpose, status])
+  @@index([authIdentityId, purpose, status])
+  @@index([status, expiresAt])
+  @@index([target])
+  @@map("auth_verification_challenges")
 }

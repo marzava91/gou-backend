@@ -22,4 +22,38 @@ enum UserContactChangeStatus {
   CONSUMED
   EXPIRED
   CANCELLED
+} 
+
+enum AuthProvider {
+  FIREBASE
+  PASSWORD
+  EMAIL_CODE
+  PHONE_CODE
+  GOOGLE
+  APPLE
+}
+
+enum AuthSessionStatus {
+  ISSUED
+  ACTIVE
+  REFRESHED
+  REVOKED
+  EXPIRED
+  LOGGED_OUT
+}
+
+enum AuthVerificationChallengePurpose {
+  VERIFY_EMAIL
+  VERIFY_PHONE
+  PASSWORD_RESET
+  LOGIN
+  STEP_UP
+}
+
+enum AuthVerificationChallengeStatus {
+  ISSUED
+  VALIDATED
+  FAILED
+  EXPIRED
+  CONSUMED
 }

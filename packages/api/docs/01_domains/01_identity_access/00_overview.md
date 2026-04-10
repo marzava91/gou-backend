@@ -41,3 +41,10 @@ The Identity & Access domain is structured as a layered chain of responsibility:
 - Access Resolution answers **what the effective access result is**
 - Invitations supports controlled onboarding into valid scopes and may materialize into memberships
 
+## Estado actual del dominio
+
+- Auth: cerrado a nivel de dominio (MVP), pendiente de hardening de infraestructura
+- Users: estable (identidad canónica)
+- Memberships: siguiente submódulo a implementar
+- Roles, Grants, Invitations: pendientes
+- Access Resolution: pendiente

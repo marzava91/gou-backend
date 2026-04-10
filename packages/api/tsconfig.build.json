@@ -37,7 +37,7 @@
     "transpileOnly": true,
     "require": ["tsconfig-paths/register"]
   },
-  "include": ["src/**/*.ts"],
+  "include": ["src/**/*.ts", "src/modules/01-identity-and-access/02-auth/adapters/providers/firebase"],
   "exclude": [
     "node_modules",
     "dist",

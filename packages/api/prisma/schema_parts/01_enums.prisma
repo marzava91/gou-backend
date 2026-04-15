@@ -57,3 +57,25 @@ enum AuthVerificationChallengeStatus {
   EXPIRED
   CONSUMED
 }
+
+enum MembershipScopeType {
+  TENANT
+  STORE
+}
+
+enum MembershipStatus {
+  PENDING
+  ACTIVE
+  SUSPENDED
+  REVOKED
+  EXPIRED
+}
+
+/// MVP note:
+/// OperationalSurface currently models only PARTNERS_WEB because
+/// ActiveMembershipContext is explicitly supported only for that surface.
+/// Other administrative or transaccional surfaces must be added only after
+/// confirming they consume Memberships with the same context semantics.
+enum OperationalSurface {
+  PARTNERS_WEB
+}

@@ -32,6 +32,10 @@ model User {
   authSessions          AuthSession[]
   authVerificationChallenges AuthVerificationChallenge[]
 
+  // Membership relations
+  memberships            Membership[]
+  activeMembershipContexts ActiveMembershipContext[]
+
   @@index([status])
   @@index([createdAt])
   @@index([primaryEmail])
@@ -175,4 +179,84 @@ model AuthVerificationChallenge {
   @@index([status, expiresAt])
   @@index([target])
   @@map("auth_verification_challenges")
+}
+
+/// TODO(membership-temporal-validity):
+/// `effectiveFrom` and `expiresAt` are modeled in the MVP as preparatory fields
+/// for future temporal memberships.
+/// Current active-context eligibility is not yet driven automatically by these fields;
+/// runtime temporal enforcement will be introduced in a later phase.
+/// effectiveFrom  DateTime?
+/// expiresAt      DateTime?
+
+model Membership {
+  id             String                  @id @default(cuid())
+  userId         String
+  scopeType      MembershipScopeType
+  tenantId       String
+  storeId        String?
+  invitationId   String?                 @unique @db.VarChar(191)
+
+  status         MembershipStatus        @default(PENDING)
+
+  effectiveFrom  DateTime?
+  expiresAt      DateTime?
+
+  activatedAt    DateTime?
+  suspendedAt    DateTime?
+  revokedAt      DateTime?
+  expiredAt      DateTime?
+
+  reason         String?                 @db.VarChar(500)
+
+  version        Int                     @default(1)
+
+  createdAt      DateTime                @default(now())
+  updatedAt      DateTime                @updatedAt
+
+  user           User                    @relation(fields: [userId], references: [id], onDelete: Cascade)
+  activeContexts ActiveMembershipContext[]
+  statusHistory  MembershipStatusHistory[]
+
+  @@index([userId])
+  @@index([tenantId])
+  @@index([storeId])
+  @@index([status])
+  @@index([scopeType, tenantId, storeId])
+  @@index([userId, scopeType, tenantId, storeId, status])
+  @@index([expiresAt])
+  @@map("memberships")
+}
+
+model MembershipStatusHistory {
+  id            String            @id @default(cuid())
+  membershipId  String
+  fromStatus    MembershipStatus?
+  toStatus      MembershipStatus
+  reason        String?           @db.VarChar(500)
+  changedBy     String?           @db.VarChar(191)
+  createdAt     DateTime          @default(now())
+
+  membership    Membership        @relation(fields: [membershipId], references: [id], onDelete: Cascade)
+
+  @@index([membershipId, createdAt])
+  @@index([toStatus, createdAt])
+  @@map("membership_status_history")
+}
+
+model ActiveMembershipContext {
+  id            String              @id @default(cuid())
+  userId        String
+  surface       OperationalSurface
+  membershipId  String
+
+  createdAt     DateTime            @default(now())
+  updatedAt     DateTime            @updatedAt
+
+  user          User                @relation(fields: [userId], references: [id], onDelete: Cascade)
+  membership    Membership          @relation(fields: [membershipId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, surface])
+  @@index([membershipId])
+  @@map("active_membership_contexts")
 }

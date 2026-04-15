@@ -1,13 +1,28 @@
 # MAPA
 
-## OPERATIONAL SURFACES & CONTEXTS
-Este bloque no representa un dominio funcional de negocio, sino el marco de superficies operativas desde las cuales se consumen las capacidades del sistema. Define contextos de uso, navegación, visibilidad y alcance operativo para distintos actores, sin reemplazar la separación por dominios, scopes, roles y permisos del backend.
-### Partners Web:
+Este bloque no representa un dominio funcional de negocio, sino el marco de superficies desde las cuales se consumen las capacidades del sistema. Define contextos de uso, navegación, visibilidad y alcance operativo para distintos actores, sin reemplazar la separación por dominios, scopes, roles y permisos del backend.
+
+### SUPERFICIES ADMINISTRATIVAS / OPERATIVAS INTERNAS
+#### Partners Web:
 Superficie operativa orientada a tenants y stores para la gestión diaria del negocio dentro de su scope, incluyendo catálogo, pricing, inventario, pedidos, POS, configuraciones permitidas y visibilidad sobre procesos financieros operativos como cobros, liquidaciones, facturación de servicios, payouts e historial económico asociado a su operación.
-### Platform Console:
+#### Platform Console:
 Superficie operativa interna orientada a la gestión transversal de la plataforma, incluyendo soporte, auditoría, observabilidad, controles de riesgo, configuraciones globales, supervisión financiera, conciliación, gestión de liquidaciones, controles sobre payouts y otras intervenciones cross-tenant sujetas a permisos reforzados.
-### Future Owner Console:
+#### Future Owner Console:
 Superficie ejecutiva futura orientada a visibilidad estratégica, indicadores agregados, exposición operativa y financiera, y supervisión de alto nivel sobre desempeño del ecosistema, sin reemplazar las responsabilidades operativas de Partners Web o Platform Console.
+
+
+### SUPERFICIES TRANSACCIONALES Y LOGÍSTICAS EXTERNAS
+#### Shopper Mobile App:
+Superficie transaccional orientada a clientes finales para exploración, compra de productos, gestión de carrito, checkout, seguimiento de pedidos y relación comercial con la plataforma.
+#### Shopper Web App:
+Superficie transaccional web orientada a clientes finales para exploración, compra de productos, gestión de carrito, checkout y seguimiento de pedidos desde navegador.
+#### Delivery App:
+Superficie operativa orientada a repartidores para la gestión logística de pedidos, incluyendo asignación, aceptación, ejecución de entregas, navegación y cierre operativo de pedidos.
+
+### Nota de alcance
+No todas las superficies consumen el backend con la misma semántica de contexto.
+- Las superficies administrativas operan sobre scopes organizacionales (tenant/store) y consumen Memberships como base de contexto.
+- Las superficies shopper y delivery operan con modelos de actor y contexto distintos, por lo que no se asume que consuman Memberships de la misma forma en el MVP.
 
 ---
 

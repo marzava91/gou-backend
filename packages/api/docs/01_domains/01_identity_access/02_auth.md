@@ -2,7 +2,7 @@
 
 ## 1. Propósito del submódulo
 
-Auth gestiona la autenticación de usuarios, la emisión y control de sesiones, y los flujos de verificación o challenge necesarios para permitir acceso seguro a la plataforma.
+Auth gestiona la autenticación de usuarios, la emisión y control de sesiones, y los flujos de verificación o challenge necesarios para permitir acceso seguro a las distintas superficies de la plataforma.
 
 Resuelve:
 - login mediante proveedores internos, brokers de autenticación o proveedores federados
@@ -111,7 +111,7 @@ No se soportarán en MVP:
 Cerrar el MVP evita sobre diseñar Auth.
 
 #### Impacto
-Los contratos y lifecycle deben cubrir password reset, verification challenge, provider link y sesiones revocables, pero no un motor MFA complejo todavía.
+Los contratos y lifecycle deben cubrir password reset, verification challenge, provider link y sesiones revocables, pero no un motor MFA complejo todavía. El soporte de mecanismos puede variar según superficie consumidora (administrativa, shopper o logística), sin alterar la separación entre autenticación, identidad canónica y contexto operativo.
 
 ### 4.4 ¿Cómo se resuelve la identidad interna vs identidad externa?
 
@@ -591,7 +591,7 @@ Evita lógica implícita en código y separa correctamente:
 - Notifications puede enviar códigos o mensajes de verificación, pero no modela el challenge.
 - Fraud Prevention & Risk Monitoring puede consumir señales de intentos fallidos, abuso o anomalías, sin apropiarse del ownership de sesión.
 - Platform Console puede tener capacidades reforzadas para revocar sesiones o unlink providers.
-- Partners Web / otras superficies no deben resolver seguridad crítica solo en frontend; la validez de sesión y revocación debe ser backend-driven, consistente con tus lineamientos de seguridad y resiliencia .
+- Partners Web, Platform Console, Shopper Mobile App, Shopper Web App y Delivery App no deben resolver seguridad crítica solo en frontend; la validez de sesión, verificación y revocación debe ser backend-driven y consistente entre superficies.
 
 ## 10. Contratos
 

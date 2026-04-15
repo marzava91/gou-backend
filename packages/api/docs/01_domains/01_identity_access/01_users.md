@@ -2,7 +2,7 @@
 
 ## 1. Propósito del submódulo
 
-Users representa la identidad global canónica de una persona dentro de la plataforma, independiente de su pertenencia a tenants, stores, roles o sesiones activas. No resuelve autenticación, autorización ni contexto operativo.
+Users representa la identidad global canónica de una persona dentro de la plataforma, independiente de su pertenencia a tenants, stores, roles, sesiones activas o superficie de consumo. No resuelve autenticación, autorización ni contexto operativo.
 
 ## 2. Definición canónica
 
@@ -352,6 +352,8 @@ Pero no debes cerrar la puerta a multi-contact y historial.
 - Platform Console requiere capacidades administrativas reforzadas para suspensión, desactivación, anonimización y merge.
 - Partners Web no debería tener control total sobre lifecycle global de User salvo casos explícitamente autorizados por scope.
 - Platform Console concentra las operaciones administrativas reforzadas sobre lifecycle global de User.
+- Shopper Mobile App y Shopper Web App consumen User como identidad base del cliente final, sin convertir la superficie en owner de la identidad canónica.
+- Delivery App consume User o una proyección derivada de actor logístico según el modelo final de repartidores, sin redefinir la identidad global canónica.
 - Las superficies operativas de negocio no deben asumir control irrestricto sobre identidad global ni lifecycle canónico.
 
 ## 10. Contratos

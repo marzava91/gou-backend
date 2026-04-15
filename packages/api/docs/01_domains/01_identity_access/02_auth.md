@@ -855,3 +855,240 @@ El submódulo se considera listo para:
 
 No se considera aún:
 - completamente listo para producción sin capa de infraestructura real
+
+## 17. Diagramas de flujos
+
+### 17.1 Flujo principal de login
+Este flujo refleja que ningún provider externo define el userId canónico; primero se autentica contra el provider/broker, luego se resuelve la identidad interna por AuthIdentity existente o por auto-linking controlado, y solo entonces se emite sesión.
+
+flowchart TD
+    A[Inicio login] --> B[Validar input según provider]
+    B -->|inválido| X1[Auditar login_failed y rechazar]
+    B --> C[Autenticar contra broker/provider]
+    C --> D{¿Existe AuthIdentity por provider + providerSubject?}
+
+    D -->|Sí| E[Resolver userId interno]
+    D -->|No| F{¿Provider permite auto-link?}
+
+    F -->|No| X2[Auditar identity_not_linked y rechazar]
+    F -->|Sí| G[Evaluar señales verificadas: email / phone]
+
+    G --> H{¿Resuelve a un único userId?}
+    H -->|No| X3[Auditar account_resolution_conflict o identity_not_linked y rechazar]
+    H -->|Sí| I[Crear AuthIdentity vinculada al userId]
+
+    I --> J[Obtener perfil auth del user]
+    E --> J
+
+    J --> K{¿User es authenticable?}
+    K -->|No| X4[Auditar user_not_authenticable y rechazar]
+    K -->|Sí| L[Emitir access token]
+    L --> M[Emitir refresh token]
+    M --> N[Persistir AuthSession]
+    N --> O[Auditar login_succeeded]
+    O --> P[Publicar evento de sesión emitida]
+    P --> Q[Retornar sesión + tokens]
+
+### 17.2 Flujo de login con auto-linking controlado
+Tu diseño permite auto-linking solo cuando la señal viene verificada por el provider y resuelve un único userId. La prioridad es email verificado y luego phone verificado; no aplica para PASSWORD.
+
+flowchart TD
+    A[Provider autenticó correctamente] --> B[No existe AuthIdentity previa]
+    B --> C{¿Provider habilitado para auto-link?}
+
+    C -->|No| X1[Rechazar login]
+    C -->|Sí| D{¿Hay email verificado?}
+
+    D -->|Sí| E[Buscar candidateUserIds por email]
+    D -->|No| F{¿Hay phone verificado?}
+
+    E --> G{¿Resultado único?}
+    G -->|Sí| H[Resolver userId]
+    G -->|No| X2[Conflicto / no resolución]
+
+    F -->|Sí| I[Buscar candidateUserIds por phone]
+    F -->|No| X3[No hay señal confiable]
+
+    I --> J{¿Resultado único?}
+    J -->|Sí| H
+    J -->|No| X4[Conflicto / no resolución]
+
+    H --> K[Crear AuthIdentity]
+    K --> L[Continuar login normal]
+
+### 17.3 Flujo de refresh de sesión
+Según tu planificación, refresh no revive sesiones REVOKED, EXPIRED o LOGGED_OUT. Además, el refresh renueva continuidad de acceso de una sesión válida, no crea nueva identidad.
+
+flowchart TD
+    A[Inicio refreshSession] --> B[Recibir refresh token]
+    B --> C[Resolver sesión asociada]
+    C --> D{¿Existe sesión?}
+
+    D -->|No| X1[Rechazar refresh]
+    D -->|Sí| E{¿Estado permite refresh?}
+
+    E -->|No: REVOKED / EXPIRED / LOGGED_OUT / inválido| X2[Rechazar refresh]
+    E -->|Sí| F{¿Refresh credential vigente?}
+
+    F -->|No| X3[Rechazar refresh]
+    F -->|Sí| G[Emitir nuevo access token]
+    G --> H{¿Política rota refresh token?}
+    H -->|Sí| I[Emitir nuevo refresh token]
+    H -->|No| J[Conservar refresh vigente]
+
+    I --> K[Actualizar sesión a REFRESHED]
+    J --> K
+    K --> L[Auditar refresh exitoso]
+    L --> M[Publicar evento]
+    M --> N[Retornar tokens renovados]
+
+### 17.4 Flujo de logout y logout-all
+Tu diseño separa claramente:
+- LOGGED_OUT = cierre voluntario del usuario;
+- REVOKED = invalidación forzada por sistema/política.
+Además, logoutAllSessions marca como LOGGED_OUT todas las sesiones elegibles del usuario.
+
+flowchart TD
+    A[Usuario solicita logout] --> B[Buscar sesión por sessionId + actorUserId]
+    B --> C{¿Existe y pertenece al actor?}
+
+    C -->|No| X1[Rechazar]
+    C -->|Sí| D{¿Sesión elegible para logout?}
+
+    D -->|No| X2[No-op o rechazo según regla]
+    D -->|Sí| E[Marcar sesión como LOGGED_OUT]
+    E --> F[Auditar logout_completed]
+    F --> G[Publicar evento LOGOUT_COMPLETED]
+    G --> H[Fin]
+
+flowchart TD
+    A[Usuario solicita logout all] --> B[Buscar sesiones activas/refreshed elegibles del user]
+    B --> C[Marcar todas como LOGGED_OUT]
+    C --> D[Registrar cantidad afectada]
+    D --> E[Auditar logout_all_completed]
+    E --> F[Publicar evento LOGOUT_ALL_COMPLETED]
+    F --> G[Fin]
+
+### 17.5 Flujo de verification challenge
+En tu módulo, AuthVerificationChallenge tiene lifecycle propio: ISSUED, VALIDATED, FAILED, EXPIRED, CONSUMED. No colapsa con AuthSession. Sirve para verify email, verify phone, login por código, password reset y step-up limitado del MVP.
+
+flowchart TD
+    A[Solicitar verification code] --> B[Crear AuthVerificationChallenge]
+    B --> C[Estado = ISSUED]
+    C --> D[Enviar código por verification port]
+
+    D --> E[Usuario envía code]
+    E --> F[Buscar challenge]
+    F --> G{¿Existe?}
+
+    G -->|No| X1[Rechazar]
+    G -->|Sí| H{¿Expiró?}
+    H -->|Sí| X2[Marcar EXPIRED y rechazar]
+    H -->|No| I{¿Ya fue consumido?}
+    I -->|Sí| X3[Rechazar]
+    I -->|No| J{¿Superó intentos máximos?}
+    J -->|Sí| X4[Marcar FAILED / too many attempts]
+    J -->|No| K{¿Código correcto?}
+
+    K -->|No| L[Incrementar intento / potencial FAILED]
+    K -->|Sí| M[Marcar VALIDATED]
+    M --> N[Marcar CONSUMED cuando el flujo se use]
+    N --> O[Auditar y publicar evento]
+
+### 17.6 Flujo de password reset
+En tu diseño, password reset pertenece a Auth y se soporta mediante challenge temporal con consumo único. Además, puede invalidar sesiones previas según política (REVOKE_ON_PASSWORD_RESET).
+
+flowchart TD
+    A[Solicitar password reset] --> B[Resolver cuenta por identifier]
+    B --> C[Emitir challenge purpose = PASSWORD_RESET]
+    C --> D[Estado challenge = ISSUED]
+    D --> E[Enviar código / enlace]
+
+    E --> F[Usuario envía challengeId + code + newPassword]
+    F --> G[Validar challenge]
+    G --> H{¿Challenge válido y vigente?}
+
+    H -->|No| X1[Rechazar]
+    H -->|Sí| I[Marcar VALIDATED]
+    I --> J[Actualizar password en broker/provider]
+    J --> K[Consumir challenge]
+    K --> L{¿Política revoke on password reset?}
+    L -->|Sí| M[Revocar sesiones previas]
+    L -->|No| N[Continuar]
+
+    M --> O[Auditar reset + revocación]
+    N --> O
+    O --> P[Publicar eventos]
+    P --> Q[Fin]
+
+### 17.7 Flujo de link provider
+linkIdentity pertenece a Auth porque opera sobre AuthIdentity, no sobre User. Primero verifica el token externo, luego evita duplicados globales y duplicados por user+provider, y finalmente crea la vinculación. También contemplaste la carrera por P2002.
+
+flowchart TD
+    A[Usuario autenticado solicita linkIdentity] --> B[Validar provider + externalToken/providerSubject]
+    B --> C[Verificar token externo]
+    C --> D[Obtener providerSubject verificado]
+
+    D --> E{¿Ya existe AuthIdentity global por provider + providerSubject?}
+    E -->|Sí, mismo user| R1[Retornar alreadyLinked]
+    E -->|Sí, otro user| X1[Rechazar provider already linked]
+    E -->|No| F{¿User ya tiene ese provider?}
+
+    F -->|Sí| X2[Rechazar provider already linked]
+    F -->|No| G[Crear AuthIdentity]
+    G --> H{¿Concurrencia P2002?}
+    H -->|Sí| I[Reconsultar identidad concurrente]
+    I --> J{¿Pertenece al mismo user?}
+    J -->|Sí| R2[Retornar alreadyLinked]
+    J -->|No| X3[Rechazar]
+    H -->|No| K[Auditar PROVIDER_LINKED]
+    K --> L[Publicar PROVIDER_LINKED]
+    L --> M[Retornar linked = true]
+
+### 17.8 Flujo de unlink provider
+Tu regla crítica aquí está bien definida: no puedes dejar al usuario sin mecanismo válido de autenticación. Por eso primero se busca la identidad, luego se cuenta cuántas auth identities tiene el usuario, y recién se permite eliminar si aún queda al menos una adicional.
+
+flowchart TD
+    A[Usuario autenticado solicita unlinkIdentity] --> B[Buscar AuthIdentity por userId + provider]
+    B --> C{¿Existe?}
+
+    C -->|No| X1[Rechazar provider not linked]
+    C -->|Sí| D[Contar auth identities del user]
+    D --> E{¿Quedará al menos un método válido?}
+
+    E -->|No| X2[Rechazar unlink denied]
+    E -->|Sí| F[Eliminar AuthIdentity]
+    F --> G[Auditar PROVIDER_UNLINKED]
+    G --> H[Publicar PROVIDER_UNLINKED]
+    H --> I[Retornar unlinked = true]
+
+### 17.9 Lifecycle de sesión
+Este diagrama te sirve bastante para documentación ejecutiva y para revisión de invariantes.
+
+stateDiagram-v2
+    [*] --> ISSUED
+    ISSUED --> ACTIVE
+    ACTIVE --> REFRESHED
+    ACTIVE --> LOGGED_OUT
+    ACTIVE --> REVOKED
+    ACTIVE --> EXPIRED
+    REFRESHED --> LOGGED_OUT
+    REFRESHED --> REVOKED
+    REFRESHED --> EXPIRED
+
+    LOGGED_OUT --> [*]
+    REVOKED --> [*]
+    EXPIRED --> [*]
+
+### 17.10 Lifecycle de verification challenge
+
+stateDiagram-v2
+    [*] --> ISSUED
+    ISSUED --> VALIDATED
+    ISSUED --> FAILED
+    ISSUED --> EXPIRED
+    VALIDATED --> CONSUMED
+
+    FAILED --> [*]
+    EXPIRED --> [*]
+    CONSUMED --> [*]

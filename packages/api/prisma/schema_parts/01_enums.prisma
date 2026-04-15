@@ -79,3 +79,13 @@ enum MembershipStatus {
 enum OperationalSurface {
   PARTNERS_WEB
 }
+
+enum RoleScopeType {
+  TENANT
+  STORE
+}
+
+enum RoleAssignmentStatus {
+  ACTIVE
+  REVOKED
+}

@@ -218,6 +218,8 @@ model Membership {
   activeContexts ActiveMembershipContext[]
   statusHistory  MembershipStatusHistory[]
 
+  roleAssignments RoleAssignment[]
+
   @@index([userId])
   @@index([tenantId])
   @@index([storeId])
@@ -259,4 +261,76 @@ model ActiveMembershipContext {
   @@unique([userId, surface])
   @@index([membershipId])
   @@map("active_membership_contexts")
+}
+
+model Role {
+  id            String               @id @default(cuid())
+  key           String               @unique @db.VarChar(120)
+  name          String               @db.VarChar(180)
+  description   String?              @db.VarChar(500)
+  scopeType     RoleScopeType
+  isSystem      Boolean              @default(true)
+  retiredAt     DateTime?
+  version       Int                  @default(1)
+  createdAt     DateTime             @default(now())
+  updatedAt     DateTime             @updatedAt
+
+  capabilities  RoleCapability[]
+  assignments   RoleAssignment[]
+
+  @@index([scopeType])
+  @@index([retiredAt])
+  @@map("roles")
+}
+
+model RoleCapability {
+  id            String               @id @default(cuid())
+  roleId         String
+  capabilityKey  String              @db.VarChar(160)
+  createdAt      DateTime            @default(now())
+
+  role           Role                @relation(fields: [roleId], references: [id], onDelete: Cascade)
+
+  @@unique([roleId, capabilityKey])
+  @@index([capabilityKey])
+  @@map("role_capabilities")
+}
+
+model RoleAssignment {
+  id            String               @id @default(cuid())
+  membershipId  String
+  roleId        String
+  status        RoleAssignmentStatus @default(ACTIVE)
+  assignedBy    String?              @db.VarChar(191)
+  revokedBy     String?              @db.VarChar(191)
+  reason        String?              @db.VarChar(500)
+  assignedAt    DateTime             @default(now())
+  revokedAt     DateTime?
+  version       Int                  @default(1)
+  createdAt     DateTime             @default(now())
+  updatedAt     DateTime             @updatedAt
+
+  membership    Membership           @relation(fields: [membershipId], references: [id], onDelete: Cascade)
+  role          Role                 @relation(fields: [roleId], references: [id], onDelete: Restrict)
+  history       RoleAssignmentHistory[]
+
+  @@index([membershipId, status])
+  @@index([roleId, status])
+  @@index([membershipId, roleId])
+  @@map("role_assignments")
+}
+
+model RoleAssignmentHistory {
+  id               String               @id @default(cuid())
+  roleAssignmentId String
+  fromStatus       RoleAssignmentStatus?
+  toStatus         RoleAssignmentStatus
+  changedBy        String?              @db.VarChar(191)
+  reason           String?              @db.VarChar(500)
+  createdAt        DateTime             @default(now())
+
+  roleAssignment   RoleAssignment       @relation(fields: [roleAssignmentId], references: [id], onDelete: Cascade)
+
+  @@index([roleAssignmentId, createdAt])
+  @@map("role_assignment_history")
 }

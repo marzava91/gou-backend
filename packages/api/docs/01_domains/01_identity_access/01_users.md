@@ -538,3 +538,271 @@ explícita a nivel de endpoint mediante guards declarados.
 - updates vacíos rechazados
 - estrategia de concurrencia implementada mediante optimistic locking
 - errores semánticos consistentes para conflictos de concurrencia
+
+## 16. Diagramas de flujos
+
+### 16.1 Vista general del submódulo
+Esto conversa con tu contrato HTTP: POST /v1/users, GET /v1/users, GET /v1/users/me, PATCH /v1/users/me/profile, los endpoints me/primary-email-change/*, me/primary-phone-change/*, y los endpoints administrativos :id/suspend|reactivate|deactivate|anonymize.
+
+flowchart TD
+    A[Actor / Cliente HTTP] --> B[UsersController]
+    B --> C{Guard correspondiente}
+    C -->|Self-service| D[UserAuthenticatedGuard]
+    C -->|Lectura puntual| E[UserSelfOrAdminGuard]
+    C -->|Admin lifecycle / create / list| F[UserPlatformAdminGuard]
+
+    D --> G[UsersService]
+    E --> G
+    F --> G
+
+    G --> H[UsersRepository]
+    G --> I[UserContactChangeRequestsRepository]
+    G --> J[UserContactVerificationPort]
+    G --> K[UserAuditPort]
+    G --> L[UserEventsPort]
+
+    H --> M[(User)]
+    I --> N[(UserContactChangeRequest)]
+
+
+### 16.2 Flujo de creación administrativa de user
+Este flujo sale de tu política de unicidad: primaryEmail y primaryPhone son únicos cuando existen, y una colisión rechaza la creación; además, el service test valida normalización, check previo de unicidad, creación y side effects de auditoría/evento.
+
+flowchart TD
+    A[Platform Admin] --> B[POST /v1/users]
+    B --> C[UserPlatformAdminGuard]
+    C --> D[UsersService.createUser]
+
+    D --> E{DTO válido? al menos email o phone}
+    E -->|No| X1[400 Bad Request]
+    E -->|Sí| F[Normalizar email / phone]
+
+    F --> G{primaryEmail ya existe?}
+    G -->|Sí| X2[DuplicatePrimaryEmailError]
+    G -->|No| H{primaryPhone ya existe?}
+
+    H -->|Sí| X3[DuplicatePrimaryPhoneError]
+    H -->|No| I[Repository.create]
+
+    I --> J[Crear User ACTIVE<br/>emailVerified=false<br/>phoneVerified=false]
+    J --> K[Audit: user_created]
+    K --> L[Publish: USER_CREATED]
+    L --> M[Return UserResponseDto]
+
+### 16.3 Flujo de actualización de perfil self-service
+Acá la regla fuerte es: no se aceptan updates vacíos, no se debe mutar un user anonimizado, y las mutaciones sensibles usan optimistic locking con version; si hay colisión concurrente, se rechaza la operación.
+
+flowchart TD
+    A[Usuario autenticado] --> B[PATCH /v1/users/me/profile]
+    B --> C[UserAuthenticatedGuard]
+    C --> D[UsersService.updateProfile]
+
+    D --> E{Payload vacío?}
+    E -->|Sí| X1[EmptyUserProfileUpdateError]
+    E -->|No| F[Buscar user actual]
+
+    F --> G{User existe?}
+    G -->|No| X2[UserNotFoundError]
+    G -->|Sí| H{status = ANONYMIZED?}
+
+    H -->|Sí| X3[UserAlreadyAnonymizedError]
+    H -->|No| I[updateByIdAndVersion]
+
+    I --> J{Version match?}
+    J -->|No| X4[UserConcurrentModificationError]
+    J -->|Sí| K[Persistir cambios]
+
+    K --> L[Audit: user_profile_updated]
+    L --> M[Publish: USER_PROFILE_UPDATED]
+    M --> N[Return perfil actualizado]
+
+### 16.4 Flujo de solicitud de cambio de primary email
+Tu planificación dice que el cambio de contacto primario es un flujo en dos fases y que solo puede existir una solicitud activa relevante por usuario/tipo; si representa el mismo objetivo, se reutiliza, y si no, se reemplaza de forma controlada. Eso además está reflejado en los tests del service.
+
+flowchart TD
+    A[Usuario autenticado] --> B[POST /v1/users/me/primary-email-change/request]
+    B --> C[UserAuthenticatedGuard]
+    C --> D[UsersService.requestPrimaryEmailChange]
+
+    D --> E[Buscar user actual]
+    E --> F{User existe?}
+    F -->|No| X1[UserNotFoundError]
+    F -->|Sí| G{Nuevo email = email actual?}
+
+    G -->|Sí| X2[NewPrimaryEmailMatchesCurrentError]
+    G -->|No| H{Nuevo email ya pertenece a otro user?}
+
+    H -->|Sí| X3[DuplicatePrimaryEmailError]
+    H -->|No| I[Buscar solicitud activa previa del tipo PRIMARY_EMAIL]
+
+    I --> J{Existe solicitud activa con mismo objetivo?}
+    J -->|Sí| K[Reusar solicitud existente]
+    K --> R[Return requested=true + verificationRef + expiresAt]
+
+    J -->|No| L[Cancelar/reemplazar solicitud activa previa si aplica]
+    L --> M[Solicitar verificación externa]
+    M --> N[Crear UserContactChangeRequest PENDING]
+    N --> O[Audit: email_change_request]
+    O --> P[Publish: USER_PRIMARY_EMAIL_CHANGE_REQUESTED]
+    P --> Q[Return requested=true + verificationRef + expiresAt]
+
+### 16.5 Flujo de confirmación de cambio de primary email
+Aquí la promoción del contacto al canónico solo ocurre después de verificación exitosa. Además, el repository versionado actualiza primaryEmail, marca emailVerified=true e incrementa version; si la versión ya no coincide, el flujo rechaza por concurrencia.
+
+flowchart TD
+    A[Usuario autenticado] --> B[POST /v1/users/me/primary-email-change/confirm]
+    B --> C[UserAuthenticatedGuard]
+    C --> D[UsersService.confirmPrimaryEmailChange]
+
+    D --> E[Buscar user actual]
+    E --> F[Confirmar token con UserContactVerificationPort]
+
+    F --> G{Verificación exitosa?}
+    G -->|No| X1[ContactVerificationRequiredError]
+    G -->|Sí| H[Obtener verificationRef y newPrimaryEmail]
+
+    H --> I{newPrimaryEmail ya pertenece a otro user?}
+    I -->|Sí| X2[DuplicatePrimaryEmailError]
+    I -->|No| J[Buscar request pendiente por verificationRef]
+
+    J --> K{Request pendiente existe?}
+    K -->|No| X3[Error de consistencia / flujo inválido]
+    K -->|Sí| L[markVerifiedById]
+
+    L --> M[updatePrimaryEmailByIdAndVersion]
+    M --> N{Version match?}
+    N -->|No| X4[UserConcurrentModificationError]
+    N -->|Sí| O[primaryEmail = nuevo email<br/>emailVerified = true]
+
+    O --> P[markConsumedById]
+    P --> Q[Audit: email_change_confirm]
+    Q --> R[Publish: USER_PRIMARY_EMAIL_CHANGED]
+    R --> S[Return user actualizado]
+
+### 16.6 Flujo de cambio de primary phone
+En phone la lógica es simétrica a email: request + confirm, con validación de duplicados, una única solicitud activa relevante, verificación obligatoria antes de promover el contacto, y update versionado del user.
+
+- Request phone:
+
+flowchart TD
+    A[Usuario autenticado] --> B[POST /v1/users/me/primary-phone-change/request]
+    B --> C[UserAuthenticatedGuard]
+    C --> D[UsersService.requestPrimaryPhoneChange]
+
+    D --> E[Buscar user]
+    E --> F{Nuevo phone = actual?}
+    F -->|Sí| X1[NewPrimaryPhoneMatchesCurrentError]
+    F -->|No| G{Phone duplicado?}
+
+    G -->|Sí| X2[DuplicatePrimaryPhoneError]
+    G -->|No| H[Buscar solicitud activa PRIMARY_PHONE]
+
+    H --> I{Mismo objetivo?}
+    I -->|Sí| J[Reusar request]
+    I -->|No| K[Cancelar/reemplazar request anterior]
+    K --> L[Solicitar verificación phone]
+    L --> M[Crear request PENDING]
+    M --> N[Audit + Event]
+    J --> O[Return requested]
+    N --> O
+
+- Confirm phone:
+
+flowchart TD
+    A[Usuario autenticado] --> B[POST /v1/users/me/primary-phone-change/confirm]
+    B --> C[UserAuthenticatedGuard]
+    C --> D[UsersService.confirmPrimaryPhoneChange]
+
+    D --> E[Confirmar token phone]
+    E --> F{verified?}
+    F -->|No| X1[ContactVerificationRequiredError]
+    F -->|Sí| G[Resolver verificationRef + newPrimaryPhone]
+
+    G --> H{Phone duplicado?}
+    H -->|Sí| X2[DuplicatePrimaryPhoneError]
+    H -->|No| I[Buscar request pendiente]
+
+    I --> J[markVerifiedById]
+    J --> K[updatePrimaryPhoneByIdAndVersion]
+    K --> L{Version match?}
+    L -->|No| X3[UserConcurrentModificationError]
+    L -->|Sí| M[primaryPhone = nuevo phone<br/>phoneVerified = true]
+
+    M --> N[markConsumedById]
+    N --> O[Audit + Event]
+    O --> P[Return user actualizado]
+
+### 16.7 Flujo de lifecycle administrativo
+Tu lifecycle principal es: ACTIVE -> SUSPENDED, SUSPENDED -> ACTIVE, ACTIVE -> DEACTIVATED, SUSPENDED -> DEACTIVATED, DEACTIVATED -> ANONYMIZED; por ejemplo, DEACTIVATED -> ACTIVE está prohibido.
+
+- Suspend: 
+
+flowchart TD
+    A[Platform Admin] --> B[POST /v1/users/:id/suspend]
+    B --> C[UserPlatformAdminGuard]
+    C --> D[UsersService.suspendUser]
+
+    D --> E[Buscar user]
+    E --> F{Existe?}
+    F -->|No| X1[UserNotFoundError]
+    F -->|Sí| G{Ya está suspended?}
+    G -->|Sí| X2[UserAlreadySuspendedError]
+    G -->|No| H{ACTIVE -> SUSPENDED válido?}
+
+    H -->|No| X3[InvalidUserStatusTransitionError]
+    H -->|Sí| I[updateByIdAndVersion status=SUSPENDED]
+
+    I --> J{Version match?}
+    J -->|No| X4[UserConcurrentModificationError]
+    J -->|Sí| K[Audit: USER_SUSPENDED]
+    K --> L[Publish: USER_SUSPENDED]
+    L --> M[Return user suspendido]
+
+- Reactivate
+
+flowchart TD
+    A[Platform Admin] --> B[POST /v1/users/:id/reactivate]
+    B --> C[UserPlatformAdminGuard]
+    C --> D[UsersService.reactivateUser]
+
+    D --> E[Buscar user]
+    E --> F{Transición actual -> ACTIVE válida?}
+    F -->|No| X1[InvalidUserStatusTransitionError]
+    F -->|Sí| G[updateByIdAndVersion status=ACTIVE]
+    G --> H[Audit + Event]
+    H --> I[Return user reactivado]
+
+- Deactivate
+
+flowchart TD
+    A[Platform Admin] --> B[POST /v1/users/:id/deactivate]
+    B --> C[UserPlatformAdminGuard]
+    C --> D[UsersService.deactivateUser]
+
+    D --> E[Buscar user]
+    E --> F{ACTIVE/SUSPENDED -> DEACTIVATED válido?}
+    F -->|No| X1[InvalidUserStatusTransitionError]
+    F -->|Sí| G[updateByIdAndVersion<br/>status=DEACTIVATED<br/>deactivatedAt=now]
+
+    G --> H[Audit: USER_DEACTIVATED]
+    H --> I[Publish: USER_DEACTIVATED]
+    I --> J[Return user deactivated]
+
+- Anonymize
+
+flowchart TD
+    A[Platform Admin] --> B[POST /v1/users/:id/anonymize]
+    B --> C[UserPlatformAdminGuard]
+    C --> D[UsersService.anonymizeUser]
+
+    D --> E[Buscar user]
+    E --> F{DEACTIVATED -> ANONYMIZED válido?}
+    F -->|No| X1[InvalidUserStatusTransitionError]
+    F -->|Sí| G[updateByIdAndVersion<br/>status=ANONYMIZED<br/>anonymizedAt=now<br/>clear PII]
+
+    G --> H[Set displayName anonymized]
+    H --> I[Null firstName/lastName/email/phone/avatar]
+    I --> J[emailVerified=false / phoneVerified=false]
+    J --> K[Audit: USER_ANONYMIZED]
+    K --> L[Publish: USER_ANONYMIZED]
+    L --> M[Return user anonymized]

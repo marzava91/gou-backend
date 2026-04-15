@@ -77,65 +77,100 @@ Evita confundir:
 #### Impacto
 Roles siempre se asignan sobre memberships, no sobre users directamente.
 
-### 4.2 ¿Los roles son platform-scoped, tenant-scoped o ambos?
+### 4.2 ¿Los roles son TENANT-scoped, STORE-scoped o ambos?
 
 #### Decisión
-El sistema soporta dos categorías explícitas de roles:
-- platform-scoped roles: definidos y administrados por la plataforma para contextos platform
-- tenant-scoped roles: definidos para operar dentro del contexto de un tenant y asignables sobre memberships válidas de ese tenant
+En el MVP, el sistema soporta dos categorías explícitas de roles:
+- TENANT-scoped roles
+- STORE-scoped roles
 
-No habrá roles ambiguos ni roles implícitamente reutilizables entre scopes incompatibles.
-
-En el MVP:
-- no habrá store-scoped roles como categoría independiente
-- los roles tenant-scoped podrán operar sobre memberships tenant-scoped y, cuando la política lo permita, sobre memberships store-scoped pertenecientes al mismo tenant
+No existe en esta versión un catálogo separado de platform-scoped roles, ni un `tenantId` como parte del modelo de Role.
 
 #### Justificación
-Esto evita mezclar catálogo de plataforma con catálogo operativo del tenant, y evita introducir una tercera dimensión de scope prematuramente.
+Esto alinea la planificación con el modelo actual implementado en Prisma y servicios, evitando introducir segmentación de catálogo no implementada todavía.
 
 #### Impacto
-El modelo de Role debe declarar explícitamente:
-- scopeType
-- tenantId cuando el role sea tenant-scoped
-- reglas de asignación compatibles con el scope de la membership
+El modelo de Role declara explícitamente:
+- scopeType (`TENANT` o `STORE`)
 
-Ese cambio solo ya lo alinea bastante más.
+En el MVP, la compatibilidad entre Role y Membership es estricta por igualdad de scope:
+- TENANT role → TENANT membership
+- STORE role → STORE membership
+
+No se permite, en esta versión, asignar un TENANT role sobre una STORE membership ni viceversa.
+
+La segmentación más avanzada del catálogo queda diferida.
 
 ### 4.3 ¿Los roles se asignan a User o a Membership?
 
 #### Decisión
-Los roles se asignan exclusivamente a Membership, y solo cuando exista compatibilidad entre el scopeType del role y el scope de la membership objetivo.
+Los roles se asignan exclusivamente a Membership, y solo cuando exista compatibilidad estricta entre el `scopeType` del role y el `scopeType` de la membership objetivo.
+
+En el MVP:
+- TENANT role → TENANT membership
+- STORE role → STORE membership
+
+No se permite asignación cruzada entre scopes incompatibles.
 
 #### Justificación
 Evita inconsistencias como:
 - usuario con rol pero sin pertenencia válida
 - permisos fuera de contexto
+- asignaciones ambiguas entre niveles organizacionales distintos
 
 #### Impacto
 No existe user-role directo ni asignación fuera de contexto.
+Toda asignación de role queda anclada a una membership válida y compatible por scope.
 
 ### 4.4 ¿Qué contiene un Role?
 
 #### Decisión
 Un Role contiene:
 - identificador único
-- nombre
-- descripción
+- key
+- name
+- description
 - scopeType
-- conjunto de capacidades (permission template)
-- estado
+- conjunto de capacidades explícitas
+- indicador temporal de retiro operativo (`retiredAt`)
 - versión
+- indicador `isSystem`
 
 No contiene:
 - users
 - memberships
 - grants
 - sesiones
+- un lifecycle multietapa formal en esta versión MVP
+
+### Semántica MVP de `isSystem`
+- `isSystem = true` → role sembrado o reservado como parte del catálogo base de plataforma
+- `isSystem = false` → role creado como definición operativa/custom
+
+En este corte MVP, los roles creados por endpoint administrativo nacen por defecto como `isSystem = false`, salvo indicación explícita.
 
 #### Justificación
-Separación clara entre definición y asignación.
+En el MVP el catálogo de roles necesita una semántica simple y operable.
+Se usará `retiredAt` para indicar que un role ya no puede participar en nuevas asignaciones, sin introducir todavía estados adicionales como draft, deprecated o archived.
 
-### 4.5 ¿Cómo se modelan las capacidades?
+#### Impacto
+El modelo de Role no implementa aún un estado formal de lifecycle.
+Las políticas de transición más ricas quedan diferidas para una iteración posterior.
+
+### 4.5 ¿Cómo se normaliza `role.key`?
+
+#### Decisión
+`role.key` se normaliza antes de validarse y persistirse:
+- trim de espacios laterales
+- lowercase canónico
+
+#### Justificación
+Evita duplicados semánticos y asegura unicidad lógica estable del catálogo.
+
+#### Impacto
+La unicidad de `role.key` debe evaluarse sobre su forma normalizada.
+
+### 4.6 ¿Cómo se modelan las capacidades?
 
 #### Decisión
 Se modelan como un permission template explícito (lista estructurada de capacidades).
@@ -154,7 +189,7 @@ Evita:
 #### Impacto
 Roles no son solo labels; son estructuras semánticas.
 
-### 4.6 ¿Qué pasa cuando cambia la definición de un Role?
+### 4.7 ¿Qué pasa cuando cambia la definición de un Role?
 
 #### Decisión
 El cambio de un role:
@@ -169,7 +204,7 @@ Evita inconsistencias silenciosas.
 #### Impacto
 Auth/Access layer debe reevaluar capacidades.
 
-### 4.7 ¿Puede un Role coexistir con otros?
+### 4.8 ¿Puede un Role coexistir con otros?
 
 #### Decisión
 Sí, múltiples roles pueden coexistir en una misma membership, salvo reglas explícitas de incompatibilidad.
@@ -180,7 +215,7 @@ Necesitas composición de capacidades.
 #### Impacto
 Debe existir validación de conflictos si aplica.
 
-### 4.8 ¿Qué pasa con roles “admin”?
+### 4.9 ¿Qué pasa con roles “admin”?
 
 #### Decisión
 No existe “admin” implícito.
@@ -192,7 +227,7 @@ Evita ambigüedad y abuso.
 #### Impacto
 Nada depende de strings como “admin”.
 
-### 4.9 ¿Cómo se relaciona Roles con Grants?
+### 4.10 ¿Cómo se relaciona Roles con Grants?
 
 #### Decisión
 Roles definen capacidades base.
@@ -204,7 +239,7 @@ Evita que roles se conviertan en contenedor de excepciones.
 #### Impacto
 No mezclar lógica.
 
-### 4.10 ¿Qué pasa al remover un Role de una Membership?
+### 4.11 ¿Qué pasa al remover un Role de una Membership?
 
 #### Decisión
 - se elimina la capacidad base asociada
@@ -220,10 +255,13 @@ Debe haber reevaluación de acceso.
 - Role
 
 ### Entidades auxiliares
+- RoleCapability
 - RoleAssignment
-- RolePermissionTemplate
-- RoleVersion
-- RoleAuditEvent
+- RoleAssignmentHistory
+
+### Nota de implementación MVP
+La auditoría y publicación de eventos se abstraen mediante puertos del submódulo.
+No existe en esta versión una entidad persistida explícita llamada RoleAuditEvent o RoleVersion.
 
 ### Ownership
 - Roles es owner del catálogo de capacidades base reutilizables
@@ -243,46 +281,46 @@ Debe haber reevaluación de acceso.
 - Grants ajusta el resultado efectivo, pero no redefine el catálogo de roles
 - Access Resolution consume roles asignados y grants para resolver acceso efectivo
 
+### Semántica MVP del campo `reason`
+- En `RoleAssignment`, `reason` representa la razón original de asignación.
+- Las razones de cambio de estado posteriores, como revocación, se registran en `RoleAssignmentHistory`.
+
 ## 6. Invariantes del submódulo
 
 - Un Role no pertenece a un User directamente.
 - Un Role solo puede asignarse a una Membership válida.
-- Un Role debe tener scopeType explícito.
+- Un Role debe tener `scopeType` explícito.
 - Un Role no puede ser ambiguo en capacidades.
-- Un Role deprecated no debe asignarse a nuevas memberships.
-- Un Role archived no debe ser usable.
-- Una RoleAssignment debe ser única por combinación membershipId + roleId.
+- Un Role con `retiredAt` distinto de null no debe asignarse a nuevas memberships.
 - Un Role no define excepciones individuales.
 - Las capacidades deben ser explícitas, no implícitas.
 - Un cambio de Role debe ser auditable.
-- Un Role solo puede asignarse a una Membership cuyo scope sea compatible con el scopeType del role.
-- Un Role archived no puede participar en nuevas asignaciones ni seguir evolucionando.
-- Un Role deprecated puede seguir afectando asignaciones históricas existentes según política, pero no debe usarse en nuevas asignaciones.
+- Un Role solo puede asignarse a una Membership cuyo `scopeType` sea estrictamente igual al `scopeType` del role.
+- En el MVP no se permite asignación cruzada entre scopes incompatibles:
+  - TENANT role → TENANT membership
+  - STORE role → STORE membership
+- Un Role retirado no debe seguir evolucionando operativamente dentro del flujo MVP si la política de servicio así lo restringe.
 - Un RoleAssignment no puede existir sin Membership válida y Role asignable.
+- No debe existir más de una asignación activa equivalente para la misma combinación membershipId + roleId.
 
 ## 7. Lifecycle
 
-### Estados
-- draft
-- active
-- deprecated
-- archived
+### Role catalog lifecycle en MVP
+En esta versión MVP, Role no implementa un lifecycle formal con estados como draft, deprecated o archived.
 
-### Transiciones válidas
-- draft → active
-- active → deprecated
-- deprecated → archived
+En cambio, el catálogo usa una semántica operativa mínima:
 
-### Transiciones inválidas
-- archived → active
-- archived → deprecated
+- `retiredAt = null` → role disponible para uso operativo
+- `retiredAt != null` → role retirado; no debe usarse en nuevas asignaciones
 
 ### Reglas
-- draft no es asignable
-- active sí es asignable
-- deprecated puede seguir siendo reconocido para asignaciones históricas existentes, según política de transición, pero no debe usarse en nuevas asignaciones.
-- archived no debe ser asignable ni editable, y su uso operativo futuro debe depender de una política explícita de migración o sustitución.
+- Un role no retirado puede ser creado, consultado y asignado según compatibilidad de scope y reglas de acceso.
+- Un role retirado puede seguir existiendo por trazabilidad e historial.
+- Un role retirado no debe participar en nuevas asignaciones.
+- La semántica de deprecated/archive queda diferida para una iteración posterior.
 
+### Decisión diferida
+La introducción de estados explícitos de lifecycle del catálogo queda postergada hasta que exista una necesidad clara de gobierno avanzado de roles, migraciones controladas o versionado operativo más rico.
 
 ## 8. Reglas críticas
 
@@ -293,10 +331,15 @@ Debe haber reevaluación de acceso.
 - Roles no sustituyen Grants.
 - No confiar en nombres de roles para lógica.
 - Evitar proliferación descontrolada de roles.
-- Validar conflictos entre roles.
+- Validar conflictos entre roles cuando esa política exista.
 - Roles deben ser versionables o auditables.
 - No se puede asignar un role a una membership con scope incompatible.
+- En el MVP, la compatibilidad entre Role y Membership es estricta por igualdad de scope:
+  - TENANT role → TENANT membership
+  - STORE role → STORE membership
+- No se permite, en esta versión, asignar un TENANT role sobre una STORE membership ni viceversa.
 - Un role no puede usarse para simular pertenencia a un scope no cubierto por la membership.
+- Un role retirado no puede participar en nuevas asignaciones.
 
 ## 9. Impacto en otros módulos
 
@@ -305,120 +348,120 @@ Debe haber reevaluación de acceso.
 - Auth autentica, pero no define capacidades operativas.
 - Grants modifica o restringe capacidades efectivas derivadas de roles, sin reemplazar el catálogo base.
 - Access Resolution consume roles asignados, memberships válidas y grants para resolver acceso efectivo.
-- Audit debe registrar creación, cambio, deprecación, archivado y asignación/remoción de roles.
-- Partners Web y otras superficies no deben inferir capacidades solo por nombre de rol; deben consumir resolución efectiva consistente.
-- Platform Console puede administrar roles platform-scoped y, según política, supervisar tenant-scoped roles o sus asignaciones.
+- Audit debe registrar creación, retiro operativo y cambios de asignación de roles.
+- Las superficies consumidoras no deben inferir capacidades solo por nombre de role; deben consumir resolución efectiva consistente.
+- La compatibilidad entre roles y memberships, en este MVP, depende de igualdad estricta de scope:
+  - TENANT role → TENANT membership
+  - STORE role → STORE membership
+- La segmentación administrativa más avanzada del catálogo queda diferida para una iteración posterior.
 
 ## 10. Contratos
 
-### DTOs
+### DTOs implementados en este corte MVP
 - CreateRoleDto
-- UpdateRoleDto
-- AssignRoleToMembershipDto
-- RemoveRoleFromMembershipDto
-- DeprecateRoleDto
-- ArchiveRoleDto
-- GetRoleByIdParamsDto
+- AssignRoleDto
+- RevokeRoleDto
 - ListRolesQueryDto
-- ListMembershipRolesQueryDto
+- MembershipIdParamDto
+- RoleAssignmentIdParamDto
 - RoleResponseDto
+- RoleAssignmentResponseDto
 - RoleSummaryResponseDto
 
-### Acciones
+### Acciones implementadas
 - create role
+- list roles
+- list roles con filtro opcional por `scopeType`
+- assign role to membership
+- revoke role assignment
+- list roles assigned to membership
+
+### Acciones preparadas o diferidas
 - update role
 - get role by id
-- list roles
-- list roles assigned to membership
-- assign role to membership
-- remove role from membership
-- deprecate role
-- archive role
-
-### Acciones administrativas
-- archive role
-- migrate role definitions
+- retire role
 - bulk assign/remove roles
+- catálogo segmentado por administración avanzada de scope
 
-### Errores
+### Errores implementados o alineados con el corte MVP
 - role_not_found
-- invalid_role_scope
-- role_already_assigned
-- role_not_assignable
-- role_scope_mismatch
-- role_conflict
-- role_deprecated
-- role_archived
-- membership_not_found
-- invalid_role_assignment
+- role_already_exists
+- role_retired
+- role_membership_scope_mismatch
+- duplicate_role_assignment
+- role_assignment_not_found
+- invalid_role_assignment_transition
+- role_assignment_membership_not_found
+- role_assignment_membership_inactive
 
 ### Scopes
 
-- platform admin para crear y administrar platform-scoped roles
-- tenant admin, según política, para administrar roles tenant-scoped dentro de su tenant
-- administradores autorizados para asignar/remover roles dentro de memberships compatibles por scope
+En este corte MVP, la administración expuesta del submódulo está restringida a actores con privilegio de platform admin.
+La delegación de administración tenant-scoped o políticas más finas de acceso quedan diferidas para una iteración posterior.
 
 ### Eventos
+
 - role_created
 - role_updated
-- role_deprecated
-- role_archived
-- role_assigned_to_membership
-- role_removed_from_membership
+- role_retired
+- role_assigned
+- role_assignment_revoked
 
 ## 11. Diseño de validación
 
 ### Familias de prueba
 - reglas de negocio
 - servicio
-- integración con provider
 - contrato/endpoint
 - E2E mínima
 
 ### Escenarios principales
-- crear role válido platform-scoped
-- crear role válido tenant-scoped
+- crear role válido TENANT
+- crear role válido STORE
 - asignar role compatible a membership válida
-- remover role asignado
-- deprecate role activo
-- archive role deprecated
+- revocar role assignment activo
+- listar roles
+- listar roles asignados a una membership
 
 ### Escenarios inválidos
-- asignar role archived
-- asignar role deprecated a nueva membership
+- asignar role retirado
 - asignar role con scope incompatible
-- duplicar role assignment
-- remover role no asignado
+- duplicar role assignment activo
+- asignar role a membership inexistente
+- asignar role a membership no activa
+- revocar role assignment inexistente
+- revocar role assignment ya no revocable
 
 ### Casos borde
 - múltiples roles coexistiendo en una misma membership
-- cambio de definición de role en uso
-- transición a deprecated con asignaciones existentes
+- cambio futuro de definición de role en uso
 - role assignment concurrente duplicado
+- normalización y deduplicación de capability keys
 
 ### Seguridad
 - no permitir asignación fuera del scope autorizado
 - no confiar en nombres de role para autorización
-- no exponer catálogo de roles de otros scopes sin autorización
+- no exponer más catálogo del necesario según política de acceso
 
 ### Concurrencia
 - creación concurrente de roles equivalentes
 - doble asignación simultánea del mismo role a una membership
-- actualización concurrente de definición de role y resolución de permisos efectivos
+- actualización concurrente futura de definición de role y resolución de permisos efectivos
 
 ### Criterios de aceptación
 - separación clara entre Role, Membership y Grant
 - scope explícito y compatible
+- compatibilidad estricta entre role y membership por igualdad de scope en el MVP
 - asignación contextualizada
 - cambios auditables
 - contratos claros
 - pruebas mínimas automatizadas definidas
 
-## 12. COnfiabilidad y hardening
+## 12. Confiabilidad y hardening
 
 - Idempotencia: asignación y remoción de roles deben tolerar reintentos seguros.
-- Auditoría: creación, actualización, deprecación, archivado y cambios de asignación deben quedar auditados.
-- Observabilidad: métricas de roles creados, asignados, removidos, deprecados, archivados y conflictos de asignación.
+- Auditoría: creación, actualización futura, retiro operativo y cambios de asignación deben quedar auditados.
+- Observabilidad: métricas de roles creados, asignados, revocados, retirados y conflictos de asignación.
 - Rate limiting: principalmente sobre endpoints administrativos masivos o sensibles.
 - Retry: solo en operaciones idempotentes o reconciliables.
 - Concurrencia: unique constraints o locking para evitar RoleAssignment duplicados.
@@ -426,11 +469,15 @@ Debe haber reevaluación de acceso.
 - Retención: definir cuánto tiempo se conserva historial de definiciones y asignaciones.
 - Invalidación: cambios relevantes en roles o asignaciones deben invalidar o refrescar permisos efectivos.
 
+### Nota de implementación MVP
+La unicidad de asignación activa equivalente se protege actualmente a nivel de servicio y mediante manejo de concurrencia / errores transaccionales.
+El refuerzo estricto a nivel DB queda sujeto a una estrategia posterior más precisa.
+
 ## 13. Riesgos
 
 - mezclar catálogo de roles con catálogo de permisos dinámicos
-- permitir tenant roles sin límites claros
-- mantener roles deprecated vivos indefinidamente
+- permitir catálogos o scopes sin límites claros antes de modelarlos correctamente
+- mantener roles retirados sin política futura clara de limpieza o sustitución
 - incapacidad de reconstruir qué capacidades tenía un usuario históricamente
 
 ## 14. Decisiones diferidas
@@ -442,15 +489,14 @@ Debe haber reevaluación de acceso.
 ## 15. Definition of Done
 
 - catálogo de roles definido con scope explícito
-- compatibilidad entre roles y memberships documentada
+- capacidades explícitas por role modeladas y normalizadas
 - separación entre Role, RoleAssignment y Grant definida
-- invariantes del submódulo documentados
-- lifecycle del role cerrado
-- política de deprecación y archivado definida
-- impacto en otros módulos documentado
-- DTOs, acciones, errores, scopes y eventos definidos
-- estrategia de invalidación de permisos efectivos definida
-- diseño de validación mínimo definido
-- hardening mínimo definido
-- riesgos principales identificados
-- decisiones diferidas conscientemente registradas
+- compatibilidad entre Role y Membership documentada para el MVP
+- compatibilidad estricta entre scopes documentada:
+  - TENANT role → TENANT membership
+  - STORE role → STORE membership
+- política de retiro operativo vía `retiredAt` documentada
+- asignación y revocación de roles sobre memberships implementadas
+- invariantes principales del submódulo documentados
+- contratos MVP expuestos y probados
+- pruebas mínimas automatizadas definidas para reglas, servicios y endpoints principales

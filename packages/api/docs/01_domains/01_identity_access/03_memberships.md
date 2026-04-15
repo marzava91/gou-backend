@@ -688,3 +688,201 @@ WHERE "status" IN ('PENDING', 'ACTIVE', 'SUSPENDED');
 - riesgos principales identificados
 - decisiones diferidas conscientemente registradas
 - superficies consumidoras del backend identificadas y diferenciadas entre contextos administrativos, shopper y delivery
+
+## 16. Diagramas de Flujos
+
+### 16.1 Flujo general del submódulo Memberships
+Este flujo sale de tu MembershipsService, que actúa como fachada y deriva cada operación al servicio correcto: command, query o context.
+
+flowchart TD
+    A[Platform Admin] --> B[POST /v1/users/:id/anonymize]
+    B --> C[UserPlatformAdminGuard]
+    C --> D[UsersService.anonymizeUser]
+
+    D --> E[Buscar user]
+    E --> F{DEACTIVATED -> ANONYMIZED válido?}
+    F -->|No| X1[InvalidUserStatusTransitionError]
+    F -->|Sí| G[updateByIdAndVersion<br/>status=ANONYMIZED<br/>anonymizedAt=now<br/>clear PII]
+
+    G --> H[Set displayName anonymized]
+    H --> I[Null firstName/lastName/email/phone/avatar]
+    I --> J[emailVerified=false / phoneVerified=false]
+    J --> K[Audit: USER_ANONYMIZED]
+    K --> L[Publish: USER_ANONYMIZED]
+    L --> M[Return user anonymized]
+
+### 16.2 Flujo de creación de Membership
+Este es uno de los flujos más importantes porque concentra varias invariantes: validación de scope, verificación tenant/store, chequeo de duplicidad operativa, compatibilidad con invitation y luego persistencia con auditoría e historial.
+
+flowchart TD
+    A[POST /v1/memberships] --> B[MembershipsController]
+    B --> C[MembershipsService.createMembership]
+    C --> D[MembershipCommandService.createMembership]
+
+    D --> E[Validar shape del scope]
+    E --> F{¿scope válido?}
+    F -- No --> X1[invalid_membership_scope]
+    F -- Sí --> G[Validar existencia de tenant/store y consistencia store->tenant]
+
+    G --> H{¿tenant/store válidos?}
+    H -- No --> X1
+
+    H -- Sí --> I[Buscar membership abierta equivalente]
+    I --> J{¿Ya existe?}
+    J -- Sí --> X2[duplicate_membership]
+    J -- No --> K{¿Viene con invitationId?}
+
+    K -- Sí --> L[Leer invitación aceptada]
+    L --> M{¿Existe y es compatible con userId tenantId storeId?}
+    M -- No --> X3[invitation_membership_conflict]
+    M -- Sí --> N[Crear membership PENDING]
+
+    K -- No --> N[Crear membership PENDING]
+
+    N --> O[Crear status history from null to PENDING]
+    O --> P[Emitir audit]
+    P --> Q[Emitir membership_created]
+    Q --> R[Retornar MembershipResponseDto]
+
+### 16.3 Flujo de materialización desde Invitation
+En tu diseño, Invitation no equivale a Membership. La invitación solo propone acceso; la pertenencia efectiva nace recién cuando createMembership la materializa exitosamente.
+
+flowchart TD
+    A[Invitation aceptada previamente] --> B[createMembership con invitationId]
+    B --> C[Buscar invitación aceptada]
+
+    C --> D{¿Existe?}
+    D -- No --> X[invitation_membership_conflict]
+
+    D -- Sí --> E{¿userId coincide?}
+    E -- No --> X
+
+    E -- Sí --> F{¿tenantId coincide?}
+    F -- No --> X
+
+    F -- Sí --> G{¿storeId coincide cuando aplica?}
+    G -- No --> X
+
+    G -- Sí --> H[Crear Membership PENDING]
+    H --> I[Persistir invitationId para trazabilidad]
+    I --> J[Emitir membership_created]
+    J --> K[Invitation queda consumida materialmente]
+
+### 16.4 Flujo de cambio de lifecycle de Membership
+Tu lifecycle canónico es: pending, active, suspended, revoked, expired. No todas las transiciones están permitidas, así que este flujo pasa siempre por validación de transición. Además, cuando la membership deja de ser utilizable operativamente, el módulo puede limpiar ActiveMembershipContext asociados.
+
+flowchart TD
+    A[POST lifecycle endpoint] --> B[MembershipsController]
+    B --> C[MembershipsService]
+    C --> D[MembershipCommandService]
+
+    D --> E[Buscar membership por id]
+    E --> F{¿Existe?}
+    F -- No --> X1[membership_not_found]
+
+    F -- Sí --> G[Validar transición de estado]
+    G --> H{¿Transición válida?}
+    H -- No --> X2[invalid_membership_transition]
+
+    H -- Sí --> I[Resolver timestamp field]
+    I --> J[Compare-and-set update por fromStatus -> toStatus]
+    J --> K{¿Se actualizó 1 fila?}
+    K -- No --> X2
+
+    K -- Sí --> L[Crear status history]
+    L --> M{¿Nuevo estado invalida uso operativo?}
+
+    M -- Sí --> N[clearActiveContextsForMembership]
+    M -- No --> O[Continuar]
+
+    N --> O[Record lifecycle change]
+    O --> P[Emitir audit + domain event]
+    P --> Q[Releer membership]
+    Q --> R[Retornar respuesta]
+
+Transiciones principales que hoy puedes diagramar aparte
+
+stateDiagram-v2
+    [*] --> PENDING
+    PENDING --> ACTIVE
+    PENDING --> REVOKED
+    PENDING --> EXPIRED
+
+    ACTIVE --> SUSPENDED
+    ACTIVE --> REVOKED
+    ACTIVE --> EXPIRED
+
+    SUSPENDED --> ACTIVE
+    SUSPENDED --> REVOKED
+
+    REVOKED --> [*]
+    EXPIRED --> [*]
+
+### 16.5 Flujo de selección de Active Membership Context
+Aquí el punto clave es que el backend no confía en el frontend para inferir contexto. El usuario pide seleccionar una membership para una surface, pero el backend valida que esa membership sea propia y que esté en ACTIVE.
+
+flowchart TD
+    A[PUT /v1/memberships/me/active-context] --> B[MembershipsController]
+    B --> C[Resolver actor desde request.user]
+    C --> D[MembershipsService.setActiveMembershipContext]
+    D --> E[MembershipContextService.setActiveMembershipContext]
+
+    E --> F[Buscar membership owned by user]
+    F --> G{¿Pertenece al user?}
+    G -- No --> X1[membership_context_denied]
+
+    G -- Sí --> H{¿status = ACTIVE?}
+    H -- No --> X2[membership_not_active]
+
+    H -- Sí --> I[upsert ActiveMembershipContext por userId + surface]
+    I --> J[Emitir audit ACTIVE_CONTEXT_SET]
+    J --> K[Emitir active_membership_context_changed]
+    K --> L[Retornar ActiveMembershipContextResponseDto]
+
+### 16.6 Flujo de resolución de Active Membership Context
+Este flujo está muy bien diseñado porque revalida el contexto persistido antes de devolverlo. Si el contexto quedó stale, se limpia y se audita. Eso protege a Auth y a futuras capas como Access Resolution de confiar en contexto viejo.
+
+flowchart TD
+    A[GET /v1/memberships/me/active-context?surface=PARTNERS_WEB] --> B[MembershipsController]
+    B --> C[Resolver actor desde request.user]
+    C --> D[MembershipsService.getActiveMembershipContext]
+    D --> E[MembershipContextService.getActiveMembershipContext]
+
+    E --> F[Buscar ActiveMembershipContext por userId + surface]
+    F --> G{¿Existe?}
+    G -- No --> R[Retornar null]
+
+    G -- Sí --> H{¿La membership relacionada existe?}
+    H -- No --> I[Limpiar contexto stale]
+    I --> J[Emitir audit ACTIVE_CONTEXT_CLEARED]
+    J --> K[Emitir active_membership_context_cleared]
+    K --> R
+
+    H -- Sí --> L{¿membership.status = ACTIVE?}
+    L -- No --> I
+    L -- Sí --> M[Construir response con membership + context]
+    M --> N[Retornar ActiveMembershipContextResponseDto]
+
+### 16.7 Flujo de consultas del módulo
+Las consultas están separadas del command side. Además, tus endpoints distinguen bien entre rutas platform-scoped y self-scoped. En /me, el actor siempre sale del request autenticado y no de userId externo. Eso también está cubierto por tests e2e.
+
+flowchart TD
+    A[GET endpoint] --> B{¿Endpoint platform o self?}
+
+    B -->|Platform| C[MembershipPlatformAdminGuard]
+    B -->|Self| D[MembershipSelfOrPlatformAdminGuard]
+
+    C --> E[MembershipQueryService]
+    D --> E
+
+    E --> F{¿Operación?}
+    F -->|Get by id| G[getMembershipById]
+    F -->|List all| H[listMemberships]
+    F -->|List mine| I[listCurrentUserMemberships]
+
+    G --> J[MembershipsRepository]
+    H --> J
+    I --> J
+
+    J --> K[MembershipResponseMapper]
+    K --> L[HTTP Response]

@@ -89,3 +89,20 @@ enum RoleAssignmentStatus {
   ACTIVE
   REVOKED
 }
+
+enum GrantEffect {
+  ALLOW
+  DENY
+}
+
+enum GrantTargetType {
+  CAPABILITY
+  RESOURCE_ACTION
+}
+
+enum GrantStatus {
+  PROPOSED
+  ACTIVE
+  EXPIRED
+  REVOKED
+}

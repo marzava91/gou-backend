@@ -99,6 +99,23 @@ enum RoleAssignmentStatus {
   ACTIVE
   REVOKED
 }
+
+enum GrantEffect {
+  ALLOW
+  DENY
+}
+
+enum GrantTargetType {
+  CAPABILITY
+  RESOURCE_ACTION
+}
+
+enum GrantStatus {
+  PROPOSED
+  ACTIVE
+  EXPIRED
+  REVOKED
+}
 model User {
   id                    String                     @id @default(cuid())
   firstName             String?                    @db.VarChar(120)
@@ -320,6 +337,7 @@ model Membership {
   statusHistory  MembershipStatusHistory[]
 
   roleAssignments RoleAssignment[]
+  grants          Grant[]
 
   @@index([userId])
   @@index([tenantId])
@@ -434,4 +452,59 @@ model RoleAssignmentHistory {
 
   @@index([roleAssignmentId, createdAt])
   @@map("role_assignment_history")
+}
+
+model Grant {
+  id               String          @id @default(cuid())
+  membershipId     String
+
+  effect           GrantEffect
+  targetType       GrantTargetType
+
+  capabilityKey    String?         @db.VarChar(191)
+  resourceKey      String?         @db.VarChar(191)
+  actionKey        String?         @db.VarChar(191)
+
+  status           GrantStatus     @default(ACTIVE)
+
+  validFrom        DateTime?
+  validUntil       DateTime?
+
+  creationReason   String?         @db.VarChar(500)
+  revocationReason String?         @db.VarChar(500)
+
+  createdBy        String?         @db.VarChar(191)
+  revokedBy        String?         @db.VarChar(191)
+
+  activatedAt      DateTime?
+  expiredAt        DateTime?
+  revokedAt        DateTime?
+
+  version          Int             @default(1)
+  createdAt        DateTime        @default(now())
+  updatedAt        DateTime        @updatedAt
+
+  membership       Membership      @relation(fields: [membershipId], references: [id], onDelete: Cascade)
+  history          GrantHistory[]
+
+  @@index([membershipId, status])
+  @@index([membershipId, targetType, effect])
+  @@index([status, validUntil])
+  @@map("grants")
+}
+
+model GrantHistory {
+  id         String       @id @default(cuid())
+  grantId     String
+  fromStatus  GrantStatus?
+  toStatus    GrantStatus
+  changedBy   String?      @db.VarChar(191)
+  reason      String?      @db.VarChar(500)
+  createdAt   DateTime     @default(now())
+
+  grant       Grant        @relation(fields: [grantId], references: [id], onDelete: Cascade)
+
+  @@index([grantId, createdAt])
+  @@index([toStatus, createdAt])
+  @@map("grant_history")
 }

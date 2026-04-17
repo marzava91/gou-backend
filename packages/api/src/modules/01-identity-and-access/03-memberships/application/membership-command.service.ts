@@ -1,10 +1,7 @@
 // packages/api/src/modules/01-identity-and-access/03-memberships/application/membership-command.service.ts
 
 import { Inject, Injectable } from '@nestjs/common';
-import {
-  MembershipStatus,
-  Prisma,
-} from '@prisma/client';
+import { MembershipStatus, Prisma } from '@prisma/client';
 
 import { MembershipsRepository } from '../memberships.repository';
 import { MembershipSupportService } from './support/membership-support.service';
@@ -52,7 +49,9 @@ export class MembershipCommandService {
     dto: CreateMembershipDto,
   ) {
     const at = this.membershipSupportService.now();
-    const normalizedReason = this.membershipSupportService.normalizeReason(dto.reason);
+    const normalizedReason = this.membershipSupportService.normalizeReason(
+      dto.reason,
+    );
 
     if (
       !validateMembershipScope({
@@ -209,17 +208,15 @@ export class MembershipCommandService {
     }
 
     if (
-      !canTransitionMembershipStatus(
-        currentMembership.status,
-        input.toStatus,
-      )
+      !canTransitionMembershipStatus(currentMembership.status, input.toStatus)
     ) {
       throw new InvalidMembershipTransitionError();
     }
 
     const at = input.at ?? this.membershipSupportService.now();
-    const normalizedReason =
-      this.membershipSupportService.normalizeReason(input.reason);
+    const normalizedReason = this.membershipSupportService.normalizeReason(
+      input.reason,
+    );
     const timestampField =
       this.membershipSupportService.resolveStatusTimestampField(input.toStatus);
 

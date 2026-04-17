@@ -8,9 +8,7 @@ import {
 } from '../../ports/user-contact-verification.port';
 
 @Injectable()
-export class NoopUserContactVerificationAdapter
-  implements UserContactVerificationPort
-{
+export class NoopUserContactVerificationAdapter implements UserContactVerificationPort {
   async requestEmailChangeVerification(input: {
     userId: string;
     newPrimaryEmail: string;

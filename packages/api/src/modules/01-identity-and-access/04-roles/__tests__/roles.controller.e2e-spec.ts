@@ -250,9 +250,9 @@ describe('RolesController (e2e)', () => {
       .expect(200);
 
     expect(response.body).toHaveLength(1);
-    expect(
-      rolesServiceMock.listMembershipRoleAssignments,
-    ).toHaveBeenCalledWith('membership_1');
+    expect(rolesServiceMock.listMembershipRoleAssignments).toHaveBeenCalledWith(
+      'membership_1',
+    );
   });
 
   it('POST /v1/roles returns 403 when platform admin guard denies access', async () => {

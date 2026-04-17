@@ -1,5 +1,9 @@
 // packages\api\src\modules\pricing\price-resolver\price-resolver.service.ts
-import { BadRequestException, Injectable, NotFoundException } from '@nestjs/common';
+import {
+  BadRequestException,
+  Injectable,
+  NotFoundException,
+} from '@nestjs/common';
 import { Prisma, SalesChannel } from '@prisma/client';
 import { PriceResolverRepository } from './price-resolver.repostery';
 import { ResolvePriceDto } from './dto/resolve-price.dto';
@@ -8,7 +12,8 @@ import { ResolvePriceResponse } from './responses/resolve-price.response';
 function parseISO(v?: string, field = 'at'): Date | null {
   if (!v) return null;
   const d = new Date(v);
-  if (Number.isNaN(d.getTime())) throw new BadRequestException(`${field} must be ISO8601`);
+  if (Number.isNaN(d.getTime()))
+    throw new BadRequestException(`${field} must be ISO8601`);
   return d;
 }
 
@@ -39,7 +44,15 @@ export class PriceResolverService {
     qty: number;
     allowVariantFallbackToNull?: boolean;
   }) {
-    const { tenantId, priceListId, itemId, variantId, at, qty, allowVariantFallbackToNull } = params;
+    const {
+      tenantId,
+      priceListId,
+      itemId,
+      variantId,
+      at,
+      qty,
+      allowVariantFallbackToNull,
+    } = params;
 
     // 1) buscar exacto por variantId (o null si no hay)
     const exact = await this.repo.findActiveItemPrice({
@@ -54,13 +67,21 @@ export class PriceResolverService {
 
     // 2) opcional: si pidieron variantId y no existe, caer a variantId=null
     if (!row && allowVariantFallbackToNull && variantId) {
-      row = await this.repo.findActiveItemPriceVariantFallback({ tenantId, priceListId, itemId, at });
+      row = await this.repo.findActiveItemPriceVariantFallback({
+        tenantId,
+        priceListId,
+        itemId,
+        at,
+      });
     }
 
     if (!row) return null;
 
     const tier = this.pickTier(row.tiers ?? [], qty);
-    const unitPrice = tier ? row.tiers.find((x: any) => x.id === tier.id)?.unitPrice ?? tier.unitPrice : row.amount;
+    const unitPrice = tier
+      ? (row.tiers.find((x: any) => x.id === tier.id)?.unitPrice ??
+        tier.unitPrice)
+      : row.amount;
 
     return {
       row,
@@ -69,14 +90,18 @@ export class PriceResolverService {
     };
   }
 
-  async resolve(tenantId: string, dto: ResolvePriceDto): Promise<{ data: ResolvePriceResponse }> {
+  async resolve(
+    tenantId: string,
+    dto: ResolvePriceDto,
+  ): Promise<{ data: ResolvePriceResponse }> {
     const storeId = dto.storeId?.trim();
     const itemId = dto.itemId?.trim();
     const variantId = dto.variantId?.trim();
     if (!storeId) throw new BadRequestException('storeId is required');
     if (!itemId) throw new BadRequestException('itemId is required');
     if (!dto.channel) throw new BadRequestException('channel is required');
-    if (!Number.isInteger(dto.qty) || dto.qty < 1) throw new BadRequestException('qty must be >= 1');
+    if (!Number.isInteger(dto.qty) || dto.qty < 1)
+      throw new BadRequestException('qty must be >= 1');
 
     const at = parseISO(dto.at, 'at') ?? new Date();
 
@@ -88,8 +113,15 @@ export class PriceResolverService {
       priceListId = dto.priceListId;
       resolvedFrom = 'EXPLICIT_PRICE_LIST';
     } else {
-      const def = await this.repo.findDefaultPriceList({ tenantId, storeId, channel: dto.channel });
-      if (!def?.priceListId) throw new NotFoundException('No default PriceList for this store/channel');
+      const def = await this.repo.findDefaultPriceList({
+        tenantId,
+        storeId,
+        channel: dto.channel,
+      });
+      if (!def?.priceListId)
+        throw new NotFoundException(
+          'No default PriceList for this store/channel',
+        );
       priceListId = def.priceListId;
       resolvedFrom = 'STORE_DEFAULT';
     }
@@ -124,7 +156,9 @@ export class PriceResolverService {
     }
 
     if (!found) {
-      throw new NotFoundException('No active price found for this item/variant in the selected PriceList(s)');
+      throw new NotFoundException(
+        'No active price found for this item/variant in the selected PriceList(s)',
+      );
     }
 
     const baseAmount = found.row.amount;
@@ -156,7 +190,9 @@ export class PriceResolverService {
             id: found.tier.id,
             minQty: found.tier.minQty,
             maxQty: found.tier.maxQty ?? null,
-            unitPrice: new Prisma.Decimal(toStr(found.tier.unitPrice)).toFixed(4),
+            unitPrice: new Prisma.Decimal(toStr(found.tier.unitPrice)).toFixed(
+              4,
+            ),
           }
         : null,
     };

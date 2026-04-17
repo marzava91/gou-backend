@@ -5,7 +5,7 @@ import { AuthTokenIssuerPort } from '../../ports/auth-token-issuer.port';
 
 @Injectable()
 export class NoopAuthTokenIssuerAdapter implements AuthTokenIssuerPort {
-    /**
+  /**
    * TODO(auth-token-issuer):
    * Replace this noop adapter with a real token issuance implementation aligned
    * with the platform session strategy, including signed access tokens, refresh

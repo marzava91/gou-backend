@@ -6,7 +6,7 @@ import type { AuthAuditAction } from '../../domain/constants/auth.constants';
 
 @Injectable()
 export class NoopAuthAuditAdapter implements AuthAuditPort {
-    /**
+  /**
    * TODO(auth-audit-adapter):
    * Replace this noop adapter with a real audit infrastructure implementation
    * that persists auth audit records with actor, target, metadata and timestamp,

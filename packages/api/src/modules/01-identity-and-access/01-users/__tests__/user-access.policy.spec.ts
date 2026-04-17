@@ -3,7 +3,7 @@
 /**
  * VALIDA DECISIONES BASE DE AUTORIZACIÓN DE UserAccessPolicy
  * Este spec valida las decisiones de autorización base que toma UserAccessPolicy, que es la fuente de verdad para las reglas de acceso a usuarios.
- * 
+ *
  * ------------------------
  * What this spec validates
  * ------------------------
@@ -89,15 +89,15 @@ describe('UserAccessPolicy', () => {
 
   describe('canRequestOwnContactChange', () => {
     it('allows a user to request their own contact change', () => {
-      expect(
-        policy.canRequestOwnContactChange(regularActor, 'user_1'),
-      ).toBe(true);
+      expect(policy.canRequestOwnContactChange(regularActor, 'user_1')).toBe(
+        true,
+      );
     });
 
     it('rejects a user requesting contact change for another user', () => {
-      expect(
-        policy.canRequestOwnContactChange(regularActor, 'user_2'),
-      ).toBe(false);
+      expect(policy.canRequestOwnContactChange(regularActor, 'user_2')).toBe(
+        false,
+      );
     });
   });
 });

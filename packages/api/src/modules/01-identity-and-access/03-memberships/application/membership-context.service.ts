@@ -7,9 +7,7 @@ import { MembershipSupportService } from './support/membership-support.service';
 
 import { SetActiveMembershipContextDto } from '../dto/commands/set-active-membership-context.dto';
 
-import {
-  MEMBERSHIP_AUDIT_ACTIONS,
-} from '../domain/constants/membership.constants';
+import { MEMBERSHIP_AUDIT_ACTIONS } from '../domain/constants/membership.constants';
 import {
   MembershipContextDeniedError,
   MembershipNotActiveError,
@@ -99,14 +97,14 @@ export class MembershipContextService {
   }
 
   /**
- * TODO(access-resolution):
- * ActiveMembershipContext is not a source of truth for authorization.
- * Consumers (Auth / future Access Resolution) must revalidate:
- * - membership ownership
- * - membership status
- * - scope consistency
- * before granting access.
- */
+   * TODO(access-resolution):
+   * ActiveMembershipContext is not a source of truth for authorization.
+   * Consumers (Auth / future Access Resolution) must revalidate:
+   * - membership ownership
+   * - membership status
+   * - scope consistency
+   * before granting access.
+   */
 
   async getActiveMembershipContext(
     userId: string,

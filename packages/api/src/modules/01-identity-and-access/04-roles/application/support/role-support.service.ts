@@ -1,7 +1,13 @@
 import { Inject, Injectable } from '@nestjs/common';
 
-import { ROLE_AUDIT_PORT, type RoleAuditPort } from '../../ports/role-audit.port';
-import { ROLE_EVENTS_PORT, type RoleEventsPort } from '../../ports/role-events.port';
+import {
+  ROLE_AUDIT_PORT,
+  type RoleAuditPort,
+} from '../../ports/role-audit.port';
+import {
+  ROLE_EVENTS_PORT,
+  type RoleEventsPort,
+} from '../../ports/role-events.port';
 import { ROLE_REASON_MAX_LENGTH } from '../../domain/constants/role.constants';
 
 @Injectable()

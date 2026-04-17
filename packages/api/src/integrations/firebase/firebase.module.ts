@@ -1,6 +1,9 @@
 // packages\api\src\integrations\firebase\firebase.module.ts
 import { Global, Module } from '@nestjs/common';
-import { FirebaseAdminProvider, FIREBASE_ADMIN } from './firebase-admin.provider';
+import {
+  FirebaseAdminProvider,
+  FIREBASE_ADMIN,
+} from './firebase-admin.provider';
 import { FirebaseAdminService } from './firebase-admin.service';
 
 @Global()

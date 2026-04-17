@@ -37,7 +37,10 @@ export class MembershipsController {
 
   @Post()
   @UseGuards(MembershipPlatformAdminGuard)
-  async createMembership(@Req() request: any, @Body() dto: CreateMembershipDto) {
+  async createMembership(
+    @Req() request: any,
+    @Body() dto: CreateMembershipDto,
+  ) {
     const membership = await this.membershipsService.createMembership(
       request.user?.userId ?? null,
       dto,

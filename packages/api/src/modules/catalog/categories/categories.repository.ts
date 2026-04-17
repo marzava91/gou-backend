@@ -18,7 +18,11 @@ export class CategoriesRepository {
     });
   }
 
-  listByParent(params: { tenantId: string; parentId: string | null; includeInactive?: boolean }) {
+  listByParent(params: {
+    tenantId: string;
+    parentId: string | null;
+    includeInactive?: boolean;
+  }) {
     const { tenantId, parentId, includeInactive } = params;
 
     return this.prisma.category.findMany({
@@ -45,7 +49,12 @@ export class CategoriesRepository {
   }
 
   // Typeahead: por name y/o path (si lo guardas)
-  search(params: { tenantId: string; q: string; includeInactive?: boolean; take?: number }) {
+  search(params: {
+    tenantId: string;
+    q: string;
+    includeInactive?: boolean;
+    take?: number;
+  }) {
     const { tenantId, q, includeInactive, take = 20 } = params;
 
     return this.prisma.category.findMany({
@@ -69,7 +78,11 @@ export class CategoriesRepository {
     });
   }
 
-  async update(tenantId: string, id: string, data: Prisma.CategoryUpdateInput): Promise<Category> {
+  async update(
+    tenantId: string,
+    id: string,
+    data: Prisma.CategoryUpdateInput,
+  ): Promise<Category> {
     const res = await this.prisma.category.updateMany({
       where: { tenantId, id },
       data,
@@ -100,7 +113,12 @@ export class CategoriesRepository {
   }
 
   // útil para validar duplicados (mismo nivel)
-  existsSameLevel(params: { tenantId: string; parentId: string | null; name: string; excludeId?: string }) {
+  existsSameLevel(params: {
+    tenantId: string;
+    parentId: string | null;
+    name: string;
+    excludeId?: string;
+  }) {
     const { tenantId, parentId, name, excludeId } = params;
     return this.prisma.category.findFirst({
       where: {

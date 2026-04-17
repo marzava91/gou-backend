@@ -1,5 +1,10 @@
 // packages\api\src\modules\pricing\price-lists\price-lists.service.ts
-import { BadRequestException, ConflictException, Injectable, NotFoundException } from '@nestjs/common';
+import {
+  BadRequestException,
+  ConflictException,
+  Injectable,
+  NotFoundException,
+} from '@nestjs/common';
 import { PriceListsRepository } from './price-lists.repository';
 import { CreatePriceListDto } from './dto/create-price-list.dto';
 import { QueryPriceListsDto } from './dto/query-price-lists.dto';
@@ -29,7 +34,10 @@ export class PriceListsService {
 
     const query = q.q?.trim();
     // si q coincide con algún enum exacto, filtramos por code exacto
-    const codeFilter = query && Object.values(PriceListCode).includes(query as any) ? (query as PriceListCode) : null;
+    const codeFilter =
+      query && Object.values(PriceListCode).includes(query as any)
+        ? (query as PriceListCode)
+        : null;
 
     const rows = await this.repo.list({
       tenantId,
@@ -37,7 +45,9 @@ export class PriceListsService {
       q: codeFilter ? undefined : query,
     });
 
-    const filtered = codeFilter ? rows.filter((r) => r.code === codeFilter) : rows;
+    const filtered = codeFilter
+      ? rows.filter((r) => r.code === codeFilter)
+      : rows;
 
     return { data: filtered.map(toResponse) };
   }
@@ -62,8 +72,13 @@ export class PriceListsService {
       return { data: toResponse(row) };
     } catch (e: any) {
       // Unique tenantId+code
-      if (e instanceof Prisma.PrismaClientKnownRequestError && e.code === 'P2002') {
-        throw new ConflictException('PriceList code already exists for this tenant');
+      if (
+        e instanceof Prisma.PrismaClientKnownRequestError &&
+        e.code === 'P2002'
+      ) {
+        throw new ConflictException(
+          'PriceList code already exists for this tenant',
+        );
       }
       throw e;
     }
@@ -81,7 +96,8 @@ export class PriceListsService {
       const row = await this.repo.update(tenantId, id, patch);
       return { data: toResponse(row) };
     } catch (e: any) {
-      if ((e?.message ?? '').includes('not found')) throw new NotFoundException('PriceList not found');
+      if ((e?.message ?? '').includes('not found'))
+        throw new NotFoundException('PriceList not found');
       throw e;
     }
   }
@@ -91,7 +107,8 @@ export class PriceListsService {
       await this.repo.delete(tenantId, id);
       return { data: { id } };
     } catch (e: any) {
-      if ((e?.message ?? '').includes('not found')) throw new NotFoundException('PriceList not found');
+      if ((e?.message ?? '').includes('not found'))
+        throw new NotFoundException('PriceList not found');
       throw e;
     }
   }

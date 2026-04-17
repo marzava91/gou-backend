@@ -512,7 +512,7 @@ describe('MembershipsController (e2e)', () => {
       }),
     );
   });
-  
+
   it('GET /v1/memberships returns 400 when page is invalid', async () => {
     await request(app.getHttpServer())
       .get('/v1/memberships')

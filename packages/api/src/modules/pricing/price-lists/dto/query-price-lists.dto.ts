@@ -1,5 +1,10 @@
 // packages\api\src\modules\pricing\price-lists\dto\query-price-lists.dto.ts
-import { IsBooleanString, IsOptional, IsString, MaxLength } from 'class-validator';
+import {
+  IsBooleanString,
+  IsOptional,
+  IsString,
+  MaxLength,
+} from 'class-validator';
 
 export class QueryPriceListsDto {
   @IsOptional()

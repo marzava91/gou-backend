@@ -1,5 +1,10 @@
 // packages\api\src\modules\pricing\item-prices\item-prices.service.ts
-import { BadRequestException, ConflictException, Injectable, NotFoundException } from '@nestjs/common';
+import {
+  BadRequestException,
+  ConflictException,
+  Injectable,
+  NotFoundException,
+} from '@nestjs/common';
 import { Prisma } from '@prisma/client';
 import { ItemPricesRepository } from './item-prices.repository';
 import { CreateItemPriceDto } from './dto/create-item-price.dto';
@@ -26,7 +31,8 @@ function toResponse(row: any): ItemPriceResponse {
 function parseISOOrThrow(v?: string, fieldName = 'date'): Date | null {
   if (!v) return null;
   const d = new Date(v);
-  if (Number.isNaN(d.getTime())) throw new BadRequestException(`${fieldName} must be ISO8601`);
+  if (Number.isNaN(d.getTime()))
+    throw new BadRequestException(`${fieldName} must be ISO8601`);
   return d;
 }
 
@@ -76,7 +82,10 @@ export class ItemPricesService {
       newFrom: validFrom,
       newTo: validTo ?? null,
     });
-    if (overlap) throw new ConflictException('Overlapping ItemPrice validity range for this item/variant/priceList');
+    if (overlap)
+      throw new ConflictException(
+        'Overlapping ItemPrice validity range for this item/variant/priceList',
+      );
 
     try {
       const row = await this.repo.create(tenantId, {
@@ -100,9 +109,13 @@ export class ItemPricesService {
     const current = await this.repo.findById(tenantId, id);
     if (!current) throw new NotFoundException('ItemPrice not found');
 
-    const nextValidFrom = dto.validFrom ? parseISOOrThrow(dto.validFrom, 'validFrom')! : current.validFrom;
+    const nextValidFrom = dto.validFrom
+      ? parseISOOrThrow(dto.validFrom, 'validFrom')!
+      : current.validFrom;
     const nextValidTo =
-      dto.validTo !== undefined ? parseISOOrThrow(dto.validTo, 'validTo') : current.validTo;
+      dto.validTo !== undefined
+        ? parseISOOrThrow(dto.validTo, 'validTo')
+        : current.validTo;
 
     if (nextValidTo && nextValidTo <= nextValidFrom) {
       throw new BadRequestException('validTo must be greater than validFrom');
@@ -118,20 +131,28 @@ export class ItemPricesService {
       newTo: nextValidTo ?? null,
       excludeId: id,
     });
-    if (overlap) throw new ConflictException('Overlapping ItemPrice validity range for this item/variant/priceList');
+    if (overlap)
+      throw new ConflictException(
+        'Overlapping ItemPrice validity range for this item/variant/priceList',
+      );
 
     const patch: any = {
-      ...(dto.amount !== undefined ? { amount: new Prisma.Decimal(dto.amount.trim()) } : {}),
+      ...(dto.amount !== undefined
+        ? { amount: new Prisma.Decimal(dto.amount.trim()) }
+        : {}),
       ...(dto.validFrom !== undefined ? { validFrom: nextValidFrom } : {}),
       ...(dto.validTo !== undefined ? { validTo: nextValidTo ?? null } : {}),
-      ...(dto.createdBy !== undefined ? { createdBy: dto.createdBy ?? null } : {}),
+      ...(dto.createdBy !== undefined
+        ? { createdBy: dto.createdBy ?? null }
+        : {}),
     };
 
     try {
       const row = await this.repo.update(tenantId, id, patch);
       return { data: toResponse(row) };
     } catch (e: any) {
-      if ((e?.message ?? '').includes('not found')) throw new NotFoundException('ItemPrice not found');
+      if ((e?.message ?? '').includes('not found'))
+        throw new NotFoundException('ItemPrice not found');
       throw e;
     }
   }
@@ -141,7 +162,8 @@ export class ItemPricesService {
       await this.repo.delete(tenantId, id);
       return { data: { id } };
     } catch (e: any) {
-      if ((e?.message ?? '').includes('not found')) throw new NotFoundException('ItemPrice not found');
+      if ((e?.message ?? '').includes('not found'))
+        throw new NotFoundException('ItemPrice not found');
       throw e;
     }
   }

@@ -1,4 +1,8 @@
-import { MembershipScopeType, RoleAssignmentStatus, RoleScopeType } from '@prisma/client';
+import {
+  MembershipScopeType,
+  RoleAssignmentStatus,
+  RoleScopeType,
+} from '@prisma/client';
 
 export interface RoleActor {
   userId: string;

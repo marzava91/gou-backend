@@ -27,7 +27,10 @@ export class ItemPricesController {
   }
 
   @Get()
-  list(@Headers('x-tenant-id') tenantId: string, @Query() q: QueryItemPricesDto) {
+  list(
+    @Headers('x-tenant-id') tenantId: string,
+    @Query() q: QueryItemPricesDto,
+  ) {
     return this.svc.list(this.tenantIdOrThrow(tenantId), q);
   }
 
@@ -37,7 +40,10 @@ export class ItemPricesController {
   }
 
   @Post()
-  create(@Headers('x-tenant-id') tenantId: string, @Body() dto: CreateItemPriceDto) {
+  create(
+    @Headers('x-tenant-id') tenantId: string,
+    @Body() dto: CreateItemPriceDto,
+  ) {
     return this.svc.create(this.tenantIdOrThrow(tenantId), dto);
   }
 

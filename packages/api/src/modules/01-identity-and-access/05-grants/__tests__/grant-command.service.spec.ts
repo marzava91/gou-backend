@@ -250,23 +250,23 @@ describe('GrantCommandService', () => {
 
   it('rejects create when validity window is invalid', async () => {
     grantMembershipReaderPort.findMembershipById.mockResolvedValue({
-        membershipId: 'membership_1',
-        userId: 'user_1',
-        scopeType: MembershipScopeType.TENANT,
-        tenantId: 'tenant_1',
-        storeId: null,
-        status: MembershipStatus.ACTIVE,
+      membershipId: 'membership_1',
+      userId: 'user_1',
+      scopeType: MembershipScopeType.TENANT,
+      tenantId: 'tenant_1',
+      storeId: null,
+      status: MembershipStatus.ACTIVE,
     });
 
     await expect(
-        service.createGrant('admin_1', {
+      service.createGrant('admin_1', {
         membershipId: 'membership_1',
         effect: GrantEffect.ALLOW,
         targetType: GrantTargetType.CAPABILITY,
         capabilityKey: 'orders.read',
         validFrom: '2026-04-20T00:00:00.000Z',
         validUntil: '2026-04-19T00:00:00.000Z',
-        }),
+      }),
     ).rejects.toBeInstanceOf(InvalidGrantValidityWindowError);
   });
 
@@ -374,7 +374,9 @@ describe('GrantCommandService', () => {
       reason: longReason,
     });
 
-    expect(grantSupportService.normalizeReason).toHaveBeenCalledWith(longReason);
+    expect(grantSupportService.normalizeReason).toHaveBeenCalledWith(
+      longReason,
+    );
     expect(grantsRepository.createGrantWithHistory).toHaveBeenCalledWith(
       expect.objectContaining({
         creationReason: 'x'.repeat(500),

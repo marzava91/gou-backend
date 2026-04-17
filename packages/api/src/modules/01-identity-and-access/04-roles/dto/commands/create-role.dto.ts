@@ -1,4 +1,11 @@
-import { IsArray, IsBoolean, IsEnum, IsOptional, IsString, ArrayMinSize } from 'class-validator';
+import {
+  IsArray,
+  IsBoolean,
+  IsEnum,
+  IsOptional,
+  IsString,
+  ArrayMinSize,
+} from 'class-validator';
 import { RoleScopeType } from '@prisma/client';
 
 export class CreateRoleDto {

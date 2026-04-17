@@ -66,8 +66,5 @@ export function assertResolvedProviderMatchesExpectedProvider(params: {
 }
 
 export function isFederatedProvider(provider: AuthProvider): boolean {
-  return (
-    provider === AuthProvider.GOOGLE ||
-    provider === AuthProvider.APPLE
-  );
+  return provider === AuthProvider.GOOGLE || provider === AuthProvider.APPLE;
 }

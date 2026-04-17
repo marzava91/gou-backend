@@ -9,13 +9,11 @@
  */
 
 import { AuthProvider } from '@prisma/client';
+import { IsEnum, IsOptional, IsString, MaxLength } from 'class-validator';
 import {
-  IsEnum,
-  IsOptional,
-  IsString,
-  MaxLength,
-} from 'class-validator';
-import { AUTH_INPUT_LIMITS, AUTH_PROVIDER_LIMITS } from '../../domain/constants/auth.constants';
+  AUTH_INPUT_LIMITS,
+  AUTH_PROVIDER_LIMITS,
+} from '../../domain/constants/auth.constants';
 import { ExactlyOneOf } from '../../validators/exactly-one-of.validator';
 
 export class LinkIdentityDto {

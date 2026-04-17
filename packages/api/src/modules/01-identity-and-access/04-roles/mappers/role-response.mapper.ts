@@ -18,7 +18,8 @@ export class RoleResponseMapper {
       isSystem: role.isSystem,
       retiredAt: role.retiredAt,
       version: role.version,
-      capabilityKeys: role.capabilities?.map((item) => item.capabilityKey) ?? [],
+      capabilityKeys:
+        role.capabilities?.map((item) => item.capabilityKey) ?? [],
       createdAt: role.createdAt,
       updatedAt: role.updatedAt,
     };

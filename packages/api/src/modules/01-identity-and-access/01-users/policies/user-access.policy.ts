@@ -10,7 +10,10 @@ export class UserAccessPolicy {
     return actor.userId === targetUserId;
   }
 
-  canUpdateOwnProfile(actor: AuthenticatedActor, targetUserId: string): boolean {
+  canUpdateOwnProfile(
+    actor: AuthenticatedActor,
+    targetUserId: string,
+  ): boolean {
     return actor.userId === targetUserId;
   }
 
@@ -18,7 +21,10 @@ export class UserAccessPolicy {
     return !!actor.isPlatformAdmin;
   }
 
-  canRequestOwnContactChange(actor: AuthenticatedActor, targetUserId: string): boolean {
+  canRequestOwnContactChange(
+    actor: AuthenticatedActor,
+    targetUserId: string,
+  ): boolean {
     return actor.userId === targetUserId;
   }
 }

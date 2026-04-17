@@ -3,6 +3,7 @@
 ## 1. Propósito del submódulo
 
 Access Resolution gestiona la resolución explícita del acceso efectivo de un actor dentro de la plataforma, determinando qué capacidades puede ejercer realmente en un contexto operativo dado, a partir de la composición de:
+
 - identidad autenticada válida
 - membership vigente y contexto activo
 - roles asignados
@@ -11,6 +12,7 @@ Access Resolution gestiona la resolución explícita del acceso efectivo de un a
 - superficie operativa y nivel de visibilidad aplicable cuando corresponda
 
 Resuelve:
+
 - evaluación del acceso efectivo sobre una acción, recurso o capacidad
 - composición de baseline + excepciones
 - resolución de conflictos entre roles y grants
@@ -19,6 +21,7 @@ Resuelve:
 - explicabilidad básica de la decisión de acceso
 
 No resuelve:
+
 - identidad canónica → Users
 - autenticación y sesión → Auth
 - pertenencia formal → Memberships
@@ -28,6 +31,7 @@ No resuelve:
 - navegación de Partners Web o Platform Console como UX
 
 No define por sí mismo:
+
 - el ownership de recursos de negocio
 - el catálogo funcional de acciones del sistema
 - la política de negocio de cada módulo
@@ -38,6 +42,7 @@ No define por sí mismo:
 Access Resolution es el submódulo que transforma señales de identidad, pertenencia y autorización en una decisión efectiva de acceso, consistente y explicable.
 
 Su rol dentro del sistema es cerrar la cadena:
+
 - Users → quién es
 - Auth → cómo accede
 - Memberships → dónde puede actuar
@@ -46,6 +51,7 @@ Su rol dentro del sistema es cerrar la cadena:
 - Access Resolution → qué acceso efectivo resulta finalmente
 
 Otros módulos dependen conceptualmente de Access Resolution para:
+
 - saber si una acción puede intentarse
 - resolver capacidades efectivas sin reimplementar lógica
 - evitar decisiones divergentes entre Partner Web, Platform Console, POS, shopper app u otras superficies, riesgo que ya tienes identificado cuando el backend no define claramente scope y permisos
@@ -54,6 +60,7 @@ Otros módulos dependen conceptualmente de Access Resolution para:
 ## 3. Fronteras
 
 ### Pertenece a Access Resolution
+
 - resolución de acceso efectivo
 - evaluación de capacidades sobre scope válido
 - composición de membership + roles + grants
@@ -64,6 +71,7 @@ Otros módulos dependen conceptualmente de Access Resolution para:
 - invalidación lógica de decisiones ante cambios relevantes de auth/membership/role/grant
 
 ### No pertenece a Access Resolution
+
 - identidad base del usuario → Users
 - autenticación/sesión → Auth
 - pertenencia formal → Memberships
@@ -79,30 +87,38 @@ Otros módulos dependen conceptualmente de Access Resolution para:
 ### 4.1 ¿Qué representa exactamente Access Resolution?
 
 #### Decisión
+
 Representa el motor canónico de resolución de acceso efectivo del backend.
 
 #### Justificación
+
 No debe quedar disperso entre frontend, guards sueltos, endpoints aislados o lógica repetida por módulo, porque eso rompe consistencia entre superficies y scopes .
 
 #### Impacto
+
 Los módulos de negocio consumen decisiones de acceso resueltas o contratos equivalentes, en vez de recomponer memberships/roles/grants por su cuenta.
 
 ### 4.2 ¿Dónde vive este submódulo?
 
 #### Decisión
+
 Vive dentro de Identity & Access como submódulo autónomo.
 
 #### Justificación
+
 Su dominio natural es autorización efectiva, derivada de Auth, Memberships, Roles y Grants.
 Las capacidades transversales definen estándares y protecciones, pero no deberían ser dueñas de la resolución canónica de acceso .
 
 #### Impacto
+
 El mapa debe actualizarse agregando Access Resolution debajo de Identity & Access.
 
 ### 4.3 ¿Qué entradas usa para resolver acceso?
 
 #### Decisión
+
 La resolución usa como inputs mínimos:
+
 - userId autenticado
 - estado de sesión/autenticación válido
 - membership o contexto operativo activo solicitado
@@ -113,15 +129,19 @@ La resolución usa como inputs mínimos:
 - scope efectivo solicitado (platform, tenant, store, etc.)
 
 #### Justificación
+
 Tus lineamientos exigen que scope, ownership y fuente canónica sean explícitos para cada decisión .
 
 #### Impacto
+
 No se permite inferir acceso solo desde token o solo desde rol nominal.
 
 ### 4.4 ¿Qué devuelve Access Resolution?
 
 #### Decisión
+
 Devuelve un AccessDecision explícito, que contiene como mínimo:
+
 - allowed / denied
 - motivo o reason code
 - capability/resource/action evaluado
@@ -132,26 +152,33 @@ Devuelve un AccessDecision explícito, que contiene como mínimo:
 - timestamp/version de la resolución si aplica snapshot
 
 #### Justificación
+
 Toda decisión relevante debe ser explicable, auditable y asociable a inputs y reglas vigentes .
 
 #### Impacto
+
 No basta un booleano simple.
 
 ### 4.5 ¿Resuelve permisos o reglas de negocio?
 
 #### Decisión
+
 Resuelve autorización efectiva, no reglas de negocio finales.
 
 #### Justificación
+
 Tus riesgos base son claros: permisos dicen quién puede intentar; reglas de negocio dicen si puede ocurrir .
 
 #### Impacto
+
 Incluso con allowed = true, el módulo de negocio aún valida sus propias reglas.
 
 ### 4.6 ¿Cómo se resuelve la precedencia?
 
 #### Decisión
+
 La precedencia del MVP será:
+
 1. sesión/auth válida
 2. membership válida y scope compatible
 3. capacidades base por roles
@@ -160,40 +187,50 @@ La precedencia del MVP será:
 6. si no existe baseline ni grant que habilite, el resultado por defecto es deny
 
 #### Justificación
+
 La precedencia debe estar cerrada o el sistema se vuelve inmanejable.
 
 #### Impacto
+
 Debe existir documentación y tests explícitos de conflictos.
 
 ### 4.7 ¿Cómo se trata el contexto activo?
 
 #### Decisión
+
 Access Resolution consume un contexto activo explícito o una membership objetivo explícita.
 No asume contexto por frontend ni por navegación implícita, consistente con tu regla de no mezclar contexto platform y tenant/store sin guardrails visibles y backend validation .
 
 #### Impacto
+
 Debe existir validación del active context en backend.
 
 ### 4.8 ¿Debe existir endpoint de evaluación efectiva?
 
 #### Decisión
+
 Sí, pero restringido y con propósito claro.
 El MVP puede exponer:
+
 - evaluate access
 - list effective permissions/context
 
 Solo donde realmente aporte a UI compleja o debugging operativo.
 
 #### Justificación
+
 Tus lineamientos piden no dejar sin dueño las projections y vistas complejas, pero tampoco proliferarlas sin criterio .
 
 #### Impacto
+
 Debe definirse owner claro de read model o projection si se expone.
 
 ### 4.9 ¿Cómo se comporta frente a cambios en roles/grants/memberships?
 
 #### Decisión
+
 Toda resolución efectiva debe invalidarse o reevaluarse cuando cambie cualquiera de:
+
 - sesión relevante
 - membership
 - role assignment
@@ -202,29 +239,36 @@ Toda resolución efectiva debe invalidarse o reevaluarse cuando cambie cualquier
 - contexto activo
 
 #### Justificación
+
 No puedes dejar permisos efectivos cacheados sin invalidación clara.
 
 #### Impacto
+
 Necesitas política explícita de caché y refresh.
 
 ### 4.10 ¿Puede Access Resolution operar cross-surface?
 
 #### Decisión
+
 Sí, pero respetando la separación de superficies operativas.
 El motor es único; la visibilidad y contexto de consumo cambian según superficie.
 
 #### Justificación
+
 Tus documentos distinguen claramente Partners Web, Platform Console y futuras superficies como contextos distintos, no simples permisos aislados .
 
 #### Impacto
+
 El decision engine no debe ocultar la separación entre platform-scoped y tenant/store-scoped.
 
 ## 5. Modelo conceptual
 
 ### Entidad principal
+
 - AccessDecision (puede ser entidad efímera, contrato de dominio o projection, según tu implementación)
 
 ### Entidades auxiliares
+
 - AccessEvaluationRequest
 - AccessEvaluationContext
 - EffectivePermissionSnapshot
@@ -233,6 +277,7 @@ El decision engine no debe ocultar la separación entre platform-scoped y tenant
 - ActiveOperationalContextProjection
 
 ### Ownership
+
 - Access Resolution es owner de la decisión efectiva
 - Auth es owner del estado autenticado
 - Memberships es owner del contexto formal
@@ -240,6 +285,7 @@ El decision engine no debe ocultar la separación entre platform-scoped y tenant
 - Grants es owner de excepciones
 
 ### Source of truth
+
 - identidad → Users
 - autenticación → Auth
 - pertenencia/scope → Memberships
@@ -248,6 +294,7 @@ El decision engine no debe ocultar la separación entre platform-scoped y tenant
 - decisión efectiva → Access Resolution
 
 ### Relaciones
+
 - consume AuthSession
 - consume Membership
 - consume RoleAssignment / Role
@@ -271,20 +318,24 @@ El decision engine no debe ocultar la separación entre platform-scoped y tenant
 ## 7. Lifecycle
 
 ### Estados
+
 Aquí el lifecycle no es de una entidad persistente larga tipo User o Membership, sino de la evaluación o snapshot si decides persistirlo.
 
 Para AccessDecision efímero
+
 - computed
 - served
 - invalidated (si existe caché/snapshot)
 
 Para EffectivePermissionSnapshot si lo materializas
+
 - computed
 - active
 - stale
 - invalidated
 
 ### Transiciones válidas
+
 - computed -> served
 - served -> invalidated
 - computed -> active
@@ -293,11 +344,13 @@ Para EffectivePermissionSnapshot si lo materializas
 - stale -> active (recomputado)
 
 ### Transiciones inválidas
+
 - invalidated -> active sin recomputación
 - invalidated -> served sin recomputación
 - stale -> served cuando la política exige refresh
 
 ### Reglas
+
 - el acceso efectivo debe recomputarse o invalidarse tras cambios relevantes
 - no mezclar el lifecycle de Access Resolution con el lifecycle de Roles, Grants o Memberships
 - si no materializas snapshots, puedes omitir lifecycle persistente y tratarlo como evaluación pura
@@ -331,6 +384,7 @@ Para EffectivePermissionSnapshot si lo materializas
 ## 10. Contratos
 
 ### DTOs
+
 - EvaluateAccessQueryDto
 - ResolveAccessContextQueryDto
 - ListEffectivePermissionsQueryDto
@@ -340,6 +394,7 @@ Para EffectivePermissionSnapshot si lo materializas
 - AccessContextResponseDto
 
 ### Acciones
+
 - evaluate access
 - resolve active access context
 - list effective permissions
@@ -347,12 +402,14 @@ Para EffectivePermissionSnapshot si lo materializas
 - invalidate effective permission snapshot (interno/administrativo)
 
 ### Acciones administrativas diferidas o restringidas
+
 - force recompute access snapshot
 - inspect access decision trail
 - compare access decisions across scopes
 - repair stale permission projections
 
 ### Errores
+
 - access_context_not_resolved
 - invalid_active_membership
 - membership_scope_mismatch
@@ -363,12 +420,14 @@ Para EffectivePermissionSnapshot si lo materializas
 - surface_scope_conflict
 
 ### Scopes
+
 - self para resolver permisos efectivos propios donde aplique
 - tenant/store admin solo dentro de scope permitido
 - platform admin para inspección cross-tenant autorizada
 - ninguna superficie debe bypass backend validation de scope
 
 ### Eventos
+
 - access_evaluated
 - access_denied
 - effective_permissions_computed
@@ -379,12 +438,14 @@ Para EffectivePermissionSnapshot si lo materializas
 ## 11. Diseño de validación
 
 ### Familias de prueba
+
 - unit
 - integración
 - contrato
 - E2E mínima
 
 ### Escenarios principales
+
 - resolver acceso permitido con membership activa + role compatible
 - resolver acceso denegado por falta de membership
 - resolver acceso denegado por grant deny explícito
@@ -392,6 +453,7 @@ Para EffectivePermissionSnapshot si lo materializas
 - resolver contexto platform-scoped vs tenant/store-scoped correctamente
 
 ### Escenarios inválidos
+
 - evaluar acceso con sesión inválida
 - evaluar acceso con membership suspendida/revocada/expirada
 - evaluar acceso sobre scope distinto al activo
@@ -399,6 +461,7 @@ Para EffectivePermissionSnapshot si lo materializas
 - snapshot stale servido como válido
 
 ### Casos borde
+
 - usuario híbrido con memberships en múltiples tenants
 - cambio de context activo mientras cambia el role assignment
 - grant expira durante sesión activa
@@ -406,6 +469,7 @@ Para EffectivePermissionSnapshot si lo materializas
 - cambio deliberado entre Platform Console y Partners Web con contexto anterior persistido
 
 ### Seguridad
+
 - no confiar en claims de frontend como verdad final
 - validar actor, scope y membership en backend
 - evitar filtración de permisos internos innecesarios
@@ -413,12 +477,14 @@ Para EffectivePermissionSnapshot si lo materializas
 - no usar Access Resolution como bypass de reglas de negocio
 
 ### Concurrencia
+
 - invalidación concurrente de snapshot
 - cambios simultáneos de membership y grants
 - recomputación concurrente de permisos efectivos
 - compare-and-set o versionado si materializas projections
 
 ### Criterios de aceptación
+
 - acceso efectivo reproducible y explicable
 - precedencia cerrada
 - scope explícito
@@ -442,6 +508,7 @@ Para EffectivePermissionSnapshot si lo materializas
 ## 13. Riesgos
 
 ### Riesgos de diseño
+
 - convertir Access Resolution en “caja negra”
 - mezclar autorización con reglas de negocio
 - permitir que cada módulo resuelva acceso distinto
@@ -449,6 +516,7 @@ Para EffectivePermissionSnapshot si lo materializas
 - acoplarlo excesivamente a una superficie concreta
 
 ### Riesgos de implementación
+
 - cachés de permisos sin invalidación clara
 - endpoints con lógica paralela diferente al motor central
 - grants y roles evaluados con precedencia inconsistente
@@ -456,6 +524,7 @@ Para EffectivePermissionSnapshot si lo materializas
 - falta de explainability
 
 ### Riesgos operativos
+
 - usuarios actuando en scope equivocado
 - decisiones distintas entre Partner Web y Platform Console
 - soporte incapaz de explicar por qué algo fue permitido/denegado

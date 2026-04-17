@@ -1,7 +1,4 @@
-import {
-  MembershipScopeType,
-  RoleScopeType,
-} from '@prisma/client';
+import { MembershipScopeType, RoleScopeType } from '@prisma/client';
 
 export function isRoleScopeCompatibleWithMembership(params: {
   roleScopeType: RoleScopeType;

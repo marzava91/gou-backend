@@ -49,7 +49,11 @@ export class PriceListsRepository {
     });
   }
 
-  async update(tenantId: string, id: string, data: Prisma.PriceListUpdateInput): Promise<PriceList> {
+  async update(
+    tenantId: string,
+    id: string,
+    data: Prisma.PriceListUpdateInput,
+  ): Promise<PriceList> {
     const res = await this.prisma.priceList.updateMany({
       where: { tenantId, id },
       data,
@@ -67,7 +71,9 @@ export class PriceListsRepository {
   async delete(tenantId: string, id: string) {
     // OJO: si hay StorePriceList o ItemPrice referenciando, tu FK onDelete: Cascade
     // significa que se van a borrar también. Si NO quieres eso, cambia el schema.
-    const res = await this.prisma.priceList.deleteMany({ where: { tenantId, id } });
+    const res = await this.prisma.priceList.deleteMany({
+      where: { tenantId, id },
+    });
     if (res.count === 0) throw new Error('PriceList not found');
     return { ok: true };
   }

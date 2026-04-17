@@ -3,6 +3,7 @@
 Este proyecto utiliza una **arquitectura Prisma modular**, donde el schema se mantiene dividido por dominios y luego se **consolida automáticamente** en un único `schema.prisma` para que Prisma CLI pueda operar.
 
 Este README documenta:
+
 - cómo funciona la arquitectura
 - por qué está organizada así
 - qué comandos usar
@@ -54,16 +55,16 @@ Editar el archivo final puede provocar:
 
 Ejecutar desde packages/api.
 
-# 1. Build del schema 
-Get-Content .\prisma\schema_parts\*.prisma | Set-Content .\prisma\schema.prisma 
+# 1. Build del schema
+Get-Content .\prisma\schema_parts\*.prisma | Set-Content .\prisma\schema.prisma
 
-# 2. Validar 
-npx prisma validate --schema prisma/schema.prisma 
+# 2. Validar
+npx prisma validate --schema prisma/schema.prisma
 
-# 3. Generar client 
-npx prisma generate --schema prisma/schema.prisma 
+# 3. Generar client
+npx prisma generate --schema prisma/schema.prisma
 
-# 4. Migrar (cuando toque) 
+# 4. Migrar (cuando toque)
 npx prisma migrate dev --schema prisma/schema.prisma
 
 ❌ Nunca ejecutar Prisma apuntando a schema_parts.
@@ -109,3 +110,4 @@ Si ves errores en VS Code pero:
 - Si Prisma valida → todo está bien
 
 
+```

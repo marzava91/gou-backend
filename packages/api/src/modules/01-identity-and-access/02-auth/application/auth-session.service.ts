@@ -11,9 +11,7 @@ import type { AuthEventsPort } from '../ports/auth-events.port';
 import { AUTH_TOKEN_ISSUER_PORT } from '../ports/auth-token-issuer.port';
 import type { AuthTokenIssuerPort } from '../ports/auth-token-issuer.port';
 
-import {
-  AUTH_AUDIT_ACTIONS,
-} from '../domain/constants/auth.constants';
+import { AUTH_AUDIT_ACTIONS } from '../domain/constants/auth.constants';
 import { AuthDomainEvents } from '../domain/events/auth.events';
 import {
   AuthRefreshDeniedError,
@@ -58,11 +56,12 @@ export class AuthSessionService {
    * parentSessionId instead of updating the same session row in place.
    */
   async refreshSession(dto: RefreshSessionDto) {
-    const refreshTokenHash = this.authSupportService.hashToken(dto.refreshToken);
-
-    const session = await this.authRepository.findSessionByRefreshTokenHash(
-      refreshTokenHash,
+    const refreshTokenHash = this.authSupportService.hashToken(
+      dto.refreshToken,
     );
+
+    const session =
+      await this.authRepository.findSessionByRefreshTokenHash(refreshTokenHash);
 
     if (!session) {
       throw new AuthRefreshDeniedError();
@@ -94,34 +93,34 @@ export class AuthSessionService {
     const refreshedAt = new Date();
 
     const updatedSession = await this.authRepository.rotateSessionRefresh({
-        sessionId: session.id,
-        expectedRefreshTokenHash: refreshTokenHash,
-        newAccessTokenHash: this.authSupportService.hashToken(
-            accessTokenResult.token,
-    ),
-        newRefreshTokenHash: this.authSupportService.hashToken(
-            refreshTokenResult.token,
-    ),
-        expiresAt: accessTokenResult.expiresAt,
-        refreshExpiresAt: refreshTokenResult.expiresAt,
-        refreshedAt,
+      sessionId: session.id,
+      expectedRefreshTokenHash: refreshTokenHash,
+      newAccessTokenHash: this.authSupportService.hashToken(
+        accessTokenResult.token,
+      ),
+      newRefreshTokenHash: this.authSupportService.hashToken(
+        refreshTokenResult.token,
+      ),
+      expiresAt: accessTokenResult.expiresAt,
+      refreshExpiresAt: refreshTokenResult.expiresAt,
+      refreshedAt,
     });
 
     if (!updatedSession) {
-        await this.authSupportService.recordAudit(
-            AUTH_AUDIT_ACTIONS.SESSION_REFRESH_FAILED,
-            session.userId,
-            session.userId,
-            {
-                sessionId: session.id,
-                reason: 'refresh_token_replay_or_concurrent_update',
-                operation: 'refresh_session',
-                provider: session.provider,
-                refreshedAt,
-            },
-        );
+      await this.authSupportService.recordAudit(
+        AUTH_AUDIT_ACTIONS.SESSION_REFRESH_FAILED,
+        session.userId,
+        session.userId,
+        {
+          sessionId: session.id,
+          reason: 'refresh_token_replay_or_concurrent_update',
+          operation: 'refresh_session',
+          provider: session.provider,
+          refreshedAt,
+        },
+      );
 
-        throw new AuthRefreshDeniedError();
+      throw new AuthRefreshDeniedError();
     }
 
     await this.authSupportService.recordAudit(
@@ -158,33 +157,33 @@ export class AuthSessionService {
   }
 
   /**
- * Logs out a single authenticated session.
- *
- * Policy:
- * - voluntary user logout transitions the session to LOGGED_OUT
- * - forced invalidation must use REVOKED through dedicated security/admin flows
- * Idempotency:
- * - if the session is already terminal, the operation becomes a no-op
- */
+   * Logs out a single authenticated session.
+   *
+   * Policy:
+   * - voluntary user logout transitions the session to LOGGED_OUT
+   * - forced invalidation must use REVOKED through dedicated security/admin flows
+   * Idempotency:
+   * - if the session is already terminal, the operation becomes a no-op
+   */
 
   async logout(actorUserId: string, dto: LogoutDto) {
     if (!dto.sessionId) return;
 
     const session = await this.authRepository.findSessionByIdAndUserId(
-        dto.sessionId,
-        actorUserId,
+      dto.sessionId,
+      actorUserId,
     );
 
     if (!session) {
-        throw new InvalidCredentialsError();
+      throw new InvalidCredentialsError();
     }
 
     if (isTerminalSessionStatus(session.status)) {
-        return;
+      return;
     }
 
     if (!canLogoutSession(session.status)) {
-        throw new InvalidCredentialsError();
+      throw new InvalidCredentialsError();
     }
 
     const loggedOutAt = new Date();
@@ -192,61 +191,61 @@ export class AuthSessionService {
     await this.authRepository.markSessionLoggedOut(session.id, loggedOutAt);
 
     await this.authSupportService.recordAudit(
-        AUTH_AUDIT_ACTIONS.LOGOUT_COMPLETED,
-        actorUserId,
-        actorUserId,
-        {
-            sessionId: session.id,
-            loggedOutAt,
-        },
+      AUTH_AUDIT_ACTIONS.LOGOUT_COMPLETED,
+      actorUserId,
+      actorUserId,
+      {
+        sessionId: session.id,
+        loggedOutAt,
+      },
     );
 
     await this.authEventsPort.publish({
-        eventName: AuthDomainEvents.LOGOUT_COMPLETED,
-        payload: {
+      eventName: AuthDomainEvents.LOGOUT_COMPLETED,
+      payload: {
         userId: actorUserId,
         sessionId: session.id,
         loggedOutAt,
-        },
+      },
     });
   }
 
   /**
- * Logs out all eligible active user sessions.
- *
- * Policy:
- * - user-initiated logout-all transitions ACTIVE / REFRESHED sessions to LOGGED_OUT
- * - security/admin-driven invalidation must use REVOKED instead
- * Idempotency:
- * - if no eligible sessions remain, the operation completes with loggedOutCount = 0
- */
+   * Logs out all eligible active user sessions.
+   *
+   * Policy:
+   * - user-initiated logout-all transitions ACTIVE / REFRESHED sessions to LOGGED_OUT
+   * - security/admin-driven invalidation must use REVOKED instead
+   * Idempotency:
+   * - if no eligible sessions remain, the operation completes with loggedOutCount = 0
+   */
 
   async logoutAllSessions(actorUserId: string) {
     const loggedOutAt = new Date();
 
     const result =
-        await this.authRepository.markAllActiveSessionsLoggedOutByUserId(
+      await this.authRepository.markAllActiveSessionsLoggedOutByUserId(
         actorUserId,
         loggedOutAt,
-        );
+      );
 
     await this.authSupportService.recordAudit(
-        AUTH_AUDIT_ACTIONS.LOGOUT_ALL_COMPLETED,
-        actorUserId,
-        actorUserId,
-        {
-            loggedOutCount: result.count,
-            loggedOutAt,
-        },
+      AUTH_AUDIT_ACTIONS.LOGOUT_ALL_COMPLETED,
+      actorUserId,
+      actorUserId,
+      {
+        loggedOutCount: result.count,
+        loggedOutAt,
+      },
     );
 
     await this.authEventsPort.publish({
-        eventName: AuthDomainEvents.LOGOUT_ALL_COMPLETED,
-        payload: {
+      eventName: AuthDomainEvents.LOGOUT_ALL_COMPLETED,
+      payload: {
         userId: actorUserId,
         loggedOutAt,
         loggedOutCount: result.count,
-        },
+      },
     });
   }
 

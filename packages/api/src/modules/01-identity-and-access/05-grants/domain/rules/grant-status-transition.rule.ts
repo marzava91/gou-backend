@@ -1,6 +1,8 @@
 import { GrantStatus } from '@prisma/client';
 
-const ALLOWED_TRANSITIONS: Readonly<Record<GrantStatus, readonly GrantStatus[]>> = {
+const ALLOWED_TRANSITIONS: Readonly<
+  Record<GrantStatus, readonly GrantStatus[]>
+> = {
   [GrantStatus.PROPOSED]: [GrantStatus.ACTIVE, GrantStatus.REVOKED],
   [GrantStatus.ACTIVE]: [GrantStatus.EXPIRED, GrantStatus.REVOKED],
   [GrantStatus.EXPIRED]: [],

@@ -60,7 +60,6 @@ describe('AuthLoginService', () => {
     authProvider.authenticate.mockResolvedValue({
       provider: AuthProvider.PASSWORD,
       providerSubject: 'subject-1',
-
     });
 
     authRepository.findAuthIdentityByProvider.mockResolvedValue({
@@ -103,7 +102,9 @@ describe('AuthLoginService', () => {
       deviceName: 'Chrome on Windows',
     });
 
-    expect(authRepository.findUserAuthProfileById).toHaveBeenCalledWith('user-1');
+    expect(authRepository.findUserAuthProfileById).toHaveBeenCalledWith(
+      'user-1',
+    );
     expect(tokenIssuer.issueAccessToken).toHaveBeenCalledTimes(1);
     expect(authRepository.createAuthSession).toHaveBeenCalledTimes(1);
     expect(authSupportService.recordAudit).toHaveBeenCalledWith(
@@ -132,62 +133,63 @@ describe('AuthLoginService', () => {
     UserStatus.SUSPENDED,
     UserStatus.DEACTIVATED,
     UserStatus.ANONYMIZED,
-  ])('throws UserNotAuthenticableError when user status is %s', async (status) => {
-    authProvider.authenticate.mockResolvedValue({
-      provider: AuthProvider.PASSWORD,
-      providerSubject: 'subject-1',
-
-    });
-
-    authRepository.findAuthIdentityByProvider.mockResolvedValue({
-      id: 'identity-1',
-      userId: 'user-1',
-      provider: AuthProvider.PASSWORD,
-      providerSubject: 'subject-1',
-    });
-
-    authRepository.findUserAuthProfileById.mockResolvedValue({
-      id: 'user-1',
-      status,
-      emailVerified: true,
-      phoneVerified: false,
-    });
-
-    await expect(
-      service.login({
-        identifier: 'marvin@example.com',
-        secret: 'super-secret',
+  ])(
+    'throws UserNotAuthenticableError when user status is %s',
+    async (status) => {
+      authProvider.authenticate.mockResolvedValue({
         provider: AuthProvider.PASSWORD,
-      }),
-    ).rejects.toBeInstanceOf(UserNotAuthenticableError);
+        providerSubject: 'subject-1',
+      });
 
-    expect(tokenIssuer.issueAccessToken).not.toHaveBeenCalled();
-    expect(tokenIssuer.issueRefreshToken).not.toHaveBeenCalled();
-    expect(authRepository.createAuthSession).not.toHaveBeenCalled();
-
-    expect(authSupportService.recordAudit).toHaveBeenCalledWith(
-      'auth.login.failed',
-      null,
-      'user-1',
-      {
-        reason: 'user_not_authenticable',
+      authRepository.findAuthIdentityByProvider.mockResolvedValue({
+        id: 'identity-1',
+        userId: 'user-1',
         provider: AuthProvider.PASSWORD,
-        userStatus: status,
-      },
-    );
+        providerSubject: 'subject-1',
+      });
 
-    expect(authEventsPort.publish).not.toHaveBeenCalledWith(
-      expect.objectContaining({
-        eventName: 'auth_session_issued',
-      }),
-    );
-  });
+      authRepository.findUserAuthProfileById.mockResolvedValue({
+        id: 'user-1',
+        status,
+        emailVerified: true,
+        phoneVerified: false,
+      });
+
+      await expect(
+        service.login({
+          identifier: 'marvin@example.com',
+          secret: 'super-secret',
+          provider: AuthProvider.PASSWORD,
+        }),
+      ).rejects.toBeInstanceOf(UserNotAuthenticableError);
+
+      expect(tokenIssuer.issueAccessToken).not.toHaveBeenCalled();
+      expect(tokenIssuer.issueRefreshToken).not.toHaveBeenCalled();
+      expect(authRepository.createAuthSession).not.toHaveBeenCalled();
+
+      expect(authSupportService.recordAudit).toHaveBeenCalledWith(
+        'auth.login.failed',
+        null,
+        'user-1',
+        {
+          reason: 'user_not_authenticable',
+          provider: AuthProvider.PASSWORD,
+          userStatus: status,
+        },
+      );
+
+      expect(authEventsPort.publish).not.toHaveBeenCalledWith(
+        expect.objectContaining({
+          eventName: 'auth_session_issued',
+        }),
+      );
+    },
+  );
 
   it('throws UserNotAuthenticableError when resolved user does not exist', async () => {
     authProvider.authenticate.mockResolvedValue({
       provider: AuthProvider.PASSWORD,
       providerSubject: 'subject-1',
-
     });
 
     authRepository.findAuthIdentityByProvider.mockResolvedValue({
@@ -271,7 +273,9 @@ describe('AuthLoginService', () => {
 
     authRepository.findAuthIdentityByProvider.mockResolvedValue(null);
     authRepository.findAuthIdentityByUserIdAndProvider.mockResolvedValue(null);
-    authRepository.findCandidateUserIdsByVerifiedEmail.mockResolvedValue(['user-1']);
+    authRepository.findCandidateUserIdsByVerifiedEmail.mockResolvedValue([
+      'user-1',
+    ]);
     authRepository.findUserAuthProfileById.mockResolvedValue({
       id: 'user-1',
       status: UserStatus.ACTIVE,
@@ -311,13 +315,12 @@ describe('AuthLoginService', () => {
       externalToken: 'google-token-1',
     });
 
-    expect(authRepository.findCandidateUserIdsByVerifiedEmail).toHaveBeenCalledWith(
-      'marvin@example.com',
-    );
-    expect(authRepository.findAuthIdentityByUserIdAndProvider).toHaveBeenCalledWith(
-      'user-1',
-      AuthProvider.GOOGLE,
-    );
+    expect(
+      authRepository.findCandidateUserIdsByVerifiedEmail,
+    ).toHaveBeenCalledWith('marvin@example.com');
+    expect(
+      authRepository.findAuthIdentityByUserIdAndProvider,
+    ).toHaveBeenCalledWith('user-1', AuthProvider.GOOGLE);
     expect(authRepository.createAuthIdentity).toHaveBeenCalledWith(
       expect.objectContaining({
         userId: 'user-1',
@@ -364,7 +367,9 @@ describe('AuthLoginService', () => {
       }),
     ).rejects.toBeInstanceOf(AuthProviderNotLinkedError);
 
-    expect(authRepository.findAuthIdentityByUserIdAndProvider).not.toHaveBeenCalled();
+    expect(
+      authRepository.findAuthIdentityByUserIdAndProvider,
+    ).not.toHaveBeenCalled();
     expect(authRepository.createAuthIdentity).not.toHaveBeenCalled();
     expect(tokenIssuer.issueAccessToken).not.toHaveBeenCalled();
     expect(authRepository.createAuthSession).not.toHaveBeenCalled();
@@ -394,7 +399,9 @@ describe('AuthLoginService', () => {
     });
 
     authRepository.findAuthIdentityByProvider.mockResolvedValue(null);
-    authRepository.findCandidateUserIdsByVerifiedEmail.mockResolvedValue(['user-1']);
+    authRepository.findCandidateUserIdsByVerifiedEmail.mockResolvedValue([
+      'user-1',
+    ]);
     authRepository.findCandidateUserIdsByVerifiedPhone.mockResolvedValue([]);
 
     await expect(
@@ -405,8 +412,12 @@ describe('AuthLoginService', () => {
       }),
     ).rejects.toBeInstanceOf(AuthProviderNotLinkedError);
 
-    expect(authRepository.findCandidateUserIdsByVerifiedEmail).not.toHaveBeenCalled();
-    expect(authRepository.findCandidateUserIdsByVerifiedPhone).not.toHaveBeenCalled();
+    expect(
+      authRepository.findCandidateUserIdsByVerifiedEmail,
+    ).not.toHaveBeenCalled();
+    expect(
+      authRepository.findCandidateUserIdsByVerifiedPhone,
+    ).not.toHaveBeenCalled();
     expect(authRepository.createAuthIdentity).not.toHaveBeenCalled();
     expect(tokenIssuer.issueAccessToken).not.toHaveBeenCalled();
     expect(authRepository.createAuthSession).not.toHaveBeenCalled();
@@ -435,7 +446,9 @@ describe('AuthLoginService', () => {
     authRepository.findAuthIdentityByProvider.mockResolvedValue(null);
     authRepository.findAuthIdentityByUserIdAndProvider.mockResolvedValue(null);
     authRepository.findCandidateUserIdsByVerifiedEmail.mockResolvedValue([]);
-    authRepository.findCandidateUserIdsByVerifiedPhone.mockResolvedValue(['user-1']);
+    authRepository.findCandidateUserIdsByVerifiedPhone.mockResolvedValue([
+      'user-1',
+    ]);
 
     authRepository.findUserAuthProfileById.mockResolvedValue({
       id: 'user-1',
@@ -476,15 +489,16 @@ describe('AuthLoginService', () => {
       externalToken: 'apple-token-1',
     });
 
-    expect(authRepository.findCandidateUserIdsByVerifiedEmail).not.toHaveBeenCalled();
-    expect(authRepository.findCandidateUserIdsByVerifiedPhone).toHaveBeenCalledWith(
-      '+51987654321',
-    );
+    expect(
+      authRepository.findCandidateUserIdsByVerifiedEmail,
+    ).not.toHaveBeenCalled();
+    expect(
+      authRepository.findCandidateUserIdsByVerifiedPhone,
+    ).toHaveBeenCalledWith('+51987654321');
 
-    expect(authRepository.findAuthIdentityByUserIdAndProvider).toHaveBeenCalledWith(
-      'user-1',
-      AuthProvider.APPLE,
-    );
+    expect(
+      authRepository.findAuthIdentityByUserIdAndProvider,
+    ).toHaveBeenCalledWith('user-1', AuthProvider.APPLE);
 
     expect(authRepository.createAuthIdentity).toHaveBeenCalledWith(
       expect.objectContaining({
@@ -521,8 +535,12 @@ describe('AuthLoginService', () => {
     });
 
     authRepository.findAuthIdentityByProvider.mockResolvedValue(null);
-    authRepository.findCandidateUserIdsByVerifiedEmail.mockResolvedValue(['user-1']);
-    authRepository.findCandidateUserIdsByVerifiedPhone.mockResolvedValue(['user-2']);
+    authRepository.findCandidateUserIdsByVerifiedEmail.mockResolvedValue([
+      'user-1',
+    ]);
+    authRepository.findCandidateUserIdsByVerifiedPhone.mockResolvedValue([
+      'user-2',
+    ]);
 
     await expect(
       service.login({
@@ -532,14 +550,16 @@ describe('AuthLoginService', () => {
       }),
     ).rejects.toBeInstanceOf(AuthProviderNotLinkedError);
 
-    expect(authRepository.findCandidateUserIdsByVerifiedEmail).toHaveBeenCalledWith(
-      'marvin@example.com',
-    );
-    expect(authRepository.findCandidateUserIdsByVerifiedPhone).toHaveBeenCalledWith(
-      '+51987654321',
-    );
+    expect(
+      authRepository.findCandidateUserIdsByVerifiedEmail,
+    ).toHaveBeenCalledWith('marvin@example.com');
+    expect(
+      authRepository.findCandidateUserIdsByVerifiedPhone,
+    ).toHaveBeenCalledWith('+51987654321');
 
-    expect(authRepository.findAuthIdentityByUserIdAndProvider).not.toHaveBeenCalled();
+    expect(
+      authRepository.findAuthIdentityByUserIdAndProvider,
+    ).not.toHaveBeenCalled();
     expect(authRepository.createAuthIdentity).not.toHaveBeenCalled();
     expect(tokenIssuer.issueAccessToken).not.toHaveBeenCalled();
     expect(authRepository.createAuthSession).not.toHaveBeenCalled();
@@ -578,7 +598,9 @@ describe('AuthLoginService', () => {
       });
 
     authRepository.findAuthIdentityByUserIdAndProvider.mockResolvedValue(null);
-    authRepository.findCandidateUserIdsByVerifiedEmail.mockResolvedValue(['user-1']);
+    authRepository.findCandidateUserIdsByVerifiedEmail.mockResolvedValue([
+      'user-1',
+    ]);
 
     authRepository.createAuthIdentity.mockRejectedValue(
       new Prisma.PrismaClientKnownRequestError('Unique constraint failed', {
@@ -644,7 +666,9 @@ describe('AuthLoginService', () => {
       .mockResolvedValueOnce(null)
       .mockResolvedValueOnce(null);
 
-    authRepository.findCandidateUserIdsByVerifiedPhone.mockResolvedValue(['user-1']);
+    authRepository.findCandidateUserIdsByVerifiedPhone.mockResolvedValue([
+      'user-1',
+    ]);
 
     authRepository.findAuthIdentityByUserIdAndProvider
       .mockResolvedValueOnce(null)

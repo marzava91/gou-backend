@@ -1,9 +1,6 @@
 // packages/api/src/modules/01-identity-and-access/03-memberships/__tests__/membership-equivalence.rule.spec.ts
 
-import {
-  MembershipScopeType,
-  MembershipStatus,
-} from '@prisma/client';
+import { MembershipScopeType, MembershipStatus } from '@prisma/client';
 
 import { buildEquivalentMembershipWhere } from '../domain/rules/membership-equivalence.rule';
 

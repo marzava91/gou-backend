@@ -12,9 +12,7 @@ import { MembershipNotFoundError } from '../domain/errors/membership.errors';
 
 @Injectable()
 export class MembershipQueryService {
-  constructor(
-    private readonly membershipsRepository: MembershipsRepository,
-  ) {}
+  constructor(private readonly membershipsRepository: MembershipsRepository) {}
 
   async getMembershipById(params: GetMembershipByIdParamsDto) {
     const membership = await this.membershipsRepository.findById(params.id);

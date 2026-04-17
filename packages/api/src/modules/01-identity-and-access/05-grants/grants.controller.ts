@@ -44,7 +44,9 @@ export class GrantsController {
   @UseGuards(GrantPlatformAdminGuard)
   async listGrants(@Query() query: ListGrantsQueryDto) {
     const grants = await this.grantsService.listGrants(query);
-    return grants.map((grant) => this.grantResponseMapper.toGrantSummaryResponse(grant));
+    return grants.map((grant) =>
+      this.grantResponseMapper.toGrantSummaryResponse(grant),
+    );
   }
 
   @Patch(':grantId/revoke')
@@ -61,8 +63,12 @@ export class GrantsController {
   @Get('memberships/:membershipId')
   @UseGuards(GrantPlatformAdminGuard)
   async listMembershipGrants(@Param() params: MembershipIdParamDto) {
-    const grants = await this.grantsService.listMembershipGrants(params.membershipId);
-    return grants.map((grant) => this.grantResponseMapper.toGrantSummaryResponse(grant));
+    const grants = await this.grantsService.listMembershipGrants(
+      params.membershipId,
+    );
+    return grants.map((grant) =>
+      this.grantResponseMapper.toGrantSummaryResponse(grant),
+    );
   }
 
   @Get(':grantId')
@@ -72,4 +78,3 @@ export class GrantsController {
     return this.grantResponseMapper.toGrantResponse(grant);
   }
 }
-

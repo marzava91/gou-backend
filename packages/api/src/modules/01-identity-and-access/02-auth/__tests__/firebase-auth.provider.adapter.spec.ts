@@ -17,9 +17,7 @@ describe('FirebaseAuthProviderAdapter', () => {
   beforeEach(() => {
     jest.clearAllMocks();
 
-    adapter = new FirebaseAuthProviderAdapter(
-      firebaseAdminProvider as any,
-    );
+    adapter = new FirebaseAuthProviderAdapter(firebaseAdminProvider as any);
   });
 
   it('maps Firebase password sign-in into AuthProvider.PASSWORD', async () => {

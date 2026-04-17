@@ -16,21 +16,15 @@ export class MembershipAccessPolicy {
     return Boolean(input.actorId) && input.actorId === input.targetUserId;
   }
 
-  canListMemberships(input: {
-    isPlatformAdmin?: boolean;
-  }): boolean {
+  canListMemberships(input: { isPlatformAdmin?: boolean }): boolean {
     return Boolean(input.isPlatformAdmin);
   }
 
-  canCreateMembership(input: {
-    isPlatformAdmin?: boolean;
-  }): boolean {
+  canCreateMembership(input: { isPlatformAdmin?: boolean }): boolean {
     return Boolean(input.isPlatformAdmin);
   }
 
-  canChangeMembershipLifecycle(input: {
-    isPlatformAdmin?: boolean;
-  }): boolean {
+  canChangeMembershipLifecycle(input: { isPlatformAdmin?: boolean }): boolean {
     return Boolean(input.isPlatformAdmin);
   }
 

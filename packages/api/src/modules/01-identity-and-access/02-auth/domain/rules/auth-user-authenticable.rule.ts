@@ -2,9 +2,7 @@
 
 import { UserStatus } from '@prisma/client';
 
-const AUTHENTICABLE_STATUSES = new Set<UserStatus>([
-  UserStatus.ACTIVE,
-]);
+const AUTHENTICABLE_STATUSES = new Set<UserStatus>([UserStatus.ACTIVE]);
 
 export function isUserAuthenticable(status: UserStatus): boolean {
   return AUTHENTICABLE_STATUSES.has(status);

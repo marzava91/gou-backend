@@ -15,7 +15,7 @@ import { MembershipResponseMapper } from './mappers/membership-response.mapper';
 import { MembershipAccessPolicy } from './policies/membership-access.policy';
 
 import { MembershipPlatformAdminGuard } from './guards/membership-platform-admin.guard';
-import { MembershipSelfOrPlatformAdminGuard  } from './guards/membership-self-or-platform-admin.guard';
+import { MembershipSelfOrPlatformAdminGuard } from './guards/membership-self-or-platform-admin.guard';
 
 import { MEMBERSHIP_AUDIT_PORT } from './ports/membership-audit.port';
 import { MEMBERSHIP_EVENTS_PORT } from './ports/membership-events.port';

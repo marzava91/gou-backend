@@ -22,8 +22,6 @@ const TRUSTED_DIRECT_USER_ID_PROVIDERS = new Set<AuthProvider>([
   AuthProvider.FIREBASE,
 ]);
 
-export function canTrustDirectProviderUserId(
-  provider: AuthProvider,
-): boolean {
+export function canTrustDirectProviderUserId(provider: AuthProvider): boolean {
   return TRUSTED_DIRECT_USER_ID_PROVIDERS.has(provider);
 }

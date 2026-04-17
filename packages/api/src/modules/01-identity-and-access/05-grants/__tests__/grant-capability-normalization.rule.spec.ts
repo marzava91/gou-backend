@@ -15,7 +15,9 @@ describe('grant normalization rules', () => {
   });
 
   it('trims aggressively and lowercases capability key', () => {
-    expect(normalizeCapabilityKey('   INVENTORY.Adjust   ')).toBe('inventory.adjust');
+    expect(normalizeCapabilityKey('   INVENTORY.Adjust   ')).toBe(
+      'inventory.adjust',
+    );
   });
 
   it('trims aggressively and lowercases resource/action keys', () => {
@@ -24,6 +26,8 @@ describe('grant normalization rules', () => {
   });
 
   it('does not alter inner punctuation, only trim/lowercase', () => {
-    expect(normalizeCapabilityKey(' Orders.Items.Read ')).toBe('orders.items.read');
+    expect(normalizeCapabilityKey(' Orders.Items.Read ')).toBe(
+      'orders.items.read',
+    );
   });
 });

@@ -19,12 +19,13 @@
 
 import { UserStatus } from '@prisma/client';
 
-const ALLOWED_TRANSITIONS: Readonly<Record<UserStatus, readonly UserStatus[]>> = {
-  [UserStatus.ACTIVE]: [UserStatus.SUSPENDED, UserStatus.DEACTIVATED],
-  [UserStatus.SUSPENDED]: [UserStatus.ACTIVE, UserStatus.DEACTIVATED],
-  [UserStatus.DEACTIVATED]: [UserStatus.ANONYMIZED],
-  [UserStatus.ANONYMIZED]: [],
-};
+const ALLOWED_TRANSITIONS: Readonly<Record<UserStatus, readonly UserStatus[]>> =
+  {
+    [UserStatus.ACTIVE]: [UserStatus.SUSPENDED, UserStatus.DEACTIVATED],
+    [UserStatus.SUSPENDED]: [UserStatus.ACTIVE, UserStatus.DEACTIVATED],
+    [UserStatus.DEACTIVATED]: [UserStatus.ANONYMIZED],
+    [UserStatus.ANONYMIZED]: [],
+  };
 
 export function canTransitionUserStatus(
   from: UserStatus,

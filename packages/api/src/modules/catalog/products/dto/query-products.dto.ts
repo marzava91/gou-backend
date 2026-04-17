@@ -29,14 +29,14 @@ const SORT_BY = [
   'lotExpiresAt',
 ] as const;
 
-type SortBy = typeof SORT_BY[number];
+type SortBy = (typeof SORT_BY)[number];
 type SortDir = 'asc' | 'desc';
 
 export class QueryProductsDto {
   // ===== Search =====
-  @ApiPropertyOptional({ 
-    description: 'Texto libre de búsqueda (title, sku, barcode, id)', 
-    maxLength: 80 
+  @ApiPropertyOptional({
+    description: 'Texto libre de búsqueda (title, sku, barcode, id)',
+    maxLength: 80,
   })
   @IsOptional()
   @IsString()
@@ -56,7 +56,10 @@ export class QueryProductsDto {
   barcode?: string;
 
   // ===== Filters (tabla) =====
-  @ApiPropertyOptional({ enum: BcgTag, description: 'Clasificación BCG del producto' })
+  @ApiPropertyOptional({
+    enum: BcgTag,
+    description: 'Clasificación BCG del producto',
+  })
   @IsOptional()
   @IsEnum(BcgTag)
   bcgTag?: BcgTag;
@@ -84,7 +87,7 @@ export class QueryProductsDto {
   })
   @IsOptional()
   @IsString()
-  storeId?: string; 
+  storeId?: string;
 
   // ===== Pagination (offset) =====
   @ApiPropertyOptional({ default: 1, minimum: 1 })

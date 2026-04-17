@@ -19,7 +19,9 @@ export class AuthAuthenticatedGuard implements CanActivate {
     return true;
   }
 
-  private assertActor(actor?: AuthenticatedAuthActor): asserts actor is AuthenticatedAuthActor {
+  private assertActor(
+    actor?: AuthenticatedAuthActor,
+  ): asserts actor is AuthenticatedAuthActor {
     if (!actor) {
       throw new UnauthorizedException('Missing authentication context');
     }

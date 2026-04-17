@@ -22,7 +22,9 @@ import { registerDecorator, ValidationOptions } from 'class-validator';
  * - arbitrary strings pass as ids
  * - tests fail due to decorator signature mismatch
  */
-export function IsCuid(validationOptions?: ValidationOptions): PropertyDecorator {
+export function IsCuid(
+  validationOptions?: ValidationOptions,
+): PropertyDecorator {
   return (target: object, propertyName: string | symbol) => {
     registerDecorator({
       name: 'isCuid',
@@ -31,10 +33,7 @@ export function IsCuid(validationOptions?: ValidationOptions): PropertyDecorator
       options: validationOptions,
       validator: {
         validate(value: unknown) {
-          return (
-            typeof value === 'string' &&
-            /^c[a-z0-9]{24}$/i.test(value)
-          );
+          return typeof value === 'string' && /^c[a-z0-9]{24}$/i.test(value);
         },
       },
     });

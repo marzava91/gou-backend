@@ -1,8 +1,8 @@
 import { Inject, Injectable } from '@nestjs/common';
 import { GrantStatus } from '@prisma/client';
 
-import { GRANT_AUDIT_PORT, } from '../../ports/grant-audit.port';
-import type { GrantAuditPort, } from '../../ports/grant-audit.port';
+import { GRANT_AUDIT_PORT } from '../../ports/grant-audit.port';
+import type { GrantAuditPort } from '../../ports/grant-audit.port';
 
 import { GRANT_EVENTS_PORT } from '../../ports/grant-events.port';
 import type { GrantEventsPort } from '../../ports/grant-events.port';
@@ -48,7 +48,9 @@ export class GrantSupportService {
     await this.grantEventsPort.publish(input);
   }
 
-  resolveStatusTimestampField(status: GrantStatus): 'activatedAt' | 'expiredAt' | 'revokedAt' | null {
+  resolveStatusTimestampField(
+    status: GrantStatus,
+  ): 'activatedAt' | 'expiredAt' | 'revokedAt' | null {
     switch (status) {
       case GrantStatus.ACTIVE:
         return 'activatedAt';

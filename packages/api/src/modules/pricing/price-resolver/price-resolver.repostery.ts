@@ -7,7 +7,11 @@ import { PrismaService } from '../../../prisma/prisma.service';
 export class PriceResolverRepository {
   constructor(private prisma: PrismaService) {}
 
-  findDefaultPriceList(params: { tenantId: string; storeId: string; channel: SalesChannel }) {
+  findDefaultPriceList(params: {
+    tenantId: string;
+    storeId: string;
+    channel: SalesChannel;
+  }) {
     const { tenantId, storeId, channel } = params;
 
     return this.prisma.storePriceList.findFirst({

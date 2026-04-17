@@ -26,4 +26,3 @@ import { PricingModule } from './modules/pricing/pricing.module';
   ],
 })
 export class AppModule {}
-

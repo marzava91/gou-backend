@@ -33,5 +33,3 @@ export class ProductListItemResponse {
   expiresAt?: string | null;
   reorderPoint?: number | null;
 }
-
-

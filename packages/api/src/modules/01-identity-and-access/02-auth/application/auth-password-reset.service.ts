@@ -63,7 +63,8 @@ export class AuthPasswordResetService {
     );
 
     const expiresAt = new Date(
-      Date.now() + AUTH_SECURITY_POLICY.PASSWORD_RESET.CODE_TTL_MINUTES * 60 * 1000,
+      Date.now() +
+        AUTH_SECURITY_POLICY.PASSWORD_RESET.CODE_TTL_MINUTES * 60 * 1000,
     );
 
     if (!identity) {
@@ -248,8 +249,7 @@ export class AuthPasswordResetService {
         );
 
         await this.authEventsPort.publish({
-          eventName:
-            AuthDomainEvents.PASSWORD_RESET_SESSION_REVOCATION_PENDING,
+          eventName: AuthDomainEvents.PASSWORD_RESET_SESSION_REVOCATION_PENDING,
           payload: {
             challengeId: challenge.id,
             userId: challenge.userId,
@@ -288,4 +288,3 @@ export class AuthPasswordResetService {
     };
   }
 }
-

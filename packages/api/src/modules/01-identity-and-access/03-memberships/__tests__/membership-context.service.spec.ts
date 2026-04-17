@@ -67,12 +67,12 @@ describe('MembershipContextService', () => {
         surface: OperationalSurface.PARTNERS_WEB,
       });
 
-      expect(membershipsRepository.findMembershipOwnedByUser).toHaveBeenCalledWith(
-        {
-          membershipId: 'membership_123',
-          userId: 'user_123',
-        },
-      );
+      expect(
+        membershipsRepository.findMembershipOwnedByUser,
+      ).toHaveBeenCalledWith({
+        membershipId: 'membership_123',
+        userId: 'user_123',
+      });
 
       expect(membershipsRepository.upsertActiveContext).toHaveBeenCalledWith({
         userId: 'user_123',
@@ -156,7 +156,9 @@ describe('MembershipContextService', () => {
           }),
         ).rejects.toBeInstanceOf(MembershipNotActiveError);
 
-        expect(membershipsRepository.upsertActiveContext).not.toHaveBeenCalled();
+        expect(
+          membershipsRepository.upsertActiveContext,
+        ).not.toHaveBeenCalled();
         expect(membershipSupportService.recordAudit).not.toHaveBeenCalled();
         expect(membershipSupportService.publishEvent).not.toHaveBeenCalled();
       },

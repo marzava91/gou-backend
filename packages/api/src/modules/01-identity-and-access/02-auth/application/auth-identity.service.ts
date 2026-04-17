@@ -47,7 +47,7 @@ export class AuthIdentityService {
    *   such as PASSWORD, PHONE_CODE, migrations, or administrative tooling
    * - canonical user ownership is not resolved here; actorUserId is already known
    */
-  
+
   async linkIdentity(actorUserId: string, dto: LinkIdentityDto) {
     assertLinkIdentityInputPolicy(dto);
 
@@ -195,9 +195,7 @@ export class AuthIdentityService {
       return {
         linked: true,
         alreadyLinked: true,
-        authIdentity: AuthResponseMapper.toIdentityResponse(
-          concurrentIdentity,
-        ),
+        authIdentity: AuthResponseMapper.toIdentityResponse(concurrentIdentity),
       };
     }
 
@@ -323,4 +321,3 @@ export class AuthIdentityService {
     throw params.originalError;
   }
 }
-

@@ -16,7 +16,10 @@ export const GRANT_AUDIT_ACTIONS = {
 export type GrantAuditAction =
   (typeof GRANT_AUDIT_ACTIONS)[keyof typeof GRANT_AUDIT_ACTIONS];
 
-export const SUPPORTED_GRANT_EFFECTS = [GrantEffect.ALLOW, GrantEffect.DENY] as const;
+export const SUPPORTED_GRANT_EFFECTS = [
+  GrantEffect.ALLOW,
+  GrantEffect.DENY,
+] as const;
 export const SUPPORTED_GRANT_TARGET_TYPES = [
   GrantTargetType.CAPABILITY,
   GrantTargetType.RESOURCE_ACTION,

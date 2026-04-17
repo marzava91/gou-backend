@@ -64,9 +64,9 @@
  */
 
 import { UsersRepository } from '../users.repository';
-import { 
-  USER_LIST_SORT_FIELDS, 
-  USER_SORT_DIRECTIONS 
+import {
+  USER_LIST_SORT_FIELDS,
+  USER_SORT_DIRECTIONS,
 } from '../domain/constants/users.constants';
 import { PrismaClient, UserStatus } from '@prisma/client';
 
@@ -151,7 +151,9 @@ describe('UsersRepository (integration)', () => {
       const created = await createUser();
 
       await expect(repository.existsById(created.id)).resolves.toBe(true);
-      await expect(repository.existsById('cdoesnotexist12345678901234')).resolves.toBe(false);
+      await expect(
+        repository.existsById('cdoesnotexist12345678901234'),
+      ).resolves.toBe(false);
     });
 
     it('existsByPrimaryEmail returns true only when the email is present', async () => {
@@ -159,8 +161,12 @@ describe('UsersRepository (integration)', () => {
         primaryEmail: 'marvin@test.com',
       });
 
-      await expect(repository.existsByPrimaryEmail('marvin@test.com')).resolves.toBe(true);
-      await expect(repository.existsByPrimaryEmail('other@test.com')).resolves.toBe(false);
+      await expect(
+        repository.existsByPrimaryEmail('marvin@test.com'),
+      ).resolves.toBe(true);
+      await expect(
+        repository.existsByPrimaryEmail('other@test.com'),
+      ).resolves.toBe(false);
     });
 
     it('existsByPrimaryPhone returns true only when the phone is present', async () => {
@@ -168,8 +174,12 @@ describe('UsersRepository (integration)', () => {
         primaryPhone: '+51999999999',
       });
 
-      await expect(repository.existsByPrimaryPhone('+51999999999')).resolves.toBe(true);
-      await expect(repository.existsByPrimaryPhone('+51911111111')).resolves.toBe(false);
+      await expect(
+        repository.existsByPrimaryPhone('+51999999999'),
+      ).resolves.toBe(true);
+      await expect(
+        repository.existsByPrimaryPhone('+51911111111'),
+      ).resolves.toBe(false);
     });
   });
 
@@ -429,10 +439,12 @@ describe('UsersRepository (integration)', () => {
       expect(result.items[0].displayName).toBe('B');
     });
   });
-  
+
   function getPrisma(): PrismaClient {
     if (!prisma) {
-      throw new Error('Prisma client is not initialized. Check TEST_DATABASE_URL.');
+      throw new Error(
+        'Prisma client is not initialized. Check TEST_DATABASE_URL.',
+      );
     }
     return prisma;
   }

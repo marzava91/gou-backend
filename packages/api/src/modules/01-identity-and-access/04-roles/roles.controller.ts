@@ -65,14 +65,19 @@ export class RolesController {
     @Body() dto: RevokeRoleDto,
   ) {
     const actorId = req.user?.userId ?? null;
-    return this.rolesService.revokeRoleAssignment(actorId, params.assignmentId, dto);
+    return this.rolesService.revokeRoleAssignment(
+      actorId,
+      params.assignmentId,
+      dto,
+    );
   }
 
   @Get('memberships/:membershipId/assignments')
   @UseGuards(RolePlatformAdminGuard)
   async listMembershipAssignments(@Param() params: MembershipIdParamDto) {
-    const assignments =
-      await this.rolesService.listMembershipRoleAssignments(params.membershipId);
+    const assignments = await this.rolesService.listMembershipRoleAssignments(
+      params.membershipId,
+    );
 
     return assignments.map((assignment) =>
       this.roleResponseMapper.toAssignmentResponse(assignment),

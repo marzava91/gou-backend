@@ -34,7 +34,9 @@ type CurrentContextResponseInput = {
 };
 
 export class AuthResponseMapper {
-  static toSessionResponse(input: SessionResponseInput): AuthSessionResponseDto {
+  static toSessionResponse(
+    input: SessionResponseInput,
+  ): AuthSessionResponseDto {
     return {
       sessionId: input.sessionId,
       userId: input.userId,
@@ -47,7 +49,9 @@ export class AuthResponseMapper {
     };
   }
 
-  static toIdentityResponse(identity: IdentityResponseInput): AuthIdentityResponseDto {
+  static toIdentityResponse(
+    identity: IdentityResponseInput,
+  ): AuthIdentityResponseDto {
     return {
       id: identity.id,
       userId: identity.userId,

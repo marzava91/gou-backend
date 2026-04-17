@@ -40,7 +40,11 @@ export type ConsumeVerificationChallengeResult =
   | { outcome: 'expired'; challenge?: VerificationChallengeData }
   | { outcome: 'already_used'; challenge?: VerificationChallengeData }
   | { outcome: 'too_many_attempts'; challenge?: VerificationChallengeData }
-  | { outcome: 'invalid_code'; attempts: number; challenge?: VerificationChallengeData };
+  | {
+      outcome: 'invalid_code';
+      attempts: number;
+      challenge?: VerificationChallengeData;
+    };
 
 export type ConsumePasswordResetChallengeResult =
   | { outcome: 'consumed'; challenge: PasswordResetChallengeData }
@@ -48,7 +52,11 @@ export type ConsumePasswordResetChallengeResult =
   | { outcome: 'expired'; challenge?: PasswordResetChallengeData }
   | { outcome: 'already_used'; challenge?: PasswordResetChallengeData }
   | { outcome: 'too_many_attempts'; challenge?: PasswordResetChallengeData }
-  | { outcome: 'invalid_code'; attempts: number; challenge?: PasswordResetChallengeData };
+  | {
+      outcome: 'invalid_code';
+      attempts: number;
+      challenge?: PasswordResetChallengeData;
+    };
 
 @Injectable()
 export class AuthRepository {
@@ -289,22 +297,22 @@ export class AuthRepository {
 
   async findAuthIdentityForPasswordReset(identifier: string) {
     return this.prisma.authIdentity.findFirst({
-        where: {
+      where: {
         OR: [
-            { email: identifier, emailVerified: true },
-            { phone: identifier, phoneVerified: true },
+          { email: identifier, emailVerified: true },
+          { phone: identifier, phoneVerified: true },
         ],
         provider: {
-            in: [ ...PASSWORD_RESET_ALLOWED_PROVIDERS ],
+          in: [...PASSWORD_RESET_ALLOWED_PROVIDERS],
         },
-        },
-        orderBy: { createdAt: 'asc' },
+      },
+      orderBy: { createdAt: 'asc' },
     });
   }
 
   async findAuthIdentityById(authIdentityId: string) {
     return this.prisma.authIdentity.findUnique({
-        where: { id: authIdentityId },
+      where: { id: authIdentityId },
     });
   }
 
@@ -318,7 +326,7 @@ export class AuthRepository {
    *
    * VALIDATED remains reserved for future flows, if any, that require
    * "validated but not yet consumed" semantics.
- */
+   */
   async consumeVerificationChallengeIfValid(params: {
     challengeId: string;
     expectedCodeHash: string;
@@ -521,7 +529,9 @@ export class AuthRepository {
         return { outcome: 'not_found' };
       }
 
-      if (challenge.purpose !== AuthVerificationChallengePurpose.PASSWORD_RESET) {
+      if (
+        challenge.purpose !== AuthVerificationChallengePurpose.PASSWORD_RESET
+      ) {
         return { outcome: 'not_found' };
       }
 
@@ -642,10 +652,10 @@ export class AuthRepository {
     provider: AuthProvider,
   ) {
     return this.prisma.authIdentity.findFirst({
-        where: {
+      where: {
         userId,
         provider,
-        },
+      },
     });
   }
 
@@ -659,29 +669,29 @@ export class AuthRepository {
     phoneVerified?: boolean;
   }) {
     return this.prisma.authIdentity.create({
-        data,
+      data,
     });
   }
 
   async deleteAuthIdentity(authIdentityId: string) {
     return this.prisma.authIdentity.delete({
-        where: { id: authIdentityId },
+      where: { id: authIdentityId },
     });
   }
 
   async countAuthIdentitiesByUserId(userId: string) {
     return this.prisma.authIdentity.count({
-        where: { userId },
+      where: { userId },
     });
   }
 
   async markSessionLoggedOut(sessionId: string, loggedOutAt: Date) {
     return this.prisma.authSession.update({
-        where: { id: sessionId },
-        data: {
+      where: { id: sessionId },
+      data: {
         status: AuthSessionStatus.LOGGED_OUT,
         loggedOutAt,
-        },
+      },
     });
   }
 
@@ -690,23 +700,20 @@ export class AuthRepository {
     loggedOutAt: Date,
   ) {
     return this.prisma.authSession.updateMany({
-        where: {
+      where: {
         userId,
         status: {
-            in: [
+          in: [
             AuthSessionStatus.ISSUED,
             AuthSessionStatus.ACTIVE,
             AuthSessionStatus.REFRESHED,
-            ],
+          ],
         },
-        },
-        data: {
+      },
+      data: {
         status: AuthSessionStatus.LOGGED_OUT,
         loggedOutAt,
-        },
+      },
     });
   }
-
-  
-  
 }

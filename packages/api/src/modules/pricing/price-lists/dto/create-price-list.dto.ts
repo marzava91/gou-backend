@@ -1,5 +1,12 @@
 //packages\api\src\modules\pricing\price-lists\dto\create-price-list.dto.ts
-import { IsBoolean, IsEnum, IsOptional, IsString, MaxLength, Matches } from 'class-validator';
+import {
+  IsBoolean,
+  IsEnum,
+  IsOptional,
+  IsString,
+  MaxLength,
+  Matches,
+} from 'class-validator';
 
 // OJO: importa el enum real desde Prisma
 import { PriceListCode } from '@prisma/client';

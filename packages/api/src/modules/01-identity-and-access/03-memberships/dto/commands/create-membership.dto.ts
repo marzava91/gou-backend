@@ -25,7 +25,9 @@ export class CreateMembershipDto {
   @MaxLength(191)
   tenantId!: string;
 
-  @ValidateIf((o: CreateMembershipDto) => o.scopeType === MembershipScopeType.STORE)
+  @ValidateIf(
+    (o: CreateMembershipDto) => o.scopeType === MembershipScopeType.STORE,
+  )
   @IsString()
   @MaxLength(191)
   storeId?: string;

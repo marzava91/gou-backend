@@ -88,10 +88,7 @@ export class UsersRepository {
     return count > 0;
   }
 
-  async updateById(
-    id: string,
-    data: Prisma.UserUpdateInput,
-  ): Promise<User> {
+  async updateById(id: string, data: Prisma.UserUpdateInput): Promise<User> {
     return this.prisma.user.update({
       where: { id },
       data,

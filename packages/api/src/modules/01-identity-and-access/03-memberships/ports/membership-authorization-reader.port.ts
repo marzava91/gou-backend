@@ -2,13 +2,12 @@
 
 import { MembershipScopeType, MembershipStatus } from '@prisma/client';
 
-export const MEMBERSHIP_AUTHORIZATION_READER_PORT =
-  Symbol('MEMBERSHIP_AUTHORIZATION_READER_PORT');
+export const MEMBERSHIP_AUTHORIZATION_READER_PORT = Symbol(
+  'MEMBERSHIP_AUTHORIZATION_READER_PORT',
+);
 
 export interface MembershipAuthorizationReaderPort {
-  findAuthorizationAnchorByMembershipId(
-    membershipId: string,
-  ): Promise<{
+  findAuthorizationAnchorByMembershipId(membershipId: string): Promise<{
     membershipId: string;
     userId: string;
     scopeType: MembershipScopeType;

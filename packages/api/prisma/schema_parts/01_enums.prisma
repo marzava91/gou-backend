@@ -106,3 +106,18 @@ enum GrantStatus {
   EXPIRED
   REVOKED
 }
+
+enum InvitationRecipientType {
+  EMAIL
+  PHONE
+}
+
+enum InvitationStatus {
+  PROPOSED
+  SENT
+  ACCEPTED
+  EXPIRED
+  REVOKED
+  CANCELED
+}
+

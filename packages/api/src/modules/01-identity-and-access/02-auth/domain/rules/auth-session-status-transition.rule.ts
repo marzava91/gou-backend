@@ -51,4 +51,3 @@ export function isTerminalSessionStatus(status: AuthSessionStatus): boolean {
     status === AuthSessionStatus.LOGGED_OUT
   );
 }
-

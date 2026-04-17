@@ -1,5 +1,11 @@
 // packages\api\src\modules\catalog\brands\dto\create-brand.dto.ts
-import { IsBoolean, IsOptional, IsString, IsUrl, Length } from 'class-validator';
+import {
+  IsBoolean,
+  IsOptional,
+  IsString,
+  IsUrl,
+  Length,
+} from 'class-validator';
 
 export class CreateBrandDto {
   @IsString()

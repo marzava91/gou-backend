@@ -8,7 +8,7 @@ export type CategoryResponse = {
   isFeatured: boolean;
   isActive: boolean;
   sortOrder: number;
-  depth?: number;  // si lo tienes en schema
+  depth?: number; // si lo tienes en schema
   path?: string | null; // si lo tienes en schema
   createdAt: string;
   updatedAt: string;

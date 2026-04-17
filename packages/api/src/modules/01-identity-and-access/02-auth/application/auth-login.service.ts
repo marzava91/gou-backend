@@ -20,9 +20,7 @@ import type { AuthProviderPort } from '../ports/auth-provider.port';
 import { AUTH_TOKEN_ISSUER_PORT } from '../ports/auth-token-issuer.port';
 import type { AuthTokenIssuerPort } from '../ports/auth-token-issuer.port';
 
-import {
-  AUTH_AUDIT_ACTIONS,
-} from '../domain/constants/auth.constants';
+import { AUTH_AUDIT_ACTIONS } from '../domain/constants/auth.constants';
 
 import { AuthDomainEvents } from '../domain/events/auth.events';
 import { isUserAuthenticable } from '../domain/rules/auth-user-authenticable.rule';
@@ -225,7 +223,8 @@ export class AuthLoginService {
       throw new AuthProviderNotLinkedError();
     }
 
-    const user = await this.authRepository.findUserAuthProfileById(resolvedUserId);
+    const user =
+      await this.authRepository.findUserAuthProfileById(resolvedUserId);
 
     if (!user || !isUserAuthenticable(user.status)) {
       await this.authSupportService.recordAudit(
@@ -257,7 +256,9 @@ export class AuthLoginService {
       authIdentityId: authIdentity?.id ?? null,
       provider: providerResult.provider,
       status: AuthSessionStatus.ISSUED,
-      accessTokenHash: this.authSupportService.hashToken(accessTokenResult.token),
+      accessTokenHash: this.authSupportService.hashToken(
+        accessTokenResult.token,
+      ),
       refreshTokenHash: refreshTokenResult
         ? this.authSupportService.hashToken(refreshTokenResult.token)
         : null,
@@ -440,4 +441,3 @@ export class AuthLoginService {
     );
   }
 }
-

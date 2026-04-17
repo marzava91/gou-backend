@@ -5,6 +5,7 @@
 Memberships gestiona la pertenencia formal de un User a un scope organizacional de la plataforma, definiendo dónde puede actuar dentro del ecosistema y cuál es su contexto operativo disponible.
 
 Resuelve:
+
 - vínculo formal entre userId y scope organizacional
 - pertenencia a nivel tenant y/o store
 - activación, suspensión, revocación y expiración de la pertenencia
@@ -13,6 +14,7 @@ Resuelve:
 - trazabilidad de cambios de pertenencia
 
 No resuelve:
+
 - identidad canónica de la persona → Users
 - autenticación o sesiones → Auth
 - definición de roles operativos → Roles
@@ -21,6 +23,7 @@ No resuelve:
 - navegación o UX de superficie operativa → Partners Web / Platform Console como contextos de consumo, no como owner del dato
 
 No define por sí mismo:
+
 - permisos efectivos finales
 - autorización fina sobre recursos concretos
 - identidad externa del usuario
@@ -31,12 +34,14 @@ No define por sí mismo:
 Una Membership representa la relación formal y persistente entre un User y un scope organizacional válido del sistema, habilitando su actuación dentro de ese scope bajo reglas de estado, vigencia y activación.
 
 Su rol dentro del sistema es separar claramente:
+
 - quién es la persona → Users
 - cómo accede → Auth
 - dónde puede actuar → Memberships
 - qué puede hacer → Roles / Grants
 
 Otros módulos dependen conceptualmente de Memberships para:
+
 - resolver el contexto operativo activo
 - validar si el usuario pertenece al tenant/store invocado
 - saber si una invitación ya fue materializada
@@ -47,6 +52,7 @@ Esto está alineado con tu mapa y con la regla de definir ownership y scope expl
 ## 3. Fronteras
 
 ### Pertenece a Memberships
+
 - relación userId -> scope organizacional
 - tipo de scope de la pertenencia
 - estado de la membership
@@ -58,6 +64,7 @@ Esto está alineado con tu mapa y con la regla de definir ownership y scope expl
 - políticas de unicidad por scope
 
 ### No pertenece a Memberships
+
 - perfil del usuario → Users
 - credenciales, login, refresh, sesión → Auth
 - rol canónico asignado a la membership → Roles
@@ -72,28 +79,36 @@ Esto está alineado con tu mapa y con la regla de definir ownership y scope expl
 ### 4.1 ¿Qué representa exactamente una Membership?
 
 #### Decisión
+
 Una Membership representa la pertenencia formal de un User a un scope organizacional habilitado del sistema.
 
 #### Justificación
+
 Sin Membership no existe contexto organizacional válido, aunque el usuario exista y esté autenticado.
 
 #### Impacto
+
 Auth no puede inferir contexto operativo final por sí solo; siempre debe resolverse contra memberships válidas.
 
 ### 4.2 ¿Cuál será el modelo de scope en el MVP?
 
 #### Decisión
+
 El MVP soportará memberships de dos tipos:
+
 - tenant-scoped
 - store-scoped
 
 No habrá una membership “ambigua” que a veces signifique tenant y a veces store.
 
 #### Justificación
+
 Debes evitar ambigüedad de scope. Tu arquitectura exige que cada modelo responda explícitamente en qué scope existe y quién lo puede mutar .
 
 #### Impacto
+
 La entidad debe declarar explícitamente:
+
 - scopeType
 - tenantId
 - storeId cuando aplique
@@ -101,50 +116,63 @@ La entidad debe declarar explícitamente:
 ### 4.3 ¿Una membership store-scoped implica tenant-scoped?
 
 #### Decisión
+
 Sí a nivel relacional de negocio, pero no como duplicación automática obligatoria de registros.
 
 Regla:
+
 - toda store-scoped membership debe pertenecer a un storeId que a su vez pertenece a un tenantId
 - la membership store-scoped referencia explícitamente ambos: tenantId y storeId
 - no se crea automáticamente una segunda membership tenant-scoped salvo que el negocio la requiera explícitamente
 
 #### Justificación
+
 Evitas duplicar relaciones “por comodidad”, uno de tus riesgos base .
 
 #### Impacto
+
 Store membership queda contextualizada dentro de tenant, pero sin inflar el modelo con relaciones redundantes.
 
 ### 4.4 ¿Puede un usuario tener múltiples memberships activas?
 
 #### Decisión
+
 Sí. Un User puede tener múltiples memberships activas, incluso en distintos tenants y stores, siempre que no violen reglas de incompatibilidad de negocio.
 
 #### Justificación
+
 Necesitas soportar:
+
 - usuarios internos multi-tenant
 - operadores con acceso a varias stores
 - context switching deliberado entre scopes
 
 #### Impacto
+
 Debes separar:
+
 - memberships en estado `ACTIVE` disponibles para operación
 - active membership context o contexto operativo activo seleccionado para una superficie concreta
 
 ### 4.5 ¿Qué significa “active” exactamente?
 
 #### Decisión
+
 En el MVP actual, `active` significa que la membership se encuentra en estado `ACTIVE` y, por tanto, puede ser considerada elegible para uso operativo general, salvo validaciones backend adicionales del flujo que la consume.
 
 `effectiveFrom` y `expiresAt` existen en el modelo como soporte preparatorio para futuras memberships temporales o ventanas de vigencia avanzadas, pero en el MVP no forman parte todavía de la regla principal de elegibilidad para `ActiveMembershipContext`.
 
 #### Justificación
+
 Esto evita introducir una semántica temporal parcial o implícita antes de implementar completamente:
+
 - reglas de vigencia temporal,
 - invalidación automática,
 - reconciliación,
 - y tests específicos de ventanas de validez.
 
 #### Impacto
+
 - la elegibilidad principal del contexto activo sigue determinada por el estado de la membership
 - `ACTIVE` habilita contexto operativo en el MVP
 - `effectiveFrom` y `expiresAt` se conservan como capacidad futura del modelo
@@ -160,20 +188,25 @@ Esto evita introducir una semántica temporal parcial o implícita antes de impl
 ### 4.6 ¿Cómo se resuelve el contexto operativo activo?
 
 #### Decisión
+
 Memberships define el conjunto de memberships válidas; el “active context” se resuelve como una selección explícita sobre una membership válida.
 
 No se inferirá automáticamente desde frontend sin validación backend, en línea con tu regla de no dejar el scope a convenciones implícitas o al frontend .
 
 #### Justificación
+
 Separar “membership válida” de “active membership context” o “contexto operativo activo” evita errores de scope.
 
 #### Impacto
+
 Debe existir una acción explícita tipo:
+
 - set active membership context
 
 ### 4.7 ¿Cómo se relaciona Membership con Invitation?
 
 #### Decisión
+
 Invitation no es Membership.
 
 Una invitación aceptada puede convertirse en Membership mediante un flujo explícito de materialización.
@@ -187,13 +220,16 @@ La conversión ocurre a través de un flujo orquestado desde Memberships, utiliz
 La invitación se considera consumida cuando la membership es creada exitosamente.
 
 #### Justificación
+
 Se separa claramente:
+
 - propuesta de acceso → Invitations
 - pertenencia efectiva → Memberships
 
 Evita acoplamiento fuerte entre submódulos y mantiene ownership claro.
 
 #### Impacto
+
 - createMembership puede recibir invitationId como input válido
 - Membership debe validar:
   - que la invitación exista
@@ -207,11 +243,13 @@ Evita acoplamiento fuerte entre submódulos y mantiene ownership claro.
 ### 4.8 ¿Cómo se relaciona Membership con Roles y Grants?
 
 #### Decisión
+
 Roles y Grants no viven dentro de Memberships como definición del submódulo, pero sus asignaciones administrativas sobre superficies tenant/store-scoped se anclan canónicamente a `membershipId`.
 
 Memberships no calcula permisos ni overrides; solo provee la relación formal usuario-scope sobre la cual Roles y Grants pueden operar.
 
 #### Reglas
+
 - una role assignment o grant administrativo no debe existir sin una membership base válida
 - el anchor canónico para autorización administrativa es `membershipId`, no `(userId, tenantId, storeId)`
 - el scope efectivo de Roles/Grants deriva del scope de la membership referenciada
@@ -219,10 +257,13 @@ Memberships no calcula permisos ni overrides; solo provee la relación formal us
 - la efectividad runtime de Roles/Grants no depende solo de su existencia persistida, sino también del estado actual de la membership y del contexto operativo resuelto
 
 #### Justificación
+
 Evita duplicar relaciones formales fuera de Memberships, mantiene una única fuente canónica de pertenencia, y simplifica la integración futura con Access Resolution.
 
 #### Impacto
+
 Memberships debe exponer como base mínima consumible:
+
 - membershipId
 - userId
 - scopeType
@@ -233,19 +274,23 @@ Memberships debe exponer como base mínima consumible:
 ### 4.9 ¿Qué pasa si una membership se suspende, revoca o expira?
 
 #### Decisión
+
 - suspended: preserva la relación histórica pero impide uso operativo
 - revoked: cierra formalmente la pertenencia y no puede seguir usándose operativamente
 - expired: la pertenencia perdió vigencia temporal
 - cualquier active context basado en una membership no ACTIVE deja de ser confiable
 
 El MVP adopta una política híbrida:
+
 - eager local: Memberships puede limpiar active contexts asociados cuando el propio submódulo ejecuta una transición que invalida uso operativo
 - lazy defensiva: toda resolución de active context debe revalidar que la membership siga en estado ACTIVE antes de devolverla
 
 #### Justificación
+
 No basta con persistir un contexto activo; su validez depende del estado runtime de la membership.
 
 #### Impacto
+
 - Auth no debe tratar un active context persistido como fuente autónoma de verdad
 - Auth debe resolver pertenencia y contexto contra Memberships válidas o contra Access Resolution cuando exista
 - Access Resolution deberá revalidar membership + status + active context + roles + grants en runtime
@@ -258,10 +303,13 @@ Aunque el modelo incluye `effectiveFrom` y `expiresAt`, estos campos no disparan
 ### 4.10 ¿Cuál es la política de unicidad?
 
 #### Decisión
+
 No puede existir más de una membership abierta equivalente para la misma combinación:
+
 - userId + scopeType + tenantId + storeId(null si no aplica)
 
 Para el MVP, se consideran abiertas las memberships en estado:
+
 - pending
 - active
 - suspended
@@ -271,27 +319,33 @@ Estados terminales como revoked y expired no participan en esta unicidad operati
 No pueden coexistir dos memberships abiertas equivalentes para el mismo userId y mismo scope exacto.
 
 #### Justificación
+
 Evita memberships duplicadas, uno de los riesgos que ya identificaste en tu esquema preliminar.
 
 #### Impacto
+
 La base y la capa de aplicación deben proteger unicidad operativa.
 
 ### 4.11 ¿Qué superficies consumen Memberships?
 
 #### Decisión
+
 Memberships está diseñado para soportar múltiples superficies del backend, pero no todas consumen pertenencia formal del mismo modo.
 
 En el modelo actual, las superficies administrativas y operativas internas son las principales consumidoras de Memberships como contexto organizacional activo:
+
 - Partners Web
 - Platform Console
 - Future Owner Console
 
 Además, el backend también será consumido por otras superficies del ecosistema:
+
 - Shopper Mobile App
 - Shopper Web App
 - Delivery App
 
 #### Justificación
+
 No todas las superficies necesitan resolver contexto mediante Memberships con la misma semántica.
 
 Las superficies administrativas internas operan sobre scopes organizacionales y requieren contexto activo por tenant/store o mecanismos administrativos equivalentes.
@@ -299,6 +353,7 @@ Las superficies administrativas internas operan sobre scopes organizacionales y 
 Las superficies transaccionales de clientes finales y las superficies logísticas pueden requerir modelos de actor, permisos y contexto distintos, por lo que no deben asumirse automáticamente como consumidoras directas del active membership context.
 
 #### Impacto
+
 - ActiveMembershipContext queda preparado para múltiples superficies, pero en el MVP solo se modela explícitamente PARTNERS_WEB.
 - Platform Console y Future Owner Console quedan contempladas como superficies administrativas futuras.
 - Shopper Mobile App y Shopper Web App consumen el backend, pero no se asume que resuelvan contexto mediante Memberships.
@@ -307,9 +362,11 @@ Las superficies transaccionales de clientes finales y las superficies logística
 ## 5. Modelo conceptual
 
 ### Entidad principal
+
 - Membership
 
 ### Entidades auxiliares
+
 - MembershipScopeReference
 - MembershipStatusHistory
 - MembershipActivationRecord
@@ -317,17 +374,20 @@ Las superficies transaccionales de clientes finales y las superficies logística
 - ActiveMembershipContext o projection equivalente si decides separarlo
 
 ### Ownership
+
 - Memberships es owner de la relación formal usuario-scope
 - Users es owner de la identidad del usuario
 - Core Business es owner de tenant/store
 - Roles/Grants son owners de autorización
 
 ### Source of truth
+
 - verdad canónica de pertenencia formal → Memberships
 - verdad canónica de identidad → Users
 - verdad canónica del scope organizacional → Tenants / Stores
 
 ### Relaciones
+
 - Membership referencia a userId
 - Membership referencia a tenantId
 - Membership puede referenciar storeId
@@ -355,6 +415,7 @@ Las superficies transaccionales de clientes finales y las superficies logística
 ## 7. Lifecycle
 
 ### Estados
+
 - pending
 - active
 - suspended
@@ -362,6 +423,7 @@ Las superficies transaccionales de clientes finales y las superficies logística
 - expired
 
 ### Transiciones válidas
+
 - pending -> active
 - pending -> revoked
 - pending -> expired
@@ -372,6 +434,7 @@ Las superficies transaccionales de clientes finales y las superficies logística
 - suspended -> revoked
 
 ### Transiciones inválidas
+
 - pending -> suspended
 - active -> pending
 - suspended -> expired
@@ -385,6 +448,7 @@ Las superficies transaccionales de clientes finales y las superficies logística
 - expired -> revoked
 
 ### Reglas
+
 - pending no habilita contexto operativo
 - active sí habilita contexto operativo
 - suspended preserva trazabilidad pero bloquea uso operativo
@@ -396,6 +460,7 @@ Las superficies transaccionales de clientes finales y las superficies logística
 - estar en estado `ACTIVE` no implica estar seleccionado como active membership context
 
 ### Decisiones diferidas
+
 - El estado `proposed` no forma parte del MVP actual.
 - Si en una fase futura se requiere modelar una pre-membership antes de su creación formal como registro operativo, se reevaluará la incorporación de `proposed` o de una entidad separada de pre-onboarding.
 - Mientras no exista soporte explícito en Prisma, reglas, DTOs, servicios y tests, el lifecycle canónico de Memberships se limita a:
@@ -442,7 +507,9 @@ Las superficies transaccionales de clientes finales y las superficies logística
 ## 10. Contratos del submódulo
 
 ### 10.1 Contratos de entrada (commands / params / queries)
+
 #### Commands DTOs
+
 - CreateMembershipDto
 - ActivateMembershipDto
 - SuspendMembershipDto
@@ -451,18 +518,22 @@ Las superficies transaccionales de clientes finales y las superficies logística
 - SetActiveMembershipContextDto
 
 #### Params DTOs
+
 - GetMembershipByIdParamsDto
 
 #### Query DTOs
+
 - ListMembershipsQueryDto
 - ListCurrentUserMembershipsQueryDto
 
 ### 10.2 Contratos de salida (responses)
+
 - MembershipResponseDto
 - MembershipSummaryDto
 - ActiveMembershipContextResponseDto
 
 ### 10.3 Acciones de negocio expuestas
+
 - create membership
 - get membership by id
 - list memberships
@@ -475,6 +546,7 @@ Las superficies transaccionales de clientes finales y las superficies logística
 - get active membership context
 
 ### 10.4 Errores semánticos
+
 - membership_not_found
 - duplicate_membership
 - invalid_membership_scope
@@ -487,6 +559,7 @@ Las superficies transaccionales de clientes finales y las superficies logística
 - invitation_membership_conflict
 
 ### 10.5 Eventos semánticos
+
 - membership_created
 - membership_activated
 - membership_suspended
@@ -496,7 +569,9 @@ Las superficies transaccionales de clientes finales y las superficies logística
 - active_membership_context_changed
 
 ### 10.6 Política de scope HTTP
+
 #### Platform-scoped endpoints
+
 - POST /v1/memberships
 - GET /v1/memberships
 - GET /v1/memberships/:id
@@ -506,26 +581,32 @@ Las superficies transaccionales de clientes finales y las superficies logística
 - POST /v1/memberships/:id/expire
 
 Reglas:
+
 - requieren capacidad platform admin
 - admiten administración cross-tenant/cross-user según query DTO
 - no dependen del frontend para declarar validez de pertenencia
 
 #### Self-scoped endpoints
+
 - GET /v1/memberships/me
 - PUT /v1/memberships/me/active-context
 - GET /v1/memberships/me/active-context
 
 Reglas:
+
 - el actor se resuelve exclusivamente desde el request autenticado
 - no aceptan `userId` externo como fuente de target efectivo
 - resuelven contexto solo sobre memberships propias y válidas
 
 #### Scope diferido
+
 - tenant/store admin queda diferido en el MVP
 - no se expondrán endpoints scope-admin hasta definir guardrails explícitos basados en membership/scope
 
 ### 10.7 Contratos mínimos de integración
+
 Memberships expone como base mínima consumible:
+
 - membershipId
 - userId
 - scopeType
@@ -534,6 +615,7 @@ Memberships expone como base mínima consumible:
 - status
 
 Reglas:
+
 - Roles y Grants administrativos se anclan a `membershipId`
 - Access Resolution resuelve acceso efectivo usando membership + contexto + autorización
 - ActiveMembershipContext no sustituye a Membership como fuente de verdad
@@ -541,6 +623,7 @@ Reglas:
 ## 11. Diseño de validación
 
 ### Familias de prueba
+
 - reglas de negocio
 - servicio
 - integración
@@ -548,6 +631,7 @@ Reglas:
 - E2E mínima
 
 ### Escenarios principales
+
 - crear membership válida tenant-scoped
 - crear membership válida store-scoped
 - activar membership pendiente
@@ -557,6 +641,7 @@ Reglas:
 - cambiar contexto activo a una membership válida
 
 ### Escenarios inválidos
+
 - crear membership duplicada
 - storeId que no pertenece al tenantId indicado
 - activar membership revocada
@@ -565,6 +650,7 @@ Reglas:
 - revocar membership inexistente
 
 ### Casos borde
+
 - usuario con múltiples memberships activas en distintos tenants
 - usuario con múltiples stores dentro del mismo tenant
 - cambio concurrente de contexto y suspensión de membership
@@ -572,18 +658,21 @@ Reglas:
 - sesión autenticada cuyo contexto activo deja de ser válido
 
 ### Seguridad
+
 - no permitir escalamiento de scope por parámetros manipulados
 - no permitir selección de contexto no perteneciente al usuario
 - no exponer memberships de otros scopes sin autorización
 - validar backend de tenant/store activos
 
 ### Concurrencia
+
 - creación concurrente de memberships equivalentes
 - doble activación simultánea
 - suspensión/revocación concurrente
 - cambio de active context mientras cambia el estado de la membership
 
 ### Criterios de aceptación
+
 - pertenencia formal claramente separada de identidad, auth y permisos
 - scope explícito y consistente
 - lifecycle documentado y coherente
@@ -610,6 +699,7 @@ Reglas:
 Al conectar PostgreSQL real y habilitar el flujo formal de migraciones, se implementará un refuerzo a nivel de base de datos para garantizar la unicidad operativa de memberships abiertas equivalentes.
 
 Para el MVP, se consideran abiertas las memberships en estado:
+
 - pending
 - active
 - suspended
@@ -625,16 +715,17 @@ SQL de referencia:
 
 CREATE UNIQUE INDEX memberships_open_equivalent_unique_idx
 ON memberships (
-  "userId",
-  "scopeType",
-  "tenantId",
-  COALESCE("storeId", '__NULL__')
+"userId",
+"scopeType",
+"tenantId",
+COALESCE("storeId", '**NULL**')
 )
 WHERE "status" IN ('PENDING', 'ACTIVE', 'SUSPENDED');
 
 ## 13. Riesgos
 
 ### Riesgos de diseño
+
 - mezclar membership con rol o grant
 - no definir con claridad tenant-scoped vs store-scoped
 - duplicar memberships para representar jerarquía tenant/store
@@ -642,6 +733,7 @@ WHERE "status" IN ('PENDING', 'ACTIVE', 'SUSPENDED');
 - dejar ambigua la conversión desde invitaciones
 
 ### Riesgos de implementación
+
 - crear memberships duplicadas por concurrencia
 - validar scope en frontend y no en backend
 - permitir storeId inconsistentes con tenantId
@@ -650,6 +742,7 @@ WHERE "status" IN ('PENDING', 'ACTIVE', 'SUSPENDED');
 - usar naming de guards que sugiera soporte scope-admin cuando la implementación real solo cubre self o platform admin
 
 ### Riesgos operativos
+
 - usuarios híbridos operando en el scope equivocado
 - context switching confuso entre Partners Web y Platform Console
 - memberships suspendidas que siguen otorgando acceso efectivo
@@ -692,12 +785,13 @@ WHERE "status" IN ('PENDING', 'ACTIVE', 'SUSPENDED');
 ## 16. Diagramas de Flujos
 
 ### 16.1 Flujo general del submódulo Memberships
+
 Este flujo sale de tu MembershipsService, que actúa como fachada y deriva cada operación al servicio correcto: command, query o context.
 
 flowchart TD
-    A[Platform Admin] --> B[POST /v1/users/:id/anonymize]
-    B --> C[UserPlatformAdminGuard]
-    C --> D[UsersService.anonymizeUser]
+A[Platform Admin] --> B[POST /v1/users/:id/anonymize]
+B --> C[UserPlatformAdminGuard]
+C --> D[UsersService.anonymizeUser]
 
     D --> E[Buscar user]
     E --> F{DEACTIVATED -> ANONYMIZED válido?}
@@ -712,12 +806,13 @@ flowchart TD
     L --> M[Return user anonymized]
 
 ### 16.2 Flujo de creación de Membership
+
 Este es uno de los flujos más importantes porque concentra varias invariantes: validación de scope, verificación tenant/store, chequeo de duplicidad operativa, compatibilidad con invitation y luego persistencia con auditoría e historial.
 
 flowchart TD
-    A[POST /v1/memberships] --> B[MembershipsController]
-    B --> C[MembershipsService.createMembership]
-    C --> D[MembershipCommandService.createMembership]
+A[POST /v1/memberships] --> B[MembershipsController]
+B --> C[MembershipsService.createMembership]
+C --> D[MembershipCommandService.createMembership]
 
     D --> E[Validar shape del scope]
     E --> F{¿scope válido?}
@@ -745,11 +840,12 @@ flowchart TD
     Q --> R[Retornar MembershipResponseDto]
 
 ### 16.3 Flujo de materialización desde Invitation
+
 En tu diseño, Invitation no equivale a Membership. La invitación solo propone acceso; la pertenencia efectiva nace recién cuando createMembership la materializa exitosamente.
 
 flowchart TD
-    A[Invitation aceptada previamente] --> B[createMembership con invitationId]
-    B --> C[Buscar invitación aceptada]
+A[Invitation aceptada previamente] --> B[createMembership con invitationId]
+B --> C[Buscar invitación aceptada]
 
     C --> D{¿Existe?}
     D -- No --> X[invitation_membership_conflict]
@@ -769,12 +865,13 @@ flowchart TD
     J --> K[Invitation queda consumida materialmente]
 
 ### 16.4 Flujo de cambio de lifecycle de Membership
+
 Tu lifecycle canónico es: pending, active, suspended, revoked, expired. No todas las transiciones están permitidas, así que este flujo pasa siempre por validación de transición. Además, cuando la membership deja de ser utilizable operativamente, el módulo puede limpiar ActiveMembershipContext asociados.
 
 flowchart TD
-    A[POST lifecycle endpoint] --> B[MembershipsController]
-    B --> C[MembershipsService]
-    C --> D[MembershipCommandService]
+A[POST lifecycle endpoint] --> B[MembershipsController]
+B --> C[MembershipsService]
+C --> D[MembershipCommandService]
 
     D --> E[Buscar membership por id]
     E --> F{¿Existe?}
@@ -803,10 +900,10 @@ flowchart TD
 Transiciones principales que hoy puedes diagramar aparte
 
 stateDiagram-v2
-    [*] --> PENDING
-    PENDING --> ACTIVE
-    PENDING --> REVOKED
-    PENDING --> EXPIRED
+[*] --> PENDING
+PENDING --> ACTIVE
+PENDING --> REVOKED
+PENDING --> EXPIRED
 
     ACTIVE --> SUSPENDED
     ACTIVE --> REVOKED
@@ -819,13 +916,14 @@ stateDiagram-v2
     EXPIRED --> [*]
 
 ### 16.5 Flujo de selección de Active Membership Context
+
 Aquí el punto clave es que el backend no confía en el frontend para inferir contexto. El usuario pide seleccionar una membership para una surface, pero el backend valida que esa membership sea propia y que esté en ACTIVE.
 
 flowchart TD
-    A[PUT /v1/memberships/me/active-context] --> B[MembershipsController]
-    B --> C[Resolver actor desde request.user]
-    C --> D[MembershipsService.setActiveMembershipContext]
-    D --> E[MembershipContextService.setActiveMembershipContext]
+A[PUT /v1/memberships/me/active-context] --> B[MembershipsController]
+B --> C[Resolver actor desde request.user]
+C --> D[MembershipsService.setActiveMembershipContext]
+D --> E[MembershipContextService.setActiveMembershipContext]
 
     E --> F[Buscar membership owned by user]
     F --> G{¿Pertenece al user?}
@@ -840,13 +938,14 @@ flowchart TD
     K --> L[Retornar ActiveMembershipContextResponseDto]
 
 ### 16.6 Flujo de resolución de Active Membership Context
+
 Este flujo está muy bien diseñado porque revalida el contexto persistido antes de devolverlo. Si el contexto quedó stale, se limpia y se audita. Eso protege a Auth y a futuras capas como Access Resolution de confiar en contexto viejo.
 
 flowchart TD
-    A[GET /v1/memberships/me/active-context?surface=PARTNERS_WEB] --> B[MembershipsController]
-    B --> C[Resolver actor desde request.user]
-    C --> D[MembershipsService.getActiveMembershipContext]
-    D --> E[MembershipContextService.getActiveMembershipContext]
+A[GET /v1/memberships/me/active-context?surface=PARTNERS_WEB] --> B[MembershipsController]
+B --> C[Resolver actor desde request.user]
+C --> D[MembershipsService.getActiveMembershipContext]
+D --> E[MembershipContextService.getActiveMembershipContext]
 
     E --> F[Buscar ActiveMembershipContext por userId + surface]
     F --> G{¿Existe?}
@@ -864,10 +963,11 @@ flowchart TD
     M --> N[Retornar ActiveMembershipContextResponseDto]
 
 ### 16.7 Flujo de consultas del módulo
+
 Las consultas están separadas del command side. Además, tus endpoints distinguen bien entre rutas platform-scoped y self-scoped. En /me, el actor siempre sale del request autenticado y no de userId externo. Eso también está cubierto por tests e2e.
 
 flowchart TD
-    A[GET endpoint] --> B{¿Endpoint platform o self?}
+A[GET endpoint] --> B{¿Endpoint platform o self?}
 
     B -->|Platform| C[MembershipPlatformAdminGuard]
     B -->|Self| D[MembershipSelfOrPlatformAdminGuard]

@@ -51,7 +51,7 @@ describe('RoleCommandService', () => {
     );
   });
 
-    it('creates role with normalized key, normalized capabilities, audit and event', async () => {
+  it('creates role with normalized key, normalized capabilities, audit and event', async () => {
     rolesRepository.findRoleByKey.mockResolvedValue(null);
 
     rolesRepository.createRole.mockResolvedValue({
@@ -323,7 +323,7 @@ describe('RoleCommandService', () => {
     ).rejects.toBeInstanceOf(DuplicateRoleAssignmentError);
   });
 
-    it('revokes an ACTIVE role assignment and records audit/event', async () => {
+  it('revokes an ACTIVE role assignment and records audit/event', async () => {
     rolesRepository.findAssignmentById.mockResolvedValue({
       id: 'assignment_1',
       membershipId: 'membership_1',

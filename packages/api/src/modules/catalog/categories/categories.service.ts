@@ -1,5 +1,9 @@
 // packages\api\src\modules\catalog\categories\categories.service.ts
-import { BadRequestException, Injectable, NotFoundException } from '@nestjs/common';
+import {
+  BadRequestException,
+  Injectable,
+  NotFoundException,
+} from '@nestjs/common';
 import { CategoriesRepository } from './categories.repository';
 import { CreateCategoryDto } from './dto/create-category.dto';
 import { MoveCategoryDto } from './dto/move-category.dto';
@@ -15,13 +19,22 @@ export class CategoriesService {
 
     // typeahead
     if (q.q && q.q.trim().length) {
-      const rows = await this.repo.search({ tenantId, q: q.q.trim(), includeInactive, take: 30 });
+      const rows = await this.repo.search({
+        tenantId,
+        q: q.q.trim(),
+        includeInactive,
+        take: 30,
+      });
       return { data: rows };
     }
 
     // children or roots
     const parentId = q.parentId ? q.parentId : null;
-    const rows = await this.repo.listByParent({ tenantId, parentId, includeInactive });
+    const rows = await this.repo.listByParent({
+      tenantId,
+      parentId,
+      includeInactive,
+    });
     return { data: rows };
   }
 
@@ -46,8 +59,15 @@ export class CategoriesService {
     }
 
     // evitar duplicados en mismo nivel (además del unique)
-    const dup = await this.repo.existsSameLevel({ tenantId, parentId, name: dto.name.trim() });
-    if (dup) throw new BadRequestException('Ya existe una categoría con ese nombre en ese nivel');
+    const dup = await this.repo.existsSameLevel({
+      tenantId,
+      parentId,
+      name: dto.name.trim(),
+    });
+    if (dup)
+      throw new BadRequestException(
+        'Ya existe una categoría con ese nombre en ese nivel',
+      );
 
     // Si guardas depth/path: aquí los calculas.
     // Por ahora lo dejamos simple.
@@ -75,7 +95,10 @@ export class CategoriesService {
         name: dto.name.trim(),
         excludeId: id,
       });
-      if (dup) throw new BadRequestException('Ya existe una categoría con ese nombre en ese nivel');
+      if (dup)
+        throw new BadRequestException(
+          'Ya existe una categoría con ese nombre en ese nivel',
+        );
     }
 
     const row = await this.repo.update(tenantId, id, {
@@ -102,7 +125,8 @@ export class CategoriesService {
       // prevenir ciclos: no puedes mover un nodo debajo de uno de sus descendientes.
       // En adjacency list, esto requiere recorrer hacia arriba desde newParent y ver si llegas a id.
       // MVP: validación simple (rápida) — en producción, haz el check completo.
-      if (newParentId === id) throw new BadRequestException('No puedes asignar parent a sí mismo');
+      if (newParentId === id)
+        throw new BadRequestException('No puedes asignar parent a sí mismo');
     }
 
     // duplicado en nuevo nivel (mismo nombre)
@@ -112,11 +136,16 @@ export class CategoriesService {
       name: current.name,
       excludeId: id,
     });
-    if (dup) throw new BadRequestException('En el destino ya existe una categoría con ese nombre');
+    if (dup)
+      throw new BadRequestException(
+        'En el destino ya existe una categoría con ese nombre',
+      );
 
     const row = await this.repo.update(tenantId, id, {
-        parent: newParentId ? { connect: { id: newParentId } } : { disconnect: true },
-        ...(dto.sortOrder !== undefined ? { sortOrder: dto.sortOrder } : {}),
+      parent: newParentId
+        ? { connect: { id: newParentId } }
+        : { disconnect: true },
+      ...(dto.sortOrder !== undefined ? { sortOrder: dto.sortOrder } : {}),
     });
 
     return { data: row };
@@ -138,7 +167,9 @@ export class CategoriesService {
     // - si tiene hijos => no borrar duro, o pedir confirmación de "promover hijos a root".
     const children = await this.repo.listChildrenIds(tenantId, id);
     if (children.length) {
-      throw new BadRequestException('No se puede eliminar: la categoría tiene subcategorías');
+      throw new BadRequestException(
+        'No se puede eliminar: la categoría tiene subcategorías',
+      );
     }
 
     // Si hay items vinculados, puedes:

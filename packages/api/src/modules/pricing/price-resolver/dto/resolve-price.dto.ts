@@ -1,5 +1,13 @@
 // packages\api\src\modules\pricing\price-resolver\dto\resolve-price.dto.ts
-import { IsEnum, IsISO8601, IsInt, IsOptional, IsString, MaxLength, Min } from 'class-validator';
+import {
+  IsEnum,
+  IsISO8601,
+  IsInt,
+  IsOptional,
+  IsString,
+  MaxLength,
+  Min,
+} from 'class-validator';
 import { SalesChannel } from '@prisma/client';
 
 export class ResolvePriceDto {

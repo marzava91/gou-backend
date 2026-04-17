@@ -3,7 +3,7 @@
 /**
  * VALIDA MATRIZ DE LIFECYCLE DE UserStatus
  * Este spec valida la matriz de transición de estados de UserStatus, que es una regla de negocio pura.
- * 
+ *
  * ------------------------
  * What this spec validates
  * ------------------------

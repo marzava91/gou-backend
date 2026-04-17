@@ -1,9 +1,7 @@
 // packages\api\src\modules\01-identity-and-access\02-auth\application\auth-verification.service.ts
 
 import { Inject, Injectable } from '@nestjs/common';
-import {
-  AuthVerificationChallengeStatus,
-} from '@prisma/client';
+import { AuthVerificationChallengeStatus } from '@prisma/client';
 
 import { AuthRepository } from '../auth.repository';
 
@@ -53,7 +51,8 @@ export class AuthVerificationService {
     dto: RequestVerificationCodeDto,
   ) {
     const expiresAt = new Date(
-      Date.now() + AUTH_SECURITY_POLICY.VERIFICATION.CODE_TTL_MINUTES * 60 * 1000,
+      Date.now() +
+        AUTH_SECURITY_POLICY.VERIFICATION.CODE_TTL_MINUTES * 60 * 1000,
     );
 
     const code = this.authSupportService.generateVerificationCode();
@@ -108,11 +107,12 @@ export class AuthVerificationService {
     const now = new Date();
     const expectedCodeHash = this.authSupportService.hashToken(dto.code);
 
-    const result = await this.authRepository.consumeVerificationChallengeIfValid({
-      challengeId: dto.challengeId,
-      expectedCodeHash,
-      now,
-    });
+    const result =
+      await this.authRepository.consumeVerificationChallengeIfValid({
+        challengeId: dto.challengeId,
+        expectedCodeHash,
+        now,
+      });
 
     switch (result.outcome) {
       case 'not_found':
@@ -128,7 +128,7 @@ export class AuthVerificationService {
             reason: 'expired',
             operation: 'verify_code',
             expiredDuringVerification: true,
-          }
+          },
         );
         throw new ChallengeExpiredError();
 
@@ -142,7 +142,7 @@ export class AuthVerificationService {
             reason: 'already_used',
             operation: 'verify_code',
             concurrencyDetected: true,
-          }
+          },
         );
         throw new ChallengeAlreadyConsumedError();
 
@@ -204,5 +204,4 @@ export class AuthVerificationService {
       verifiedAt: now,
     };
   }
-
 }

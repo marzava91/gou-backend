@@ -6,11 +6,7 @@ const config: Config = {
   testEnvironment: 'node',
   roots: ['<rootDir>/src'],
   moduleFileExtensions: ['ts', 'js', 'json'],
-  testMatch: [
-    '**/*.spec.ts',
-    '**/*.e2e-spec.ts',
-    '**/__tests__/**/*.ts',
-  ],
+  testMatch: ['**/*.spec.ts', '**/*.e2e-spec.ts', '**/__tests__/**/*.ts'],
   transform: {
     '^.+\\.ts$': [
       'ts-jest',

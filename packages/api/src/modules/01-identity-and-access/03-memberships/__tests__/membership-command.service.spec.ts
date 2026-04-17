@@ -4,7 +4,13 @@ import { MembershipScopeType, MembershipStatus } from '@prisma/client';
 
 import { MembershipCommandService } from '../application/membership-command.service';
 
-import { DuplicateMembershipError, InvalidMembershipScopeError, InvalidMembershipTransitionError, InvitationMembershipConflictError, MembershipNotFoundError } from '../domain/errors/membership.errors';
+import {
+  DuplicateMembershipError,
+  InvalidMembershipScopeError,
+  InvalidMembershipTransitionError,
+  InvitationMembershipConflictError,
+  MembershipNotFoundError,
+} from '../domain/errors/membership.errors';
 
 describe('MembershipCommandService', () => {
   let service: MembershipCommandService;
@@ -78,7 +84,9 @@ describe('MembershipCommandService', () => {
 
   describe('createMembership', () => {
     it('creates a pending membership when scope is valid and no equivalent open membership exists', async () => {
-      membershipsRepository.findEquivalentOpenMembership.mockResolvedValue(null);
+      membershipsRepository.findEquivalentOpenMembership.mockResolvedValue(
+        null,
+      );
       membershipsRepository.createMembership.mockResolvedValue({
         id: 'membership_123',
         userId: 'user_123',
@@ -105,7 +113,9 @@ describe('MembershipCommandService', () => {
       expect(membershipScopeDirectoryPort.tenantExists).toHaveBeenCalledWith(
         'tenant_123',
       );
-      expect(membershipsRepository.findEquivalentOpenMembership).toHaveBeenCalledWith({
+      expect(
+        membershipsRepository.findEquivalentOpenMembership,
+      ).toHaveBeenCalledWith({
         userId: 'user_123',
         scopeType: MembershipScopeType.TENANT,
         tenantId: 'tenant_123',
@@ -169,7 +179,9 @@ describe('MembershipCommandService', () => {
     });
 
     it('throws InvalidMembershipScopeError when store does not belong to tenant', async () => {
-      membershipScopeDirectoryPort.storeBelongsToTenant.mockResolvedValue(false);
+      membershipScopeDirectoryPort.storeBelongsToTenant.mockResolvedValue(
+        false,
+      );
 
       await expect(
         service.createMembership('actor_123', {
@@ -200,8 +212,12 @@ describe('MembershipCommandService', () => {
     });
 
     it('throws InvitationMembershipConflictError when invitation does not exist', async () => {
-      membershipsRepository.findEquivalentOpenMembership.mockResolvedValue(null);
-      membershipInvitationReaderPort.findAcceptedInvitationById.mockResolvedValue(null);
+      membershipsRepository.findEquivalentOpenMembership.mockResolvedValue(
+        null,
+      );
+      membershipInvitationReaderPort.findAcceptedInvitationById.mockResolvedValue(
+        null,
+      );
 
       await expect(
         service.createMembership('actor_123', {
@@ -216,14 +232,18 @@ describe('MembershipCommandService', () => {
     });
 
     it('throws InvitationMembershipConflictError when invitation userId mismatches', async () => {
-      membershipsRepository.findEquivalentOpenMembership.mockResolvedValue(null);
-      membershipInvitationReaderPort.findAcceptedInvitationById.mockResolvedValue({
-        id: 'invitation_123',
-        userId: 'other_user',
-        tenantId: 'tenant_123',
-        storeId: null,
-        acceptedAt: new Date('2026-04-10T20:00:00.000Z'),
-      });
+      membershipsRepository.findEquivalentOpenMembership.mockResolvedValue(
+        null,
+      );
+      membershipInvitationReaderPort.findAcceptedInvitationById.mockResolvedValue(
+        {
+          id: 'invitation_123',
+          userId: 'other_user',
+          tenantId: 'tenant_123',
+          storeId: null,
+          acceptedAt: new Date('2026-04-10T20:00:00.000Z'),
+        },
+      );
 
       await expect(
         service.createMembership('actor_123', {
@@ -235,9 +255,10 @@ describe('MembershipCommandService', () => {
       ).rejects.toBeInstanceOf(InvitationMembershipConflictError);
     });
 
-    
     it('creates a pending store-scoped membership when tenant and store are valid', async () => {
-      membershipsRepository.findEquivalentOpenMembership.mockResolvedValue(null);
+      membershipsRepository.findEquivalentOpenMembership.mockResolvedValue(
+        null,
+      );
       membershipsRepository.createMembership.mockResolvedValue({
         id: 'membership_store_123',
         userId: 'user_123',
@@ -262,14 +283,22 @@ describe('MembershipCommandService', () => {
         reason: '  store setup  ',
       });
 
-      expect(membershipScopeDirectoryPort.tenantExists).toHaveBeenCalledWith('tenant_123');
-      expect(membershipScopeDirectoryPort.storeExists).toHaveBeenCalledWith('store_123');
-      expect(membershipScopeDirectoryPort.storeBelongsToTenant).toHaveBeenCalledWith({
+      expect(membershipScopeDirectoryPort.tenantExists).toHaveBeenCalledWith(
+        'tenant_123',
+      );
+      expect(membershipScopeDirectoryPort.storeExists).toHaveBeenCalledWith(
+        'store_123',
+      );
+      expect(
+        membershipScopeDirectoryPort.storeBelongsToTenant,
+      ).toHaveBeenCalledWith({
         storeId: 'store_123',
         tenantId: 'tenant_123',
       });
 
-      expect(membershipsRepository.findEquivalentOpenMembership).toHaveBeenCalledWith({
+      expect(
+        membershipsRepository.findEquivalentOpenMembership,
+      ).toHaveBeenCalledWith({
         userId: 'user_123',
         scopeType: MembershipScopeType.STORE,
         tenantId: 'tenant_123',
@@ -300,14 +329,18 @@ describe('MembershipCommandService', () => {
     });
 
     it('throws InvitationMembershipConflictError when invitation tenantId mismatches', async () => {
-      membershipsRepository.findEquivalentOpenMembership.mockResolvedValue(null);
-      membershipInvitationReaderPort.findAcceptedInvitationById.mockResolvedValue({
-        id: 'invitation_123',
-        userId: 'user_123',
-        tenantId: 'tenant_other',
-        storeId: null,
-        acceptedAt: new Date('2026-04-10T20:00:00.000Z'),
-      });
+      membershipsRepository.findEquivalentOpenMembership.mockResolvedValue(
+        null,
+      );
+      membershipInvitationReaderPort.findAcceptedInvitationById.mockResolvedValue(
+        {
+          id: 'invitation_123',
+          userId: 'user_123',
+          tenantId: 'tenant_other',
+          storeId: null,
+          acceptedAt: new Date('2026-04-10T20:00:00.000Z'),
+        },
+      );
 
       await expect(
         service.createMembership('actor_123', {
@@ -322,14 +355,18 @@ describe('MembershipCommandService', () => {
     });
 
     it('throws InvitationMembershipConflictError when invitation storeId mismatches', async () => {
-      membershipsRepository.findEquivalentOpenMembership.mockResolvedValue(null);
-      membershipInvitationReaderPort.findAcceptedInvitationById.mockResolvedValue({
-        id: 'invitation_123',
-        userId: 'user_123',
-        tenantId: 'tenant_123',
-        storeId: 'store_other',
-        acceptedAt: new Date('2026-04-10T20:00:00.000Z'),
-      });
+      membershipsRepository.findEquivalentOpenMembership.mockResolvedValue(
+        null,
+      );
+      membershipInvitationReaderPort.findAcceptedInvitationById.mockResolvedValue(
+        {
+          id: 'invitation_123',
+          userId: 'user_123',
+          tenantId: 'tenant_123',
+          storeId: 'store_other',
+          acceptedAt: new Date('2026-04-10T20:00:00.000Z'),
+        },
+      );
 
       await expect(
         service.createMembership('actor_123', {
@@ -343,7 +380,6 @@ describe('MembershipCommandService', () => {
 
       expect(membershipsRepository.createMembership).not.toHaveBeenCalled();
     });
-
   });
 
   describe('activateMembership', () => {
@@ -383,7 +419,9 @@ describe('MembershipCommandService', () => {
           toStatus: MembershipStatus.ACTIVE,
         }),
       );
-      expect(membershipsRepository.clearActiveContextsForMembership).not.toHaveBeenCalled();
+      expect(
+        membershipsRepository.clearActiveContextsForMembership,
+      ).not.toHaveBeenCalled();
       expect(membershipSupportService.recordLifecycleChange).toHaveBeenCalled();
 
       expect(result).toEqual({
@@ -417,7 +455,9 @@ describe('MembershipCommandService', () => {
         }),
       ).rejects.toBeInstanceOf(InvalidMembershipTransitionError);
 
-      expect(membershipsRepository.updateMembershipStatus).not.toHaveBeenCalled();
+      expect(
+        membershipsRepository.updateMembershipStatus,
+      ).not.toHaveBeenCalled();
     });
 
     it('throws InvalidMembershipTransitionError when compare-and-set update affects zero rows', async () => {
@@ -451,9 +491,13 @@ describe('MembershipCommandService', () => {
         status: MembershipStatus.ACTIVE,
       });
 
-      const result = await service.activateMembership('actor_123', 'membership_123', {
-        reason: 'reactivated',
-      });
+      const result = await service.activateMembership(
+        'actor_123',
+        'membership_123',
+        {
+          reason: 'reactivated',
+        },
+      );
 
       expect(membershipsRepository.updateMembershipStatus).toHaveBeenCalledWith(
         expect.objectContaining({
@@ -500,18 +544,18 @@ describe('MembershipCommandService', () => {
         reason: 'temporary suspension',
       });
 
-      expect(membershipsRepository.clearActiveContextsForMembership).toHaveBeenCalledWith(
-        'membership_123',
-      );
-      expect(membershipSupportService.recordLifecycleChange).toHaveBeenCalledWith(
+      expect(
+        membershipsRepository.clearActiveContextsForMembership,
+      ).toHaveBeenCalledWith('membership_123');
+      expect(
+        membershipSupportService.recordLifecycleChange,
+      ).toHaveBeenCalledWith(
         expect.objectContaining({
           toStatus: MembershipStatus.SUSPENDED,
           membershipId: 'membership_123',
         }),
       );
     });
-
-
 
     it('throws InvalidMembershipTransitionError when suspend compare-and-set update affects zero rows', async () => {
       membershipsRepository.findById.mockResolvedValue({
@@ -529,7 +573,9 @@ describe('MembershipCommandService', () => {
         }),
       ).rejects.toBeInstanceOf(InvalidMembershipTransitionError);
 
-      expect(membershipsRepository.clearActiveContextsForMembership).not.toHaveBeenCalled();
+      expect(
+        membershipsRepository.clearActiveContextsForMembership,
+      ).not.toHaveBeenCalled();
     });
   });
 
@@ -558,9 +604,9 @@ describe('MembershipCommandService', () => {
           timestampField: 'revokedAt',
         }),
       );
-      expect(membershipsRepository.clearActiveContextsForMembership).toHaveBeenCalledWith(
-        'membership_123',
-      );
+      expect(
+        membershipsRepository.clearActiveContextsForMembership,
+      ).toHaveBeenCalledWith('membership_123');
     });
   });
 
@@ -591,9 +637,9 @@ describe('MembershipCommandService', () => {
           at: new Date('2026-04-12T10:00:00.000Z'),
         }),
       );
-      expect(membershipsRepository.clearActiveContextsForMembership).toHaveBeenCalledWith(
-        'membership_123',
-      );
+      expect(
+        membershipsRepository.clearActiveContextsForMembership,
+      ).toHaveBeenCalledWith('membership_123');
     });
   });
 });

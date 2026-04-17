@@ -5,9 +5,7 @@ import { FIREBASE_ADMIN } from './firebase-admin.provider';
 
 @Injectable()
 export class FirebaseAdminService {
-  constructor(
-    @Inject(FIREBASE_ADMIN) private readonly app: admin.app.App,
-  ) {}
+  constructor(@Inject(FIREBASE_ADMIN) private readonly app: admin.app.App) {}
 
   async verifyIdToken(idToken: string): Promise<admin.auth.DecodedIdToken> {
     try {

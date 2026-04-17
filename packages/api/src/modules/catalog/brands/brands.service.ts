@@ -1,5 +1,10 @@
 // packages\api\src\modules\catalog\brands\brands.service.ts
-import { BadRequestException, ConflictException, Injectable, NotFoundException } from '@nestjs/common';
+import {
+  BadRequestException,
+  ConflictException,
+  Injectable,
+  NotFoundException,
+} from '@nestjs/common';
 import { Prisma } from '@prisma/client';
 import { BrandsRepository } from './brands.repository';
 import { CreateBrandDto } from './dto/create-brand.dto';
@@ -34,7 +39,10 @@ export class BrandsService {
     return { data: toResponse(row) };
   }
 
-  async create(tenantId: string, dto: CreateBrandDto): Promise<{ data: BrandResponse }> {
+  async create(
+    tenantId: string,
+    dto: CreateBrandDto,
+  ): Promise<{ data: BrandResponse }> {
     try {
       const row = await this.repo.create(tenantId, {
         name: dto.name.trim(),
@@ -43,7 +51,10 @@ export class BrandsService {
       });
       return { data: toResponse(row) };
     } catch (e: any) {
-      if (e instanceof Prisma.PrismaClientKnownRequestError && e.code === 'P2002') {
+      if (
+        e instanceof Prisma.PrismaClientKnownRequestError &&
+        e.code === 'P2002'
+      ) {
         // unique([tenantId,name])
         throw new ConflictException('Brand name already exists in this tenant');
       }
@@ -51,7 +62,11 @@ export class BrandsService {
     }
   }
 
-  async update(tenantId: string, id: string, dto: UpdateBrandDto): Promise<{ data: BrandResponse }> {
+  async update(
+    tenantId: string,
+    id: string,
+    dto: UpdateBrandDto,
+  ): Promise<{ data: BrandResponse }> {
     const existing = await this.repo.findById(tenantId, id);
     if (!existing) throw new NotFoundException('Brand not found');
 
@@ -63,7 +78,10 @@ export class BrandsService {
       });
       return { data: toResponse(row) };
     } catch (e: any) {
-      if (e instanceof Prisma.PrismaClientKnownRequestError && e.code === 'P2002') {
+      if (
+        e instanceof Prisma.PrismaClientKnownRequestError &&
+        e.code === 'P2002'
+      ) {
         throw new ConflictException('Brand name already exists in this tenant');
       }
       throw e;

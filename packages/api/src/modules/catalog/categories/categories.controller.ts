@@ -1,5 +1,15 @@
 // packages\api\src\modules\catalog\categories\categories.controller.ts
-import { Body, Controller, Delete, Get, Param, Patch, Post, Query, Req } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Delete,
+  Get,
+  Param,
+  Patch,
+  Post,
+  Query,
+  Req,
+} from '@nestjs/common';
 import { CategoriesService } from './categories.service';
 import { CreateCategoryDto } from './dto/create-category.dto';
 import { MoveCategoryDto } from './dto/move-category.dto';
@@ -41,7 +51,11 @@ export class CategoriesController {
 
   // PATCH /v1/categories/:id
   @Patch(':id')
-  update(@Req() req: any, @Param('id') id: string, @Body() dto: UpdateCategoryDto) {
+  update(
+    @Req() req: any,
+    @Param('id') id: string,
+    @Body() dto: UpdateCategoryDto,
+  ) {
     const tenantId = req.user?.tenantId ?? req.headers['x-tenant-id'];
     return this.svc.update(tenantId, id, dto);
   }
@@ -55,7 +69,11 @@ export class CategoriesController {
 
   // PATCH /v1/categories/:id/active
   @Patch(':id/active')
-  toggle(@Req() req: any, @Param('id') id: string, @Body() body: { isActive: boolean }) {
+  toggle(
+    @Req() req: any,
+    @Param('id') id: string,
+    @Body() body: { isActive: boolean },
+  ) {
     const tenantId = req.user?.tenantId ?? req.headers['x-tenant-id'];
     return this.svc.toggleActive(tenantId, id, body.isActive);
   }

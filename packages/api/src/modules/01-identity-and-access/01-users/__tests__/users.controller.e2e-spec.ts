@@ -1,9 +1,9 @@
 // packages/api/src/modules/01-identity-and-access/01-users/__tests__/users.controller.e2e-spec.ts
 
 /**
- * VALIDA SURFACE HTTP, GUARDS Y WIRING DE DTOs 
+ * VALIDA SURFACE HTTP, GUARDS Y WIRING DE DTOs
  * Este spec valida la superficie HTTP de UsersController, incluyendo guards y wiring de DTOs.
- * 
+ *
  *
  * TODO(testing):
  * Add a higher-level integration/e2e suite for Users using:
@@ -45,7 +45,12 @@
  * - controller mutates payload incorrectly before delegation
  */
 
-import { INestApplication, ValidationPipe, CanActivate, ExecutionContext } from '@nestjs/common';
+import {
+  INestApplication,
+  ValidationPipe,
+  CanActivate,
+  ExecutionContext,
+} from '@nestjs/common';
 import { Test } from '@nestjs/testing';
 import request from 'supertest';
 
@@ -247,9 +252,7 @@ describe('UsersController (e2e)', () => {
       authenticatedGuard: new DenyGuard(),
     });
 
-    await request(app.getHttpServer())
-      .get('/v1/users/me')
-      .expect(403);
+    await request(app.getHttpServer()).get('/v1/users/me').expect(403);
 
     expect(usersServiceMock.getCurrentProfile).not.toHaveBeenCalled();
   });

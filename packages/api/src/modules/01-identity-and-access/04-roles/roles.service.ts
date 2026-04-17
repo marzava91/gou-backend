@@ -26,7 +26,11 @@ export class RolesService {
     assignmentId: string,
     dto: RevokeRoleDto,
   ) {
-    return this.roleCommandService.revokeRoleAssignment(actorId, assignmentId, dto);
+    return this.roleCommandService.revokeRoleAssignment(
+      actorId,
+      assignmentId,
+      dto,
+    );
   }
 
   listRoles(query?: ListRolesQueryDto) {

@@ -9,29 +9,32 @@
 import { Injectable } from '@nestjs/common';
 import { PrismaService } from '../../../prisma/prisma.service';
 import { Prisma, Item, BcgTag, Visibility } from '@prisma/client';
-import { buildSeekCursorWhereGeneric, buildSeekPageResult } from '../../../common/utils/pagination.util';
+import {
+  buildSeekCursorWhereGeneric,
+  buildSeekPageResult,
+} from '../../../common/utils/pagination.util';
 
 type GetPaginatedArgs = {
   limit?: number;
   search?: string;
   sku?: string;
-  cursor?: string | null; 
+  cursor?: string | null;
   tenantId?: string;
   storeId?: string | null;
 };
 
-type SortDir = "asc" | "desc";
+type SortDir = 'asc' | 'desc';
 type SortBy =
-  | "title"
-  | "sku"
-  | "barcode"
-  | "visibility"
-  | "isFeatured"
-  | "createdAt"
-  | "updatedAt"
-  | "stockOnHand"
-  | "reorderPoint"
-  | "lotExpiresAt";
+  | 'title'
+  | 'sku'
+  | 'barcode'
+  | 'visibility'
+  | 'isFeatured'
+  | 'createdAt'
+  | 'updatedAt'
+  | 'stockOnHand'
+  | 'reorderPoint'
+  | 'lotExpiresAt';
 
 type GetPaginatedOffsetArgs = {
   page: number;
@@ -63,7 +66,6 @@ type ItemCreateData = Omit<
   'tenantId' | 'id' | 'createdAt' | 'updatedAt'
 >;
 
-
 @Injectable()
 export class PrismaProductsRepository {
   constructor(private readonly prisma: PrismaService) {}
@@ -71,7 +73,7 @@ export class PrismaProductsRepository {
   async getPaginated(args: GetPaginatedArgs): Promise<PaginatedResult> {
     const {
       limit = 20,
-      search = "",
+      search = '',
       sku,
       cursor = null,
       tenantId,
@@ -85,7 +87,7 @@ export class PrismaProductsRepository {
     baseWhere.storeId = null;
 
     // ✅ Inventario por tienda
-    const inventoryStoreId: string | null | undefined = storeId; 
+    const inventoryStoreId: string | null | undefined = storeId;
     // undefined = omitido (sin inventario)
     // null      = global (catálogo)
     // string    = tienda (inventario)
@@ -117,7 +119,7 @@ export class PrismaProductsRepository {
       const rows = await this.prisma.item.findMany({
         where: whereSku,
         take: limit + 1,
-        orderBy: [{ createdAt: "desc" }, { id: "desc" }],
+        orderBy: [{ createdAt: 'desc' }, { id: 'desc' }],
         select: {
           id: true,
           tenantId: true,
@@ -167,22 +169,24 @@ export class PrismaProductsRepository {
       ? {
           ...baseWhere,
           OR: [
-            { title: { contains: trimmed, mode: "insensitive" } },
-            { sku: { contains: trimmed, mode: "insensitive" } },
-            { barcode: { contains: trimmed, mode: "insensitive" } },
-            { id: { contains: trimmed, mode: "insensitive" } },
+            { title: { contains: trimmed, mode: 'insensitive' } },
+            { sku: { contains: trimmed, mode: 'insensitive' } },
+            { barcode: { contains: trimmed, mode: 'insensitive' } },
+            { id: { contains: trimmed, mode: 'insensitive' } },
           ],
         }
       : baseWhere;
 
     const total = await this.prisma.item.count({ where: whereBase });
 
-    const cursorWhere = buildSeekCursorWhereGeneric(cursor) as Prisma.ItemWhereInput | undefined;
+    const cursorWhere = buildSeekCursorWhereGeneric(cursor) as
+      | Prisma.ItemWhereInput
+      | undefined;
 
     const rows = await this.prisma.item.findMany({
       where: cursorWhere ? { AND: [whereBase, cursorWhere] } : whereBase,
       take: limit + 1,
-      orderBy: [{ createdAt: "desc" }, { id: "desc" }],
+      orderBy: [{ createdAt: 'desc' }, { id: 'desc' }],
       select: {
         id: true,
         tenantId: true,
@@ -221,12 +225,11 @@ export class PrismaProductsRepository {
     return { items: data, nextCursor, total };
   }
 
-
   async getPaginatedOffset(args: GetPaginatedOffsetArgs) {
     const {
       page,
       limit,
-      search = "",
+      search = '',
       sku,
 
       barcode,
@@ -265,10 +268,10 @@ export class PrismaProductsRepository {
       ...(trimmed && !sku && !barcode
         ? {
             OR: [
-              { title: { contains: trimmed, mode: "insensitive" } },
-              { sku: { contains: trimmed, mode: "insensitive" } },
-              { barcode: { contains: trimmed, mode: "insensitive" } },
-              { id: { contains: trimmed, mode: "insensitive" } },
+              { title: { contains: trimmed, mode: 'insensitive' } },
+              { sku: { contains: trimmed, mode: 'insensitive' } },
+              { barcode: { contains: trimmed, mode: 'insensitive' } },
+              { id: { contains: trimmed, mode: 'insensitive' } },
             ],
           }
         : {}),
@@ -278,13 +281,14 @@ export class PrismaProductsRepository {
     const safeLimit = Math.min(Math.max(limit, 1), 250);
     const skip = (safePage - 1) * safeLimit;
 
-    const dir: Prisma.SortOrder = (sortDir ?? "desc") === "asc" ? "asc" : "desc";
+    const dir: Prisma.SortOrder =
+      (sortDir ?? 'desc') === 'asc' ? 'asc' : 'desc';
 
     // ✅ Sort fields que dependen de inventario
     const INVENTORY_SORTS = new Set<SortBy>([
-      "stockOnHand",
-      "reorderPoint",
-      "lotExpiresAt",
+      'stockOnHand',
+      'reorderPoint',
+      'lotExpiresAt',
     ]);
 
     const wantsInventorySort = !!sortBy && INVENTORY_SORTS.has(sortBy);
@@ -299,17 +303,17 @@ export class PrismaProductsRepository {
 
       // 1) Construye ORDER BY específico
       const orderExpr =
-        sortBy === "stockOnHand"
-          ? (dir === "asc"
-              ? Prisma.sql`(si."onHand" - si."reserved") ASC`
-              : Prisma.sql`(si."onHand" - si."reserved") DESC`)
-          : sortBy === "reorderPoint"
-          ? (dir === "asc"
+        sortBy === 'stockOnHand'
+          ? dir === 'asc'
+            ? Prisma.sql`(si."onHand" - si."reserved") ASC`
+            : Prisma.sql`(si."onHand" - si."reserved") DESC`
+          : sortBy === 'reorderPoint'
+            ? dir === 'asc'
               ? Prisma.sql`si."reorderPoint" ASC NULLS LAST`
-              : Prisma.sql`si."reorderPoint" DESC NULLS LAST`)
-          : (dir === "asc"
+              : Prisma.sql`si."reorderPoint" DESC NULLS LAST`
+            : dir === 'asc'
               ? Prisma.sql`si."activeExpiresAtSnapshot" ASC NULLS LAST`
-              : Prisma.sql`si."activeExpiresAtSnapshot" DESC NULLS LAST`);
+              : Prisma.sql`si."activeExpiresAtSnapshot" DESC NULLS LAST`;
 
       // 2) Filtros SQL (reusa tus criterios)
       const filters: Prisma.Sql[] = [
@@ -351,10 +355,9 @@ export class PrismaProductsRepository {
       const whereSql =
         filters.length === 0
           ? Prisma.sql`TRUE`
-          : filters.slice(1).reduce(
-              (acc, f) => Prisma.sql`${acc} AND ${f}`,
-              filters[0],
-            );
+          : filters
+              .slice(1)
+              .reduce((acc, f) => Prisma.sql`${acc} AND ${f}`, filters[0]);
 
       // 3) Total (SQL)
       const totalRows = await this.prisma.$queryRaw<{ count: bigint }[]>`
@@ -436,21 +439,21 @@ export class PrismaProductsRepository {
 
     const orderBy: Prisma.ItemOrderByWithRelationInput[] = (() => {
       switch (sortBy) {
-        case "title":
-          return [{ title: dir }, { id: "desc" }];
-        case "sku":
-          return [{ sku: dir }, { id: "desc" }];
-        case "barcode":
-          return [{ barcode: dir }, { id: "desc" }];
-        case "visibility":
-          return [{ visibility: dir }, { createdAt: "desc" }, { id: "desc" }];
-        case "isFeatured":
-          return [{ isFeatured: dir }, { createdAt: "desc" }, { id: "desc" }];
-        case "updatedAt":
-          return [{ updatedAt: dir }, { id: "desc" }];
-        case "createdAt":
+        case 'title':
+          return [{ title: dir }, { id: 'desc' }];
+        case 'sku':
+          return [{ sku: dir }, { id: 'desc' }];
+        case 'barcode':
+          return [{ barcode: dir }, { id: 'desc' }];
+        case 'visibility':
+          return [{ visibility: dir }, { createdAt: 'desc' }, { id: 'desc' }];
+        case 'isFeatured':
+          return [{ isFeatured: dir }, { createdAt: 'desc' }, { id: 'desc' }];
+        case 'updatedAt':
+          return [{ updatedAt: dir }, { id: 'desc' }];
+        case 'createdAt':
         default:
-          return [{ createdAt: dir }, { id: "desc" }];
+          return [{ createdAt: dir }, { id: 'desc' }];
       }
     })();
 
@@ -487,19 +490,20 @@ export class PrismaProductsRepository {
           take: 1,
         },
 
-        stockItems: typeof inventoryStoreId === 'string'
-          ? {
-              where: { storeId: inventoryStoreId },
-              select: {
-                onHand: true,
-                reserved: true,
-                reorderPoint: true,
-                activeLotCodeSnapshot: true,
-                activeExpiresAtSnapshot: true,
-              },
-              take: 1,
-            }
-          : false,
+        stockItems:
+          typeof inventoryStoreId === 'string'
+            ? {
+                where: { storeId: inventoryStoreId },
+                select: {
+                  onHand: true,
+                  reserved: true,
+                  reorderPoint: true,
+                  activeLotCodeSnapshot: true,
+                  activeExpiresAtSnapshot: true,
+                },
+                take: 1,
+              }
+            : false,
       },
     });
 
@@ -514,8 +518,7 @@ export class PrismaProductsRepository {
     };
   }
 
-
-    async getById(tenantId: string, id: string) {
+  async getById(tenantId: string, id: string) {
     return this.prisma.item.findFirst({
       where: { tenantId, id },
       include: {
@@ -527,24 +530,27 @@ export class PrismaProductsRepository {
     });
   }
 
-  async create(tenantId: string, data: {
-    storeId?: string | null;
-    title: string;
-    description?: string | null;
-    sku: string; // <-- obligatorio
-    barcode?: string | null;
-    itemType?: any;
-    visibility?: any;
-    isFeatured?: boolean;
-    sellUnit?: any;
-    isWeighable?: boolean;
-    taxRate?: number | null;
-    tracksStock?: boolean;
-    thumbnailUrl?: string | null;
-    bcgTag?: any;
-    brandId?: string | null;
-    categoryIds?: string[];
-  }) {
+  async create(
+    tenantId: string,
+    data: {
+      storeId?: string | null;
+      title: string;
+      description?: string | null;
+      sku: string; // <-- obligatorio
+      barcode?: string | null;
+      itemType?: any;
+      visibility?: any;
+      isFeatured?: boolean;
+      sellUnit?: any;
+      isWeighable?: boolean;
+      taxRate?: number | null;
+      tracksStock?: boolean;
+      thumbnailUrl?: string | null;
+      bcgTag?: any;
+      brandId?: string | null;
+      categoryIds?: string[];
+    },
+  ) {
     return this.prisma.item.create({
       data: {
         tenantId,

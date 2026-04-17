@@ -44,7 +44,10 @@ export class MembershipsService {
     userId: string,
     query: ListCurrentUserMembershipsQueryDto,
   ) {
-    return this.membershipQueryService.listCurrentUserMemberships(userId, query);
+    return this.membershipQueryService.listCurrentUserMemberships(
+      userId,
+      query,
+    );
   }
 
   async activateMembership(
@@ -99,7 +102,10 @@ export class MembershipsService {
     userId: string,
     dto: SetActiveMembershipContextDto,
   ) {
-    return this.membershipContextService.setActiveMembershipContext(userId, dto);
+    return this.membershipContextService.setActiveMembershipContext(
+      userId,
+      dto,
+    );
   }
 
   async getActiveMembershipContext(

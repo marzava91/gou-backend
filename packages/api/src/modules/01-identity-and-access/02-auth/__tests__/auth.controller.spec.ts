@@ -86,12 +86,12 @@ describe('AuthController', () => {
 
   it('delegates requestVerificationCode with public actorUserId = null', async () => {
     authService.requestVerificationCode.mockResolvedValue({
-        challengeId: 'challenge-1',
+      challengeId: 'challenge-1',
     });
 
     const dto = {
-        purpose: 'VERIFY_EMAIL',
-        target: 'marvin@example.com',
+      purpose: 'VERIFY_EMAIL',
+      target: 'marvin@example.com',
     };
 
     const result = await controller.requestVerificationCode(dto as any);
@@ -195,11 +195,11 @@ describe('AuthController', () => {
 
   it('delegates requestPasswordReset to AuthService', async () => {
     authService.requestPasswordReset.mockResolvedValue({
-        challengeId: 'challenge-reset-1',
+      challengeId: 'challenge-reset-1',
     });
 
     const dto = {
-        identifier: 'marvin@example.com',
+      identifier: 'marvin@example.com',
     };
 
     const result = await controller.requestPasswordReset(dto as any);
@@ -208,15 +208,15 @@ describe('AuthController', () => {
     expect(result).toEqual({ challengeId: 'challenge-reset-1' });
   });
 
-    it('delegates confirmPasswordReset to AuthService', async () => {
+  it('delegates confirmPasswordReset to AuthService', async () => {
     authService.confirmPasswordReset.mockResolvedValue({
-        reset: true,
+      reset: true,
     });
 
     const dto = {
-        challengeId: 'challenge-reset-1',
-        code: '123456',
-        newPassword: 'NewPassword123!',
+      challengeId: 'challenge-reset-1',
+      code: '123456',
+      newPassword: 'NewPassword123!',
     };
 
     const result = await controller.confirmPasswordReset(dto as any);

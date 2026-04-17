@@ -3,7 +3,7 @@
 /**
  * VALIDA HELPERS Y VALIDATORS PUROS
  * Este spec valida los pequeños validadores puros y helpers de normalización usados por el submódulo de Users.
- * 
+ *
  * ------------------------
  * What this spec validates
  * ------------------------
@@ -99,7 +99,9 @@ describe('user validators', () => {
         errors.some(
           (e) =>
             e.constraints &&
-            Object.values(e.constraints).includes('primary_email_or_phone_required'),
+            Object.values(e.constraints).includes(
+              'primary_email_or_phone_required',
+            ),
         ),
       ).toBe(true);
     });
@@ -114,7 +116,9 @@ describe('user validators', () => {
         errors.some(
           (e) =>
             e.constraints &&
-            Object.values(e.constraints).includes('primary_email_or_phone_required'),
+            Object.values(e.constraints).includes(
+              'primary_email_or_phone_required',
+            ),
         ),
       ).toBe(true);
     });

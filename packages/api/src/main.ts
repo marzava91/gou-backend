@@ -1,8 +1,8 @@
 // RAIZ DEL PROYECTO
-// Punto de entrada principal de la aplicación API utilizando el framework NestJS. 
-// Arranca la app Nest. Configura global pipes (validación), prefijos (/v1), CORS, 
+// Punto de entrada principal de la aplicación API utilizando el framework NestJS.
+// Arranca la app Nest. Configura global pipes (validación), prefijos (/v1), CORS,
 // filtros de errores, interceptores, Swagger y shutdown hooks.
-// Best practice: habilita ValidationPipe({ whitelist:true, forbidNonWhitelisted:true, 
+// Best practice: habilita ValidationPipe({ whitelist:true, forbidNonWhitelisted:true,
 // transform:true }), helmet, compresión, y enableShutdownHooks().
 
 import { NestFactory } from '@nestjs/core';

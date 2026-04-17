@@ -13,6 +13,7 @@ Es la identidad principal sobre la que se apoyan autenticación, memberships, ro
 ## 3. Fronteras
 
 ### Pertenece a Users
+
 - identidad global interna
 - datos base del usuario
 - estado general del usuario
@@ -20,6 +21,7 @@ Es la identidad principal sobre la que se apoyan autenticación, memberships, ro
 - políticas de desactivación, anonimización y merge
 
 ### No pertenece a Users
+
 - credenciales y sesiones → Auth
 - pertenencia a tenant/store → Memberships
 - acceso base por rol → Roles
@@ -31,31 +33,39 @@ Es la identidad principal sobre la que se apoyan autenticación, memberships, ro
 ### 4.1 ¿Qué representa exactamente un User dentro del dominio?
 
 #### Decisión:
+
 User representa la identidad interna canónica de una persona en la plataforma.
 
 #### Justificación:
+
 Necesitas una entidad estable e independiente de proveedores externos, memberships o sesiones.
 
 #### Impacto:
+
 Todos los demás submódulos se referencian a userId, no a IDs de terceros.
 
 ### 4.2 ¿Qué diferencia hay entre User, AuthIdentity y Membership?
 
 #### Decisión:
+
 - User = identidad global interna
 - AuthIdentity = credencial o identidad externa/interna usada para autenticar
 - Membership = relación formal entre un user y un scope operativo
 
 #### Justificación:
+
 Evita mezclar identidad, autenticación y pertenencia.
 
 #### Impacto:
+
 No se deben incrustar memberships ni credenciales dentro de User como verdad canónica.
 
 ### 4.3 ¿Qué atributos son canónicos y cuáles solo referenciales?
 
 #### Decisión:
+
 Canónicos en User:
+
 - id
 - firstName
 - lastName
@@ -73,6 +83,7 @@ Canónicos en User:
 - version
 
 Referenciales o no canónicos en User:
+
 - avatar externo proveniente de provider
 - claims de proveedor
 - metadata de login/social provider
@@ -85,15 +96,19 @@ Referenciales o no canónicos en User:
 - sessions
 
 #### Justificación
+
 Users debe ser el source of truth de identidad global, no el contenedor de todo. Tus riesgos base son claros sobre no convertir entidades en monstruos y no mezclar dato maestro con derivado .
 
 #### Impacto
+
 User queda suficientemente rico para operar identidad y contacto base, pero no absorbe perfil expandido, preferencias, analytics ni contexto operativo.
 
 ### 4.4 ¿Cómo se evita crear el mismo usuario dos veces?
 
 #### Decisión
+
 La política de unicidad del MVP será:
+
 - primaryEmail único cuando no sea null
 - primaryPhone único cuando no sea null
 - AuthIdentity(provider, providerSubject) único en Auth
@@ -101,23 +116,28 @@ La política de unicidad del MVP será:
 - si existe colisión entre email/phone y auth identity, la operación entra en flujo de linking o revisión controlada, no en creación automática de un segundo User
 
 #### Regla operativa
+
 No se crea un nuevo User si:
+
 - el email ya pertenece a otro User
 - el phone ya pertenece a otro User
 - el provider identity ya está vinculado a otro User
 
 #### Justificación
+
 - Es la política más robusta para un ecosistema multi-surface.
 - Si usas solo email, fallas con phone-first.
 - Si usas solo phone, fallas con email/password, B2B e invitaciones.
 - Si no usas ambos, te complicas el merge futuro innecesariamente.
 
 #### Impacto
+
 - Auth debe hacer lookup previo por auth identity y fallback por contactos verificados.
 - Invitations no debe asumir que “invitar = crear nuevo user”.
 - Memberships debe enlazarse a userId, nunca a email/phone como verdad relacional.
 
 #### Comportamiento en el MVP
+
 - Una colisión por `primaryEmail` o `primaryPhone` durante la creación explícita de un User produce rechazo inmediato de la operación.
 - No se realiza linking automático desde el submódulo Users.
 - Los procesos de vinculación pertenecen a Auth o a flujos controlados de onboarding.
@@ -127,6 +147,7 @@ No se crea un nuevo User si:
 #### Clasificación de atributos
 
 **Editables sin verificación adicional**
+
 - displayName
 - firstName
 - lastName
@@ -134,10 +155,12 @@ No se crea un nuevo User si:
 - atributos livianos fuera del núcleo canónico
 
 **Editables con verificación obligatoria**
+
 - primaryEmail
 - primaryPhone
 
 **Editables solo por actores privilegiados o procesos internos**
+
 - status
 - emailVerified / phoneVerified
 - anonymizedAt
@@ -169,6 +192,7 @@ Para cada usuario y tipo de contacto (`primaryEmail` o `primaryPhone`):
   - cancelar o reemplazar la anterior de forma controlada.
 
 Esto evita:
+
 - múltiples flujos de verificación simultáneos
 - estados inconsistentes en contacto canónico
 - duplicidad de tokens o procesos de validación
@@ -183,6 +207,7 @@ Esto evita:
 #### Impacto
 
 Este conjunto de reglas impacta directamente en:
+
 - Users (estado canónico y reglas de mutación)
 - Auth (identificación, recuperación y login)
 - Invitations (resolución de identidad)
@@ -192,20 +217,24 @@ Este conjunto de reglas impacta directamente en:
 ### 4.6 ¿Qué política habrá para desactivación, anonimización o merge?
 
 #### Decisión
+
 Hard delete
 No permitido para Users con relaciones históricas, transaccionales, de auditoría o membresía.
 
 Deactivation
+
 - revoca capacidad operativa según reglas de Auth/Memberships
 - preserva integridad histórica
 - no borra relaciones
 
 Anonymization
+
 - reemplaza o tokeniza PII directa
 - preserva claves técnicas, referencias históricas y auditabilidad compatible con política legal
 - solo permitida cuando la política de retención lo soporte
 
 Merge
+
 - No entra al MVP operativo de autoservicio
 - Sí entra como capacidad administrativa explícitamente modelada
 - se representa mediante UserMergeRecord
@@ -213,10 +242,12 @@ Merge
 - siempre deja auditoría y redirección lógica de referencias futuras
 
 #### Justificación
+
 - Diferir merge “conceptualmente no modelado” es error.
 - Diferir merge “como operación normal de negocio”, pero dejarlo previsto, es lo correcto.
 
 #### Impacto
+
 - Audit debe registrar merge/deactivate/anonymize.
 - Auth debe invalidar o revisar vinculaciones tras merge.
 - Memberships debe soportar reasignación controlada si un merge ocurre.
@@ -224,39 +255,47 @@ Merge
 
 ### 4.7 ¿Habrá estado draft?
 
-#### Decisión 
+#### Decisión
+
 No. User no tendrá estado draft.
 
 #### Justificación
+
 El estado draft complica el dominio sin aportar suficiente valor en Users.
 La pre-identidad incompleta pertenece mejor a:
+
 - Invitation
 - Auth onboarding state
 - procesos temporales de registro
-User debe nacer cuando ya existe una identidad interna materializada.
+  User debe nacer cuando ya existe una identidad interna materializada.
 
 #### Impacto
+
 Simplifica lifecycle y evita estados débiles en la entidad canónica.
 
 ### 4.8 ¿Dónde viven primaryEmail y primaryPhone?
 
 #### Decisión final
+
 En el MVP vivirán en User como campos canónicos, y opcionalmente se permitirá una entidad auxiliar UserContactMethod para extensibilidad futura.
 
 #### Política exacta
+
 - User.primaryEmail y User.primaryPhone son la referencia canónica operativa
-- UserContactMethod queda reservado para: 
-    - múltiples emails/teléfonos
-    - historial de contacto
-    - secondary contacts
-    - canales alternativos
-    - estado granular de verificación por contacto
+- UserContactMethod queda reservado para:
+  - múltiples emails/teléfonos
+  - historial de contacto
+  - secondary contacts
+  - canales alternativos
+  - estado granular de verificación por contacto
 
 #### Justificación
+
 Para MVP, poner primaryEmail/primaryPhone fuera de User mete demasiada complejidad pronto.
 Pero no debes cerrar la puerta a multi-contact y historial.
 
 #### Impacto
+
 - el dominio sigue simple
 - no rompes futura expansión
 - Invitations/Auth pueden leer el contacto canónico sin joins innecesarios
@@ -264,9 +303,11 @@ Pero no debes cerrar la puerta a multi-contact y historial.
 ## 5. Modelo conceptual
 
 ### Entidad principal
+
 - User
 
 ### Entidades auxiliares potenciales
+
 - UserProfile
 - UserContactMethod
 - UserStatusHistory
@@ -274,6 +315,7 @@ Pero no debes cerrar la puerta a multi-contact y historial.
 - UserAuditEvent
 
 ### Ownership
+
 - User pertenece al dominio Identity & Access
 - el source of truth de identidad global vive aquí
 - ningún otro submódulo debe redefinir identidad base
@@ -297,12 +339,14 @@ Pero no debes cerrar la puerta a multi-contact y historial.
 ## 7. Lifecycle
 
 ### Estados
+
 - active
 - suspended
 - deactivated
 - anonymized
 
 ### Transiciones principales
+
 - active -> suspended
 - suspended -> active
 - active -> deactivated
@@ -310,6 +354,7 @@ Pero no debes cerrar la puerta a multi-contact y historial.
 - deactivated -> anonymized
 
 ### Transiciones inválidas
+
 - anonymized -> active
 - anonymized -> suspended
 - anonymized -> deactivated
@@ -317,6 +362,7 @@ Pero no debes cerrar la puerta a multi-contact y historial.
 - cualquier transición desde entidad absorbida por merge lógico
 
 ### Reglas
+
 - anonymized no retorna a active
 - deactivated no implica borrado físico
 - suspended afecta acceso, pero preserva trazabilidad
@@ -324,6 +370,7 @@ Pero no debes cerrar la puerta a multi-contact y historial.
 - merge no forma parte del lifecycle principal; se modela como capacidad administrativa complementaria.
 
 ## 8. Reglas críticas
+
 - primaryEmail debe ser único cuando exista.
 - primaryPhone debe ser único cuando exista.
 - Identidad interna y AuthIdentity deben permanecer separadas conceptualmente.
@@ -341,6 +388,7 @@ Pero no debes cerrar la puerta a multi-contact y historial.
 - En filtros administrativos por fecha, `createdFrom` se interpreta desde el inicio del día y `createdTo` hasta el final del día cuando se recibe una fecha simple.
 
 ## 9. Impacto en otros módulos
+
 - Auth depende de userId como identidad interna canónica y puede usar primaryEmail / primaryPhone como identificadores operativos de login o recuperación, pero nunca como reemplazo conceptual del User.
 - AuthIdentity debe mapear explícitamente identidades externas al userId, evitando acoplar el dominio a IDs de terceros.
 - Memberships depende de User como entidad base; no debe duplicar nombre, email o phone como verdad canónica salvo snapshots o campos operativos justificados.
@@ -357,7 +405,9 @@ Pero no debes cerrar la puerta a multi-contact y historial.
 - Las superficies operativas de negocio no deben asumir control irrestricto sobre identidad global ni lifecycle canónico.
 
 ## 10. Contratos
+
 ### DTOs
+
 - CreateUserDto (solo cuando exista creación explícita de User como comando de dominio o proceso administrativo/interno)
 - UpdateUserProfileDto
 - RequestPrimaryEmailChangeDto
@@ -377,6 +427,7 @@ Pero no debes cerrar la puerta a multi-contact y historial.
 ### Acciones
 
 #### Self-service
+
 - get current profile
 - update profile
 - request primary email change
@@ -385,6 +436,7 @@ Pero no debes cerrar la puerta a multi-contact y historial.
 - confirm primary phone change
 
 #### Administrativas
+
 - create user
 - get user by id
 - list users
@@ -394,7 +446,8 @@ Pero no debes cerrar la puerta a multi-contact y historial.
 - anonymize user
 
 ### Acciones administrativas diferidas o restringidas
-- merge users 
+
+- merge users
 
 ### Política de autenticación en endpoints self-service
 
@@ -403,19 +456,23 @@ Los endpoints self-service del submódulo Users (por ejemplo `me`, `me/profile`,
 explícita a nivel de endpoint mediante guards declarados.
 
 #### Regla operativa
+
 - Todo endpoint `me/*` debe estar protegido explícitamente con `UserAuthenticatedGuard`.
 - El acceso a `CurrentUser` no debe depender de supuestos implícitos.
 
 #### Política en el MVP
+
 - Los endpoints self-service utilizan `UserAuthenticatedGuard`.
 - Los endpoints administrativos utilizan guards diferenciados según el nivel de privilegio requerido.
 
 #### Justificación
+
 - Reduce ambigüedad en el contrato HTTP.
 - Evita exposición accidental de endpoints sin protección.
 - Mejora auditabilidad y revisión de seguridad.
 
 ### Errores
+
 - duplicate_primary_email
 - duplicate_primary_phone
 - new_primary_email_matches_current
@@ -432,10 +489,12 @@ explícita a nivel de endpoint mediante guards declarados.
 - forbidden_user_access
 
 ### Scopes
+
 - platform
 - tenant/store solo para lectura o uso contextual, según tu política
 
 ### Eventos
+
 - user_created
 - user_profile_updated
 - user_primary_email_change_requested
@@ -449,7 +508,9 @@ explícita a nivel de endpoint mediante guards declarados.
 - user_merged
 
 ## 11. Diseño de validación
+
 ### Familias de prueba
+
 - reglas de negocio
 - servicio
 - integración
@@ -457,6 +518,7 @@ explícita a nivel de endpoint mediante guards declarados.
 - E2E mínima donde aplique
 
 ### Escenarios principales
+
 - crear usuario válido
 - actualizar perfil
 - suspender usuario
@@ -464,27 +526,32 @@ explícita a nivel de endpoint mediante guards declarados.
 - anonimizar usuario permitido
 
 ### Escenarios inválidos
+
 - crear usuario duplicado
 - transición de estado no válida
 - editar contacto primario sin verificación requerida
 - consultar usuario inexistente
 
 ### Casos borde
+
 - usuario ya desactivado
 - usuario ya anonimizado
 - colisión entre email y phone en creación o actualización
 
 ### Seguridad
+
 - no exponer PII innecesaria
 - no permitir acceso por scope incorrecto
 - no permitir cambios sensibles sin autorización reforzada
 
 ### Concurrencia
+
 - doble actualización simultánea
 - doble intento de suspensión/reactivación
 - actualización de contacto mientras otro proceso vincula auth identity
 
 ### Criterios de aceptación
+
 - identidad canónica clara
 - unicidad operativa protegida
 - lifecycle consistente
@@ -493,6 +560,7 @@ explícita a nivel de endpoint mediante guards declarados.
 - pruebas mínimas automatizadas definidas
 
 ## 12. Confiabilidad y hardening
+
 - Idempotencia: creación por provider linkage, request de cambio de contacto y acciones administrativas sensibles deben tolerar reintentos seguros.
 - Auditoría: suspensión, reactivación, desactivación, anonimización, merge y cambio de contacto primario deben quedar auditados.
 - Observabilidad: métricas de duplicados evitados, fallos de verificación, colisiones de contacto, cambios sensibles y errores por transición inválida.
@@ -508,6 +576,7 @@ explícita a nivel de endpoint mediante guards declarados.
 - No se deben aplicar retries automáticos sobre mutaciones sensibles de lifecycle o identidad.
 
 ## 13. Riesgos
+
 - convertir User en entidad monstruo
 - mezclar memberships o roles dentro de User
 - duplicar usuarios por múltiples providers
@@ -515,12 +584,14 @@ explícita a nivel de endpoint mediante guards declarados.
 - exponer PII de más
 
 ## 14. Decisiones diferidas conscientemente
+
 - UserContactMethod como expansión futura para multi-contacto e historial
 - MergeUsers como capacidad administrativa no expuesta en MVP público
 - extensiones avanzadas de perfil fuera del núcleo canónico de User
 - políticas regulatorias específicas de retención y anonimización por jurisdicción
 
 ## 15. Definition of Done
+
 - identidad canónica de User definida y separada de Auth/Memberships
 - source of truth y fronteras documentadas
 - invariantes del submódulo documentados
@@ -542,14 +613,15 @@ explícita a nivel de endpoint mediante guards declarados.
 ## 16. Diagramas de flujos
 
 ### 16.1 Vista general del submódulo
-Esto conversa con tu contrato HTTP: POST /v1/users, GET /v1/users, GET /v1/users/me, PATCH /v1/users/me/profile, los endpoints me/primary-email-change/*, me/primary-phone-change/*, y los endpoints administrativos :id/suspend|reactivate|deactivate|anonymize.
+
+Esto conversa con tu contrato HTTP: POST /v1/users, GET /v1/users, GET /v1/users/me, PATCH /v1/users/me/profile, los endpoints me/primary-email-change/_, me/primary-phone-change/_, y los endpoints administrativos :id/suspend|reactivate|deactivate|anonymize.
 
 flowchart TD
-    A[Actor / Cliente HTTP] --> B[UsersController]
-    B --> C{Guard correspondiente}
-    C -->|Self-service| D[UserAuthenticatedGuard]
-    C -->|Lectura puntual| E[UserSelfOrAdminGuard]
-    C -->|Admin lifecycle / create / list| F[UserPlatformAdminGuard]
+A[Actor / Cliente HTTP] --> B[UsersController]
+B --> C{Guard correspondiente}
+C -->|Self-service| D[UserAuthenticatedGuard]
+C -->|Lectura puntual| E[UserSelfOrAdminGuard]
+C -->|Admin lifecycle / create / list| F[UserPlatformAdminGuard]
 
     D --> G[UsersService]
     E --> G
@@ -564,14 +636,14 @@ flowchart TD
     H --> M[(User)]
     I --> N[(UserContactChangeRequest)]
 
-
 ### 16.2 Flujo de creación administrativa de user
+
 Este flujo sale de tu política de unicidad: primaryEmail y primaryPhone son únicos cuando existen, y una colisión rechaza la creación; además, el service test valida normalización, check previo de unicidad, creación y side effects de auditoría/evento.
 
 flowchart TD
-    A[Platform Admin] --> B[POST /v1/users]
-    B --> C[UserPlatformAdminGuard]
-    C --> D[UsersService.createUser]
+A[Platform Admin] --> B[POST /v1/users]
+B --> C[UserPlatformAdminGuard]
+C --> D[UsersService.createUser]
 
     D --> E{DTO válido? al menos email o phone}
     E -->|No| X1[400 Bad Request]
@@ -590,12 +662,13 @@ flowchart TD
     L --> M[Return UserResponseDto]
 
 ### 16.3 Flujo de actualización de perfil self-service
+
 Acá la regla fuerte es: no se aceptan updates vacíos, no se debe mutar un user anonimizado, y las mutaciones sensibles usan optimistic locking con version; si hay colisión concurrente, se rechaza la operación.
 
 flowchart TD
-    A[Usuario autenticado] --> B[PATCH /v1/users/me/profile]
-    B --> C[UserAuthenticatedGuard]
-    C --> D[UsersService.updateProfile]
+A[Usuario autenticado] --> B[PATCH /v1/users/me/profile]
+B --> C[UserAuthenticatedGuard]
+C --> D[UsersService.updateProfile]
 
     D --> E{Payload vacío?}
     E -->|Sí| X1[EmptyUserProfileUpdateError]
@@ -617,12 +690,13 @@ flowchart TD
     M --> N[Return perfil actualizado]
 
 ### 16.4 Flujo de solicitud de cambio de primary email
+
 Tu planificación dice que el cambio de contacto primario es un flujo en dos fases y que solo puede existir una solicitud activa relevante por usuario/tipo; si representa el mismo objetivo, se reutiliza, y si no, se reemplaza de forma controlada. Eso además está reflejado en los tests del service.
 
 flowchart TD
-    A[Usuario autenticado] --> B[POST /v1/users/me/primary-email-change/request]
-    B --> C[UserAuthenticatedGuard]
-    C --> D[UsersService.requestPrimaryEmailChange]
+A[Usuario autenticado] --> B[POST /v1/users/me/primary-email-change/request]
+B --> C[UserAuthenticatedGuard]
+C --> D[UsersService.requestPrimaryEmailChange]
 
     D --> E[Buscar user actual]
     E --> F{User existe?}
@@ -647,12 +721,13 @@ flowchart TD
     P --> Q[Return requested=true + verificationRef + expiresAt]
 
 ### 16.5 Flujo de confirmación de cambio de primary email
+
 Aquí la promoción del contacto al canónico solo ocurre después de verificación exitosa. Además, el repository versionado actualiza primaryEmail, marca emailVerified=true e incrementa version; si la versión ya no coincide, el flujo rechaza por concurrencia.
 
 flowchart TD
-    A[Usuario autenticado] --> B[POST /v1/users/me/primary-email-change/confirm]
-    B --> C[UserAuthenticatedGuard]
-    C --> D[UsersService.confirmPrimaryEmailChange]
+A[Usuario autenticado] --> B[POST /v1/users/me/primary-email-change/confirm]
+B --> C[UserAuthenticatedGuard]
+C --> D[UsersService.confirmPrimaryEmailChange]
 
     D --> E[Buscar user actual]
     E --> F[Confirmar token con UserContactVerificationPort]
@@ -680,14 +755,15 @@ flowchart TD
     R --> S[Return user actualizado]
 
 ### 16.6 Flujo de cambio de primary phone
+
 En phone la lógica es simétrica a email: request + confirm, con validación de duplicados, una única solicitud activa relevante, verificación obligatoria antes de promover el contacto, y update versionado del user.
 
 - Request phone:
 
 flowchart TD
-    A[Usuario autenticado] --> B[POST /v1/users/me/primary-phone-change/request]
-    B --> C[UserAuthenticatedGuard]
-    C --> D[UsersService.requestPrimaryPhoneChange]
+A[Usuario autenticado] --> B[POST /v1/users/me/primary-phone-change/request]
+B --> C[UserAuthenticatedGuard]
+C --> D[UsersService.requestPrimaryPhoneChange]
 
     D --> E[Buscar user]
     E --> F{Nuevo phone = actual?}
@@ -709,9 +785,9 @@ flowchart TD
 - Confirm phone:
 
 flowchart TD
-    A[Usuario autenticado] --> B[POST /v1/users/me/primary-phone-change/confirm]
-    B --> C[UserAuthenticatedGuard]
-    C --> D[UsersService.confirmPrimaryPhoneChange]
+A[Usuario autenticado] --> B[POST /v1/users/me/primary-phone-change/confirm]
+B --> C[UserAuthenticatedGuard]
+C --> D[UsersService.confirmPrimaryPhoneChange]
 
     D --> E[Confirmar token phone]
     E --> F{verified?}
@@ -733,14 +809,15 @@ flowchart TD
     O --> P[Return user actualizado]
 
 ### 16.7 Flujo de lifecycle administrativo
+
 Tu lifecycle principal es: ACTIVE -> SUSPENDED, SUSPENDED -> ACTIVE, ACTIVE -> DEACTIVATED, SUSPENDED -> DEACTIVATED, DEACTIVATED -> ANONYMIZED; por ejemplo, DEACTIVATED -> ACTIVE está prohibido.
 
-- Suspend: 
+- Suspend:
 
 flowchart TD
-    A[Platform Admin] --> B[POST /v1/users/:id/suspend]
-    B --> C[UserPlatformAdminGuard]
-    C --> D[UsersService.suspendUser]
+A[Platform Admin] --> B[POST /v1/users/:id/suspend]
+B --> C[UserPlatformAdminGuard]
+C --> D[UsersService.suspendUser]
 
     D --> E[Buscar user]
     E --> F{Existe?}
@@ -761,9 +838,9 @@ flowchart TD
 - Reactivate
 
 flowchart TD
-    A[Platform Admin] --> B[POST /v1/users/:id/reactivate]
-    B --> C[UserPlatformAdminGuard]
-    C --> D[UsersService.reactivateUser]
+A[Platform Admin] --> B[POST /v1/users/:id/reactivate]
+B --> C[UserPlatformAdminGuard]
+C --> D[UsersService.reactivateUser]
 
     D --> E[Buscar user]
     E --> F{Transición actual -> ACTIVE válida?}
@@ -775,9 +852,9 @@ flowchart TD
 - Deactivate
 
 flowchart TD
-    A[Platform Admin] --> B[POST /v1/users/:id/deactivate]
-    B --> C[UserPlatformAdminGuard]
-    C --> D[UsersService.deactivateUser]
+A[Platform Admin] --> B[POST /v1/users/:id/deactivate]
+B --> C[UserPlatformAdminGuard]
+C --> D[UsersService.deactivateUser]
 
     D --> E[Buscar user]
     E --> F{ACTIVE/SUSPENDED -> DEACTIVATED válido?}
@@ -791,9 +868,9 @@ flowchart TD
 - Anonymize
 
 flowchart TD
-    A[Platform Admin] --> B[POST /v1/users/:id/anonymize]
-    B --> C[UserPlatformAdminGuard]
-    C --> D[UsersService.anonymizeUser]
+A[Platform Admin] --> B[POST /v1/users/:id/anonymize]
+B --> C[UserPlatformAdminGuard]
+C --> D[UsersService.anonymizeUser]
 
     D --> E[Buscar user]
     E --> F{DEACTIVATED -> ANONYMIZED válido?}

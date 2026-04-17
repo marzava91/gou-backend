@@ -1,3 +1,12 @@
 {
-  "prisma.schemaPath": "prisma/schema.prisma"
+  "prisma.schemaPath": "prisma/schema.prisma",
+
+  "editor.detectIndentation": false,
+  "editor.tabSize": 2,
+  "editor.insertSpaces": true,
+
+  "[prisma]": {
+    "editor.tabSize": 2,
+    "editor.insertSpaces": true
+  }
 }

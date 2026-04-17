@@ -97,7 +97,9 @@ export class UserContactChangeRequestsRepository {
     });
   }
 
-  async markExpiredPendingRequests(referenceDate = new Date()): Promise<number> {
+  async markExpiredPendingRequests(
+    referenceDate = new Date(),
+  ): Promise<number> {
     const result = await this.prisma.userContactChangeRequest.updateMany({
       where: {
         status: UserContactChangeStatus.PENDING,

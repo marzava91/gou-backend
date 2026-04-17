@@ -4,7 +4,10 @@ import { createParamDecorator, ExecutionContext } from '@nestjs/common';
 import { AuthenticatedAuthActor } from '../domain/types/auth.types';
 
 export const CurrentAuthActor = createParamDecorator(
-  (_data: unknown, ctx: ExecutionContext): AuthenticatedAuthActor | undefined => {
+  (
+    _data: unknown,
+    ctx: ExecutionContext,
+  ): AuthenticatedAuthActor | undefined => {
     const request = ctx.switchToHttp().getRequest();
     return request.user as AuthenticatedAuthActor | undefined;
   },

@@ -1,9 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { PrismaService } from '../../../prisma/prisma.service';
-import {
-  RoleAssignmentStatus,
-  RoleScopeType,
-} from '@prisma/client';
+import { RoleAssignmentStatus, RoleScopeType } from '@prisma/client';
 
 @Injectable()
 export class RolesRepository {
@@ -38,8 +35,7 @@ export class RolesRepository {
     isSystem?: boolean;
     capabilityKeys: string[];
   }) {
-  
-  return this.prisma.role.create({
+    return this.prisma.role.create({
       data: {
         key: input.key,
         name: input.name,
@@ -47,7 +43,9 @@ export class RolesRepository {
         scopeType: input.scopeType,
         isSystem: input.isSystem ?? false,
         capabilities: {
-          create: input.capabilityKeys.map((capabilityKey) => ({ capabilityKey })),
+          create: input.capabilityKeys.map((capabilityKey) => ({
+            capabilityKey,
+          })),
         },
       },
       include: {
@@ -74,7 +72,9 @@ export class RolesRepository {
         },
         data: {
           ...(input.name !== undefined ? { name: input.name } : {}),
-          ...(input.description !== undefined ? { description: input.description } : {}),
+          ...(input.description !== undefined
+            ? { description: input.description }
+            : {}),
           version: { increment: 1 },
         },
       });

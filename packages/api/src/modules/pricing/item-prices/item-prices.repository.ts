@@ -24,7 +24,14 @@ export class ItemPricesRepository {
     activeAt?: Date | null;
     includeExpired?: boolean;
   }) {
-    const { tenantId, priceListId, itemId, variantId, activeAt, includeExpired } = params;
+    const {
+      tenantId,
+      priceListId,
+      itemId,
+      variantId,
+      activeAt,
+      includeExpired,
+    } = params;
 
     const baseWhere: Prisma.ItemPriceWhereInput = {
       tenantId,
@@ -34,14 +41,13 @@ export class ItemPricesRepository {
     };
 
     // Si viene activeAt, filtramos “vigentes a esa fecha”
-    const whereWithActiveAt: Prisma.ItemPriceWhereInput =
-      activeAt
-        ? {
-            ...baseWhere,
-            validFrom: { lte: activeAt },
-            OR: [{ validTo: null }, { validTo: { gt: activeAt } }],
-          }
-        : baseWhere;
+    const whereWithActiveAt: Prisma.ItemPriceWhereInput = activeAt
+      ? {
+          ...baseWhere,
+          validFrom: { lte: activeAt },
+          OR: [{ validTo: null }, { validTo: { gt: activeAt } }],
+        }
+      : baseWhere;
 
     // Si NO viene activeAt y NO quieren expirados, mantenemos los “no vencidos”
     const whereFinal: Prisma.ItemPriceWhereInput =
@@ -54,7 +60,11 @@ export class ItemPricesRepository {
 
     return this.prisma.itemPrice.findMany({
       where: whereFinal,
-      orderBy: [{ priceListId: 'asc' }, { itemId: 'asc' }, { validFrom: 'desc' }],
+      orderBy: [
+        { priceListId: 'asc' },
+        { itemId: 'asc' },
+        { validFrom: 'desc' },
+      ],
     });
   }
 
@@ -68,7 +78,15 @@ export class ItemPricesRepository {
     newTo: Date | null;
     excludeId?: string;
   }) {
-    const { tenantId, priceListId, itemId, variantId, newFrom, newTo, excludeId } = params;
+    const {
+      tenantId,
+      priceListId,
+      itemId,
+      variantId,
+      newFrom,
+      newTo,
+      excludeId,
+    } = params;
 
     // overlap si:
     // existing.validFrom < newTo (o newTo es null => siempre)
@@ -80,9 +98,7 @@ export class ItemPricesRepository {
       variantId: variantId ?? null,
       ...(excludeId ? { NOT: { id: excludeId } } : {}),
       AND: [
-        ...(newTo
-          ? [{ validFrom: { lt: newTo } }]
-          : []),
+        ...(newTo ? [{ validFrom: { lt: newTo } }] : []),
         {
           OR: [{ validTo: null }, { validTo: { gt: newFrom } }],
         },
@@ -96,17 +112,28 @@ export class ItemPricesRepository {
     return this.prisma.itemPrice.create({ data: { ...data, tenantId } });
   }
 
-  async update(tenantId: string, id: string, data: Prisma.ItemPriceUpdateInput): Promise<ItemPrice> {
-    const res = await this.prisma.itemPrice.updateMany({ where: { tenantId, id }, data });
+  async update(
+    tenantId: string,
+    id: string,
+    data: Prisma.ItemPriceUpdateInput,
+  ): Promise<ItemPrice> {
+    const res = await this.prisma.itemPrice.updateMany({
+      where: { tenantId, id },
+      data,
+    });
     if (res.count === 0) throw new Error('ItemPrice not found');
 
-    const updated = await this.prisma.itemPrice.findFirst({ where: { tenantId, id } });
+    const updated = await this.prisma.itemPrice.findFirst({
+      where: { tenantId, id },
+    });
     return updated!;
   }
 
   async delete(tenantId: string, id: string) {
     // OJO: ItemPriceTier tiene FK onDelete: Cascade => se borra todo el pricing escalonado
-    const res = await this.prisma.itemPrice.deleteMany({ where: { tenantId, id } });
+    const res = await this.prisma.itemPrice.deleteMany({
+      where: { tenantId, id },
+    });
     if (res.count === 0) throw new Error('ItemPrice not found');
     return { ok: true };
   }

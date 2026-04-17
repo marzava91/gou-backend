@@ -276,56 +276,50 @@ describe('AuthSessionService', () => {
       AuthSessionStatus.ISSUED,
       AuthSessionStatus.ACTIVE,
       AuthSessionStatus.REFRESHED,
-    ])(
-      'marks session as LOGGED_OUT when status is %s',
-      async (status) => {
-        authRepository.findSessionByIdAndUserId.mockResolvedValue({
-          id: 'session-1',
-          userId: 'user-1',
-          status,
-        });
+    ])('marks session as LOGGED_OUT when status is %s', async (status) => {
+      authRepository.findSessionByIdAndUserId.mockResolvedValue({
+        id: 'session-1',
+        userId: 'user-1',
+        status,
+      });
 
-        authRepository.markSessionLoggedOut.mockResolvedValue({
-          id: 'session-1',
-          userId: 'user-1',
-          status: AuthSessionStatus.LOGGED_OUT,
-          loggedOutAt: new Date(),
-        });
+      authRepository.markSessionLoggedOut.mockResolvedValue({
+        id: 'session-1',
+        userId: 'user-1',
+        status: AuthSessionStatus.LOGGED_OUT,
+        loggedOutAt: new Date(),
+      });
 
-        await service.logout('user-1', { sessionId: 'session-1' });
+      await service.logout('user-1', { sessionId: 'session-1' });
 
-        expect(authRepository.findSessionByIdAndUserId).toHaveBeenCalledWith(
-          'session-1',
-          'user-1',
-        );
-        expect(authRepository.markSessionLoggedOut).toHaveBeenCalledTimes(1);
-        expect(authRepository.markSessionLoggedOut).toHaveBeenCalledWith(
-          'session-1',
-          expect.any(Date),
-        );
-      },
-    );
+      expect(authRepository.findSessionByIdAndUserId).toHaveBeenCalledWith(
+        'session-1',
+        'user-1',
+      );
+      expect(authRepository.markSessionLoggedOut).toHaveBeenCalledTimes(1);
+      expect(authRepository.markSessionLoggedOut).toHaveBeenCalledWith(
+        'session-1',
+        expect.any(Date),
+      );
+    });
 
     it.each([
       AuthSessionStatus.LOGGED_OUT,
       AuthSessionStatus.REVOKED,
       AuthSessionStatus.EXPIRED,
-    ])(
-      'does nothing when session is already terminal: %s',
-      async (status) => {
-        authRepository.findSessionByIdAndUserId.mockResolvedValue({
-          id: 'session-1',
-          userId: 'user-1',
-          status,
-        });
+    ])('does nothing when session is already terminal: %s', async (status) => {
+      authRepository.findSessionByIdAndUserId.mockResolvedValue({
+        id: 'session-1',
+        userId: 'user-1',
+        status,
+      });
 
-        await service.logout('user-1', { sessionId: 'session-1' });
+      await service.logout('user-1', { sessionId: 'session-1' });
 
-        expect(authRepository.markSessionLoggedOut).not.toHaveBeenCalled();
-        expect(authSupportService.recordAudit).not.toHaveBeenCalled();
-        expect(authEventsPort.publish).not.toHaveBeenCalled();
-      },
-    );
+      expect(authRepository.markSessionLoggedOut).not.toHaveBeenCalled();
+      expect(authSupportService.recordAudit).not.toHaveBeenCalled();
+      expect(authEventsPort.publish).not.toHaveBeenCalled();
+    });
 
     it('throws InvalidCredentialsError when session is not found', async () => {
       authRepository.findSessionByIdAndUserId.mockResolvedValue(null);

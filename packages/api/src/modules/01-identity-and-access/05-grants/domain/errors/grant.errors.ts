@@ -49,6 +49,8 @@ export class GrantAccessDeniedError extends ForbiddenException {
 
 export class InvalidGrantValidityWindowError extends BadRequestException {
   constructor() {
-    super('Grant validity window is invalid. validUntil must be greater than validFrom.');
+    super(
+      'Grant validity window is invalid. validUntil must be greater than validFrom.',
+    );
   }
 }

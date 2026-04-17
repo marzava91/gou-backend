@@ -43,7 +43,7 @@ import { PriceResolverRepository } from './price-resolver/price-resolver.reposte
     PriceListsService,
     ItemPricesService,
     StorePriceListsService,
-    PriceResolverService, 
+    PriceResolverService,
   ],
 })
 export class PricingModule {}

@@ -1,5 +1,12 @@
 // packages\api\src\modules\catalog\categories\dto\update-category.dto.ts
-import { IsBoolean, IsInt, IsOptional, IsString, MaxLength, Min } from 'class-validator';
+import {
+  IsBoolean,
+  IsInt,
+  IsOptional,
+  IsString,
+  MaxLength,
+  Min,
+} from 'class-validator';
 
 export class UpdateCategoryDto {
   @IsOptional()

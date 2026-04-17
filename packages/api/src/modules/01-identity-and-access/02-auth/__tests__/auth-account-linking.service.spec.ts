@@ -67,7 +67,9 @@ describe('AuthAccountLinkingService', () => {
 
   it('auto-links GOOGLE when verified email resolves to a single canonical user', async () => {
     authRepository.findAuthIdentityByProvider.mockResolvedValue(null);
-    authRepository.findCandidateUserIdsByVerifiedEmail.mockResolvedValue(['user-1']);
+    authRepository.findCandidateUserIdsByVerifiedEmail.mockResolvedValue([
+      'user-1',
+    ]);
     authRepository.findCandidateUserIdsByVerifiedPhone.mockResolvedValue([]);
     authRepository.findAuthIdentityByUserIdAndProvider.mockResolvedValue(null);
     authRepository.createAuthIdentity.mockResolvedValue({
@@ -90,9 +92,9 @@ describe('AuthAccountLinkingService', () => {
       phoneVerified: false,
     });
 
-    expect(authRepository.findCandidateUserIdsByVerifiedEmail).toHaveBeenCalledWith(
-      'marvin@example.com',
-    );
+    expect(
+      authRepository.findCandidateUserIdsByVerifiedEmail,
+    ).toHaveBeenCalledWith('marvin@example.com');
 
     expect(authRepository.createAuthIdentity).toHaveBeenCalledWith(
       expect.objectContaining({
@@ -139,7 +141,9 @@ describe('AuthAccountLinkingService', () => {
   it('auto-links APPLE when verified phone resolves to a single canonical user', async () => {
     authRepository.findAuthIdentityByProvider.mockResolvedValue(null);
     authRepository.findCandidateUserIdsByVerifiedEmail.mockResolvedValue([]);
-    authRepository.findCandidateUserIdsByVerifiedPhone.mockResolvedValue(['user-1']);
+    authRepository.findCandidateUserIdsByVerifiedPhone.mockResolvedValue([
+      'user-1',
+    ]);
     authRepository.findAuthIdentityByUserIdAndProvider.mockResolvedValue(null);
     authRepository.createAuthIdentity.mockResolvedValue({
       id: 'identity-apple-1',
@@ -161,9 +165,9 @@ describe('AuthAccountLinkingService', () => {
       phoneVerified: true,
     });
 
-    expect(authRepository.findCandidateUserIdsByVerifiedPhone).toHaveBeenCalledWith(
-      '+51987654321',
-    );
+    expect(
+      authRepository.findCandidateUserIdsByVerifiedPhone,
+    ).toHaveBeenCalledWith('+51987654321');
 
     expect(result).toEqual({
       resolvedUserId: 'user-1',
@@ -187,7 +191,9 @@ describe('AuthAccountLinkingService', () => {
       }),
     ).rejects.toBeInstanceOf(AuthProviderNotLinkedError);
 
-    expect(authRepository.findCandidateUserIdsByVerifiedEmail).not.toHaveBeenCalled();
+    expect(
+      authRepository.findCandidateUserIdsByVerifiedEmail,
+    ).not.toHaveBeenCalled();
     expect(authRepository.createAuthIdentity).not.toHaveBeenCalled();
   });
 
@@ -224,8 +230,12 @@ describe('AuthAccountLinkingService', () => {
 
   it('rejects federated auto-link when verified email and phone resolve to different users', async () => {
     authRepository.findAuthIdentityByProvider.mockResolvedValue(null);
-    authRepository.findCandidateUserIdsByVerifiedEmail.mockResolvedValue(['user-1']);
-    authRepository.findCandidateUserIdsByVerifiedPhone.mockResolvedValue(['user-2']);
+    authRepository.findCandidateUserIdsByVerifiedEmail.mockResolvedValue([
+      'user-1',
+    ]);
+    authRepository.findCandidateUserIdsByVerifiedPhone.mockResolvedValue([
+      'user-2',
+    ]);
 
     await expect(
       service.resolveOrAutoLinkIdentity({
@@ -262,7 +272,9 @@ describe('AuthAccountLinkingService', () => {
         providerSubject: 'google-subject-4',
       });
 
-    authRepository.findCandidateUserIdsByVerifiedEmail.mockResolvedValue(['user-1']);
+    authRepository.findCandidateUserIdsByVerifiedEmail.mockResolvedValue([
+      'user-1',
+    ]);
     authRepository.findCandidateUserIdsByVerifiedPhone.mockResolvedValue([]);
     authRepository.findAuthIdentityByUserIdAndProvider.mockResolvedValue(null);
 
@@ -311,7 +323,9 @@ describe('AuthAccountLinkingService', () => {
       .mockResolvedValueOnce(null)
       .mockResolvedValueOnce(null);
 
-    authRepository.findCandidateUserIdsByVerifiedPhone.mockResolvedValue(['user-1']);
+    authRepository.findCandidateUserIdsByVerifiedPhone.mockResolvedValue([
+      'user-1',
+    ]);
     authRepository.findCandidateUserIdsByVerifiedEmail.mockResolvedValue([]);
 
     authRepository.findAuthIdentityByUserIdAndProvider
@@ -362,5 +376,4 @@ describe('AuthAccountLinkingService', () => {
       autoLinked: false,
     });
   });
-  
 });

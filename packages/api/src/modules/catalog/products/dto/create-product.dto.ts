@@ -1,7 +1,18 @@
 // packages\api\src\modules\catalog\products\dto\create-product.dto.ts
 import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
 import { Type } from 'class-transformer';
-import { IsArray, IsBoolean, IsEnum, IsInt, IsOptional, IsString, Max, MaxLength, Min, Matches } from 'class-validator';
+import {
+  IsArray,
+  IsBoolean,
+  IsEnum,
+  IsInt,
+  IsOptional,
+  IsString,
+  Max,
+  MaxLength,
+  Min,
+  Matches,
+} from 'class-validator';
 import { ItemType, Visibility, SellUnit, BcgTag } from '@prisma/client';
 
 export class CreateProductDto {
@@ -49,7 +60,9 @@ export class CreateProductDto {
   @IsOptional()
   @IsString()
   @MaxLength(32)
-  @Matches(/^[0-9A-Za-z\-]+$/, { message: 'barcode must be alphanumeric (digits/hyphen)'} )
+  @Matches(/^[0-9A-Za-z\-]+$/, {
+    message: 'barcode must be alphanumeric (digits/hyphen)',
+  })
   barcode?: string;
 
   @ApiPropertyOptional({ enum: BcgTag, default: BcgTag.UNCLASSIFIED })
@@ -75,7 +88,10 @@ export class CreateProductDto {
 
   // ===== Inventario MVP (opcional) =====
   // Nota: Stock real se controla con StockItem; esto solo inicializa.
-  @ApiPropertyOptional({ description: 'Stock inicial (onHand) para la tienda', example: 10 })
+  @ApiPropertyOptional({
+    description: 'Stock inicial (onHand) para la tienda',
+    example: 10,
+  })
   @IsOptional()
   @Type(() => Number)
   @IsInt()
@@ -83,7 +99,10 @@ export class CreateProductDto {
   @Max(1_000_000)
   initialStockOnHand?: number;
 
-  @ApiPropertyOptional({ description: 'Stock seguridad (reorderPoint)', example: 3 })
+  @ApiPropertyOptional({
+    description: 'Stock seguridad (reorderPoint)',
+    example: 3,
+  })
   @IsOptional()
   @Type(() => Number)
   @IsInt()

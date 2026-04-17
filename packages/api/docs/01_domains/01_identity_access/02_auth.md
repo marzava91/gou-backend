@@ -5,6 +5,7 @@
 Auth gestiona la autenticación de usuarios, la emisión y control de sesiones, y los flujos de verificación o challenge necesarios para permitir acceso seguro a las distintas superficies de la plataforma.
 
 Resuelve:
+
 - login mediante proveedores internos, brokers de autenticación o proveedores federados
 - emisión, refresh, revocación y cierre de sesiones
 - verificación de identidad previa o complementaria al acceso
@@ -12,6 +13,7 @@ Resuelve:
 - resolución del contexto autenticado actual
 
 No resuelve:
+
 - identidad canónica de la persona → Users
 - pertenencia a tenant/store → Memberships
 - roles operativos → Roles
@@ -19,6 +21,7 @@ No resuelve:
 - onboarding organizacional por invitación → Invitations
 
 No define por sí mismo:
+
 - el alcance operativo final del usuario dentro del negocio
 - permisos efectivos sobre módulos
 - contexto organizacional autorizado más allá de la autenticación base
@@ -30,6 +33,7 @@ Auth representa el dominio de prueba de identidad y continuidad de acceso dentro
 Su rol es autenticar a una persona contra mecanismos internos o externos, mapear ese resultado hacia un userId interno canónico, emitir una sesión válida y mantener controlado su lifecycle hasta logout, expiración o revocación.
 
 Otros módulos dependen conceptualmente de Auth para:
+
 - saber si existe una sesión válida
 - obtener el actor autenticado actual
 - confiar en que la identidad externa fue resuelta hacia identidad interna canónica
@@ -40,6 +44,7 @@ Esto debe mantenerse desacoplado de la identidad canónica interna, porque tu re
 ## 3. Fronteras
 
 ### Pertenece a Auth
+
 - autenticación con proveedores internos, brokers de autenticación o proveedores federados
 - vinculación de identidad externa hacia identidad interna
 - emisión y refresh de sesiones
@@ -52,6 +57,7 @@ Esto debe mantenerse desacoplado de la identidad canónica interna, porque tu re
 - tokens técnicos de acceso/refresh si forman parte de la arquitectura
 
 ### No pertenece a Auth
+
 - perfil canónico del usuario → Users
 - contacto maestro del usuario → Users
 - memberships activas o pertenencia organizacional → Memberships
@@ -66,85 +72,105 @@ Esto debe mantenerse desacoplado de la identidad canónica interna, porque tu re
 ### 4.1 ¿Qué representa exactamente Auth dentro del dominio?
 
 #### Decisión
+
 Auth representa la capa de autenticación y control de sesiones del sistema, no la identidad canónica ni la autorización operativa.
 
 #### Justificación
+
 Necesitas separar:
+
 - quién es la persona en el dominio → Users
 - cómo demuestra su identidad → Auth
 - dónde puede actuar → Memberships
 - qué puede hacer → Roles / Grants
 
 #### Impacto
+
 Ningún proveedor externo se convierte en la identidad principal del sistema; Auth siempre resuelve hacia userId.
 
 ### 4.2 ¿Qué diferencia hay entre User, AuthIdentity, AuthSession y Membership?
 
 #### Decisión
+
 - User = identidad canónica interna
 - AuthIdentity = credencial o identidad externa/interna usada para autenticar
 - AuthSession = continuidad temporal de acceso autenticado
 - Membership = pertenencia formal a un scope operativo
 
 #### Justificación
+
 Evita mezclar prueba de identidad, permanencia de acceso y contexto organizacional.
 
 #### Impacto
+
 Una sesión válida no implica por sí sola que el usuario tenga acceso a cualquier tenant/store; eso se resuelve después vía memberships/roles/grants.
 
 ### 4.3 ¿Qué proveedores o mecanismos soportará el MVP?
 
 #### Decisión
+
 El MVP soportará:
+
 - password-based auth interno, si aplica a tus superficies administrativas
 - OTP / verification code, si aplica a actores shopper o phone-first
 - proveedores externos federados, solo si ya forman parte real de la arquitectura
 - refresh token/session renewal controlado
 
 No se soportarán en MVP:
+
 - passwordless avanzado multi-factor adaptable
 - device trust sofisticado
 - session federation compleja entre múltiples superficies
 - step-up auth dinámico por scoring de riesgo, salvo reglas mínimas
 
 #### Justificación
+
 Cerrar el MVP evita sobre diseñar Auth.
 
 #### Impacto
+
 Los contratos y lifecycle deben cubrir password reset, verification challenge, provider link y sesiones revocables, pero no un motor MFA complejo todavía. El soporte de mecanismos puede variar según superficie consumidora (administrativa, shopper o logística), sin alterar la separación entre autenticación, identidad canónica y contexto operativo.
 
 ### 4.4 ¿Cómo se resuelve la identidad interna vs identidad externa?
 
 #### Decisión
+
 Toda autenticación exitosa debe resolver explícitamente una AuthIdentity vinculada a un userId interno canónico.
 Ningún providerSubject, firebaseUid u otro identificador externo será tratado como identidad canónica del dominio.
 En el MVP respaldado por Firebase:
+
 - User.id sigue siendo la identidad canónica interna del sistema;
 - Firebase UID se almacena como AuthIdentity.providerSubject;
 - Firebase actúa como broker de autenticación, no como owner de la identidad canónica.
 
 #### Justificación
+
 Evita acoplamiento con terceros, duplicidad de usuarios y bloqueo futuro de migración.
 Separar identidad interna de sujeto externo permite:
+
 - mantener a Users como source of truth de identidad canónica;
 - usar Firebase como autenticador principal sin convertirlo en identidad maestra del dominio;
 - soportar linking, unlinking y auto-linking sin colapsar identidad externa e identidad interna.
 
 #### Impacto
+
 Todo login exitoso requiere:
+
 1. validar autenticación en el mecanismo o broker correspondiente;
 2. obtener un providerSubject externo verificable;
 3. resolver una AuthIdentity existente por provider + providerSubject;
 4. si no existe, evaluar auto-linking controlado usando señales verificadas;
 5. obtener un único userId interno válido;
 6. emitir sesión autenticada.
-La resolución ocurre primero por AuthIdentity existente y, en ausencia de esta, mediante auto-linking controlado si existen señales verificadas suficientes para resolver un único userId candidato.
-providerSubject puede provenir de infraestructura externa, pero nunca reemplaza al userId canónico del dominio.
+   La resolución ocurre primero por AuthIdentity existente y, en ausencia de esta, mediante auto-linking controlado si existen señales verificadas suficientes para resolver un único userId candidato.
+   providerSubject puede provenir de infraestructura externa, pero nunca reemplaza al userId canónico del dominio.
 
 ### 4.5 ¿Qué constituye una sesión válida?
 
 #### Decisión
+
 Una sesión válida debe cumplir simultáneamente:
+
 - haber sido emitida correctamente por Auth
 - no estar expirada (EXPIRED)
 - no estar revocada (REVOKED)
@@ -152,9 +178,10 @@ Una sesión válida debe cumplir simultáneamente:
 - estar asociada a un userId válido y autenticable
 - no depender de un challenge pendiente
 - no haber sido invalidada por cambio crítico de credencial o política de seguridad
-Adicionalmente, la validez de una sesión está determinada por su estado de lifecycle.
+  Adicionalmente, la validez de una sesión está determinada por su estado de lifecycle.
 
 #### Estados de sesión
+
 - ISSUED: sesión creada pero aún no utilizada
 - ACTIVE: sesión en uso válida
 - REFRESHED: sesión renovada recientemente
@@ -163,6 +190,7 @@ Adicionalmente, la validez de una sesión está determinada por su estado de lif
 - EXPIRED: sesión expirada por tiempo
 
 #### Reglas clave
+
 - Una sesión válida solo puede estar en estado:
   - ACTIVE
   - REFRESHED
@@ -181,13 +209,16 @@ Adicionalmente, la validez de una sesión está determinada por su estado de lif
   - eventos de riesgo
 
 #### Justificación
+
 Una sesión no puede depender únicamente de la expiración de tokens; debe respetar su estado de negocio, seguridad y lifecycle explícito.
 Separar LOGGED_OUT de REVOKED permite:
+
 - trazabilidad precisa de eventos
 - auditoría diferenciada entre acciones del usuario y del sistema
 - mejores decisiones de seguridad y análisis de comportamiento
 
 #### Impacto
+
 - refresh, logout, logout all, reset de credenciales y revocación deben actualizar explícitamente el estado de la sesión
 - los tokens deben ser considerados inválidos si la sesión subyacente no es válida, independientemente de su expiración técnica
 - los sistemas consumidores de Auth deben validar estado de sesión, no solo token
@@ -195,15 +226,19 @@ Separar LOGGED_OUT de REVOKED permite:
 ### 4.6 ¿Cómo se maneja refresh session?
 
 #### Decisión
+
 El sistema tendrá refresh session explícito con política de rotación o renovación controlada.
 Refresh no creará una nueva identidad; solo renueva continuidad de acceso sobre una sesión o familia de sesión válida.
 Refresh no puede operar sobre sesiones en estado REVOKED, EXPIRED o LOGGED_OUT.
 
 #### Justificación
+
 Refresh debe ser controlado para evitar abuso y reuso indebido.
 
 #### Impacto
+
 Se necesita distinguir:
+
 - access token / session token
 - refresh token / refresh credential
 - family/session lineage si implementas rotación
@@ -211,17 +246,21 @@ Se necesita distinguir:
 ### 4.7 ¿Cómo se modela verification/challenge?
 
 #### Decisión
+
 Verification challenge se modela como una entidad o agregado separado de la sesión autenticada.
 Se utiliza para flujos que requieren validación temporal, prueba adicional de control o confirmación de identidad, incluyendo:
+
 - verificación de email
 - verificación de phone
 - recuperación de acceso o password reset
 - login mediante código u OTP, cuando aplique
 - step-up authentication limitado para acciones sensibles o flujos reforzados del MVP
-No se modelará como simple flag dentro de User o AuthSession.
+  No se modelará como simple flag dentro de User o AuthSession.
 
 #### Purposes soportados en MVP
+
 Los purposes iniciales del sistema son:
+
 - VERIFY_EMAIL
 - VERIFY_PHONE
 - PASSWORD_RESET
@@ -229,7 +268,9 @@ Los purposes iniciales del sistema son:
 - STEP_UP
 
 #### Lifecycle
+
 AuthVerificationChallenge tiene lifecycle propio y explícito:
+
 - ISSUED: challenge emitido y vigente
 - VALIDATED: challenge validado correctamente
 - FAILED: challenge fallido por intento inválido o regla de seguridad
@@ -237,6 +278,7 @@ AuthVerificationChallenge tiene lifecycle propio y explícito:
 - CONSUMED: challenge ya utilizado y no reutilizable
 
 #### Reglas clave
+
 - Verification no depende de la existencia de una sesión activa
 - Puede existir antes, durante o después del login, según el flujo
 - Un challenge validado no implica automáticamente una sesión válida; la emisión de sesión sigue siendo responsabilidad de Auth
@@ -245,14 +287,17 @@ AuthVerificationChallenge tiene lifecycle propio y explícito:
 - Verification y session son lifecycle distintos y no deben colapsarse en una sola entidad
 
 #### Justificación
+
 Verification challenge tiene un lifecycle distinto al de User y AuthSession, con reglas temporales, intentos, expiración, validación y consumo único.
 Separarlo permite:
+
 - modelar correctamente OTP, verify email/phone y password reset
 - evitar mezclar prueba temporal de identidad con continuidad de acceso
 - soportar endurecimiento futuro sin rediseñar User o Session
 - mantener trazabilidad y reglas de seguridad explícitas
 
 #### Impacto
+
 - Debe existir AuthVerificationChallenge o entidad equivalente
 - Los flujos de verify email, verify phone, password reset, login por código y step-up deben apoyarse en esta entidad
 - Session y Verification deben validarse con reglas distintas
@@ -265,20 +310,25 @@ En el MVP, STEP_UP no representa un motor completo de autenticación adaptativa 
 ### 4.8 ¿Cómo se resuelve el contexto autenticado actual?
 
 #### Decisión
+
 Auth solo entrega:
+
 - identidad autenticada
 - estado de sesión
 - auth identities vinculadas
 - contexto base de autenticación
-El contexto operativo final de tenant/store/membership activa no pertenece a Auth.
+  El contexto operativo final de tenant/store/membership activa no pertenece a Auth.
 
 #### Justificación
+
 Evita que Auth absorba pertenencias, permisos y selección operativa.
 
 #### Impacto
+
 get current auth context no debe convertirse en “perfil operativo total”; puede incluir referencias mínimas, no ownership de memberships.
 
 #### Nota de implementación MVP
+
 En esta fase, los endpoint contracts protegidos por AuthAuthenticatedGuard quedan soportados por un guard estructural que valida únicamente la presencia de un AuthenticatedAuthActor previamente resuelto en request.user.
 
 La autenticación real del actor queda diferida a la capa de infraestructura (middleware / interceptor / auth gateway), responsable de:
@@ -293,52 +343,64 @@ Por tanto, el guard actual no constituye todavía validación criptográfica o s
 ### 4.9 ¿Qué pasa con password reset?
 
 #### Decisión
+
 Si existe password auth en el MVP, password reset sí forma parte de Auth.
 Se modela como flujo explícito con challenge temporal y consumo único.
 
 #### Justificación
+
 Reset es parte del control de acceso, no del perfil de usuario.
 
 #### Impacto
+
 Debe invalidar sesiones previas según política.
 
 ### 4.10 ¿Qué pasa con link/unlink provider?
 
 #### Decisión
+
 Link y unlink de proveedor pertenecen a Auth, siempre que operen sobre AuthIdentity.
 No deben mutar la identidad canónica User.
 
 ##### Justificación
+
 Vincular proveedor es una operación de autenticación, no de identidad maestra.
 
 #### Impacto
+
 Debe haber validaciones para evitar dejar una cuenta sin mecanismo válido de acceso.
 
 ### 4.11 ¿Cómo se resuelve la vinculación automática (auto-linking)?
 
 #### Decisión
+
 Auth puede vincular automáticamente una identidad externa (AuthIdentity) a un userId existente únicamente cuando se dispone de señales verificadas provenientes del proveedor.
 
 #### Reglas
 
 El auto-linking solo ocurre si:
+
 - la señal está explícitamente verificada por el proveedor (emailVerified o phoneVerified)
 - la señal resuelve a un único userId candidato
 - no existe conflicto entre múltiples usuarios candidatos
 
 Prioridad de resolución:
+
 1. email verificado
 2. phone verificado
 
 No se permite auto-link cuando:
+
 - la señal no está verificada
 - múltiples usuarios coinciden con la señal
 - no existe ningún candidato válido
 
 #### Justificación
+
 Permite onboarding fluido en proveedores federados sin comprometer seguridad.
 
 #### Impacto
+
 - GOOGLE y APPLE pueden auto-linkear bajo condiciones controladas
 - PASSWORD nunca auto-linkea
 - evita duplicación de usuarios
@@ -357,24 +419,23 @@ Durante login, Auth sigue esta secuencia:
 ### 4.12 ¿Qué tipos de proveedores existen?
 
 #### Decisión
+
 Se distinguen dos niveles de integración:
+
 1. Broker de autenticación (infraestructura)
-    - FIREBASE
-    - Responsable de validar credenciales o tokens externos
-    - Puede respaldar flujos de PASSWORD, PHONE_CODE, GOOGLE, APPLE o equivalentes
-    - No representa identidad canónica del dominio
-2. Métodos o providers del dominio
-    - PASSWORD
-    - EMAIL_CODE
-    - PHONE_CODE
-    - GOOGLE
-    - APPLE
-Estos representan la forma de acceso que el dominio reconoce y gobierna a nivel de reglas, linking, unlinking, auto-linking y capacidades funcionales.
+   - FIREBASE
+   - Responsable de validar credenciales o tokens externos
+   - Puede respaldar flujos de PASSWORD, PHONE_CODE, GOOGLE, APPLE o equivalentes
+   - No representa identidad canónica del dominio
+2. Métodos o providers del dominio - PASSWORD - EMAIL_CODE - PHONE_CODE - GOOGLE - APPLE
+   Estos representan la forma de acceso que el dominio reconoce y gobierna a nivel de reglas, linking, unlinking, auto-linking y capacidades funcionales.
 
 #### Justificación
+
 Separar broker de autenticación vs método del dominio evita acoplamiento indebido, preserva claridad semántica y permite cambiar infraestructura sin rediseñar identidad canónica ni contratos de negocio.
 
 #### Impacto
+
 - FIREBASE no define identidad canónica;
 - User.id sigue siendo interno;
 - providerSubject almacena el sujeto externo verificable;
@@ -384,7 +445,9 @@ Separar broker de autenticación vs método del dominio evita acoplamiento indeb
 ### 4.13 ¿Cuándo se invalidan sesiones?
 
 #### Decisión
+
 Las sesiones deben invalidarse en los siguientes casos:
+
 - logout → LOGGED_OUT
 - logout all iniciado por el usuario → LOGGED_OUT
 - password reset → REVOKED
@@ -393,6 +456,7 @@ Las sesiones deben invalidarse en los siguientes casos:
 - expiración → EXPIRED
 
 #### Impacto
+
 - el sistema no depende solo de expiración de tokens
 - garantiza consistencia de seguridad
 
@@ -400,25 +464,27 @@ Las sesiones deben invalidarse en los siguientes casos:
 
 | Provider / Method | Login | Link | Unlink | Reset Password | Verify Token |
 | ----------------- | ----- | ---- | ------ | -------------- | ------------ |
-| PASSWORD          | ✔     | ✖    | ✖     | ✔             | ✖            |
-| GOOGLE            | ✔     | ✔    | ✔     | ✖             | ✔            |
-| APPLE             | ✔     | ✔    | ✔     | ✖             | ✔            |
-| EMAIL_CODE        | ✔     | ✖    | ✖     | ✖             | ✖            |
-| PHONE_CODE        | ✔     | ✖    | ✖     | ✖             | ✖            |
+| PASSWORD          | ✔     | ✖    | ✖      | ✔              | ✖            |
+| GOOGLE            | ✔     | ✔    | ✔      | ✖              | ✔            |
+| APPLE             | ✔     | ✔    | ✔      | ✖              | ✔            |
+| EMAIL_CODE        | ✔     | ✖    | ✖      | ✖              | ✖            |
+| PHONE_CODE        | ✔     | ✖    | ✖      | ✖              | ✖            |
 
 #### Capacidades del broker de autenticación
 
 | Broker   | Authenticate | Verify External Token | Reset Password |
 | -------- | ------------ | --------------------- | -------------- |
-| FIREBASE | ✔            | ✔                    | ✔              |
-
+| FIREBASE | ✔            | ✔                     | ✔              |
 
 #### Justificación
+
 Evita lógica implícita en código y separa correctamente:
+
 - lo que el dominio reconoce como método de autenticación;
 - de la infraestructura que realmente valida credenciales o tokens.
 
 #### Impacto
+
 - los servicios del dominio no deben asumir que FIREBASE es un provider de negocio al mismo nivel que GOOGLE o PASSWORD;
 - FIREBASE opera como broker técnico;
 - las reglas funcionales siguen gobernadas por los métodos del dominio.
@@ -426,20 +492,24 @@ Evita lógica implícita en código y separa correctamente:
 ## 5. Modelo conceptual
 
 #### Entidades principales
+
 - AuthSession
 - AuthIdentity
 - AuthVerificationChallenge
 
 #### Ownership
+
 - Auth es owner de sesiones, auth identities y verification challenges
 - Users es owner de la identidad canónica
 - Memberships es owner del contexto organizacional
 
 #### Source of truth
+
 - verdad canónica de identidad personal → Users
 - verdad canónica de autenticación, account linking, verification y sesiones → Auth
 
 #### Relaciones
+
 - AuthIdentity referencia a userId
 - AuthSession referencia a userId
 - AuthSession puede originarse desde una AuthIdentity
@@ -447,6 +517,7 @@ Evita lógica implícita en código y separa correctamente:
 - Auth publica eventos de autenticación, linking, verification y lifecycle de sesión hacia consumidores externos
 
 #### Nota de modelado
+
 - refresh token no se modela como entidad conceptual separada en esta fase; forma parte de la estrategia de sesión y continuidad de acceso
 - password reset se soporta mediante AuthVerificationChallenge con purpose específico, no como entidad separada
 - provider link / unlink se modela como operación sobre AuthIdentity, no como entidad autónoma
@@ -457,20 +528,24 @@ Evita lógica implícita en código y separa correctamente:
 - ese providerSubject externo nunca reemplaza al User.id interno canónico del dominio.
 
 ### Entidades principales
+
 - AuthSession
 - AuthIdentity
 - AuthVerificationChallenge
 
 ### Ownership
+
 - Auth es owner de sesiones, auth identities y verification challenges
 - Users es owner de la identidad canónica
 - Memberships es owner del contexto organizacional
 
 ### Source of truth
+
 - verdad canónica de identidad personal → Users
 - verdad canónica de autenticación, account linking, verification y sesiones → Auth
 
 ### Relaciones
+
 - AuthIdentity referencia a userId
 - AuthSession referencia a userId
 - AuthSession puede originarse desde una AuthIdentity
@@ -478,11 +553,11 @@ Evita lógica implícita en código y separa correctamente:
 - Auth publica eventos de autenticación, linking, verification y lifecycle de sesión hacia consumidores externos
 
 ### Nota de modelado
+
 - refresh token no se modela como entidad conceptual separada en esta fase; forma parte de la estrategia de sesión y continuidad de acceso
 - password reset se soporta mediante AuthVerificationChallenge con purpose específico, no como entidad separada
 - provider link / unlink se modela como operación sobre AuthIdentity, no como entidad autónoma
 - audit y revocación forman parte de capacidades y reglas del submódulo, sin requerir por ahora entidades conceptuales independientes
-
 
 ## 6. Invariantes del submódulo
 
@@ -503,7 +578,9 @@ Evita lógica implícita en código y separa correctamente:
 ## 7. Lifecycle
 
 ### Estados
+
 #### AuthSession
+
 - ISSUED
 - ACTIVE
 - REFRESHED
@@ -512,6 +589,7 @@ Evita lógica implícita en código y separa correctamente:
 - LOGGED_OUT
 
 #### AuthVerificationChallenge
+
 - ISSUED
 - VALIDATED
 - FAILED
@@ -519,13 +597,16 @@ Evita lógica implícita en código y separa correctamente:
 - CONSUMED
 
 #### Password reset flow
+
 - REQUESTED
 - ISSUED
 - CONSUMED
 - EXPIRED
 
 ### Transiciones válidas
+
 #### Session
+
 - ISSUED -> ACTIVE
 - ACTIVE -> REFRESHED
 - ACTIVE -> REVOKED
@@ -536,30 +617,37 @@ Evita lógica implícita en código y separa correctamente:
 - REFRESHED -> LOGGED_OUT
 
 #### Verification challenge
+
 - ISSUED -> VALIDATED
 - ISSUED -> FAILED
 - ISSUED -> EXPIRED
 - VALIDATED -> CONSUMED
 
 #### Password reset
+
 - REQUESTED -> ISSUED
 - ISSUED -> CONSUMED
 - ISSUED -> EXPIRED
 
 ### Transiciones inválidas
+
 #### Session
+
 - REVOKED -> ACTIVE
 - EXPIRED -> ACTIVE
 - LOGGED_OUT -> ACTIVE
 
 #### AuthVerificationChallenge
+
 - CONSUMED -> ISSUED
 - EXPIRED -> VALIDATED
 
 #### Password reset flow
+
 - CONSUMED -> CONSUMED nuevamente
 
 ### Reglas
+
 - refresh no revive sesiones REVOKED, EXPIRED o LOGGED_OUT
 - logout invalida la continuidad de acceso de esa sesión
 - logout all iniciado por el propio usuario marca como LOGGED_OUT todas las sesiones activas elegibles del usuario
@@ -596,6 +684,7 @@ Evita lógica implícita en código y separa correctamente:
 ## 10. Contratos
 
 ### DTOs
+
 - LoginDto
 - LogoutDto
 - LogoutAllSessionsDto
@@ -611,11 +700,13 @@ Evita lógica implícita en código y separa correctamente:
 - AuthIdentityResponseDto
 
 ### DTOs diferidos / fase 2
+
 - ResendCodeDto
 - GetCurrentAuthContextQueryDto
 - VerifyChallengeDto
 
 ### Acciones
+
 - login
 - refresh session
 - logout
@@ -629,9 +720,11 @@ Evita lógica implícita en código y separa correctamente:
 - unlink auth provider
 
 ### Acciones diferidas / fase 2
+
 - resend verification code
 
 ### Acciones administrativas diferidas o restringidas
+
 - revoke session by admin
 - revoke all sessions by admin
 - force unlink provider
@@ -639,6 +732,7 @@ Evita lógica implícita en código y separa correctamente:
 - inspect auth audit trail
 
 ### Errores
+
 - invalid_credentials
 - auth_verification_required
 - auth_verification_failed
@@ -656,12 +750,14 @@ Evita lógica implícita en código y separa correctamente:
 - forbidden_auth_scope
 
 ### Scopes
+
 - actor/self
 - platform admin para revocaciones administrativas
 - flows públicos controlados para login, verify, reset
 - sin scope tenant/store como ownership del submódulo, salvo consumo contextual posterior
 
 ### Eventos
+
 - auth_login_succeeded
 - auth_login_failed
 - auth_session_issued
@@ -675,11 +771,12 @@ Evita lógica implícita en código y separa correctamente:
 - auth_password_reset_completed
 - auth_provider_linked
 - auth_provider_unlinked
-Esto sigue tu regla de que los eventos deben ser semánticos y no ambiguos .
+  Esto sigue tu regla de que los eventos deben ser semánticos y no ambiguos .
 
 ## 11. Diseño de validación
 
 ### Familias de prueba
+
 - reglas de negocio
 - servicio
 - integración con provider
@@ -687,6 +784,7 @@ Esto sigue tu regla de que los eventos deben ser semánticos y no ambiguos .
 - E2E mínima
 
 ### Escenarios principales
+
 - login válido con emisión de sesión
 - refresh válido
 - logout de sesión actual
@@ -698,6 +796,7 @@ Esto sigue tu regla de que los eventos deben ser semánticos y no ambiguos .
 - get current auth context con sesión válida
 
 ### Escenarios inválidos
+
 - credenciales incorrectas
 - challenge expirado
 - challenge consumido
@@ -709,6 +808,7 @@ Esto sigue tu regla de que los eventos deben ser semánticos y no ambiguos .
 - exceso de intentos de verify/reset/login
 
 ### Casos borde
+
 - doble submit en login
 - doble consumo de código
 - refresh concurrente
@@ -717,6 +817,7 @@ Esto sigue tu regla de que los eventos deben ser semánticos y no ambiguos .
 - timeout del proveedor externo durante login o verify
 
 ### Seguridad
+
 - no enumerar cuentas innecesariamente
 - masking de datos sensibles
 - rate limit en login, reset y verify
@@ -725,15 +826,18 @@ Esto sigue tu regla de que los eventos deben ser semánticos y no ambiguos .
 - protección frente a replay de challenge o refresh
 
 Nota:
+
 - resend verification code queda fuera del MVP actual; si se incorpora en fase 2, deberá incluir cooldown, anti-abuso, trazabilidad y límites explícitos.
 
 ### Concurrencia
+
 - refresh token rotation o compare-and-set
 - invalidación consistente de sesiones
 - consumo único de challenge
 - serialización o versionado en operaciones sensibles
 
 ### Criterios de aceptación
+
 - identidad externa siempre resuelta a userId
 - lifecycle de sesión y challenge documentado y consistente
 - errores clasificados
@@ -758,6 +862,7 @@ Nota:
 ## 13. Riesgos
 
 ### Riesgos de diseño
+
 - mezclar identidad externa con identidad interna
 - convertir sesión en contenedor de roles, memberships o permisos canónicos
 - modelar verification/reset como flags sueltos en lugar de lifecycle explícito
@@ -765,6 +870,7 @@ Nota:
 - tratar login y autorización como la misma cosa
 
 ### Riesgos de implementación
+
 - refresh inseguro o reusable
 - sesiones que no se revocan realmente
 - challenge reutilizable por bug
@@ -773,6 +879,7 @@ Nota:
 - frontend resolviendo decisiones que deben ser backend
 
 ### Riesgos operativos
+
 - abuso de resend/reset/login
 - timeouts del proveedor externo
 - sesiones persistentes tras incidentes críticos
@@ -809,9 +916,11 @@ Nota:
 ## 16. Estado del submódulo (MVP closure)
 
 ### Estado actual
+
 El submódulo Auth se considera cerrado a nivel de dominio, contratos y reglas de negocio para el MVP.
 
 ### Alcance cubierto
+
 - autenticación multi-provider (PASSWORD, EMAIL_CODE, PHONE_CODE, GOOGLE, APPLE)
 - resolución de identidad externa hacia userId canónico
 - auto-linking controlado basado en señales verificadas
@@ -823,7 +932,9 @@ El submódulo Auth se considera cerrado a nivel de dominio, contratos y reglas d
 - auditoría y eventos a nivel de dominio mediante puertos
 
 ### Cobertura de testing
+
 El submódulo cuenta con cobertura de:
+
 - reglas de negocio críticas (account resolution, lifecycle, invariantes)
 - servicios de aplicación (login, session, identity, linking, reset)
 - contrato de controladores
@@ -832,6 +943,7 @@ El submódulo cuenta con cobertura de:
 La cobertura es suficiente para validar el comportamiento del dominio en el contexto MVP.
 
 ### Decisiones relevantes consolidadas
+
 - separación estricta entre User (identidad canónica) y AuthIdentity (credenciales)
 - Firebase actúa como broker de autenticación, no como identidad del dominio
 - la validez de sesión depende de lifecycle explícito, no solo de expiración técnica
@@ -839,6 +951,7 @@ La cobertura es suficiente para validar el comportamiento del dominio en el cont
 - auto-linking solo ocurre con señales verificadas y sin ambigüedad
 
 ### Pendientes no bloqueantes (infraestructura)
+
 - implementación real de:
   - AUTH_AUDIT_PORT
   - AUTH_EVENTS_PORT
@@ -849,23 +962,27 @@ La cobertura es suficiente para validar el comportamiento del dominio en el cont
 - evolución del AuthAuthenticatedGuard a validación completa (no solo estructural)
 
 ### Criterio de cierre
+
 El submódulo se considera listo para:
+
 - ser consumido por Memberships, Roles, Grants e Invitations
 - servir como base de autenticación del sistema
 
 No se considera aún:
+
 - completamente listo para producción sin capa de infraestructura real
 
 ## 17. Diagramas de flujos
 
 ### 17.1 Flujo principal de login
+
 Este flujo refleja que ningún provider externo define el userId canónico; primero se autentica contra el provider/broker, luego se resuelve la identidad interna por AuthIdentity existente o por auto-linking controlado, y solo entonces se emite sesión.
 
 flowchart TD
-    A[Inicio login] --> B[Validar input según provider]
-    B -->|inválido| X1[Auditar login_failed y rechazar]
-    B --> C[Autenticar contra broker/provider]
-    C --> D{¿Existe AuthIdentity por provider + providerSubject?}
+A[Inicio login] --> B[Validar input según provider]
+B -->|inválido| X1[Auditar login_failed y rechazar]
+B --> C[Autenticar contra broker/provider]
+C --> D{¿Existe AuthIdentity por provider + providerSubject?}
 
     D -->|Sí| E[Resolver userId interno]
     D -->|No| F{¿Provider permite auto-link?}
@@ -890,11 +1007,12 @@ flowchart TD
     P --> Q[Retornar sesión + tokens]
 
 ### 17.2 Flujo de login con auto-linking controlado
+
 Tu diseño permite auto-linking solo cuando la señal viene verificada por el provider y resuelve un único userId. La prioridad es email verificado y luego phone verificado; no aplica para PASSWORD.
 
 flowchart TD
-    A[Provider autenticó correctamente] --> B[No existe AuthIdentity previa]
-    B --> C{¿Provider habilitado para auto-link?}
+A[Provider autenticó correctamente] --> B[No existe AuthIdentity previa]
+B --> C{¿Provider habilitado para auto-link?}
 
     C -->|No| X1[Rechazar login]
     C -->|Sí| D{¿Hay email verificado?}
@@ -917,12 +1035,13 @@ flowchart TD
     K --> L[Continuar login normal]
 
 ### 17.3 Flujo de refresh de sesión
+
 Según tu planificación, refresh no revive sesiones REVOKED, EXPIRED o LOGGED_OUT. Además, el refresh renueva continuidad de acceso de una sesión válida, no crea nueva identidad.
 
 flowchart TD
-    A[Inicio refreshSession] --> B[Recibir refresh token]
-    B --> C[Resolver sesión asociada]
-    C --> D{¿Existe sesión?}
+A[Inicio refreshSession] --> B[Recibir refresh token]
+B --> C[Resolver sesión asociada]
+C --> D{¿Existe sesión?}
 
     D -->|No| X1[Rechazar refresh]
     D -->|Sí| E{¿Estado permite refresh?}
@@ -943,14 +1062,16 @@ flowchart TD
     M --> N[Retornar tokens renovados]
 
 ### 17.4 Flujo de logout y logout-all
+
 Tu diseño separa claramente:
+
 - LOGGED_OUT = cierre voluntario del usuario;
 - REVOKED = invalidación forzada por sistema/política.
-Además, logoutAllSessions marca como LOGGED_OUT todas las sesiones elegibles del usuario.
+  Además, logoutAllSessions marca como LOGGED_OUT todas las sesiones elegibles del usuario.
 
 flowchart TD
-    A[Usuario solicita logout] --> B[Buscar sesión por sessionId + actorUserId]
-    B --> C{¿Existe y pertenece al actor?}
+A[Usuario solicita logout] --> B[Buscar sesión por sessionId + actorUserId]
+B --> C{¿Existe y pertenece al actor?}
 
     C -->|No| X1[Rechazar]
     C -->|Sí| D{¿Sesión elegible para logout?}
@@ -962,20 +1083,21 @@ flowchart TD
     G --> H[Fin]
 
 flowchart TD
-    A[Usuario solicita logout all] --> B[Buscar sesiones activas/refreshed elegibles del user]
-    B --> C[Marcar todas como LOGGED_OUT]
-    C --> D[Registrar cantidad afectada]
-    D --> E[Auditar logout_all_completed]
-    E --> F[Publicar evento LOGOUT_ALL_COMPLETED]
-    F --> G[Fin]
+A[Usuario solicita logout all] --> B[Buscar sesiones activas/refreshed elegibles del user]
+B --> C[Marcar todas como LOGGED_OUT]
+C --> D[Registrar cantidad afectada]
+D --> E[Auditar logout_all_completed]
+E --> F[Publicar evento LOGOUT_ALL_COMPLETED]
+F --> G[Fin]
 
 ### 17.5 Flujo de verification challenge
+
 En tu módulo, AuthVerificationChallenge tiene lifecycle propio: ISSUED, VALIDATED, FAILED, EXPIRED, CONSUMED. No colapsa con AuthSession. Sirve para verify email, verify phone, login por código, password reset y step-up limitado del MVP.
 
 flowchart TD
-    A[Solicitar verification code] --> B[Crear AuthVerificationChallenge]
-    B --> C[Estado = ISSUED]
-    C --> D[Enviar código por verification port]
+A[Solicitar verification code] --> B[Crear AuthVerificationChallenge]
+B --> C[Estado = ISSUED]
+C --> D[Enviar código por verification port]
 
     D --> E[Usuario envía code]
     E --> F[Buscar challenge]
@@ -996,13 +1118,14 @@ flowchart TD
     N --> O[Auditar y publicar evento]
 
 ### 17.6 Flujo de password reset
+
 En tu diseño, password reset pertenece a Auth y se soporta mediante challenge temporal con consumo único. Además, puede invalidar sesiones previas según política (REVOKE_ON_PASSWORD_RESET).
 
 flowchart TD
-    A[Solicitar password reset] --> B[Resolver cuenta por identifier]
-    B --> C[Emitir challenge purpose = PASSWORD_RESET]
-    C --> D[Estado challenge = ISSUED]
-    D --> E[Enviar código / enlace]
+A[Solicitar password reset] --> B[Resolver cuenta por identifier]
+B --> C[Emitir challenge purpose = PASSWORD_RESET]
+C --> D[Estado challenge = ISSUED]
+D --> E[Enviar código / enlace]
 
     E --> F[Usuario envía challengeId + code + newPassword]
     F --> G[Validar challenge]
@@ -1022,12 +1145,13 @@ flowchart TD
     P --> Q[Fin]
 
 ### 17.7 Flujo de link provider
+
 linkIdentity pertenece a Auth porque opera sobre AuthIdentity, no sobre User. Primero verifica el token externo, luego evita duplicados globales y duplicados por user+provider, y finalmente crea la vinculación. También contemplaste la carrera por P2002.
 
 flowchart TD
-    A[Usuario autenticado solicita linkIdentity] --> B[Validar provider + externalToken/providerSubject]
-    B --> C[Verificar token externo]
-    C --> D[Obtener providerSubject verificado]
+A[Usuario autenticado solicita linkIdentity] --> B[Validar provider + externalToken/providerSubject]
+B --> C[Verificar token externo]
+C --> D[Obtener providerSubject verificado]
 
     D --> E{¿Ya existe AuthIdentity global por provider + providerSubject?}
     E -->|Sí, mismo user| R1[Retornar alreadyLinked]
@@ -1046,11 +1170,12 @@ flowchart TD
     L --> M[Retornar linked = true]
 
 ### 17.8 Flujo de unlink provider
+
 Tu regla crítica aquí está bien definida: no puedes dejar al usuario sin mecanismo válido de autenticación. Por eso primero se busca la identidad, luego se cuenta cuántas auth identities tiene el usuario, y recién se permite eliminar si aún queda al menos una adicional.
 
 flowchart TD
-    A[Usuario autenticado solicita unlinkIdentity] --> B[Buscar AuthIdentity por userId + provider]
-    B --> C{¿Existe?}
+A[Usuario autenticado solicita unlinkIdentity] --> B[Buscar AuthIdentity por userId + provider]
+B --> C{¿Existe?}
 
     C -->|No| X1[Rechazar provider not linked]
     C -->|Sí| D[Contar auth identities del user]
@@ -1063,18 +1188,19 @@ flowchart TD
     H --> I[Retornar unlinked = true]
 
 ### 17.9 Lifecycle de sesión
+
 Este diagrama te sirve bastante para documentación ejecutiva y para revisión de invariantes.
 
 stateDiagram-v2
-    [*] --> ISSUED
-    ISSUED --> ACTIVE
-    ACTIVE --> REFRESHED
-    ACTIVE --> LOGGED_OUT
-    ACTIVE --> REVOKED
-    ACTIVE --> EXPIRED
-    REFRESHED --> LOGGED_OUT
-    REFRESHED --> REVOKED
-    REFRESHED --> EXPIRED
+[*] --> ISSUED
+ISSUED --> ACTIVE
+ACTIVE --> REFRESHED
+ACTIVE --> LOGGED_OUT
+ACTIVE --> REVOKED
+ACTIVE --> EXPIRED
+REFRESHED --> LOGGED_OUT
+REFRESHED --> REVOKED
+REFRESHED --> EXPIRED
 
     LOGGED_OUT --> [*]
     REVOKED --> [*]
@@ -1083,11 +1209,11 @@ stateDiagram-v2
 ### 17.10 Lifecycle de verification challenge
 
 stateDiagram-v2
-    [*] --> ISSUED
-    ISSUED --> VALIDATED
-    ISSUED --> FAILED
-    ISSUED --> EXPIRED
-    VALIDATED --> CONSUMED
+[*] --> ISSUED
+ISSUED --> VALIDATED
+ISSUED --> FAILED
+ISSUED --> EXPIRED
+VALIDATED --> CONSUMED
 
     FAILED --> [*]
     EXPIRED --> [*]

@@ -1,5 +1,11 @@
 // packages\api\src\modules\pricing\item-prices\dto\create-item-price.dto.ts
-import { IsISO8601, IsOptional, IsString, Matches, MaxLength } from 'class-validator';
+import {
+  IsISO8601,
+  IsOptional,
+  IsString,
+  Matches,
+  MaxLength,
+} from 'class-validator';
 
 export class CreateItemPriceDto {
   @IsString()

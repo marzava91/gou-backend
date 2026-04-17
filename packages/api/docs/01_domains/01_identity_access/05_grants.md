@@ -5,6 +5,7 @@
 Grants gestiona excepciones explícitas de acceso otorgadas o denegadas sobre recursos, acciones o capacidades concretas dentro de un scope válido, complementando la autorización base definida por Roles.
 
 Resuelve:
+
 - concesión explícita de capacidades adicionales
 - restricción explícita de capacidades que normalmente vendrían por rol
 - excepciones puntuales por recurso, acción o capacidad
@@ -13,6 +14,7 @@ Resuelve:
 - evaluación de permisos efectivos en combinación con roles, cuando ese contrato se expone
 
 No resuelve:
+
 - identidad del usuario → Users
 - autenticación o sesiones → Auth
 - pertenencia organizacional → Memberships
@@ -21,6 +23,7 @@ No resuelve:
 - autorización completa de negocio fuera del marco de capacidades y excepciones
 
 No define por sí mismo:
+
 - pertenencia al scope
 - acceso base sin role o membership válida
 - políticas globales de negocio ajenas a autorización
@@ -30,6 +33,7 @@ No define por sí mismo:
 Un Grant es una excepción formal, explícita y trazable aplicada sobre una Membership válida, para permitir o denegar una capacidad específica sobre un alcance determinado.
 
 Su rol dentro del sistema es completar el modelo:
+
 - Users → quién es
 - Auth → cómo accede
 - Memberships → dónde puede actuar
@@ -37,6 +41,7 @@ Su rol dentro del sistema es completar el modelo:
 - Grants → qué excepción aplica sobre ese baseline
 
 Otros módulos dependen de Grants para:
+
 - resolver excepciones finas sin proliferar roles
 - aplicar allow/deny explícitos sobre capacidades concretas
 - soportar casos especiales sin contaminar el catálogo de roles
@@ -47,6 +52,7 @@ Grants no reemplaza Roles ni Memberships; Grants ajusta el resultado base de aut
 ## 3. Fronteras
 
 ### Pertenece a Grants
+
 - definición de grant como excepción formal
 - tipo de grant (allow / deny)
 - target del grant (capacidad, recurso, acción o combinación definida)
@@ -57,6 +63,7 @@ Grants no reemplaza Roles ni Memberships; Grants ajusta el resultado base de aut
 - precedencia entre role y grant
 
 ### No pertenece a Grants
+
 - identidad del usuario → Users
 - sesión autenticada → Auth
 - pertenencia al tenant/store → Memberships
@@ -71,43 +78,55 @@ Grants no reemplaza Roles ni Memberships; Grants ajusta el resultado base de aut
 ### 4.1 ¿Qué representa exactamente un Grant?
 
 #### Decisión
+
 Un Grant representa una excepción explícita de autorización aplicada sobre una Membership válida.
 
 #### Justificación
+
 Necesitas un mecanismo fino para casos especiales sin contaminar el catálogo de roles.
 
 #### Impacto
+
 Grant no sustituye el baseline de acceso; lo complementa o restringe.
 
 ### 4.2 ¿El grant se asigna a User, Membership, Role o combinación?
 
 #### Decisión
+
 El Grant se asigna a Membership.
 
 #### Justificación
+
 La autorización debe permanecer contextualizada al scope operativo válido.
 Asignarlo a User rompería la separación con Memberships.
 
 #### Impacto
+
 No existe user-grant directo en el diseño base.
 
 ### 4.3 ¿El grant otorga, restringe o ambas cosas?
 
 #### Decisión
+
 Sí. El modelo soporta dos efectos explícitos:
+
 - allow
 - deny
 
 #### Justificación
+
 Necesitas tanto excepciones expansivas como restrictivas.
 
 #### Impacto
+
 Todo grant debe declarar explícitamente su effect.
 
 ### 4.4 ¿Qué puede targetear un grant?
 
 #### Decisión
+
 Un Grant puede targetear:
+
 - una capacidad específica
 - una acción específica
 - un recurso o tipo de recurso
@@ -115,40 +134,50 @@ Un Grant puede targetear:
 - opcionalmente una instancia concreta si el dominio lo soporta
 
 #### Justificación
+
 Debes permitir granularidad suficiente sin volver el modelo ambiguo.
 
 #### Impacto
+
 El grant debe tener estructura explícita de target.
 No bastan strings sueltos sin semántica.
 
 ### 4.5 ¿Qué relación tiene con el rol?
 
 #### Decisión
+
 Roles definen capacidad base.
 Grants ajustan el resultado efectivo.
 
 #### Regla de precedencia
+
 Para el MVP, la precedencia será:
+
 1. Membership válida
 2. Capacidades base por Roles
 3. Grants aplicables
 4. Resolución final con prioridad de deny sobre allow, salvo política específica documentada
 
 #### Justificación
+
 La precedencia debe estar cerrada. Si no, el sistema se vuelve imposible de auditar.
 
 #### Impacto
+
 Debe existir política explícita de resolución de conflictos.
 
 ### 4.6 ¿Puede expirar un grant?
 
 #### Decisión
+
 Sí. Un Grant puede tener vigencia temporal explícita, pero esta es opcional.
 
 #### Justificación
+
 Muchas excepciones no deben ser permanentes, pero otras sí pueden ser indefinidas según el contexto operativo.
 
 #### Impacto
+
 - Si se define una ventana de vigencia (validFrom, validUntil), esta debe respetarse en la evaluación efectiva.
 - Si no se define validFrom ni validUntil, el grant se considera de vigencia indefinida hasta revocación explícita.
 - En el MVP actual, la ventana temporal se persiste en el agregado Grant, pero su materialización automática al estado EXPIRED queda diferida.
@@ -157,12 +186,15 @@ Muchas excepciones no deben ser permanentes, pero otras sí pueden ser indefinid
 ### 4.7 ¿Qué pasa cuando un grant expira?
 
 #### Decisión
+
 Un grant fuera de su ventana de vigencia deja de participar en la evaluación efectiva.
 
 #### Justificación
+
 Evita grants “zombie” sin obligar a una reconciliación inmediata en el modelo persistido.
 
 #### Impacto
+
 - Un grant fuera de vigencia no debe ser considerado en la evaluación efectiva.
 - En el MVP actual, la expiración puede evaluarse dinámicamente sin requerir transición inmediata a estado `EXPIRED`.
 - La materialización explícita del estado `EXPIRED` y su reconciliación automática se consideran una mejora futura.
@@ -171,67 +203,85 @@ Evita grants “zombie” sin obligar a una reconciliación inmediata en el mode
 ### 4.8 ¿Qué pasa cuando un grant se revoca?
 
 #### Decisión
+
 La revocación cierra formalmente el grant antes de su expiración natural.
 
 #### Justificación
+
 Necesitas cierre explícito por decisión administrativa o correctiva.
 
 #### Impacto
+
 Un grant revocado no puede volver a ACTIVE.
 
 ### 4.9 ¿Qué granularidad exacta tendrá el target en el MVP?
 
 #### Decisión
+
 El MVP soportará grants sobre:
+
 - capability
 - resource + action
 
 No se soportará en MVP:
+
 - condition-based grants complejos
 - ABAC avanzado
 - políticas dependientes de atributos dinámicos del recurso en runtime
 
 #### Justificación
+
 Hay que evitar sobre diseñar.
 
 #### Impacto
+
 El target debe mantenerse explícito y acotado.
 
 ### 4.10 ¿Puede existir un grant sin membership válida?
 
 #### Decisión
+
 No.
 
 #### Justificación
+
 Un grant sin membership válida rompe el modelo de contexto y scope.
 
 #### Impacto
+
 - Un grant solo es operable si su membership asociada es válida y operable.
 
 ### 4.11 ¿Cuál es el estado inicial del grant en el MVP?
 
 #### Decisión
+
 En el MVP actual, los grants administrativos se crean directamente en estado `ACTIVE`.
 
 #### Justificación
+
 Los grants representan decisiones explícitas ya aprobadas por un actor con autoridad suficiente, por lo que no requieren un estado intermedio de aprobación.
 
 #### Impacto
+
 - El estado `PROPOSED` se mantiene en el modelo para evolución futura.
 - No se implementa en el MVP un flujo de solicitud/aprobación de grants.
 
 ### 4.12 ¿Cómo se modelan los motivos administrativos y la trazabilidad histórica?
 
 #### Decisión
+
 Los motivos administrativos se modelan explícitamente por tipo de evento en el agregado Grant, separando:
+
 - creationReason
 - revocationReason
-La trazabilidad histórica de transiciones relevantes se registra en GrantHistory.
+  La trazabilidad histórica de transiciones relevantes se registra en GrantHistory.
 
 #### Justificación
+
 Separar los motivos por tipo de evento evita ambigüedad semántica y permite interpretar correctamente el estado actual del grant sin depender de inferencias sobre un campo único.
 
 #### Impacto
+
 - El agregado Grant expone claramente el motivo de creación y, cuando aplique, el motivo de revocación.
 - GrantHistory registra eventos de transición (fromStatus, toStatus, changedBy, reason, createdAt).
 - En el MVP actual, GrantHistory se considera un log de transiciones y no un snapshot completo del estado del grant.
@@ -242,8 +292,9 @@ Separar los motivos por tipo de evento evita ambigüedad semántica y permite in
 ## 5. Modelo conceptual
 
 ### Entidad principal
+
 - Grant: representa una excepción explícita de acceso aplicada sobre una membership válida.
-Contiene el effect (allow / deny), el target explícito, la ventana de vigencia opcional, el estado actual del grant y los datos administrativos asociados a su lifecycle actual, incluyendo:
+  Contiene el effect (allow / deny), el target explícito, la ventana de vigencia opcional, el estado actual del grant y los datos administrativos asociados a su lifecycle actual, incluyendo:
   - creationReason
   - revocationReason
   - activatedAt
@@ -251,6 +302,7 @@ Contiene el effect (allow / deny), el target explícito, la ventana de vigencia 
   - expiredAt (solo si se materializa la transición a EXPIRED)
 
 ### Entidades auxiliares
+
 - GrantEffect: define si la excepción expande o restringe el baseline (allow / deny);
 - GrantValidityWindow: representa la ventana temporal opcional de aplicabilidad del grant (validFrom, validUntil);
 - GrantHistory: registra transiciones relevantes del lifecycle del grant, incluyendo estado origen, estado destino, actor, motivo y timestamp; en el MVP no registra correcciones administrativas que no impliquen cambio de estado;
@@ -258,16 +310,19 @@ Contiene el effect (allow / deny), el target explícito, la ventana de vigencia 
 - EffectivePermissionProjection o equivalente, si luego expones resolución consolidada.
 
 ### Ownership
+
 - Grants es owner de las excepciones de acceso;
 - Roles es owner del baseline de capacidades;
 - Memberships es owner del contexto formal de pertenencia.
 
 ### Source of truth
+
 - baseline de capacidades → Roles;
 - excepción explícita → Grants;
 - pertenencia y scope válido → Memberships.
 
 ### Relaciones
+
 - Grant referencia membershipId;
 - Grant puede referenciar capability, resource, action o combinación explícita;
 - Grant puede tener ventana de vigencia;
@@ -295,24 +350,28 @@ Contiene el effect (allow / deny), el target explícito, la ventana de vigencia 
 ## 7. Lifecycle
 
 ### Estados
+
 - PROPOSED
 - ACTIVE
 - EXPIRED
 - REVOKED
 
 ### Transiciones válidas
+
 - PROPOSED -> ACTIVE
 - ACTIVE -> EXPIRED
 - ACTIVE -> REVOKED
 - PROPOSED -> REVOKED
 
 ### Transiciones inválidas
+
 - EXPIRED -> ACTIVE
 - REVOKED -> ACTIVE
 - EXPIRED -> REVOKED
 - REVOKED -> EXPIRED
 
 ### Reglas
+
 - PROPOSED no participa en evaluación efectiva
 - ACTIVE participa en evaluación efectiva solo si además está dentro de vigencia, cuando exista ventana temporal.
 - Un grant fuera de vigencia deja de participar en evaluación efectiva aunque el estado persistido todavía no haya sido materializado como EXPIRED.
@@ -365,6 +424,7 @@ Contiene el effect (allow / deny), el target explícito, la ventana de vigencia 
 ## 10. Contratos
 
 ### DTOs (MVP)
+
 - CreateGrantDto
 - RevokeGrantDto
 - GrantIdParamDto
@@ -374,11 +434,13 @@ Contiene el effect (allow / deny), el target explícito, la ventana de vigencia 
 - GrantSummaryResponseDto
 
 ### DTOs diferidos (no incluidos en MVP)
+
 - ExtendGrantDto
 - EvaluateAccessQueryDto
 - EffectivePermissionsResponseDto
 
 ### Acciones (MVP)
+
 - create grant
 - revoke grant
 - get grant by id
@@ -386,12 +448,14 @@ Contiene el effect (allow / deny), el target explícito, la ventana de vigencia 
 - list grants by membership
 
 ### Acciones diferidas
+
 - extend grant
 - expire grant manually
 - evaluate effective access
 - list effective permissions
 
 ### Acciones administrativas diferidas o restringidas
+
 - expire grant manually
 - bulk revoke grants
 - repair inconsistent grants
@@ -399,6 +463,7 @@ Contiene el effect (allow / deny), el target explícito, la ventana de vigencia 
 - list effective permissions
 
 ### Errores (MVP implementados)
+
 - grant_not_found
 - grant_membership_not_found
 - grant_membership_inactive
@@ -409,6 +474,7 @@ Contiene el effect (allow / deny), el target explícito, la ventana de vigencia 
 - invalid_grant_validity_window
 
 ### Errores diferidos / no implementados aún
+
 - invalid_grant_scope
 - grant_already_revoked
 - grant_already_expired
@@ -417,20 +483,24 @@ Contiene el effect (allow / deny), el target explícito, la ventana de vigencia 
 - effective_permissions_unresolvable
 
 ### Scopes (MVP)
+
 - administración de grants restringida a platform admin
 - sin grants fuera de membership válida
 
 ### Scopes futuros (diferidos)
+
 - administración delegada a actores con autoridad dentro de su scope (tenant_admin, store_manager, etc.)
 - control basado en jerarquía organizacional
 
 ### Eventos
+
 - grant_created
 - grant_revoked
 - grant_expired
 - effective_permissions_changed
 
 ## Historial
+
 - GrantHistory registra transiciones relevantes del lifecycle del grant
 - en el MVP actual, GrantHistory no representa snapshot completo del agregado en cada cambio
 - en el MVP actual, GrantHistory no registra correcciones administrativas que no impliquen transición de estado
@@ -438,6 +508,7 @@ Contiene el effect (allow / deny), el target explícito, la ventana de vigencia 
 ## 11. Diseño de validación
 
 ### Familias de prueba
+
 - reglas de negocio
 - servicio
 - integración
@@ -445,6 +516,7 @@ Contiene el effect (allow / deny), el target explícito, la ventana de vigencia 
 - E2E mínima
 
 ### Escenarios principales (MVP)
+
 - crear grant allow válido sobre membership activa
 - crear grant deny válido sobre membership activa
 - revocar grant activo
@@ -453,11 +525,13 @@ Contiene el effect (allow / deny), el target explícito, la ventana de vigencia 
 - consultar grant histórico aunque la membership asociada ya no esté activa
 
 ### Escenarios diferidos
+
 - extender grant vigente
 - recalcular permisos efectivos tras grant nuevo
 - registrar históricamente cambios administrativos sin transición de estado
 
 ### Escenarios inválidos
+
 - crear grant sin membership válida
 - crear grant duplicado
 - crear grant con target ambiguo
@@ -467,6 +541,7 @@ Contiene el effect (allow / deny), el target explícito, la ventana de vigencia 
 - crear grant con ventana temporal inválida (validUntil <= validFrom)
 
 ### Casos borde
+
 - membership suspendida o revocada con grants todavía persistidos y consultables administrativamente
 - grant que expira mientras existe sesión autenticada activa
 - coexistencia de role allow base y grant deny explícito
@@ -476,6 +551,7 @@ Contiene el effect (allow / deny), el target explícito, la ventana de vigencia 
 - revocación concurrente con fallo de optimistic versioning
 
 ### Seguridad
+
 - no permitir creación de grants fuera del scope autorizado
 - no exponer grants sensibles de otros scopes
 - no confiar en frontend para resolver precedencia
@@ -483,12 +559,14 @@ Contiene el effect (allow / deny), el target explícito, la ventana de vigencia 
 - minimizar filtración de estructura interna de permisos
 
 ### Concurrencia
+
 - doble creación simultánea del mismo grant
 - revocación concurrente
 - expiración natural concurrente con revocación administrativa
 - evaluación efectiva mientras cambia baseline o grants
 
 ### Criterios de aceptación
+
 - Grant claramente separado de Role y Membership
 - effect y target explícitos
 - precedencia documentada
@@ -521,6 +599,7 @@ Contiene el effect (allow / deny), el target explícito, la ventana de vigencia 
 ## 13. Riesgos
 
 ### Riesgos de diseño
+
 - convertir grants en sustituto de roles
 - no definir precedencia clara entre role y grant
 - grants demasiado amplios o ambiguos
@@ -528,6 +607,7 @@ Contiene el effect (allow / deny), el target explícito, la ventana de vigencia 
 - mezclar excepción operativa con política base
 
 ### Riesgos de implementación
+
 - grants activos duplicados
 - expiración no aplicada realmente
 - caché de permisos sin invalidación correcta
@@ -540,6 +620,7 @@ Contiene el effect (allow / deny), el target explícito, la ventana de vigencia 
 - mientras no exista constraint real en DB, la protección contra grants activos duplicados equivalentes no queda completamente cerrada ante concurrencia real
 
 ### Riesgos operativos
+
 - no poder explicar por qué alguien tuvo acceso
 - proliferación caótica de grants excepcionales
 - grants temporales que quedan vivos demasiado tiempo

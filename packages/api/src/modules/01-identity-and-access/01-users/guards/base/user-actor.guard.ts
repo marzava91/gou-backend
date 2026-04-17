@@ -1,10 +1,6 @@
 // packages/api/src/modules/01-identity-and-access/01-users/guards/base/user-actor.guard.ts
 
-import {
-  CanActivate,
-  ExecutionContext,
-  Injectable,
-} from '@nestjs/common';
+import { CanActivate, ExecutionContext, Injectable } from '@nestjs/common';
 import { AuthenticatedActor } from '../../domain/types/user.types';
 import { getRequestWithActor } from '../helpers/user-guard.helper';
 

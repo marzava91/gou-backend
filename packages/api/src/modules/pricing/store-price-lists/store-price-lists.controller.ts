@@ -28,7 +28,10 @@ export class StorePriceListsController {
   }
 
   @Get()
-  list(@Headers('x-tenant-id') tenantId: string, @Query() q: QueryStorePriceListsDto) {
+  list(
+    @Headers('x-tenant-id') tenantId: string,
+    @Query() q: QueryStorePriceListsDto,
+  ) {
     return this.svc.list(this.tenantIdOrThrow(tenantId), q);
   }
 
@@ -39,11 +42,19 @@ export class StorePriceListsController {
     @Param('channel') channel: SalesChannel,
     @Param('priceListId') priceListId: string,
   ) {
-    return this.svc.get(this.tenantIdOrThrow(tenantId), storeId, channel, priceListId);
+    return this.svc.get(
+      this.tenantIdOrThrow(tenantId),
+      storeId,
+      channel,
+      priceListId,
+    );
   }
 
   @Post()
-  create(@Headers('x-tenant-id') tenantId: string, @Body() dto: CreateStorePriceListDto) {
+  create(
+    @Headers('x-tenant-id') tenantId: string,
+    @Body() dto: CreateStorePriceListDto,
+  ) {
     return this.svc.create(this.tenantIdOrThrow(tenantId), dto);
   }
 
@@ -55,7 +66,13 @@ export class StorePriceListsController {
     @Param('priceListId') priceListId: string,
     @Body() dto: UpdateStorePriceListDto,
   ) {
-    return this.svc.update(this.tenantIdOrThrow(tenantId), storeId, channel, priceListId, dto);
+    return this.svc.update(
+      this.tenantIdOrThrow(tenantId),
+      storeId,
+      channel,
+      priceListId,
+      dto,
+    );
   }
 
   @Delete(':storeId/:channel/:priceListId')
@@ -65,6 +82,11 @@ export class StorePriceListsController {
     @Param('channel') channel: SalesChannel,
     @Param('priceListId') priceListId: string,
   ) {
-    return this.svc.remove(this.tenantIdOrThrow(tenantId), storeId, channel, priceListId);
+    return this.svc.remove(
+      this.tenantIdOrThrow(tenantId),
+      storeId,
+      channel,
+      priceListId,
+    );
   }
 }

@@ -16,7 +16,7 @@
  *
  * TEMPORARY LOCATION:
  * This type is colocated in Users to avoid premature cross-module abstractions.
- * 
+ *
  * TEMPORARY:
  * This type is a transitional representation of the authenticated actor.
  *

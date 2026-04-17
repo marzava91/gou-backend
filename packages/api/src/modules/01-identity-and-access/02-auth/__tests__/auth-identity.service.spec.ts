@@ -275,7 +275,9 @@ describe('AuthIdentityService', () => {
       provider: AuthProvider.GOOGLE,
     });
 
-    expect(authRepository.deleteAuthIdentity).toHaveBeenCalledWith('identity-1');
+    expect(authRepository.deleteAuthIdentity).toHaveBeenCalledWith(
+      'identity-1',
+    );
 
     expect(authSupportService.recordAudit).toHaveBeenCalledWith(
       AUTH_AUDIT_ACTIONS.PROVIDER_UNLINKED,

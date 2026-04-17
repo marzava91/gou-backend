@@ -15,7 +15,8 @@ export const AuthDomainEvents = {
   PASSWORD_RESET_COMPLETED: 'auth_password_reset_completed',
   PROVIDER_LINKED: 'auth_provider_linked',
   PROVIDER_UNLINKED: 'auth_provider_unlinked',
-  PASSWORD_RESET_SESSION_REVOCATION_PENDING: 'auth.password_reset.session_revocation_pending',
+  PASSWORD_RESET_SESSION_REVOCATION_PENDING:
+    'auth.password_reset.session_revocation_pending',
 } as const;
 
 export type AuthDomainEvent =

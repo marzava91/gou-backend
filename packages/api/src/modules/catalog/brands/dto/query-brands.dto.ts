@@ -1,5 +1,13 @@
 // packages\api\src\modules\catalog\brands\dto\query-brands.dto.ts
-import { IsBoolean, IsIn, IsInt, IsOptional, IsString, Max, Min } from 'class-validator';
+import {
+  IsBoolean,
+  IsIn,
+  IsInt,
+  IsOptional,
+  IsString,
+  Max,
+  Min,
+} from 'class-validator';
 import { Transform } from 'class-transformer';
 
 export class QueryBrandsDto {

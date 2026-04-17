@@ -8,9 +8,7 @@ import {
 } from '../../domain/constants/users.constants';
 
 export class RequestPrimaryPhoneChangeDto {
-  @Transform(({ value }) =>
-    typeof value === 'string' ? value.trim() : value,
-  )
+  @Transform(({ value }) => (typeof value === 'string' ? value.trim() : value))
   @IsNotEmpty({ message: 'new_primary_phone_required' })
   @Matches(USER_REGEX.E164_PHONE, {
     message: 'invalid_phone_format',

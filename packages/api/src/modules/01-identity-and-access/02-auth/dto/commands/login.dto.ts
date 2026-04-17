@@ -1,18 +1,11 @@
 // packages/api/src/modules/01-identity-and-access/02-auth/dto/commands/login.dto.ts
 
 import { AuthProvider } from '@prisma/client';
+import { IsIn, IsOptional, IsString, MaxLength } from 'class-validator';
 import {
-  IsIn,
-  IsOptional,
-  IsString,
-  MaxLength,
-} from 'class-validator';
-import { 
-  AUTH_INPUT_LIMITS, 
-  LOGIN_ALLOWED_PROVIDERS 
+  AUTH_INPUT_LIMITS,
+  LOGIN_ALLOWED_PROVIDERS,
 } from '../../domain/constants/auth.constants';
-
-
 
 export class LoginDto {
   /**

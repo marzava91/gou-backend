@@ -1,5 +1,15 @@
 // packages\api\src\modules\catalog\brands\brands.controller.ts
-import { Body, Controller, Delete, Get, Headers, Param, Patch, Post, Query } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Delete,
+  Get,
+  Headers,
+  Param,
+  Patch,
+  Post,
+  Query,
+} from '@nestjs/common';
 import { BrandsService } from './brands.service';
 import { CreateBrandDto } from './dto/create-brand.dto';
 import { QueryBrandsDto } from './dto/query-brands.dto';
@@ -25,7 +35,10 @@ export class BrandsController {
   }
 
   @Post()
-  create(@Headers('x-tenant-id') tenantId: string, @Body() dto: CreateBrandDto) {
+  create(
+    @Headers('x-tenant-id') tenantId: string,
+    @Body() dto: CreateBrandDto,
+  ) {
     return this.svc.create(this.tenantIdOrThrow(tenantId), dto);
   }
 

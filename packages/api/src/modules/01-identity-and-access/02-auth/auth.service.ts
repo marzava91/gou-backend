@@ -46,8 +46,14 @@ export class AuthService {
     return this.authSessionService.logoutAllSessions(actorUserId);
   }
 
-  requestVerificationCode(actorUserId: string | null, dto: RequestVerificationCodeDto) {
-    return this.authVerificationService.requestVerificationCode(actorUserId, dto);
+  requestVerificationCode(
+    actorUserId: string | null,
+    dto: RequestVerificationCodeDto,
+  ) {
+    return this.authVerificationService.requestVerificationCode(
+      actorUserId,
+      dto,
+    );
   }
 
   verifyCode(dto: VerifyCodeDto) {

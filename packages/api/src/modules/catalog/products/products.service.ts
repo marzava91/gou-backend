@@ -7,7 +7,12 @@
 // - Convierte/normaliza la respuesta a un contrato estable si deseas
 // Regla: el service no debe saber de HTTP (no debería depender de @Query ni @Body “crudos” ni de Express).
 
-import { Injectable, NotFoundException, BadRequestException, ConflictException } from '@nestjs/common';
+import {
+  Injectable,
+  NotFoundException,
+  BadRequestException,
+  ConflictException,
+} from '@nestjs/common';
 import { PrismaProductsRepository } from './products.repository';
 
 import { QueryProductsDto } from './dto/query-products.dto';
@@ -21,13 +26,19 @@ import { ProductDetailResponse } from './responses/product-detail.response';
 const DEFAULT_TAX_RATE = 18;
 
 // Tip: idealmente este union vive en un types shared (DTO / repo)
-const INVENTORY_SORTS = ['stockOnHand', 'reorderPoint', 'lotExpiresAt'] as const;
+const INVENTORY_SORTS = [
+  'stockOnHand',
+  'reorderPoint',
+  'lotExpiresAt',
+] as const;
 type InventorySort = (typeof INVENTORY_SORTS)[number];
 
 function isInventorySort(sortBy: unknown): sortBy is InventorySort {
-  return typeof sortBy === 'string' && (INVENTORY_SORTS as readonly string[]).includes(sortBy);
+  return (
+    typeof sortBy === 'string' &&
+    (INVENTORY_SORTS as readonly string[]).includes(sortBy)
+  );
 }
-
 
 @Injectable()
 export class ProductsService {
@@ -35,7 +46,7 @@ export class ProductsService {
 
   async list(
     tenantId: string,
-    query: QueryProductsDto
+    query: QueryProductsDto,
   ): Promise<{
     items: ProductListItemResponse[];
     total: number;
@@ -46,7 +57,7 @@ export class ProductsService {
     const {
       limit = 20,
       page = 1,
-      q = "",
+      q = '',
       sku,
 
       barcode,
@@ -64,7 +75,7 @@ export class ProductsService {
     const safePage = Math.max(page, 1);
 
     const inventoryStoreId: string | null | undefined =
-      storeId === 'global' ? null : storeId ?? undefined;
+      storeId === 'global' ? null : (storeId ?? undefined);
 
     // Validación: sorts de inventario requieren uuid real
     if (isInventorySort(sortBy) && typeof inventoryStoreId !== 'string') {
@@ -95,8 +106,7 @@ export class ProductsService {
     return {
       items: items.map((i: any) => {
         // ✅ Brand y Primary Category: soporta Prisma y SQL
-        const brandName =
-          i.brand?.name ?? i.brandName ?? null;
+        const brandName = i.brand?.name ?? i.brandName ?? null;
 
         const primaryCategoryName =
           i.categories?.[0]?.category?.name ?? i.primaryCategoryName ?? null;
@@ -104,14 +114,11 @@ export class ProductsService {
         // ✅ StockItem: soporta Prisma (stockItems[0]) y SQL (columns)
         const si = i.stockItems?.[0] ?? null;
 
-        const onHand =
-          si?.onHand ?? i.onHand ?? null;
+        const onHand = si?.onHand ?? i.onHand ?? null;
 
-        const reserved =
-          si?.reserved ?? i.reserved ?? null;
+        const reserved = si?.reserved ?? i.reserved ?? null;
 
-        const reorderPoint =
-          si?.reorderPoint ?? i.reorderPoint ?? null;
+        const reorderPoint = si?.reorderPoint ?? i.reorderPoint ?? null;
 
         const lotCode =
           si?.activeLotCodeSnapshot ?? i.activeLotCodeSnapshot ?? null;
@@ -120,7 +127,9 @@ export class ProductsService {
           si?.activeExpiresAtSnapshot ?? i.activeExpiresAtSnapshot ?? null;
 
         const stock =
-          onHand != null && reserved != null ? Number(onHand) - Number(reserved) : null;
+          onHand != null && reserved != null
+            ? Number(onHand) - Number(reserved)
+            : null;
 
         return {
           id: i.id,
@@ -191,7 +200,11 @@ export class ProductsService {
       bcgTag: item.bcgTag,
 
       brand: item.brand
-        ? { id: item.brand.id, name: item.brand.name, imageUrl: item.brand.imageUrl ?? null }
+        ? {
+            id: item.brand.id,
+            name: item.brand.name,
+            imageUrl: item.brand.imageUrl ?? null,
+          }
         : null,
 
       categories: (item.categories ?? []).map((link: any) => ({
@@ -235,7 +248,10 @@ export class ProductsService {
     };
   }
 
-  async create(tenantId: string, dto: CreateProductDto): Promise<ProductDetailResponse> {
+  async create(
+    tenantId: string,
+    dto: CreateProductDto,
+  ): Promise<ProductDetailResponse> {
     try {
       const created = await this.repo.create(tenantId, dto);
       return this.findOne(tenantId, created.id);
@@ -247,7 +263,11 @@ export class ProductsService {
     }
   }
 
-  async update(tenantId: string, id: string, dto: UpdateProductDto): Promise<ProductDetailResponse> {
+  async update(
+    tenantId: string,
+    id: string,
+    dto: UpdateProductDto,
+  ): Promise<ProductDetailResponse> {
     await this.repo.update(tenantId, id, dto);
     return this.findOne(tenantId, id);
   }

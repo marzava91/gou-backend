@@ -17,9 +17,7 @@ export class MembershipSelfOrPlatformAdminGuard implements CanActivate {
     const isPlatformAdmin = Boolean(actor?.isPlatformAdmin);
 
     const targetUserId =
-      request.params?.userId ??
-      request.body?.userId ??
-      actorId;
+      request.params?.userId ?? request.body?.userId ?? actorId;
 
     if (isPlatformAdmin) {
       return true;

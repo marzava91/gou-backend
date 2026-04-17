@@ -4,9 +4,7 @@ import { Injectable } from '@nestjs/common';
 import { MembershipScopeDirectoryPort } from '../../ports/membership-scope-directory.port';
 
 @Injectable()
-export class NoopMembershipScopeDirectoryAdapter
-  implements MembershipScopeDirectoryPort
-{
+export class NoopMembershipScopeDirectoryAdapter implements MembershipScopeDirectoryPort {
   async tenantExists(): Promise<boolean> {
     return false;
   }

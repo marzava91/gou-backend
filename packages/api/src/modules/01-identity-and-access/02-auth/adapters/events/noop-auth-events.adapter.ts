@@ -5,7 +5,7 @@ import { AuthEventsPort } from '../../ports/auth-events.port';
 
 @Injectable()
 export class NoopAuthEventsAdapter implements AuthEventsPort {
-    /**
+  /**
    * TODO(auth-events-adapter):
    * Replace this noop adapter with a real domain event publisher that supports
    * durable publication, retry policy, observability and downstream consumers

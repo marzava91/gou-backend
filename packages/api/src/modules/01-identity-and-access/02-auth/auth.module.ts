@@ -69,5 +69,4 @@ import { AuthPasswordResetService } from './application/auth-password-reset.serv
  * are being stabilized. Replace with infrastructure implementations before
  * enabling production authentication surfaces.
  */
-
 export class AuthModule {}

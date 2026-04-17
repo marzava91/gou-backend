@@ -5,6 +5,7 @@
 Invitations gestiona el proceso formal de invitar a una persona a acceder a un scope organizacional específico, controlando la emisión, entrega, aceptación, expiración y conversión en una Membership.
 
 Resuelve:
+
 - creación de invitaciones dirigidas a un destinatario específico
 - control de tokens o links de invitación
 - aceptación de invitaciones y validación del destinatario
@@ -13,6 +14,7 @@ Resuelve:
 - trazabilidad completa del flujo de invitación
 
 No resuelve:
+
 - identidad canónica del usuario → Users
 - autenticación → Auth
 - pertenencia efectiva → Memberships (solo la origina)
@@ -21,6 +23,7 @@ No resuelve:
 - autorización final de acceso
 
 No define por sí mismo:
+
 - acceso operativo hasta que la invitación sea aceptada y convertida
 - permisos efectivos
 - identidad externa del usuario
@@ -30,6 +33,7 @@ No define por sí mismo:
 Una Invitation es una propuesta formal, temporal y controlada para que una persona acceda a un scope organizacional específico, que puede convertirse en una Membership tras su aceptación válida.
 
 Su rol dentro del sistema:
+
 - Users → quién es
 - Auth → cómo accede
 - Invitations → cómo se le invita a entrar
@@ -37,6 +41,7 @@ Su rol dentro del sistema:
 - Roles → qué puede hacer después
 
 Otros módulos dependen de Invitations para:
+
 - onboarding controlado de usuarios
 - evitar creación arbitraria de memberships
 - validar destinatario antes de habilitar acceso
@@ -45,6 +50,7 @@ Otros módulos dependen de Invitations para:
 ## 3. Fronteras
 
 ### Pertenece a Invitations
+
 - definición de invitación
 - destinatario (email/phone u otro identificador)
 - scope de la invitación
@@ -57,6 +63,7 @@ Otros módulos dependen de Invitations para:
 - trazabilidad de invitador, destinatario y resultado
 
 ### No pertenece a Invitations
+
 - identidad del usuario → Users
 - autenticación → Auth
 - pertenencia efectiva → Memberships
@@ -70,34 +77,44 @@ Otros módulos dependen de Invitations para:
 ### 4.1 ¿Qué representa exactamente una Invitation?
 
 #### Decisión
+
 Una Invitation representa una intención formal de otorgar acceso futuro a un scope organizacional, sujeta a aceptación válida.
 
 #### Justificación
+
 Separar invitación de membership evita accesos prematuros o inconsistentes.
 
 #### Impacto
+
 Una invitación no otorga acceso por sí misma.
 
 ### 4.2 ¿A quién va dirigida una invitación?
 
 #### Decisión
+
 La invitación se dirige a un identificador de contacto:
+
 - email o
 - phone
-No a un userId necesariamente.
+  No a un userId necesariamente.
 
 #### Justificación
+
 Debe poder invitar a personas que aún no existen en el sistema.
 
 #### Impacto
+
 En aceptación:
+
 - si existe User → se enlaza
 - si no existe → se crea o se completa onboarding
 
 ### 4.3 ¿Qué contiene una Invitation?
 
 #### Decisión
+
 Debe contener:
+
 - identificador único
 - destinatario (email/phone)
 - scope (tenant/store)
@@ -109,7 +126,9 @@ Debe contener:
 - invitador (createdBy)
 
 #### Justificación
+
 Debe ser suficiente para:
+
 - validar
 - auditar
 - convertir a membership
@@ -117,20 +136,26 @@ Debe ser suficiente para:
 ### 4.4 ¿Qué define el scope de la invitación?
 
 #### Decisión
+
 El scope es explícito:
+
 - tenantId
 - opcionalmente storeId
 
 #### Justificación
+
 Debe alinearse con Memberships.
 
 #### Impacto
+
 No se permiten invitaciones ambiguas de scope.
 
 ### 4.5 ¿Qué pasa cuando se acepta una invitación?
 
 #### Decisión
+
 Se ejecuta un flujo atómico:
+
 1. validar token
 2. validar vigencia
 3. validar destinatario
@@ -139,78 +164,98 @@ Se ejecuta un flujo atómico:
 6. marcar Invitation como accepted
 
 #### Justificación
+
 Evita estados intermedios inconsistentes.
 
 #### Impacto
+
 Debe ser idempotente.
 
 ### 4.6 ¿Puede alguien distinto aceptar la invitación?
 
 #### Decisión
+
 No en el MVP.
 
 El destinatario debe coincidir con:
+
 - email o phone
 
 #### Justificación
+
 Evita suplantación.
 
 #### Impacto
+
 Comparación obligatoria en aceptación.
 
 ### 4.7 ¿Qué pasa si ya tiene membership?
 
 #### Decisión
+
 Se valida antes de crear:
+
 - si membership equivalente ya existe → error o noop controlado
 - si existe membership distinta → depende de política (permitir o bloquear)
 
 #### Impacto
+
 Evita duplicados.
 
 ### 4.8 ¿Se puede reenviar una invitación?
 
 #### Decisión
+
 Sí, pero:
+
 - invalida tokens anteriores
 - genera nuevo token
 
 #### Justificación
+
 Evita reutilización insegura.
 
 ### 4.9 ¿Puede una invitación expirar?
 
 #### Decisión
+
 Sí, obligatoriamente.
 
 #### Impacto
+
 Debe tener TTL explícito.
 
 ### 4.10 ¿Qué pasa si se revoca?
 
 #### Decisión
+
 La invitación queda inválida permanentemente.
 
 ## 5. Modelo conceptual
 
 ### Entidad principal
+
 - Invitation
 
 ### Entidades auxiliares
+
 - InvitationRecipient
 - InvitationToken
 - InvitationAcceptanceRecord
 - InvitationAuditEvent
 
 ### Ownership
+
 - Invitations es owner del proceso de invitación
 - Memberships es owner de la pertenencia efectiva
 
 ### Source of truth
+
 - invitación → Invitations
 - pertenencia → Memberships
 
 ### Relaciones
+
 - Invitation referencia tenantId
 - puede referenciar storeId
 - puede generar membershipId al aceptarse
@@ -231,6 +276,7 @@ La invitación queda inválida permanentemente.
 ## 7. Lifecycle
 
 ### Estados
+
 - proposed
 - sent
 - accepted
@@ -239,6 +285,7 @@ La invitación queda inválida permanentemente.
 - canceled
 
 ### Transiciones válidas
+
 - proposed → sent
 - sent → accepted
 - sent → expired
@@ -246,11 +293,13 @@ La invitación queda inválida permanentemente.
 - proposed → canceled
 
 ### Transiciones inválidas
+
 - accepted → sent
 - expired → accepted
 - revoked → accepted
 
 ### Reglas
+
 - sent es el único estado aceptable
 - accepted es terminal
 - expiración automática
@@ -282,6 +331,7 @@ La invitación queda inválida permanentemente.
 ## 10. Contratos
 
 ### DTOs
+
 - CreateInvitationDto
 - ResendInvitationDto
 - RevokeInvitationDto
@@ -291,6 +341,7 @@ La invitación queda inválida permanentemente.
 - ListInvitationsQueryDto
 
 ### Acciones
+
 - create invitation
 - resend invitation
 - revoke invitation
@@ -300,6 +351,7 @@ La invitación queda inválida permanentemente.
 - list invitations
 
 ### Errores
+
 - invitation_not_found
 - invitation_expired
 - invitation_revoked
@@ -309,6 +361,7 @@ La invitación queda inválida permanentemente.
 - membership_conflict
 
 ### Eventos
+
 - invitation_created
 - invitation_sent
 - invitation_resent
@@ -321,17 +374,20 @@ La invitación queda inválida permanentemente.
 ## 11. Diseño de validación
 
 ### Escenarios principales
+
 - crear invitación válida
 - enviar invitación
 - aceptar invitación
 - convertir a membership
 
 ### Escenarios inválidos
+
 - token inválido
 - invitación expirada
 - destinatario incorrecto
 
 ### Casos borde
+
 - doble aceptación
 - reenvío concurrente
 - expiración durante flujo

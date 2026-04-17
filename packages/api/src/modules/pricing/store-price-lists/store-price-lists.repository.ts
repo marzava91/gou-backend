@@ -12,14 +12,24 @@ type StorePriceListCreateData = Omit<
 export class StorePriceListsRepository {
   constructor(private prisma: PrismaService) {}
 
-  findOne(params: { tenantId: string; storeId: string; channel: SalesChannel; priceListId: string }) {
+  findOne(params: {
+    tenantId: string;
+    storeId: string;
+    channel: SalesChannel;
+    priceListId: string;
+  }) {
     const { tenantId, storeId, channel, priceListId } = params;
     return this.prisma.storePriceList.findFirst({
       where: { tenantId, storeId, channel, priceListId },
     });
   }
 
-  list(params: { tenantId: string; storeId?: string; channel?: SalesChannel; priceListId?: string }) {
+  list(params: {
+    tenantId: string;
+    storeId?: string;
+    channel?: SalesChannel;
+    priceListId?: string;
+  }) {
     const { tenantId, storeId, channel, priceListId } = params;
 
     return this.prisma.storePriceList.findMany({
@@ -29,18 +39,29 @@ export class StorePriceListsRepository {
         ...(channel ? { channel } : {}),
         ...(priceListId ? { priceListId } : {}),
       },
-      orderBy: [{ storeId: 'asc' }, { channel: 'asc' }, { isDefault: 'desc' }, { createdAt: 'desc' }],
+      orderBy: [
+        { storeId: 'asc' },
+        { channel: 'asc' },
+        { isDefault: 'desc' },
+        { createdAt: 'desc' },
+      ],
     });
   }
 
-  create(tenantId: string, data: StorePriceListCreateData): Promise<StorePriceList> {
+  create(
+    tenantId: string,
+    data: StorePriceListCreateData,
+  ): Promise<StorePriceList> {
     return this.prisma.storePriceList.create({
       data: { ...data, tenantId },
     });
   }
 
   // Setea isDefault=false para todos los de ese store+channel (dentro de tx)
-  clearDefaultForStoreChannel(tx: Prisma.TransactionClient, params: { tenantId: string; storeId: string; channel: SalesChannel }) {
+  clearDefaultForStoreChannel(
+    tx: Prisma.TransactionClient,
+    params: { tenantId: string; storeId: string; channel: SalesChannel },
+  ) {
     const { tenantId, storeId, channel } = params;
     return tx.storePriceList.updateMany({
       where: { tenantId, storeId, channel, isDefault: true },
@@ -48,7 +69,15 @@ export class StorePriceListsRepository {
     });
   }
 
-  setDefault(tx: Prisma.TransactionClient, params: { tenantId: string; storeId: string; channel: SalesChannel; priceListId: string }) {
+  setDefault(
+    tx: Prisma.TransactionClient,
+    params: {
+      tenantId: string;
+      storeId: string;
+      channel: SalesChannel;
+      priceListId: string;
+    },
+  ) {
     const { tenantId, storeId, channel, priceListId } = params;
     // PK compuesta => updateMany por seguridad + filtro tenant
     return tx.storePriceList.updateMany({
@@ -57,7 +86,15 @@ export class StorePriceListsRepository {
     });
   }
 
-  updateIsDefault(tenantId: string, params: { storeId: string; channel: SalesChannel; priceListId: string; isDefault: boolean }) {
+  updateIsDefault(
+    tenantId: string,
+    params: {
+      storeId: string;
+      channel: SalesChannel;
+      priceListId: string;
+      isDefault: boolean;
+    },
+  ) {
     const { storeId, channel, priceListId, isDefault } = params;
 
     return this.prisma.storePriceList.updateMany({
@@ -66,7 +103,10 @@ export class StorePriceListsRepository {
     });
   }
 
-  delete(tenantId: string, params: { storeId: string; channel: SalesChannel; priceListId: string }) {
+  delete(
+    tenantId: string,
+    params: { storeId: string; channel: SalesChannel; priceListId: string },
+  ) {
     const { storeId, channel, priceListId } = params;
     return this.prisma.storePriceList.deleteMany({
       where: { tenantId, storeId, channel, priceListId },
@@ -74,7 +114,11 @@ export class StorePriceListsRepository {
   }
 
   // Útil para “no permitir borrar el default” sin reemplazo
-  findDefault(params: { tenantId: string; storeId: string; channel: SalesChannel }) {
+  findDefault(params: {
+    tenantId: string;
+    storeId: string;
+    channel: SalesChannel;
+  }) {
     const { tenantId, storeId, channel } = params;
     return this.prisma.storePriceList.findFirst({
       where: { tenantId, storeId, channel, isDefault: true },

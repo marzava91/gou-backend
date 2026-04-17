@@ -75,14 +75,7 @@ export class MembershipsRepository {
       | null;
     at: Date;
   }) {
-    const {
-      id,
-      fromStatus,
-      toStatus,
-      reason,
-      timestampField,
-      at,
-    } = input;
+    const { id, fromStatus, toStatus, reason, timestampField, at } = input;
 
     const data: Prisma.MembershipUncheckedUpdateInput = {
       status: toStatus,
@@ -108,7 +101,9 @@ export class MembershipsRepository {
     return result.count;
   }
 
-  async createStatusHistory(data: Prisma.MembershipStatusHistoryUncheckedCreateInput) {
+  async createStatusHistory(
+    data: Prisma.MembershipStatusHistoryUncheckedCreateInput,
+  ) {
     return this.prisma.membershipStatusHistory.create({
       data,
     });

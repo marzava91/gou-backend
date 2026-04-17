@@ -8,7 +8,18 @@
 // - (Opcional) Swagger decorators
 // REGLA: el controller no debe hablar con Prisma directo.
 
-import { Body, Controller, Delete, Get, Param, Patch, Post, Query, Headers, BadRequestException } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Delete,
+  Get,
+  Param,
+  Patch,
+  Post,
+  Query,
+  Headers,
+  BadRequestException,
+} from '@nestjs/common';
 import { ProductsService } from './products.service';
 import { QueryProductsDto } from './dto/query-products.dto';
 import { CreateProductDto } from './dto/create-product.dto';

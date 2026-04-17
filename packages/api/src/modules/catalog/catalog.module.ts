@@ -16,7 +16,14 @@ import { CategoriesService } from './categories/categories.service';
 @Module({
   imports: [PrismaModule],
   controllers: [ProductsController, BrandsController, CategoriesController],
-  providers: [ProductsService, PrismaProductsRepository, BrandsService, BrandsRepository, CategoriesRepository, CategoriesService],
+  providers: [
+    ProductsService,
+    PrismaProductsRepository,
+    BrandsService,
+    BrandsRepository,
+    CategoriesRepository,
+    CategoriesService,
+  ],
   exports: [ProductsService],
 })
 export class CatalogModule {}

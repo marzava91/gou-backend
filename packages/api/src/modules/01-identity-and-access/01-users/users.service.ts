@@ -81,7 +81,6 @@ export class UsersService {
     private readonly userContactVerificationPort: UserContactVerificationPort,
   ) {}
 
-
   async createUser(dto: CreateUserDto, actorUserId?: string) {
     assertAtLeastOneContact(dto);
 
@@ -94,14 +93,16 @@ export class UsersService {
       : null;
 
     if (normalizedPrimaryEmail) {
-      const existingByEmail =
-        await this.usersRepository.findByPrimaryEmail(normalizedPrimaryEmail);
+      const existingByEmail = await this.usersRepository.findByPrimaryEmail(
+        normalizedPrimaryEmail,
+      );
       if (existingByEmail) throw new DuplicatePrimaryEmailError();
     }
 
     if (normalizedPrimaryPhone) {
-      const existingByPhone =
-        await this.usersRepository.findByPrimaryPhone(normalizedPrimaryPhone);
+      const existingByPhone = await this.usersRepository.findByPrimaryPhone(
+        normalizedPrimaryPhone,
+      );
       if (existingByPhone) throw new DuplicatePrimaryPhoneError();
     }
 
@@ -162,9 +163,7 @@ export class UsersService {
       createdFrom: query.createdFrom
         ? this.toStartOfDay(query.createdFrom)
         : undefined,
-      createdTo: query.createdTo
-        ? this.toEndOfDay(query.createdTo)
-        : undefined,
+      createdTo: query.createdTo ? this.toEndOfDay(query.createdTo) : undefined,
       sortBy: query.sortBy,
       sortDir: query.sortDir,
       skip,
@@ -220,11 +219,7 @@ export class UsersService {
     return UserResponseMapper.toResponse(updated);
   }
 
-  async suspendUser(
-    userId: string,
-    dto: SuspendUserDto,
-    actorUserId?: string,
-  ) {
+  async suspendUser(userId: string, dto: SuspendUserDto, actorUserId?: string) {
     const user = await this.getRequiredUser(userId);
 
     if (user.status === UserStatus.SUSPENDED) {
@@ -467,21 +462,29 @@ export class UsersService {
         : this.normalizeAndValidatePhone(input.rawValue);
 
     if (input.type === UserContactChangeType.PRIMARY_EMAIL) {
-      if (user.primaryEmail && normalizeEmail(user.primaryEmail) === normalizedValue) {
+      if (
+        user.primaryEmail &&
+        normalizeEmail(user.primaryEmail) === normalizedValue
+      ) {
         throw new NewPrimaryEmailMatchesCurrentError();
       }
 
-      const existing = await this.usersRepository.findByPrimaryEmail(normalizedValue);
+      const existing =
+        await this.usersRepository.findByPrimaryEmail(normalizedValue);
 
       if (existing && existing.id !== user.id) {
         throw new DuplicatePrimaryEmailError();
       }
     } else {
-      if (user.primaryPhone && normalizePhone(user.primaryPhone) === normalizedValue) {
+      if (
+        user.primaryPhone &&
+        normalizePhone(user.primaryPhone) === normalizedValue
+      ) {
         throw new NewPrimaryPhoneMatchesCurrentError();
       }
 
-      const existing = await this.usersRepository.findByPrimaryPhone(normalizedValue);
+      const existing =
+        await this.usersRepository.findByPrimaryPhone(normalizedValue);
 
       if (existing && existing.id !== user.id) {
         throw new DuplicatePrimaryPhoneError();
@@ -520,14 +523,18 @@ export class UsersService {
 
     const verification =
       input.type === UserContactChangeType.PRIMARY_EMAIL
-        ? await this.userContactVerificationPort.requestEmailChangeVerification({
-            userId: user.id,
-            newPrimaryEmail: normalizedValue,
-          })
-        : await this.userContactVerificationPort.requestPhoneChangeVerification({
-            userId: user.id,
-            newPrimaryPhone: normalizedValue,
-          });
+        ? await this.userContactVerificationPort.requestEmailChangeVerification(
+            {
+              userId: user.id,
+              newPrimaryEmail: normalizedValue,
+            },
+          )
+        : await this.userContactVerificationPort.requestPhoneChangeVerification(
+            {
+              userId: user.id,
+              newPrimaryPhone: normalizedValue,
+            },
+          );
 
     await this.userContactChangeRequestsRepository.create({
       userId: user.id,
@@ -548,15 +555,10 @@ export class UsersService {
         ? UserDomainEvents.USER_PRIMARY_EMAIL_CHANGE_REQUESTED
         : UserDomainEvents.USER_PRIMARY_PHONE_CHANGE_REQUESTED;
 
-    await this.recordAudit(
-      auditAction,
-      user.id,
-      input.actorUserId ?? user.id,
-      {
-        type: input.type,
-        verificationRef: verification.verificationRef,
-      },
-    );
+    await this.recordAudit(auditAction, user.id, input.actorUserId ?? user.id, {
+      type: input.type,
+      verificationRef: verification.verificationRef,
+    });
 
     await this.userEventsPort.publish(eventName, {
       userId: user.id,
@@ -583,14 +585,18 @@ export class UsersService {
 
     const verification =
       input.type === UserContactChangeType.PRIMARY_EMAIL
-        ? await this.userContactVerificationPort.confirmEmailChangeVerification({
-            userId: input.userId,
-            verificationToken: input.verificationToken,
-          })
-        : await this.userContactVerificationPort.confirmPhoneChangeVerification({
-            userId: input.userId,
-            verificationToken: input.verificationToken,
-          });
+        ? await this.userContactVerificationPort.confirmEmailChangeVerification(
+            {
+              userId: input.userId,
+              verificationToken: input.verificationToken,
+            },
+          )
+        : await this.userContactVerificationPort.confirmPhoneChangeVerification(
+            {
+              userId: input.userId,
+              verificationToken: input.verificationToken,
+            },
+          );
 
     if (
       (input.type === UserContactChangeType.PRIMARY_EMAIL &&
@@ -709,7 +715,6 @@ export class UsersService {
 
     return UserResponseMapper.toResponse(updated);
   }
-
 
   private async getRequiredUser(userId: string): Promise<User> {
     const user = await this.usersRepository.findById(userId);
@@ -837,6 +842,4 @@ export class UsersService {
 
     return [];
   }
-
 }
-

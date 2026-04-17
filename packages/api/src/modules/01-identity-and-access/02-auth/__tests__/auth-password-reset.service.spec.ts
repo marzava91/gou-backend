@@ -156,7 +156,9 @@ describe('AuthPasswordResetService', () => {
 
     expect(authSupportService.hashToken).toHaveBeenCalledWith('123456');
     expect(authProvider.resetPassword).not.toHaveBeenCalled();
-    expect(authRepository.revokeAllActiveSessionsByUserId).not.toHaveBeenCalled();
+    expect(
+      authRepository.revokeAllActiveSessionsByUserId,
+    ).not.toHaveBeenCalled();
   });
 
   it('throws ChallengeExpiredError when challenge is expired', async () => {
@@ -186,7 +188,9 @@ describe('AuthPasswordResetService', () => {
 
     expect(authSupportService.hashToken).toHaveBeenCalledWith('123456');
     expect(authProvider.resetPassword).not.toHaveBeenCalled();
-    expect(authRepository.revokeAllActiveSessionsByUserId).not.toHaveBeenCalled();
+    expect(
+      authRepository.revokeAllActiveSessionsByUserId,
+    ).not.toHaveBeenCalled();
   });
 
   it('throws TooManyAttemptsError when invalid code reaches max attempts', async () => {
@@ -216,23 +220,27 @@ describe('AuthPasswordResetService', () => {
 
     expect(authSupportService.hashToken).toHaveBeenCalledWith('000000');
     expect(authProvider.resetPassword).not.toHaveBeenCalled();
-    expect(authRepository.revokeAllActiveSessionsByUserId).not.toHaveBeenCalled();
+    expect(
+      authRepository.revokeAllActiveSessionsByUserId,
+    ).not.toHaveBeenCalled();
   });
 
   it('throws TooManyAttemptsError when challenge does not exist in current flow', async () => {
     authRepository.findVerificationChallengeById.mockResolvedValue(null);
 
     await expect(
-        service.confirmPasswordReset({
+      service.confirmPasswordReset({
         challengeId: 'missing-challenge',
         code: '123456',
         newPassword: 'NewStrongPassword123!',
-        }),
+      }),
     ).rejects.toBeInstanceOf(TooManyAttemptsError);
 
     expect(authSupportService.hashToken).toHaveBeenCalledWith('123456');
     expect(authProvider.resetPassword).not.toHaveBeenCalled();
-    expect(authRepository.revokeAllActiveSessionsByUserId).not.toHaveBeenCalled();
+    expect(
+      authRepository.revokeAllActiveSessionsByUserId,
+    ).not.toHaveBeenCalled();
   });
 
   it('records partial completion metadata when challenge has no userId', async () => {
@@ -269,7 +277,9 @@ describe('AuthPasswordResetService', () => {
     });
 
     expect(authSupportService.hashToken).toHaveBeenCalledWith('123456');
-    expect(authRepository.revokeAllActiveSessionsByUserId).not.toHaveBeenCalled();
+    expect(
+      authRepository.revokeAllActiveSessionsByUserId,
+    ).not.toHaveBeenCalled();
 
     expect(authSupportService.recordAudit).toHaveBeenCalledWith(
       AUTH_AUDIT_ACTIONS.PASSWORD_RESET_COMPLETED,

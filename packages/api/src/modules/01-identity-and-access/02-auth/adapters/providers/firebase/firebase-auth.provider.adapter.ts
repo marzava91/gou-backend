@@ -19,9 +19,7 @@ import {
 
 @Injectable()
 export class FirebaseAuthProviderAdapter implements AuthProviderPort {
-  constructor(
-    private readonly firebaseAdminProvider: FirebaseAdminProvider,
-  ) {}
+  constructor(private readonly firebaseAdminProvider: FirebaseAdminProvider) {}
 
   /**
    * Transitional compatibility layer for the current AuthProviderPort contract.
@@ -47,8 +45,7 @@ export class FirebaseAuthProviderAdapter implements AuthProviderPort {
     externalToken?: string;
     deviceName?: string;
   }): Promise<ProviderAuthenticationResult> {
-    const idToken =
-      params.externalToken?.trim() || params.secret?.trim();
+    const idToken = params.externalToken?.trim() || params.secret?.trim();
 
     if (!idToken) {
       throw new InvalidCredentialsError();
@@ -63,8 +60,7 @@ export class FirebaseAuthProviderAdapter implements AuthProviderPort {
       decodedToken.uid,
     );
 
-    const signInProvider =
-      decodedToken.firebase?.sign_in_provider ?? null;
+    const signInProvider = decodedToken.firebase?.sign_in_provider ?? null;
 
     const resolvedProvider =
       resolveAuthProviderFromFirebaseSignInProvider(signInProvider);
@@ -118,8 +114,7 @@ export class FirebaseAuthProviderAdapter implements AuthProviderPort {
       decodedToken.uid,
     );
 
-    const signInProvider =
-      decodedToken.firebase?.sign_in_provider ?? null;
+    const signInProvider = decodedToken.firebase?.sign_in_provider ?? null;
 
     const resolvedProvider =
       resolveAuthProviderFromFirebaseSignInProvider(signInProvider);

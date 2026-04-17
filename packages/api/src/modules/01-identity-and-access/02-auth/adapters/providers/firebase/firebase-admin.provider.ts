@@ -43,7 +43,10 @@ export class FirebaseAdminProvider {
     return getAuth().generatePasswordResetLink(email);
   }
 
-  async updateUserPassword(uid: string, newPassword: string): Promise<UserRecord> {
+  async updateUserPassword(
+    uid: string,
+    newPassword: string,
+  ): Promise<UserRecord> {
     return getAuth().updateUser(uid, {
       password: newPassword,
     });

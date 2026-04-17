@@ -33,66 +33,74 @@ export class RoleCommandService {
     private readonly roleMembershipReaderPort: RoleMembershipReaderPort,
   ) {}
 
-  async createRole(actorId: string | null, dto: {
-    key: string;
-    name: string;
-    description?: string | null;
-    scopeType: 'TENANT' | 'STORE';
-    capabilityKeys: string[];
-    isSystem?: boolean;
-    }) {
+  async createRole(
+    actorId: string | null,
+    dto: {
+      key: string;
+      name: string;
+      description?: string | null;
+      scopeType: 'TENANT' | 'STORE';
+      capabilityKeys: string[];
+      isSystem?: boolean;
+    },
+  ) {
     const normalizedKey = dto.key.trim().toLowerCase();
     const normalizedName = dto.name.trim();
     const normalizedDescription = dto.description?.trim() || null;
 
     const existing = await this.rolesRepository.findRoleByKey(normalizedKey);
     if (existing) {
-        throw new RoleAlreadyExistsError();
+      throw new RoleAlreadyExistsError();
     }
 
     const capabilities = normalizeCapabilityKeys(dto.capabilityKeys);
     const at = this.roleSupportService.now();
 
     const role = await this.rolesRepository.createRole({
-        key: normalizedKey,
-        name: normalizedName,
-        description: normalizedDescription,
-        scopeType: dto.scopeType as any,
-        capabilityKeys: capabilities,
-        isSystem: dto.isSystem ?? false,
+      key: normalizedKey,
+      name: normalizedName,
+      description: normalizedDescription,
+      scopeType: dto.scopeType as any,
+      capabilityKeys: capabilities,
+      isSystem: dto.isSystem ?? false,
     });
 
     await this.roleSupportService.recordAudit({
-        action: ROLE_AUDIT_ACTIONS.ROLE_CREATED,
-        actorId,
-        targetId: role.id,
-        payload: {
+      action: ROLE_AUDIT_ACTIONS.ROLE_CREATED,
+      actorId,
+      targetId: role.id,
+      payload: {
         key: role.key,
         scopeType: role.scopeType,
         capabilityKeys: capabilities,
-        },
-        at,
+      },
+      at,
     });
 
     await this.roleSupportService.publishEvent({
-        eventName: RoleDomainEvents.ROLE_CREATED,
-        payload: {
+      eventName: RoleDomainEvents.ROLE_CREATED,
+      payload: {
         roleId: role.id,
         key: role.key,
         scopeType: role.scopeType,
         capabilityKeys: capabilities,
-        },
+      },
     });
 
     return role;
-    }
+  }
 
-  async assignRole(actorId: string | null, dto: {
-    membershipId: string;
-    roleId: string;
-    reason?: string | null;
-  }) {
-    const membership = await this.roleMembershipReaderPort.findMembershipById(dto.membershipId);
+  async assignRole(
+    actorId: string | null,
+    dto: {
+      membershipId: string;
+      roleId: string;
+      reason?: string | null;
+    },
+  ) {
+    const membership = await this.roleMembershipReaderPort.findMembershipById(
+      dto.membershipId,
+    );
     if (!membership) {
       throw new RoleAssignmentMembershipNotFoundError();
     }
@@ -176,10 +184,15 @@ export class RoleCommandService {
     }
   }
 
-  async revokeRoleAssignment(actorId: string | null, assignmentId: string, dto: {
-    reason?: string | null;
-  }) {
-    const existing = await this.rolesRepository.findAssignmentById(assignmentId);
+  async revokeRoleAssignment(
+    actorId: string | null,
+    assignmentId: string,
+    dto: {
+      reason?: string | null;
+    },
+  ) {
+    const existing =
+      await this.rolesRepository.findAssignmentById(assignmentId);
     if (!existing) {
       throw new RoleAssignmentNotFoundError();
     }

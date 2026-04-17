@@ -3,7 +3,7 @@
 /**
  * VALIDA REGLAS DE NEGOCIO REAL DEL SUB MODULO
  * Este spec valida las reglas de negocio reales del submódulo de Users, que es la capa más alta de contrato dentro del módulo.
- * 
+ *
  * ------------------------
  * What this spec validates
  * ------------------------
@@ -40,7 +40,11 @@
  * - concurrency conflicts are silently ignored
  */
 
-import { UserContactChangeStatus, UserContactChangeType, UserStatus } from '@prisma/client';
+import {
+  UserContactChangeStatus,
+  UserContactChangeType,
+  UserStatus,
+} from '@prisma/client';
 
 import { UsersService } from '../users.service';
 import { UsersRepository } from '../users.repository';
@@ -59,7 +63,10 @@ import {
   UserNotFoundError,
 } from '../domain/errors/user.errors';
 
-import { USER_AUDIT_ACTIONS, USER_DEFAULTS } from '../domain/constants/users.constants';
+import {
+  USER_AUDIT_ACTIONS,
+  USER_DEFAULTS,
+} from '../domain/constants/users.constants';
 import { UserDomainEvents } from '../domain/events/user.events';
 
 import type { UserAuditPort } from '../ports/user-audit.port';
@@ -295,7 +302,11 @@ describe('UsersService', () => {
   describe('updateProfile', () => {
     it('rejects empty profile update', async () => {
       await expect(
-        service.updateProfile('cusr_123456789012345678901234', {} as any, 'actor_1'),
+        service.updateProfile(
+          'cusr_123456789012345678901234',
+          {} as any,
+          'actor_1',
+        ),
       ).rejects.toBeInstanceOf(EmptyUserProfileUpdateError);
 
       expect(usersRepository.findById).not.toHaveBeenCalled();
@@ -382,7 +393,9 @@ describe('UsersService', () => {
 
   describe('lifecycle operations', () => {
     it('suspends an active user and emits side effects', async () => {
-      usersRepository.findById.mockResolvedValue(makeUser({ status: UserStatus.ACTIVE }));
+      usersRepository.findById.mockResolvedValue(
+        makeUser({ status: UserStatus.ACTIVE }),
+      );
       usersRepository.updateByIdAndVersion.mockResolvedValue(
         makeUser({ status: UserStatus.SUSPENDED, version: 2 }),
       );
@@ -506,7 +519,7 @@ describe('UsersService', () => {
         newValue: 'new@test.com',
         verificationRef: 'verif_123',
         status: UserContactChangeStatus.PENDING,
-        expiresAt: futureDate
+        expiresAt: futureDate,
       };
 
       usersRepository.findById.mockResolvedValue(makeUser());
@@ -524,10 +537,12 @@ describe('UsersService', () => {
       expect(result).toEqual({
         requested: true,
         verificationRef: 'verif_123',
-        expiresAt: futureDate
+        expiresAt: futureDate,
       });
 
-      expect(userContactVerificationPort.requestEmailChangeVerification).not.toHaveBeenCalled();
+      expect(
+        userContactVerificationPort.requestEmailChangeVerification,
+      ).not.toHaveBeenCalled();
       expect(userContactChangeRequestsRepository.create).not.toHaveBeenCalled();
       expect(userAuditPort.record).not.toHaveBeenCalled();
       expect(userEventsPort.publish).not.toHaveBeenCalled();
@@ -553,11 +568,13 @@ describe('UsersService', () => {
       userContactChangeRequestsRepository.findLatestActiveByUserIdAndType.mockResolvedValue(
         null,
       );
-      userContactVerificationPort.requestEmailChangeVerification.mockResolvedValue({
-        type: 'email',
-        verificationRef: 'verif_456',
-        expiresAt: new Date('2026-03-29T10:00:00.000Z'),
-      });
+      userContactVerificationPort.requestEmailChangeVerification.mockResolvedValue(
+        {
+          type: 'email',
+          verificationRef: 'verif_456',
+          expiresAt: new Date('2026-03-29T10:00:00.000Z'),
+        },
+      );
 
       const result = await service.requestPrimaryEmailChange(
         'cusr_123456789012345678901234',
@@ -565,7 +582,9 @@ describe('UsersService', () => {
         'actor_1',
       );
 
-      expect(userContactVerificationPort.requestEmailChangeVerification).toHaveBeenCalledWith({
+      expect(
+        userContactVerificationPort.requestEmailChangeVerification,
+      ).toHaveBeenCalledWith({
         userId: 'cusr_123456789012345678901234',
         newPrimaryEmail: 'new@test.com',
       });
@@ -589,10 +608,12 @@ describe('UsersService', () => {
   describe('confirmPrimaryEmailChange', () => {
     it('rejects incomplete verification result', async () => {
       usersRepository.findById.mockResolvedValue(makeUser());
-      userContactVerificationPort.confirmEmailChangeVerification.mockResolvedValue({
-        type: 'email',
-        verified: false,
-      });
+      userContactVerificationPort.confirmEmailChangeVerification.mockResolvedValue(
+        {
+          type: 'email',
+          verified: false,
+        },
+      );
 
       await expect(
         service.confirmPrimaryEmailChange(
@@ -605,23 +626,29 @@ describe('UsersService', () => {
 
     it('confirms primary email change, updates user, consumes request, and emits side effects', async () => {
       usersRepository.findById.mockResolvedValue(makeUser({ version: 7 }));
-      userContactVerificationPort.confirmEmailChangeVerification.mockResolvedValue({
-        type: 'email',
-        verified: true,
-        verificationRef: 'verif_789',
-        newPrimaryEmail: 'verified@test.com',
-      });
+      userContactVerificationPort.confirmEmailChangeVerification.mockResolvedValue(
+        {
+          type: 'email',
+          verified: true,
+          verificationRef: 'verif_789',
+          newPrimaryEmail: 'verified@test.com',
+        },
+      );
       usersRepository.findByPrimaryEmail.mockResolvedValue(null);
-      userContactChangeRequestsRepository.findPendingByVerificationRef.mockResolvedValue({
-        id: 'req_2',
-        userId: 'cusr_123456789012345678901234',
-        type: UserContactChangeType.PRIMARY_EMAIL,
-        status: UserContactChangeStatus.PENDING,
-        newValue: 'verified@test.com',
-        verificationRef: 'verif_789',
-        expiresAt: new Date('2026-03-29T10:00:00.000Z'),
-      } as any);
-      userContactChangeRequestsRepository.markVerifiedById.mockResolvedValue({} as any);
+      userContactChangeRequestsRepository.findPendingByVerificationRef.mockResolvedValue(
+        {
+          id: 'req_2',
+          userId: 'cusr_123456789012345678901234',
+          type: UserContactChangeType.PRIMARY_EMAIL,
+          status: UserContactChangeStatus.PENDING,
+          newValue: 'verified@test.com',
+          verificationRef: 'verif_789',
+          expiresAt: new Date('2026-03-29T10:00:00.000Z'),
+        } as any,
+      );
+      userContactChangeRequestsRepository.markVerifiedById.mockResolvedValue(
+        {} as any,
+      );
       usersRepository.updatePrimaryEmailByIdAndVersion.mockResolvedValue(
         makeUser({
           version: 8,
@@ -629,7 +656,9 @@ describe('UsersService', () => {
           emailVerified: true,
         }),
       );
-      userContactChangeRequestsRepository.markConsumedById.mockResolvedValue({} as any);
+      userContactChangeRequestsRepository.markConsumedById.mockResolvedValue(
+        {} as any,
+      );
 
       const result = await service.confirmPrimaryEmailChange(
         'cusr_123456789012345678901234',
@@ -637,13 +666,19 @@ describe('UsersService', () => {
         'actor_1',
       );
 
-      expect(userContactChangeRequestsRepository.markVerifiedById).toHaveBeenCalledWith('req_2');
-      expect(usersRepository.updatePrimaryEmailByIdAndVersion).toHaveBeenCalledWith(
+      expect(
+        userContactChangeRequestsRepository.markVerifiedById,
+      ).toHaveBeenCalledWith('req_2');
+      expect(
+        usersRepository.updatePrimaryEmailByIdAndVersion,
+      ).toHaveBeenCalledWith(
         'cusr_123456789012345678901234',
         7,
         'verified@test.com',
       );
-      expect(userContactChangeRequestsRepository.markConsumedById).toHaveBeenCalledWith('req_2');
+      expect(
+        userContactChangeRequestsRepository.markConsumedById,
+      ).toHaveBeenCalledWith('req_2');
       expect(userAuditPort.record).toHaveBeenCalledWith(
         expect.objectContaining({
           action: USER_AUDIT_ACTIONS.EMAIL_CHANGE_CONFIRM,
@@ -661,23 +696,29 @@ describe('UsersService', () => {
 
     it('rejects stale concurrent update during confirm flow', async () => {
       usersRepository.findById.mockResolvedValue(makeUser({ version: 7 }));
-      userContactVerificationPort.confirmEmailChangeVerification.mockResolvedValue({
-        type: 'email',
-        verified: true,
-        verificationRef: 'verif_789',
-        newPrimaryEmail: 'verified@test.com',
-      });
+      userContactVerificationPort.confirmEmailChangeVerification.mockResolvedValue(
+        {
+          type: 'email',
+          verified: true,
+          verificationRef: 'verif_789',
+          newPrimaryEmail: 'verified@test.com',
+        },
+      );
       usersRepository.findByPrimaryEmail.mockResolvedValue(null);
-      userContactChangeRequestsRepository.findPendingByVerificationRef.mockResolvedValue({
-        id: 'req_2',
-        userId: 'cusr_123456789012345678901234',
-        type: UserContactChangeType.PRIMARY_EMAIL,
-        status: UserContactChangeStatus.PENDING,
-        newValue: 'verified@test.com',
-        verificationRef: 'verif_789',
-        expiresAt: new Date('2026-03-29T10:00:00.000Z'),
-      } as any);
-      userContactChangeRequestsRepository.markVerifiedById.mockResolvedValue({} as any);
+      userContactChangeRequestsRepository.findPendingByVerificationRef.mockResolvedValue(
+        {
+          id: 'req_2',
+          userId: 'cusr_123456789012345678901234',
+          type: UserContactChangeType.PRIMARY_EMAIL,
+          status: UserContactChangeStatus.PENDING,
+          newValue: 'verified@test.com',
+          verificationRef: 'verif_789',
+          expiresAt: new Date('2026-03-29T10:00:00.000Z'),
+        } as any,
+      );
+      userContactChangeRequestsRepository.markVerifiedById.mockResolvedValue(
+        {} as any,
+      );
       usersRepository.updatePrimaryEmailByIdAndVersion.mockResolvedValue(null);
 
       await expect(

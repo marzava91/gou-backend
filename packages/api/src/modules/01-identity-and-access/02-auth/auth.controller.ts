@@ -55,9 +55,7 @@ export class AuthController {
   @Post('logout-all')
   @UseGuards(AuthAuthenticatedGuard)
   @HttpCode(200)
-  logoutAllSessions(
-    @CurrentAuthActor() actor: AuthenticatedAuthActor,
-  ) {
+  logoutAllSessions(@CurrentAuthActor() actor: AuthenticatedAuthActor) {
     return this.authService.logoutAllSessions(actor.userId);
   }
 
@@ -87,9 +85,7 @@ export class AuthController {
 
   @Get('me')
   @UseGuards(AuthAuthenticatedGuard)
-  getCurrentAuthContext(
-    @CurrentAuthActor() actor: AuthenticatedAuthActor,
-  ) {
+  getCurrentAuthContext(@CurrentAuthActor() actor: AuthenticatedAuthActor) {
     return this.authService.getCurrentAuthContext(actor);
   }
 

@@ -8,7 +8,10 @@ import { GrantSupportService } from './support/grant-support.service';
 
 import { GRANT_MEMBERSHIP_READER_PORT } from '../ports/grant-membership-reader.port';
 import type { GrantMembershipReaderPort } from '../ports/grant-membership-reader.port';
-import { GRANT_AUDIT_ACTIONS, DEFAULT_GRANT_STATUS_ON_CREATE } from '../domain/constants/grant.constants';
+import {
+  GRANT_AUDIT_ACTIONS,
+  DEFAULT_GRANT_STATUS_ON_CREATE,
+} from '../domain/constants/grant.constants';
 import { GrantDomainEvents } from '../domain/events/grant.events';
 import {
   DuplicateActiveGrantError,
@@ -36,156 +39,167 @@ export class GrantCommandService {
   ) {}
 
   async createGrant(actorId: string | null, dto: CreateGrantDto) {
-    const membership = await this.grantMembershipReaderPort.findMembershipById(dto.membershipId);
+    const membership = await this.grantMembershipReaderPort.findMembershipById(
+      dto.membershipId,
+    );
 
     if (!membership) {
-        throw new GrantMembershipNotFoundError();
+      throw new GrantMembershipNotFoundError();
     }
 
     if (membership.status !== MembershipStatus.ACTIVE) {
-        throw new GrantMembershipInactiveError();
+      throw new GrantMembershipInactiveError();
     }
 
     const normalizedTarget = this.resolveNormalizedTarget(dto);
     const validityWindow = this.resolveValidityWindow(dto);
 
     const duplicate = await this.grantsRepository.findDuplicateActiveGrant({
-        membershipId: dto.membershipId,
-        effect: dto.effect,
-        targetType: dto.targetType,
-        capabilityKey: normalizedTarget.capabilityKey,
-        resourceKey: normalizedTarget.resourceKey,
-        actionKey: normalizedTarget.actionKey,
+      membershipId: dto.membershipId,
+      effect: dto.effect,
+      targetType: dto.targetType,
+      capabilityKey: normalizedTarget.capabilityKey,
+      resourceKey: normalizedTarget.resourceKey,
+      actionKey: normalizedTarget.actionKey,
     });
 
     if (duplicate) {
-        throw new DuplicateActiveGrantError();
+      throw new DuplicateActiveGrantError();
     }
 
     const at = this.grantSupportService.now();
-    const creationReason = this.grantSupportService.normalizeReason(dto.reason ?? null);
+    const creationReason = this.grantSupportService.normalizeReason(
+      dto.reason ?? null,
+    );
 
     const created = await this.grantsRepository.createGrantWithHistory({
-        membershipId: dto.membershipId,
-        effect: dto.effect,
-        targetType: dto.targetType,
-        capabilityKey: normalizedTarget.capabilityKey,
-        resourceKey: normalizedTarget.resourceKey,
-        actionKey: normalizedTarget.actionKey,
-        status: DEFAULT_GRANT_STATUS_ON_CREATE,
-        validFrom: validityWindow.validFrom,
-        validUntil: validityWindow.validUntil,
-        creationReason,
-        createdBy: actorId,
-        activatedAt: DEFAULT_GRANT_STATUS_ON_CREATE === GrantStatus.ACTIVE ? at : null,
-        version: 1,
-        history: {
-            fromStatus: null,
-            toStatus: DEFAULT_GRANT_STATUS_ON_CREATE,
-            changedBy: actorId,
-            reason: creationReason,
-            createdAt: at,
-        },
+      membershipId: dto.membershipId,
+      effect: dto.effect,
+      targetType: dto.targetType,
+      capabilityKey: normalizedTarget.capabilityKey,
+      resourceKey: normalizedTarget.resourceKey,
+      actionKey: normalizedTarget.actionKey,
+      status: DEFAULT_GRANT_STATUS_ON_CREATE,
+      validFrom: validityWindow.validFrom,
+      validUntil: validityWindow.validUntil,
+      creationReason,
+      createdBy: actorId,
+      activatedAt:
+        DEFAULT_GRANT_STATUS_ON_CREATE === GrantStatus.ACTIVE ? at : null,
+      version: 1,
+      history: {
+        fromStatus: null,
+        toStatus: DEFAULT_GRANT_STATUS_ON_CREATE,
+        changedBy: actorId,
+        reason: creationReason,
+        createdAt: at,
+      },
     });
 
     await this.grantSupportService.recordAudit({
-        action: GRANT_AUDIT_ACTIONS.GRANT_CREATED,
-        actorId,
-        targetId: created.id,
-        payload: {
+      action: GRANT_AUDIT_ACTIONS.GRANT_CREATED,
+      actorId,
+      targetId: created.id,
+      payload: {
         membershipId: created.membershipId,
         effect: created.effect,
         targetType: created.targetType,
         capabilityKey: created.capabilityKey,
         resourceKey: created.resourceKey,
         actionKey: created.actionKey,
-        },
-        at,
+      },
+      at,
     });
 
     await this.grantSupportService.publishEvent({
-        eventName: GrantDomainEvents.GRANT_CREATED,
-        payload: {
+      eventName: GrantDomainEvents.GRANT_CREATED,
+      payload: {
         grantId: created.id,
         membershipId: created.membershipId,
         effect: created.effect,
         targetType: created.targetType,
-        },
+      },
     });
 
     await this.grantSupportService.publishEvent({
-        eventName: GrantDomainEvents.EFFECTIVE_PERMISSIONS_CHANGED,
-        payload: {
+      eventName: GrantDomainEvents.EFFECTIVE_PERMISSIONS_CHANGED,
+      payload: {
         membershipId: created.membershipId,
         reason: 'grant_created',
         grantId: created.id,
-        },
+      },
     });
 
     return created;
   }
 
-  async revokeGrant(actorId: string | null, grantId: string, dto: RevokeGrantDto) {
+  async revokeGrant(
+    actorId: string | null,
+    grantId: string,
+    dto: RevokeGrantDto,
+  ) {
     const grant = await this.grantsRepository.findById(grantId);
 
     if (!grant) {
-        throw new GrantNotFoundError();
+      throw new GrantNotFoundError();
     }
 
     if (!canTransitionGrantStatus(grant.status, GrantStatus.REVOKED)) {
-        throw new InvalidGrantTransitionError();
+      throw new InvalidGrantTransitionError();
     }
 
     const revokedAt = this.grantSupportService.now();
-    const revocationReason = this.grantSupportService.normalizeReason(dto.reason ?? null);
+    const revocationReason = this.grantSupportService.normalizeReason(
+      dto.reason ?? null,
+    );
 
     const result = await this.grantsRepository.revokeGrantWithHistory({
-        id: grant.id,
-        expectedVersion: grant.version,
-        currentStatus: grant.status,
-        revokedBy: actorId,
-        revocationReason,
-        revokedAt,
+      id: grant.id,
+      expectedVersion: grant.version,
+      currentStatus: grant.status,
+      revokedBy: actorId,
+      revocationReason,
+      revokedAt,
     });
 
     if (result.count !== 1) {
-        throw new InvalidGrantTransitionError(); // o ConflictException más específico
+      throw new InvalidGrantTransitionError(); // o ConflictException más específico
     }
 
     await this.grantSupportService.recordAudit({
-        action: GRANT_AUDIT_ACTIONS.GRANT_REVOKED,
-        actorId,
-        targetId: grant.id,
-        payload: {
+      action: GRANT_AUDIT_ACTIONS.GRANT_REVOKED,
+      actorId,
+      targetId: grant.id,
+      payload: {
         membershipId: grant.membershipId,
         effect: grant.effect,
         targetType: grant.targetType,
-        },
-        at: revokedAt,
+      },
+      at: revokedAt,
     });
 
     await this.grantSupportService.publishEvent({
-        eventName: GrantDomainEvents.GRANT_REVOKED,
-        payload: {
+      eventName: GrantDomainEvents.GRANT_REVOKED,
+      payload: {
         grantId: grant.id,
         membershipId: grant.membershipId,
         revokedAt,
-        },
+      },
     });
 
     await this.grantSupportService.publishEvent({
-        eventName: GrantDomainEvents.EFFECTIVE_PERMISSIONS_CHANGED,
-        payload: {
+      eventName: GrantDomainEvents.EFFECTIVE_PERMISSIONS_CHANGED,
+      payload: {
         membershipId: grant.membershipId,
         reason: 'grant_revoked',
         grantId: grant.id,
-        },
+      },
     });
 
     return {
-        id: grant.id,
-        status: GrantStatus.REVOKED,
-        revokedAt,
+      id: grant.id,
+      status: GrantStatus.REVOKED,
+      revokedAt,
     };
   }
 
@@ -229,7 +243,7 @@ export class GrantCommandService {
     const validUntil = dto.validUntil ? new Date(dto.validUntil) : null;
 
     if (validFrom && validUntil && validUntil <= validFrom) {
-        throw new InvalidGrantValidityWindowError();
+      throw new InvalidGrantValidityWindowError();
     }
 
     return { validFrom, validUntil };

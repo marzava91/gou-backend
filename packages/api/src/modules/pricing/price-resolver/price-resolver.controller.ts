@@ -1,5 +1,11 @@
 // packages\api\src\modules\pricing\price-resolver\price-resolver.controller.ts
-import { BadRequestException, Body, Controller, Headers, Post } from '@nestjs/common';
+import {
+  BadRequestException,
+  Body,
+  Controller,
+  Headers,
+  Post,
+} from '@nestjs/common';
 import { PriceResolverService } from './price-resolver.service';
 import { ResolvePriceDto } from './dto/resolve-price.dto';
 
@@ -13,7 +19,10 @@ export class PriceResolverController {
   }
 
   @Post('resolve')
-  resolve(@Headers('x-tenant-id') tenantId: string, @Body() dto: ResolvePriceDto) {
+  resolve(
+    @Headers('x-tenant-id') tenantId: string,
+    @Body() dto: ResolvePriceDto,
+  ) {
     return this.svc.resolve(this.tenantIdOrThrow(tenantId), dto);
   }
 }

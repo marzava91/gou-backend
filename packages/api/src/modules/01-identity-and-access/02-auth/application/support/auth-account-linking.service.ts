@@ -60,10 +60,11 @@ export class AuthAccountLinkingService {
   async resolveOrAutoLinkIdentity(
     input: ResolveOrAutoLinkIdentityInput,
   ): Promise<ResolveOrAutoLinkIdentityResult> {
-    const existingIdentity = await this.authRepository.findAuthIdentityByProvider(
-      input.provider,
-      input.providerSubject,
-    );
+    const existingIdentity =
+      await this.authRepository.findAuthIdentityByProvider(
+        input.provider,
+        input.providerSubject,
+      );
 
     if (existingIdentity) {
       return {

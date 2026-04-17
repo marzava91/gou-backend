@@ -96,4 +96,3 @@ export class ForbiddenAuthScopeError extends Error {
     super('forbidden_auth_scope');
   }
 }
-

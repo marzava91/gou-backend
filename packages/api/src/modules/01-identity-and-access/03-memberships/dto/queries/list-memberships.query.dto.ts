@@ -11,10 +11,7 @@ import {
 } from 'class-validator';
 import { Type } from 'class-transformer';
 import { IsCuid } from '../../validators/is-cuid.validator';
-import {
-  MembershipScopeType,
-  MembershipStatus,
-} from '@prisma/client';
+import { MembershipScopeType, MembershipStatus } from '@prisma/client';
 
 import {
   MEMBERSHIP_DEFAULT_PAGE_SIZE,

@@ -1,5 +1,16 @@
 // packages\api\src\modules\pricing\price-lists\price-lists.controller.ts
-import { Body, Controller, Delete, Get, Headers, Param, Patch, Post, Query, BadRequestException } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Delete,
+  Get,
+  Headers,
+  Param,
+  Patch,
+  Post,
+  Query,
+  BadRequestException,
+} from '@nestjs/common';
 import { PriceListsService } from './price-lists.service';
 import { CreatePriceListDto } from './dto/create-price-list.dto';
 import { QueryPriceListsDto } from './dto/query-price-lists.dto';
@@ -15,7 +26,10 @@ export class PriceListsController {
   }
 
   @Get()
-  list(@Headers('x-tenant-id') tenantId: string, @Query() q: QueryPriceListsDto) {
+  list(
+    @Headers('x-tenant-id') tenantId: string,
+    @Query() q: QueryPriceListsDto,
+  ) {
     return this.svc.list(this.tenantIdOrThrow(tenantId), q);
   }
 
@@ -25,7 +39,10 @@ export class PriceListsController {
   }
 
   @Post()
-  create(@Headers('x-tenant-id') tenantId: string, @Body() dto: CreatePriceListDto) {
+  create(
+    @Headers('x-tenant-id') tenantId: string,
+    @Body() dto: CreatePriceListDto,
+  ) {
     return this.svc.create(this.tenantIdOrThrow(tenantId), dto);
   }
 

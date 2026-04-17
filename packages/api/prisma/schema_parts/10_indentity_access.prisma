@@ -390,3 +390,86 @@ model GrantHistory {
   @@index([toStatus, createdAt])
   @@map("grant_history")
 }
+
+model Invitation {
+  id                    String                  @id @default(cuid())
+
+  recipientType         InvitationRecipientType
+  recipientValue        String                  @db.VarChar(320)
+
+  scopeType             MembershipScopeType
+  tenantId              String
+  storeId               String?
+
+  proposedRoleKey       String?                 @db.VarChar(120)
+  metadata              Json?
+
+  status                InvitationStatus        @default(PROPOSED)
+
+  currentTokenHash      String?                 @unique @db.VarChar(255)
+  currentTokenIssuedAt  DateTime?
+  expiresAt             DateTime
+
+  createdBy             String?                 @db.VarChar(191)
+  revokedBy             String?                 @db.VarChar(191)
+  canceledBy            String?                 @db.VarChar(191)
+  acceptedByUserId      String?                 @db.VarChar(191)
+
+  sentAt                DateTime?
+  acceptedAt            DateTime?
+  declinedAt            DateTime?
+  revokedAt             DateTime?
+  canceledAt            DateTime?
+  expiredAt             DateTime?
+
+  membershipId          String?                 @unique @db.VarChar(191)
+  version               Int                     @default(1)
+
+  createdAt             DateTime                @default(now())
+  updatedAt             DateTime                @updatedAt
+
+  history               InvitationHistory[]
+  acceptanceRecords     InvitationAcceptanceRecord[]
+
+  @@index([recipientType, recipientValue])
+  @@index([tenantId])
+  @@index([storeId])
+  @@index([status])
+  @@index([scopeType, tenantId, storeId, status])
+  @@index([expiresAt])
+  @@index([recipientType, recipientValue, status])
+  @@map("invitations")
+}
+
+model InvitationHistory {
+  id            String             @id @default(cuid())
+  invitationId  String
+  fromStatus    InvitationStatus?
+  toStatus      InvitationStatus
+  changedBy     String?            @db.VarChar(191)
+  reason        String?            @db.VarChar(500)
+  createdAt     DateTime           @default(now())
+
+  invitation    Invitation         @relation(fields: [invitationId], references: [id], onDelete: Cascade)
+
+  @@index([invitationId, createdAt])
+  @@index([toStatus, createdAt])
+  @@map("invitation_history")
+}
+
+model InvitationAcceptanceRecord {
+  id                    String                  @id @default(cuid())
+  invitationId          String
+  recipientType         InvitationRecipientType
+  recipientValue        String                  @db.VarChar(320)
+  acceptedByUserId      String?                 @db.VarChar(191)
+  membershipId          String?                 @db.VarChar(191)
+  acceptedAt            DateTime                @default(now())
+
+  invitation            Invitation              @relation(fields: [invitationId], references: [id], onDelete: Cascade)
+
+  @@unique([invitationId])
+  @@index([acceptedByUserId])
+  @@index([membershipId])
+  @@map("invitation_acceptance_records")
+}

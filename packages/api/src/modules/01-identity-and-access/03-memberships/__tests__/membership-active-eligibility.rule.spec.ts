@@ -6,9 +6,9 @@ import { isMembershipUsableAsActiveContext } from '../domain/rules/membership-ac
 
 describe('isMembershipUsableAsActiveContext', () => {
   it('returns true when status is ACTIVE', () => {
-    expect(
-      isMembershipUsableAsActiveContext(MembershipStatus.ACTIVE),
-    ).toBe(true);
+    expect(isMembershipUsableAsActiveContext(MembershipStatus.ACTIVE)).toBe(
+      true,
+    );
   });
 
   it.each([

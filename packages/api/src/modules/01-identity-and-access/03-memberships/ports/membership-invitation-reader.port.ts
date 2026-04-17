@@ -5,9 +5,7 @@ export const MEMBERSHIP_INVITATION_READER_PORT = Symbol(
 );
 
 export interface MembershipInvitationReaderPort {
-  findAcceptedInvitationById(input: {
-    invitationId: string;
-  }): Promise<{
+  findAcceptedInvitationById(input: { invitationId: string }): Promise<{
     id: string;
     userId: string;
     tenantId: string;

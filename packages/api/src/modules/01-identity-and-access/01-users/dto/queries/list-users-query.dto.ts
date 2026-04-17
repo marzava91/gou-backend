@@ -1,9 +1,6 @@
 // packages\api\src\modules\01-identity-and-access\01-users\dto\queries\list-users-query.dto.ts
 
-import { 
-  Type,
-  Transform,
-} from 'class-transformer';
+import { Type, Transform } from 'class-transformer';
 import {
   IsBoolean,
   IsEnum,
@@ -26,7 +23,6 @@ import type {
   UserListSortField,
   UserSortDirection,
 } from '../../domain/constants/users.constants';
-
 
 export class ListUsersQueryDto {
   @IsOptional()

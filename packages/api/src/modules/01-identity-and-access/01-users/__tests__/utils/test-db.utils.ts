@@ -25,7 +25,9 @@
 
 import { PrismaService } from '../../../../../prisma/prisma.service';
 
-export async function clearUsersModuleTables(prisma: PrismaService): Promise<void> {
+export async function clearUsersModuleTables(
+  prisma: PrismaService,
+): Promise<void> {
   await prisma.userContactChangeRequest.deleteMany();
   await prisma.user.deleteMany();
 }
@@ -36,7 +38,8 @@ export async function connectTestPrisma(): Promise<PrismaService> {
   return prisma;
 }
 
-export async function disconnectTestPrisma(prisma: PrismaService): Promise<void> {
+export async function disconnectTestPrisma(
+  prisma: PrismaService,
+): Promise<void> {
   await prisma.$disconnect();
 }
-

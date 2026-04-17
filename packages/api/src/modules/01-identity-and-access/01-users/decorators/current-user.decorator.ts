@@ -9,7 +9,9 @@ import { AuthenticatedActor } from '../domain/types/user.types';
 
 export const CurrentUser = createParamDecorator(
   (_data: unknown, ctx: ExecutionContext): AuthenticatedActor => {
-    const request = ctx.switchToHttp().getRequest<{ user?: AuthenticatedActor }>();
+    const request = ctx
+      .switchToHttp()
+      .getRequest<{ user?: AuthenticatedActor }>();
 
     if (!request.user) {
       throw new UnauthorizedException('authentication_required');

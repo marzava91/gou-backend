@@ -31,7 +31,7 @@ export class ProductDocumentResponse {
 export class ProductPriceResponse {
   id: string;
   priceListId: string;
-  amount: number;          // Decimal -> number
+  amount: number; // Decimal -> number
   validFrom: string;
   validTo?: string | null;
   createdAt: string;
@@ -41,7 +41,7 @@ export class ProductPriceTierResponse {
   id: string;
   priceListId: string;
   minQty: number;
-  price: number;           // Decimal -> number
+  price: number; // Decimal -> number
   createdAt: string;
 }
 
@@ -71,7 +71,7 @@ export class ProductDetailResponse {
 
   documents: ProductDocumentResponse[];
 
-  prices: ProductPriceResponse[];        // historial / vigentes
+  prices: ProductPriceResponse[]; // historial / vigentes
   priceTiers: ProductPriceTierResponse[]; // escalonados
 
   createdAt: string;

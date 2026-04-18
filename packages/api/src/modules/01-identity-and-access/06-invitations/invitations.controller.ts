@@ -12,13 +12,21 @@ import { InvitationsService } from './invitations.service';
 import { InvitationResponseMapper } from './mappers/invitation-response.mapper';
 
 import { CurrentInvitationActor } from './decorators/current-invitation-actor.decorator';
-import { InvitationPlatformAdminGuard } from './guards/invitation-platform-admin.guard';
+
+import { CreateInvitationGuard } from './guards/create-invitation.guard';
+import { ResendInvitationGuard } from './guards/resend-invitation.guard';
+import { RevokeInvitationGuard } from './guards/revoke-invitation.guard';
+import { CancelInvitationGuard } from './guards/cancel-invitation.guard';
+import { ReadInvitationGuard } from './guards/read-invitation.guard';
+
+import type { AuthenticatedInvitationActor } from './domain/types/invitation.types';
 
 import { CreateInvitationDto } from './dto/commands/create-invitation.dto';
 import { ResendInvitationDto } from './dto/commands/resend-invitation.dto';
 import { RevokeInvitationDto } from './dto/commands/revoke-invitation.dto';
 import { AcceptInvitationDto } from './dto/commands/accept-invitation.dto';
 import { DeclineInvitationDto } from './dto/commands/decline-invitation.dto';
+import { CancelInvitationDto } from './dto/commands/cancel-invitation.dto';
 
 import { InvitationIdParamDto } from './dto/params/invitation-id-param.dto';
 import { GetInvitationByTokenQueryDto } from './dto/queries/get-invitation-by-token.query.dto';
@@ -32,9 +40,9 @@ export class InvitationsController {
   ) {}
 
   @Post()
-  @UseGuards(InvitationPlatformAdminGuard)
+  @UseGuards(CreateInvitationGuard)
   async createInvitation(
-    @CurrentInvitationActor() actor: { userId?: string } | null,
+    @CurrentInvitationActor() actor: AuthenticatedInvitationActor | null,
     @Body() dto: CreateInvitationDto,
   ) {
     const result = await this.invitationsService.createInvitation(
@@ -49,9 +57,9 @@ export class InvitationsController {
   }
 
   @Post(':id/resend')
-  @UseGuards(InvitationPlatformAdminGuard)
+  @UseGuards(ResendInvitationGuard)
   async resendInvitation(
-    @CurrentInvitationActor() actor: { userId?: string } | null,
+    @CurrentInvitationActor() actor: AuthenticatedInvitationActor | null,
     @Param() params: InvitationIdParamDto,
     @Body() dto: ResendInvitationDto,
   ) {
@@ -68,13 +76,29 @@ export class InvitationsController {
   }
 
   @Post(':id/revoke')
-  @UseGuards(InvitationPlatformAdminGuard)
+  @UseGuards(RevokeInvitationGuard)
   async revokeInvitation(
-    @CurrentInvitationActor() actor: { userId?: string } | null,
+    @CurrentInvitationActor() actor: AuthenticatedInvitationActor | null,
     @Param() params: InvitationIdParamDto,
     @Body() dto: RevokeInvitationDto,
   ) {
     const invitation = await this.invitationsService.revokeInvitation(
+      actor?.userId ?? null,
+      params.id,
+      dto,
+    );
+
+    return this.mapper.toResponse(invitation);
+  }
+
+  @Post(':id/cancel')
+  @UseGuards(CancelInvitationGuard)
+  async cancelInvitation(
+    @CurrentInvitationActor() actor: AuthenticatedInvitationActor | null,
+    @Param() params: InvitationIdParamDto,
+    @Body() dto: CancelInvitationDto,
+  ) {
+    const invitation = await this.invitationsService.cancelInvitation(
       actor?.userId ?? null,
       params.id,
       dto,
@@ -114,20 +138,20 @@ export class InvitationsController {
     };
   }
 
-  @Get('token')
-  async getInvitationByToken(@Query() dto: GetInvitationByTokenQueryDto) {
-    return this.invitationsService.getInvitationByToken(dto);
-  }
-
-  @Get()
-  @UseGuards(InvitationPlatformAdminGuard)
-  async listInvitations(@Query() query: ListInvitationsQueryDto) {
-    return this.invitationsService.listInvitations(query);
+  @Get('by-token')
+  async getInvitationByToken(@Query() query: GetInvitationByTokenQueryDto) {
+    return this.invitationsService.getInvitationByToken(query);
   }
 
   @Get(':id')
-  @UseGuards(InvitationPlatformAdminGuard)
+  @UseGuards(ReadInvitationGuard)
   async getInvitationById(@Param() params: InvitationIdParamDto) {
     return this.invitationsService.getInvitationById(params.id);
+  }
+
+  @Get()
+  @UseGuards(ReadInvitationGuard)
+  async listInvitations(@Query() query: ListInvitationsQueryDto) {
+    return this.invitationsService.listInvitations(query);
   }
 }

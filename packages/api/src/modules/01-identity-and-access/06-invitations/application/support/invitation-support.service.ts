@@ -1,5 +1,6 @@
 import { Inject, Injectable } from '@nestjs/common';
 import { InvitationStatus } from '@prisma/client';
+
 import {
   INVITATION_AUDIT_PORT,
   type InvitationAuditPort,
@@ -8,6 +9,7 @@ import {
   INVITATION_EVENTS_PORT,
   type InvitationEventsPort,
 } from '../../ports/invitation-events.port';
+
 import { INVITATION_AUDIT_ACTIONS } from '../../domain/constants/invitation.constants';
 import { InvitationDomainEvents } from '../../domain/events/invitation.events';
 import {
@@ -50,6 +52,53 @@ export class InvitationSupportService {
     }
   }
 
+  async expireInvitationIfNeeded(
+    invitation: {
+      id: string;
+      expiresAt: Date;
+    },
+    repository: {
+      expireInvitationIfDue: (
+        invitationId: string,
+        now?: Date,
+      ) => Promise<{
+        id: string;
+        expiresAt: Date;
+        expiredAt: Date | null;
+      } | null>;
+    },
+    now: Date = new Date(),
+  ): Promise<never | void> {
+    if (invitation.expiresAt.getTime() > now.getTime()) {
+      return;
+    }
+
+    const expired = await repository.expireInvitationIfDue(invitation.id, now);
+
+    if (expired) {
+      await this.recordAudit(
+        INVITATION_AUDIT_ACTIONS.INVITATION_EXPIRED,
+        null,
+        expired.id,
+        {
+          expiredAt: expired.expiredAt,
+          expiresAt: expired.expiresAt,
+        },
+      );
+
+      await this.publishEvent(
+        InvitationDomainEvents.INVITATION_EXPIRED,
+        {
+          invitationId: expired.id,
+          expiredAt: expired.expiredAt,
+          expiresAt: expired.expiresAt,
+        },
+      );
+    }
+
+    throw new InvitationExpiredError();
+  }
+
   async recordAudit(
     action: string,
     actorUserId: string | null,
@@ -59,7 +108,11 @@ export class InvitationSupportService {
     await this.auditPort.record(action, actorUserId, targetId, metadata);
   }
 
-  async publishEvent(eventName: string, payload: Record<string, unknown>) {
+  async publishEvent(
+    eventName: string, 
+    payload: Record<string, 
+    unknown>
+  ) {
     await this.eventsPort.publish({ eventName, payload });
   }
 
@@ -74,9 +127,13 @@ export class InvitationSupportService {
       invitationId,
       metadata,
     );
-    await this.publishEvent(InvitationDomainEvents.INVITATION_ACCEPTED, {
-      invitationId,
-      ...metadata,
-    });
+
+    await this.publishEvent(
+      InvitationDomainEvents.INVITATION_ACCEPTED,
+      {
+        invitationId,
+        ...metadata,
+      },
+    );
   }
 }

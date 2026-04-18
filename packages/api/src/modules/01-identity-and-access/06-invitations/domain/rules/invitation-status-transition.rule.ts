@@ -9,11 +9,12 @@ const ALLOWED_TRANSITIONS: Readonly<
   ],
   [InvitationStatus.SENT]: [
     InvitationStatus.ACCEPTED,
+    InvitationStatus.DECLINED,
     InvitationStatus.EXPIRED,
     InvitationStatus.REVOKED,
-    InvitationStatus.CANCELED,
   ],
   [InvitationStatus.ACCEPTED]: [],
+  [InvitationStatus.DECLINED]: [],
   [InvitationStatus.EXPIRED]: [],
   [InvitationStatus.REVOKED]: [],
   [InvitationStatus.CANCELED]: [],

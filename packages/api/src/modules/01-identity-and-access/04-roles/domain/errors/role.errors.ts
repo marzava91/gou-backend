@@ -1,59 +1,105 @@
-export class RoleNotFoundError extends Error {
+import {
+  BadRequestException,
+  ConflictException,
+  NotFoundException,
+} from '@nestjs/common';
+
+export class RoleNotFoundError extends NotFoundException {
   constructor() {
-    super('role_not_found');
+    super({
+      code: 'role_not_found',
+      message: 'role_not_found',
+      statusCode: 404,
+    });
   }
 }
 
-export class RoleAlreadyExistsError extends Error {
+export class RoleAlreadyExistsError extends ConflictException {
   constructor() {
-    super('role_already_exists');
+    super({
+      code: 'role_already_exists',
+      message: 'role_already_exists',
+      statusCode: 409,
+    });
   }
 }
 
-export class InvalidRoleScopeError extends Error {
+export class InvalidRoleScopeError extends BadRequestException {
   constructor() {
-    super('invalid_role_scope');
+    super({
+      code: 'invalid_role_scope',
+      message: 'invalid_role_scope',
+      statusCode: 400,
+    });
   }
 }
 
-export class RoleRetiredError extends Error {
+export class RoleRetiredError extends ConflictException {
   constructor() {
-    super('role_retired');
+    super({
+      code: 'role_retired',
+      message: 'role_retired',
+      statusCode: 409,
+    });
   }
 }
 
-export class RoleMembershipScopeMismatchError extends Error {
+export class RoleMembershipScopeMismatchError extends BadRequestException {
   constructor() {
-    super('role_membership_scope_mismatch');
+    super({
+      code: 'role_membership_scope_mismatch',
+      message: 'role_membership_scope_mismatch',
+      statusCode: 400,
+    });
   }
 }
 
-export class DuplicateRoleAssignmentError extends Error {
+export class DuplicateRoleAssignmentError extends ConflictException {
   constructor() {
-    super('duplicate_role_assignment');
+    super({
+      code: 'duplicate_role_assignment',
+      message: 'duplicate_role_assignment',
+      statusCode: 409,
+    });
   }
 }
 
-export class RoleAssignmentNotFoundError extends Error {
+export class RoleAssignmentNotFoundError extends NotFoundException {
   constructor() {
-    super('role_assignment_not_found');
+    super({
+      code: 'role_assignment_not_found',
+      message: 'role_assignment_not_found',
+      statusCode: 404,
+    });
   }
 }
 
-export class InvalidRoleAssignmentTransitionError extends Error {
+export class InvalidRoleAssignmentTransitionError extends ConflictException {
   constructor() {
-    super('invalid_role_assignment_transition');
+    super({
+      code: 'invalid_role_assignment_transition',
+      message: 'invalid_role_assignment_transition',
+      statusCode: 409,
+    });
   }
 }
 
-export class RoleAssignmentMembershipNotFoundError extends Error {
+export class RoleAssignmentMembershipNotFoundError extends NotFoundException {
   constructor() {
-    super('role_assignment_membership_not_found');
+    super({
+      code: 'role_assignment_membership_not_found',
+      message: 'role_assignment_membership_not_found',
+      statusCode: 404,
+    });
   }
 }
 
-export class RoleAssignmentMembershipInactiveError extends Error {
+export class RoleAssignmentMembershipInactiveError extends ConflictException {
   constructor() {
-    super('role_assignment_membership_inactive');
+    super({
+      code: 'role_assignment_membership_inactive',
+      message: 'role_assignment_membership_inactive',
+      statusCode: 409,
+    });
   }
 }

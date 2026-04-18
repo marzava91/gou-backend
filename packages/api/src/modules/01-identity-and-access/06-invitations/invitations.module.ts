@@ -13,8 +13,15 @@ import { InvitationSupportService } from './application/support/invitation-suppo
 import { InvitationResponseMapper } from './mappers/invitation-response.mapper';
 import { InvitationAccessPolicy } from './policies/invitation-access.policy';
 
+// Guards nuevos
+import { CreateInvitationGuard } from './guards/create-invitation.guard';
+import { ResendInvitationGuard } from './guards/resend-invitation.guard';
+import { RevokeInvitationGuard } from './guards/revoke-invitation.guard';
+import { CancelInvitationGuard } from './guards/cancel-invitation.guard';
+import { ReadInvitationGuard } from './guards/read-invitation.guard';
+
+// Déjalo solo si todavía lo usas realmente en algún lado
 import { InvitationAuthenticatedGuard } from './guards/invitation-authenticated.guard';
-import { InvitationPlatformAdminGuard } from './guards/invitation-platform-admin.guard';
 
 import { INVITATION_AUDIT_PORT } from './ports/invitation-audit.port';
 import { INVITATION_EVENTS_PORT } from './ports/invitation-events.port';
@@ -43,8 +50,15 @@ import { NoopInvitationUserResolutionAdapter } from './adapters/users/noop-invit
     InvitationResponseMapper,
     InvitationAccessPolicy,
 
+    // Guards reales del controller
+    CreateInvitationGuard,
+    ResendInvitationGuard,
+    RevokeInvitationGuard,
+    CancelInvitationGuard,
+    ReadInvitationGuard,
+
+    // Solo si aún lo usa algo interno
     InvitationAuthenticatedGuard,
-    InvitationPlatformAdminGuard,
 
     NoopInvitationAuditAdapter,
     NoopInvitationEventsAdapter,

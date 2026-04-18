@@ -126,6 +126,7 @@ enum InvitationStatus {
   PROPOSED
   SENT
   ACCEPTED
+  DECLINED
   EXPIRED
   REVOKED
   CANCELED

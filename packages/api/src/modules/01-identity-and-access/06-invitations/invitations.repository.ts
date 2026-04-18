@@ -61,12 +61,6 @@ export class InvitationsRepository {
     return this.findById(id);
   }
 
-  async createAcceptanceRecord(
-    data: Prisma.InvitationAcceptanceRecordUncheckedCreateInput,
-  ) {
-    return this.prisma.invitationAcceptanceRecord.create({ data });
-  }
-
   async findAcceptanceRecordByInvitationId(invitationId: string) {
     return this.prisma.invitationAcceptanceRecord.findUnique({
       where: { invitationId },
@@ -264,5 +258,136 @@ export class InvitationsRepository {
         idempotent: false,
       };
     });
+  }
+
+    async expireInvitationIfDue(
+    invitationId: string,
+    now: Date = new Date(),
+  ): Promise<Invitation | null> {
+    return this.prisma.$transaction(async (tx) => {
+      const current = await tx.invitation.findUnique({
+        where: { id: invitationId },
+      });
+
+      if (!current) {
+        throw new InvitationNotFoundError();
+      }
+
+      if (current.status !== InvitationStatus.SENT) {
+        return null;
+      }
+
+      if (current.expiresAt.getTime() > now.getTime()) {
+        return null;
+      }
+
+      const updatedCount = await tx.invitation.updateMany({
+        where: {
+          id: current.id,
+          version: current.version,
+          status: InvitationStatus.SENT,
+        },
+        data: {
+          status: InvitationStatus.EXPIRED,
+          expiredAt: now,
+          currentTokenHash: null,
+          version: { increment: 1 },
+        },
+      });
+
+      if (updatedCount.count === 0) {
+        return null;
+      }
+
+      await tx.invitationHistory.create({
+        data: {
+          invitationId: current.id,
+          fromStatus: InvitationStatus.SENT,
+          toStatus: InvitationStatus.EXPIRED,
+          changedBy: null,
+          reason: 'invitation_expired',
+        },
+      });
+
+      return tx.invitation.findUnique({
+        where: { id: current.id },
+      });
+    });
+  }
+
+  async expireDueInvitations(
+    now: Date = new Date(),
+  ): Promise<Invitation[]> {
+    const dueInvitations = await this.prisma.invitation.findMany({
+      where: {
+        status: InvitationStatus.SENT,
+        expiresAt: {
+          lte: now,
+        },
+      },
+      orderBy: {
+        expiresAt: 'asc',
+      },
+    });
+
+    const expired: Invitation[] = [];
+
+    for (const invitation of dueInvitations) {
+      const updated = await this.prisma.$transaction(async (tx) => {
+        const current = await tx.invitation.findUnique({
+          where: { id: invitation.id },
+        });
+
+        if (!current) {
+          return null;
+        }
+
+        if (current.status !== InvitationStatus.SENT) {
+          return null;
+        }
+
+        if (current.expiresAt.getTime() > now.getTime()) {
+          return null;
+        }
+
+        const updatedCount = await tx.invitation.updateMany({
+          where: {
+            id: current.id,
+            version: current.version,
+            status: InvitationStatus.SENT,
+          },
+          data: {
+            status: InvitationStatus.EXPIRED,
+            expiredAt: now,
+            currentTokenHash: null,
+            version: { increment: 1 },
+          },
+        });
+
+        if (updatedCount.count === 0) {
+          return null;
+        }
+
+        await tx.invitationHistory.create({
+          data: {
+            invitationId: current.id,
+            fromStatus: InvitationStatus.SENT,
+            toStatus: InvitationStatus.EXPIRED,
+            changedBy: null,
+            reason: 'invitation_expired',
+          },
+        });
+
+        return tx.invitation.findUnique({
+          where: { id: current.id },
+        });
+      });
+
+      if (updated) {
+        expired.push(updated);
+      }
+    }
+
+    return expired;
   }
 }

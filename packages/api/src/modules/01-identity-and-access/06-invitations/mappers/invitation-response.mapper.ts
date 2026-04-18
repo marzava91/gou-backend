@@ -19,6 +19,7 @@ export class InvitationResponseMapper {
       membershipId: entity.membershipId,
       sentAt: entity.sentAt,
       acceptedAt: entity.acceptedAt,
+      declinedAt: entity.declinedAt,
       revokedAt: entity.revokedAt,
       canceledAt: entity.canceledAt,
       expiredAt: entity.expiredAt,
@@ -38,6 +39,15 @@ export class InvitationResponseMapper {
       proposedRoleKey: entity.proposedRoleKey,
       status: entity.status,
       expiresAt: entity.expiresAt,
+      membershipId: entity.membershipId,
+      sentAt: entity.sentAt,
+      acceptedAt: entity.acceptedAt,
+      declinedAt: entity.declinedAt,
+      revokedAt: entity.revokedAt,
+      canceledAt: entity.canceledAt,
+      expiredAt: entity.expiredAt,
+      createdAt: entity.createdAt,
+      updatedAt: entity.updatedAt,
     };
   }
 }

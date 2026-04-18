@@ -1,49 +1,86 @@
-// packages/api/src/modules/01-identity-and-access/03-memberships/domain/errors/membership.errors.ts
+import {
+  BadRequestException,
+  ConflictException,
+  ForbiddenException,
+  NotFoundException,
+} from '@nestjs/common';
 
-export class MembershipNotFoundError extends Error {
+export class MembershipNotFoundError extends NotFoundException {
   constructor() {
-    super('membership_not_found');
+    super({
+      code: 'membership_not_found',
+      message: 'membership_not_found',
+      statusCode: 404,
+    });
   }
 }
 
-export class DuplicateMembershipError extends Error {
+export class DuplicateMembershipError extends ConflictException {
   constructor() {
-    super('duplicate_membership');
+    super({
+      code: 'duplicate_membership',
+      message: 'duplicate_membership',
+      statusCode: 409,
+    });
   }
 }
 
-export class InvalidMembershipScopeError extends Error {
+export class InvalidMembershipScopeError extends BadRequestException {
   constructor() {
-    super('invalid_membership_scope');
+    super({
+      code: 'invalid_membership_scope',
+      message: 'invalid_membership_scope',
+      statusCode: 400,
+    });
   }
 }
 
-export class InvalidMembershipTransitionError extends Error {
+export class InvalidMembershipTransitionError extends ConflictException {
   constructor() {
-    super('invalid_membership_transition');
+    super({
+      code: 'invalid_membership_transition',
+      message: 'invalid_membership_transition',
+      statusCode: 409,
+    });
   }
 }
 
-export class MembershipNotActiveError extends Error {
+export class MembershipNotActiveError extends ConflictException {
   constructor() {
-    super('membership_not_active');
+    super({
+      code: 'membership_not_active',
+      message: 'membership_not_active',
+      statusCode: 409,
+    });
   }
 }
 
-export class MembershipContextDeniedError extends Error {
+export class MembershipContextDeniedError extends ForbiddenException {
   constructor() {
-    super('membership_context_denied');
+    super({
+      code: 'membership_context_denied',
+      message: 'membership_context_denied',
+      statusCode: 403,
+    });
   }
 }
 
-export class MembershipScopeConflictError extends Error {
+export class MembershipScopeConflictError extends ConflictException {
   constructor() {
-    super('membership_scope_conflict');
+    super({
+      code: 'membership_scope_conflict',
+      message: 'membership_scope_conflict',
+      statusCode: 409,
+    });
   }
 }
 
-export class InvitationMembershipConflictError extends Error {
+export class InvitationMembershipConflictError extends ConflictException {
   constructor() {
-    super('invitation_membership_conflict');
+    super({
+      code: 'invitation_membership_conflict',
+      message: 'invitation_membership_conflict',
+      statusCode: 409,
+    });
   }
 }

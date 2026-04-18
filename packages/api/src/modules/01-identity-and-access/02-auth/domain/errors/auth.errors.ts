@@ -1,98 +1,171 @@
-// packages\api\src\modules\01-identity-and-access\02-auth\domain\errors\auth.errors.ts
+import {
+  ConflictException,
+  ForbiddenException,
+  UnauthorizedException,
+  UnprocessableEntityException,
+} from '@nestjs/common';
 
-export abstract class AuthDomainError extends Error {
-  constructor(message: string) {
-    super(message);
-    this.name = new.target.name;
+
+import { TooManyRequestsException } from '../../helpers/too-many-requests.exception';
+
+// AUTH / LOGIN
+
+export class InvalidCredentialsError extends UnauthorizedException {
+  constructor() {
+    super({
+      code: 'invalid_credentials',
+      message: 'invalid_credentials',
+      statusCode: 401,
+    });
   }
 }
 
-export class InvalidCredentialsError extends AuthDomainError {
+export class UserNotAuthenticableError extends UnauthorizedException {
   constructor() {
-    super('invalid_credentials');
+    super({
+      code: 'user_not_authenticable',
+      message: 'user_not_authenticable',
+      statusCode: 401,
+    });
   }
 }
 
-export class AuthVerificationRequiredError extends Error {
+// VERIFICATION
+
+export class AuthVerificationRequiredError extends UnprocessableEntityException {
   constructor() {
-    super('auth_verification_required');
+    super({
+      code: 'auth_verification_required',
+      message: 'auth_verification_required',
+      statusCode: 422,
+    });
   }
 }
 
-export class AuthVerificationFailedError extends Error {
+export class AuthVerificationFailedError extends UnauthorizedException {
   constructor() {
-    super('auth_verification_failed');
+    super({
+      code: 'auth_verification_failed',
+      message: 'auth_verification_failed',
+      statusCode: 401,
+    });
   }
 }
 
-export class AuthSessionExpiredError extends Error {
+export class TooManyAttemptsError extends TooManyRequestsException {
   constructor() {
-    super('auth_session_expired');
+    super({
+      code: 'too_many_attempts',
+      message: 'too_many_attempts',
+      statusCode: 429,
+    });
   }
 }
 
-export class AuthSessionRevokedError extends Error {
+export class ChallengeExpiredError extends UnprocessableEntityException {
   constructor() {
-    super('auth_session_revoked');
+    super({
+      code: 'challenge_expired',
+      message: 'challenge_expired',
+      statusCode: 422,
+    });
   }
 }
 
-export class AuthRefreshDeniedError extends Error {
+export class ChallengeAlreadyConsumedError extends ConflictException {
   constructor() {
-    super('auth_refresh_denied');
+    super({
+      code: 'challenge_already_consumed',
+      message: 'challenge_already_consumed',
+      statusCode: 409,
+    });
   }
 }
 
-export class AuthProviderNotLinkedError extends Error {
+// SESSION / REFRESH
+
+export class AuthSessionExpiredError extends UnauthorizedException {
   constructor() {
-    super('auth_provider_not_linked');
+    super({
+      code: 'auth_session_expired',
+      message: 'auth_session_expired',
+      statusCode: 401,
+    });
   }
 }
 
-export class AuthProviderAlreadyLinkedError extends Error {
+export class AuthSessionRevokedError extends UnauthorizedException {
   constructor() {
-    super('auth_provider_already_linked');
+    super({
+      code: 'auth_session_revoked',
+      message: 'auth_session_revoked',
+      statusCode: 401,
+    });
   }
 }
 
-export class AuthProviderUnlinkDeniedError extends Error {
+export class AuthRefreshDeniedError extends ForbiddenException {
   constructor() {
-    super('auth_provider_unlink_denied');
+    super({
+      code: 'auth_refresh_denied',
+      message: 'auth_refresh_denied',
+      statusCode: 403,
+    });
   }
 }
 
-export class AuthPasswordResetFailedError extends Error {
+// PROVIDER LINKING
+
+export class AuthProviderNotLinkedError extends ConflictException {
   constructor() {
-    super('auth_password_reset_failed');
+    super({
+      code: 'auth_provider_not_linked',
+      message: 'auth_provider_not_linked',
+      statusCode: 409,
+    });
   }
 }
 
-export class TooManyAttemptsError extends Error {
+export class AuthProviderAlreadyLinkedError extends ConflictException {
   constructor() {
-    super('too_many_attempts');
+    super({
+      code: 'auth_provider_already_linked',
+      message: 'auth_provider_already_linked',
+      statusCode: 409,
+    });
   }
 }
 
-export class ChallengeExpiredError extends Error {
+export class AuthProviderUnlinkDeniedError extends ConflictException {
   constructor() {
-    super('challenge_expired');
+    super({
+      code: 'auth_provider_unlink_denied',
+      message: 'auth_provider_unlink_denied',
+      statusCode: 409,
+    });
   }
 }
 
-export class ChallengeAlreadyConsumedError extends Error {
+// PASSWORD RESET
+
+export class AuthPasswordResetFailedError extends UnprocessableEntityException {
   constructor() {
-    super('challenge_already_consumed');
+    super({
+      code: 'auth_password_reset_failed',
+      message: 'auth_password_reset_failed',
+      statusCode: 422,
+    });
   }
 }
 
-export class UserNotAuthenticableError extends Error {
-  constructor() {
-    super('user_not_authenticable');
-  }
-}
+// AUTHORIZATION / SCOPE
 
-export class ForbiddenAuthScopeError extends Error {
+export class ForbiddenAuthScopeError extends ForbiddenException {
   constructor() {
-    super('forbidden_auth_scope');
+    super({
+      code: 'forbidden_auth_scope',
+      message: 'forbidden_auth_scope',
+      statusCode: 403,
+    });
   }
 }

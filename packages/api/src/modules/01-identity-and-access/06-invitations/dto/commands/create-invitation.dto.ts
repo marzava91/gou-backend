@@ -1,6 +1,7 @@
 import { Transform } from 'class-transformer';
 import {
   IsDateString,
+  IsEmpty,
   IsEnum,
   IsOptional,
   IsString,
@@ -22,16 +23,21 @@ export class CreateInvitationDto {
   @IsEnum(MembershipScopeType)
   scopeType!: MembershipScopeType;
 
+  @Transform(({ value }) => (typeof value === 'string' ? value.trim() : value))
   @IsString()
   @MaxLength(191)
   tenantId!: string;
 
+  @Transform(({ value }) => (typeof value === 'string' ? value.trim() : value))
   @ValidateIf((o) => o.scopeType === MembershipScopeType.STORE)
   @IsString()
   @MaxLength(191)
+  @ValidateIf((o) => o.scopeType === MembershipScopeType.TENANT)
+  @IsEmpty({ message: 'invalid_invitation_scope' })
   storeId?: string;
 
   @IsOptional()
+  @Transform(({ value }) => (typeof value === 'string' ? value.trim() : value))
   @IsString()
   @MaxLength(INVITATION_FIELD_LIMITS.ROLE_KEY_MAX_LENGTH)
   proposedRoleKey?: string;

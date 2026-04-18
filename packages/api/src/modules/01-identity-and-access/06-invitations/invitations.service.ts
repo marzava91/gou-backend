@@ -8,7 +8,7 @@ import { ResendInvitationDto } from './dto/commands/resend-invitation.dto';
 import { RevokeInvitationDto } from './dto/commands/revoke-invitation.dto';
 import { AcceptInvitationDto } from './dto/commands/accept-invitation.dto';
 import { DeclineInvitationDto } from './dto/commands/decline-invitation.dto';
-
+import { CancelInvitationDto } from './dto/commands/cancel-invitation.dto';
 import { GetInvitationByTokenQueryDto } from './dto/queries/get-invitation-by-token.query.dto';
 import { ListInvitationsQueryDto } from './dto/queries/list-invitations.query.dto';
 
@@ -47,12 +47,28 @@ export class InvitationsService {
     );
   }
 
+  cancelInvitation(
+    actorUserId: string | null,
+    invitationId: string,
+    dto: CancelInvitationDto,
+  ) {
+    return this.invitationCommandService.cancelInvitation(
+      actorUserId,
+      invitationId,
+      dto,
+    );
+  }
+
   declineInvitation(invitationId: string, dto: DeclineInvitationDto) {
     return this.invitationCommandService.declineInvitation(invitationId, dto);
   }
 
   acceptInvitationByToken(token: string, dto: AcceptInvitationDto) {
     return this.invitationCommandService.acceptInvitationByToken(token, dto);
+  }
+
+  expireDueInvitations(now?: Date) {
+    return this.invitationCommandService.expireDueInvitations(now);
   }
 
   getInvitationById(invitationId: string) {

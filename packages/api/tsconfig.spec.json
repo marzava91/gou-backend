@@ -1,5 +1,3 @@
-// packages\api\tsconfig.spec.json
-
 {
   "extends": "./tsconfig.build.json",
   "compilerOptions": {
@@ -12,7 +10,7 @@
     "src/**/*.e2e-spec.ts",
     "src/**/__tests__/**/*.ts",
     "src/**/*.ts",
-    "src/modules/01-identity-and-access/02-auth/adapters/providers/firebase"
+    "src/modules/01-identity-access/02-auth/adapters/providers/firebase"
   ],
   "exclude": ["node_modules", "dist"]
 }

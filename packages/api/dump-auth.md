@@ -1,4 +1,4 @@
-$root = (Resolve-Path "src\modules\01-identity-and-access\01-users").Path
+$root = (Resolve-Path "src\modules\01-identity-access\01-users").Path
 $out = Join-Path (Get-Location) ("01-users-dump-" + (Get-Date -Format "yyyyMMdd-HHmmss") + ".md")
 
 $files = Get-ChildItem -Path $root -Recurse -File -Filter "*.ts" | Sort-Object FullName
@@ -80,7 +80,7 @@ Write-Host "Files failed: $($failedFiles.Count)"
 
 ---
 
-$root = (Resolve-Path "src\modules\01-identity-and-access\02-auth").Path
+$root = (Resolve-Path "src\modules\01-identity-access\02-auth").Path
 $out = Join-Path (Get-Location) ("02-auth-dump-" + (Get-Date -Format "yyyyMMdd-HHmmss") + ".md")
 
 $files = Get-ChildItem -Path $root -Recurse -File -Filter "*.ts" | Sort-Object FullName
@@ -162,7 +162,7 @@ Write-Host "Files failed: $($failedFiles.Count)"
 
 ---
 
-$root = (Resolve-Path "src\modules\01-identity-and-access\03-memberships").Path
+$root = (Resolve-Path "src\modules\01-identity-access\03-memberships").Path
 $out = Join-Path (Get-Location) ("03-memberships-dump-" + (Get-Date -Format "yyyyMMdd-HHmmss") + ".md")
 
 $files = Get-ChildItem -Path $root -Recurse -File -Filter "*.ts" | Sort-Object FullName
@@ -244,7 +244,7 @@ Write-Host "Files failed: $($failedFiles.Count)"
 
 ---
 
-$root = (Resolve-Path "src\modules\01-identity-and-access\04-roles").Path
+$root = (Resolve-Path "src\modules\01-identity-access\04-roles").Path
 $out = Join-Path (Get-Location) ("04-roles-dump-" + (Get-Date -Format "yyyyMMdd-HHmmss") + ".md")
 
 $files = Get-ChildItem -Path $root -Recurse -File -Filter "*.ts" | Sort-Object FullName
@@ -326,7 +326,7 @@ Write-Host "Files failed: $($failedFiles.Count)"
 
 ---
 
-$root = (Resolve-Path "src\modules\01-identity-and-access\05-grants").Path
+$root = (Resolve-Path "src\modules\01-identity-access\05-grants").Path
 $out = Join-Path (Get-Location) ("05-grants-dump-" + (Get-Date -Format "yyyyMMdd-HHmmss") + ".md")
 
 $files = Get-ChildItem -Path $root -Recurse -File -Filter "*.ts" | Sort-Object FullName
@@ -408,7 +408,7 @@ Write-Host "Files failed: $($failedFiles.Count)"
 
 ---
 
-$root = (Resolve-Path "src\modules\01-identity-and-access\06-invitations").Path
+$root = (Resolve-Path "src\modules\01-identity-access\06-invitations").Path
 $out = Join-Path (Get-Location) ("06-invitations-dump-" + (Get-Date -Format "yyyyMMdd-HHmmss") + ".md")
 
 $files = Get-ChildItem -Path $root -Recurse -File -Filter "*.ts" | Sort-Object FullName
@@ -490,7 +490,7 @@ Write-Host "Files failed: $($failedFiles.Count)"
 
 ---
 
-$root = (Resolve-Path "src\modules\01-identity-and-access\07-access-resolution").Path
+$root = (Resolve-Path "src\modules\01-identity-access\07-access-resolution").Path
 $out = Join-Path (Get-Location) ("07-access-resolution-dump-" + (Get-Date -Format "yyyyMMdd-HHmmss") + ".md")
 
 $files = Get-ChildItem -Path $root -Recurse -File -Filter "*.ts" | Sort-Object FullName
